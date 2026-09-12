@@ -1,0 +1,2 @@
+# Regras do workspace
+Os ficheiros `rules/*.md` foram preparados para o Antigravity. Na versão instalada, confirmar no painel de customizações/regras que são reconhecidos e ativados para este workspace, preferencialmente Always On. O prompt inicial manda ler os mesmos documentos, evitando depender apenas da deteção automática. Não foram criadas permissões globais nem alteradas configurações da máquina.

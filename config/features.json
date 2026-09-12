@@ -1,0 +1,28 @@
+{
+  "version": "2.0",
+  "locale": "pt-PT",
+  "cvEditor": false,
+  "cvBuilder": false,
+  "personalizedCvExport": false,
+  "freeCvAnalyzer": true,
+  "freeQuiz": true,
+  "pasteCvText": true,
+  "downloadableCvTemplates": true,
+  "resultsBeforeMarketingOptIn": true,
+  "resultAndOfferSamePage": true,
+  "publicProductPage": true,
+  "memberLibrary": true,
+  "lessonProgress": true,
+  "applicationTracker": true,
+  "applicationTrackerCsvExport": true,
+  "checkoutProvider": "okanda",
+  "directStripeCheckout": false,
+  "bumps": [
+    "entrevista",
+    "linkedin"
+  ],
+  "additionalCvPackEnabled": false,
+  "aiUpsellEnabled": false,
+  "darkMode": false,
+  "automaticCampaigns": false
+}

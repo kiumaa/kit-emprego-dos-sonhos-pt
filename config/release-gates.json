@@ -1,0 +1,76 @@
+{
+  "version": "2.0",
+  "allMandatoryMustPass": true,
+  "gates": [
+    {
+      "id": "commercial",
+      "label": "Preço final, impostos e prazo de acesso aprovados",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "seller",
+      "label": "Identidade do vendedor e contactos reais",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "legal",
+      "label": "Privacidade, cookies, termos e direitos do consumidor revistos",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "content",
+      "label": "Recursos finais gerados, revistos e descarregáveis",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "okanda",
+      "label": "Contrato real, EUR, métodos, bumps e pagamento completo verificados",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "auth",
+      "label": "Conta, recuperação e autorização por artigo testadas",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "privacy",
+      "label": "Prestadores, conservação, eliminação e transferências verificadas",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "analysis",
+      "label": "IA real, limites, evidência e testes de segurança",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "quality",
+      "label": "Testes funcionais, visuais e acessibilidade aprovados",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    },
+    {
+      "id": "email",
+      "label": "Entrega transacional e consentimento promocional testados",
+      "mandatory": true,
+      "status": "pending",
+      "evidence": null
+    }
+  ]
+}

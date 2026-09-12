@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "disclaimer": "Sete blocos de preparação adaptáveis ao teu ritmo. Não é uma promessa de emprego em sete dias.",
+  "days": [
+    {
+      "day": 1,
+      "title": "Escolher o objetivo",
+      "task": "Escolhe uma função e uma vaga de referência.",
+      "lessonSlug": "01-objetivo"
+    },
+    {
+      "day": 2,
+      "title": "Reunir factos",
+      "task": "Organiza experiência, formação e projetos com datas corretas.",
+      "lessonSlug": "04-experiencia"
+    },
+    {
+      "day": 3,
+      "title": "Trabalhar no CV",
+      "task": "Descarrega um modelo e preenche-o na tua aplicação de documentos.",
+      "lessonSlug": "03-estrutura-cv"
+    },
+    {
+      "day": 4,
+      "title": "Preparar a mensagem",
+      "task": "Adapta um email e a carta, quando pedida.",
+      "lessonSlug": "06-mensagens"
+    },
+    {
+      "day": 5,
+      "title": "Rever e enviar",
+      "task": "Aplica a checklist e segue o canal oficial da oferta.",
+      "lessonSlug": "10-revisao"
+    },
+    {
+      "day": 6,
+      "title": "Organizar o seguimento",
+      "task": "Regista candidaturas e próximos passos no gestor.",
+      "lessonSlug": "07-organizacao"
+    },
+    {
+      "day": 7,
+      "title": "Rever o processo",
+      "task": "Atualiza o que avançou e escolhe a próxima ação.",
+      "lessonSlug": "09-plano"
+    }
+  ]
+}

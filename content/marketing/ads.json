@@ -1,0 +1,98 @@
+{
+  "version": "2.0",
+  "status": "copy_and_briefs_not_rendered",
+  "campaignsEnabled": false,
+  "formats": [
+    {
+      "id": "feed",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920
+    }
+  ],
+  "globalRules": [
+    "Uma imagem por exportação; não colagem.",
+    "Não usar características pessoais inferidas para pressionar o visitante.",
+    "O diagnóstico é gratuito; o kit é pago.",
+    "Não usar editor online, nota ATS, contratação garantida, depoimentos ou descontos inventados.",
+    "Rever políticas da plataforma e classificação aplicável antes de publicar."
+  ],
+  "ads": [
+    {
+      "id": "AD01",
+      "angle": "cv",
+      "artHeadline": "Antes de enviares o CV, revê o que ele comunica.",
+      "primaryText": "Analisa o teu CV gratuitamente e recebe sugestões sobre clareza, organização textual e apresentação da experiência. Não tens o ficheiro contigo? Também podes começar pelo quiz.",
+      "cta": "Analisar gratuitamente",
+      "destination": "/analisar-cv",
+      "visualDirection": "CV em primeiro plano e uma observação qualitativa com “Exemplo ilustrativo”. Sem nota ATS.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad01",
+      "priceFromConfig": false
+    },
+    {
+      "id": "AD02",
+      "angle": "quiz",
+      "artHeadline": "Sem o CV contigo? Começa na mesma.",
+      "primaryText": "Responde a oito perguntas sobre a preparação das tuas candidaturas e recebe um ponto de partida. Gratuito e sem cartão.",
+      "cta": "Fazer o quiz",
+      "destination": "/quiz",
+      "visualDirection": "Uma pergunta real do quiz e duas opções legíveis, sem colagem de todo o percurso.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad02",
+      "priceFromConfig": false
+    },
+    {
+      "id": "AD03",
+      "angle": "primeiro",
+      "artHeadline": "O primeiro CV não precisa de começar com uma página em branco.",
+      "primaryText": "Formação, projetos e competências também podem ajudar-te a apresentar o teu percurso. Começa pelo diagnóstico gratuito e organiza os próximos passos.",
+      "cta": "Descobrir por onde começar",
+      "destination": "/quiz",
+      "visualDirection": "Amostra editorial de um projeto fictício; ambiente claro e tipografia forte.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad03",
+      "priceFromConfig": false
+    },
+    {
+      "id": "AD04",
+      "angle": "clareza",
+      "artHeadline": "Uma candidatura mais clara começa antes do envio.",
+      "primaryText": "Revê a forma como apresentas a tua experiência e identifica um próximo passo. Analisa o CV ou faz o quiz gratuito.",
+      "cta": "Começar o diagnóstico",
+      "destination": "/",
+      "visualDirection": "Dois caminhos CV/quiz visualmente simples e um resultado com ação útil.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad04",
+      "priceFromConfig": false
+    },
+    {
+      "id": "AD05",
+      "angle": "kit",
+      "artHeadline": "Modelos. Mensagens. Um plano para a próxima candidatura.",
+      "primaryText": "Conhece o Kit Emprego dos Sonhos — Portugal: recursos descarregáveis e um percurso para preparar materiais e organizar oportunidades. Consulta tudo o que está incluído e as condições.",
+      "cta": "Conhecer o kit",
+      "destination": "/kit",
+      "visualDirection": "Mockup fiel do guia, dois modelos e biblioteca; mostrar só recursos efetivamente produzidos.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad05",
+      "priceFromConfig": true
+    },
+    {
+      "id": "AD06",
+      "angle": "organizacao",
+      "artHeadline": "Menos candidaturas perdidas entre notas e emails.",
+      "primaryText": "Organiza oportunidades, estados e próximos passos. Descobre o kit de preparação de candidaturas e os recursos que podes usar ao teu ritmo.",
+      "cta": "Conhecer o kit",
+      "destination": "/kit",
+      "visualDirection": "Vista real do gestor com dados fictícios identificados; sem números de resultados comerciais.",
+      "utmCampaign": "keds-pt-validacao",
+      "utmContent": "ad06",
+      "priceFromConfig": false
+    }
+  ]
+}

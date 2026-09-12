@@ -1,0 +1,35 @@
+{
+  "fictional": true,
+  "label": "Exemplo editorial fictício; não corresponde a uma pessoa ou emprego real.",
+  "name": "Inês Exemplo",
+  "contact": {
+    "email": "ines@example.com",
+    "city": "Localidade de exemplo"
+  },
+  "targetRole": "Apoio administrativo",
+  "summary": "Experiência de atendimento e organização de pedidos. Interesse em funções de apoio administrativo com contacto com clientes e atualização de informação.",
+  "experience": [
+    {
+      "employer": "Empresa de Exemplo A",
+      "role": "Assistente de atendimento",
+      "start": "2023",
+      "end": "2025",
+      "items": [
+        "Atendimento presencial e telefónico e encaminhamento de pedidos.",
+        "Atualização de registos e confirmação de informação com a equipa."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "Formação de exemplo em apoio administrativo",
+      "institution": "Entidade de Exemplo",
+      "year": "2023"
+    }
+  ],
+  "skills": [
+    "Organização de pedidos",
+    "Comunicação escrita e telefónica",
+    "Atualização de registos"
+  ]
+}

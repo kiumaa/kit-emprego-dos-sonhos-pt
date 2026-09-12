@@ -1,0 +1,113 @@
+{
+  "version": "2.0",
+  "priceRule": "Resolver os placeholders a partir de config/offer.json apenas após aprovação; em preview identificar os preços como propostos.",
+  "home": {
+    "title": "Antes da próxima candidatura, descobre o que podes melhorar.",
+    "description": "Analisa o teu CV ou responde a um diagnóstico rápido e recebe sugestões para preparar os próximos passos.",
+    "primaryCta": "Analisar o meu CV",
+    "secondaryCta": "Não tenho o CV comigo — fazer o quiz",
+    "note": "Gratuito. Sem cartão. Não é uma candidatura a uma oferta de emprego."
+  },
+  "analyzer": {
+    "title": "O que pode ficar mais claro no teu CV?",
+    "description": "Recebe observações sobre o conteúdo e sugestões que podes aplicar na próxima candidatura.",
+    "uploadTab": "Enviar ficheiro",
+    "pasteTab": "Colar texto",
+    "submit": "Analisar o meu CV",
+    "privacyHint": "Retira dados pessoais desnecessários e informações de terceiros antes de enviar. Consulta como tratamos o documento.",
+    "limits": "PDF textual até 5 páginas e 5 MiB; DOCX até 5 MiB e 24 000 caracteres extraídos. Também podes colar o texto."
+  },
+  "quiz": {
+    "title": "Vamos perceber por onde começar.",
+    "description": "Oito perguntas sobre a preparação das tuas candidaturas. Não precisas de enviar um CV.",
+    "submit": "Ver o meu resultado",
+    "sourceLabel": "Com base nas tuas respostas"
+  },
+  "result": {
+    "cvSource": "Com base no teu CV",
+    "quizSource": "Com base nas tuas respostas",
+    "prioritiesTitle": "Os teus próximos passos",
+    "captureTitle": "Guarda o teu próximo passo.",
+    "captureDescription": "Recebe o plano por email para o consultares quando estiveres a preparar a candidatura.",
+    "emailLabel": "Email",
+    "nameLabel": "Nome (opcional)",
+    "captureCta": "Enviar o meu plano",
+    "marketingLabel": "Quero também receber dicas e ofertas do Kit Emprego dos Sonhos por email. Posso cancelar a qualquer momento.",
+    "offerTransition": "Agora tens um ponto de partida. Vamos preparar a candidatura."
+  },
+  "offer": {
+    "title": "Prepara a tua próxima candidatura sem começar do zero.",
+    "description": "Um percurso guiado, modelos editáveis para descarregar e recursos práticos para trabalhar no teu CV, preparar mensagens e organizar oportunidades.",
+    "productName": "Kit Emprego dos Sonhos — Portugal",
+    "pricePlaceholder": "{{kit_price}}",
+    "termsPlaceholder": "{{approved_access_terms}}",
+    "cta": "Obter o kit na OKANDA",
+    "secondaryCta": "Ver o que está incluído",
+    "benefits": [
+      "Escolhe um modelo de CV e adapta-o na tua aplicação de documentos.",
+      "Usa exemplos e estruturas para escrever uma candidatura mais clara.",
+      "Organiza as oportunidades e os próximos passos num só lugar."
+    ],
+    "included": [
+      "Guia prático com 10 lições",
+      "Dois modelos de CV descarregáveis",
+      "Três estruturas de carta e dez mensagens",
+      "Checklists, 25 instruções de IA e plano de sete dias",
+      "Organizador de candidaturas e recursos na área privada"
+    ],
+    "extraNote": "Entrevista dos Sonhos e LinkedIn dos Sonhos são complementos opcionais vendidos à parte.",
+    "limit": "O kit não garante emprego, entrevistas ou decisões de recrutamento."
+  },
+  "thanks": {
+    "pending": "Estamos a confirmar o pagamento.",
+    "paid": "A tua compra está confirmada.",
+    "access": "Aceder ao meu kit",
+    "unknown": "Não conseguimos associar esta página a uma compra. Usa o email da compra para recuperar o acesso."
+  },
+  "member": {
+    "title": "O teu próximo passo começa aqui.",
+    "continue": "Continuar o meu plano",
+    "library": "Explorar recursos",
+    "templatesTitle": "Escolhe um modelo para descarregar.",
+    "templatesHelp": "Descarrega o ficheiro DOCX e adapta-o numa aplicação compatível. A edição é feita fora da plataforma.",
+    "download": "Descarregar recurso",
+    "copy": "Copiar texto",
+    "complete": "Marcar como concluída",
+    "trackerEmpty": "Ainda não registaste oportunidades. Começa pela próxima candidatura que queres preparar.",
+    "trackerAdd": "Adicionar candidatura"
+  },
+  "faq": [
+    {
+      "question": "Preciso de ter um CV para começar?",
+      "answer": "Não. Podes responder ao quiz e receber um ponto de partida sem enviar um documento."
+    },
+    {
+      "question": "O resultado é uma avaliação de um recrutador?",
+      "answer": "Não. A análise de CV revê o texto recebido; o quiz usa as tuas respostas. Nenhum prevê decisões de recrutamento."
+    },
+    {
+      "question": "Onde posso alterar os modelos de CV?",
+      "answer": "Os modelos DOCX são descarregáveis e podem ser adaptados numa aplicação compatível. A plataforma não inclui um editor de currículos."
+    },
+    {
+      "question": "Entrevista e LinkedIn estão incluídos?",
+      "answer": "São complementos opcionais. A página e o checkout identificam os artigos que estás a adquirir."
+    },
+    {
+      "question": "O kit inclui utilização ilimitada de IA?",
+      "answer": "Não. A biblioteca de instruções é um recurso para usar na ferramenta que escolheres; não inclui planos de serviços de terceiros."
+    },
+    {
+      "question": "Durante quanto tempo tenho acesso?",
+      "answer": "{{approved_access_terms}}"
+    },
+    {
+      "question": "Como funciona a compra?",
+      "answer": "A compra é concluída no checkout da OKANDA. O acesso é disponibilizado após confirmação do pagamento e verificação do email da compra."
+    },
+    {
+      "question": "O kit garante que vou conseguir emprego?",
+      "answer": "Não. O objetivo é ajudar-te a preparar materiais e organizar o processo; a contratação depende de fatores que o kit não controla."
+    }
+  ]
+}

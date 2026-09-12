@@ -1,0 +1,56 @@
+{
+  "version": "2.0",
+  "status": "templates_not_sending",
+  "rule": "Identidade e apoio reais obrigatórios; tokens de acesso via backend; substituição segura de campos; versão HTML e texto. Marketing só com consentimento verificado.",
+  "templates": [
+    {
+      "id": "plano",
+      "kind": "transactional",
+      "subject": "O teu plano de preparação de candidaturas",
+      "body": "Aqui está o acesso ao plano que pediste.\n\nPodes consultá-lo para rever os próximos passos da tua candidatura. A análise de CV baseia-se no texto recebido; o quiz baseia-se nas tuas respostas. Não prevemos decisões de recrutamento.\n\n[Consultar o meu plano]\n\nEsta mensagem responde ao teu pedido de envio. Se não o fizeste, podes ignorá-la.",
+      "trigger": "report_requested"
+    },
+    {
+      "id": "confirmar-marketing",
+      "kind": "consent_verification",
+      "subject": "Confirma que queres receber as nossas dicas",
+      "body": "Pediste para receber dicas e ofertas do Kit Emprego dos Sonhos. Confirma a tua escolha no botão abaixo.\n\n[Confirmar subscrição]\n\nSem confirmação, não iniciaremos a sequência promocional. Se não fizeste o pedido, ignora esta mensagem.",
+      "trigger": "marketing_double_opt_in_requested"
+    },
+    {
+      "id": "acesso",
+      "kind": "transactional",
+      "subject": "A tua compra está confirmada",
+      "body": "Obrigado pela tua compra.\n\nArtigos adquiridos: [artigos verificados].\nCondições de acesso: [condições aprovadas].\n\n[Aceder ao meu kit]\n\nComeça pelo percurso guiado ou escolhe um modelo para descarregar. Para apoio: [contacto real].",
+      "trigger": "purchase_verified"
+    },
+    {
+      "id": "recuperar",
+      "kind": "transactional",
+      "subject": "O teu acesso ao Kit Emprego dos Sonhos",
+      "body": "Recebemos um pedido de acesso. Usa a ligação abaixo para continuar.\n\n[Entrar com segurança]\n\nA ligação tem validade limitada e não deve ser partilhada. Se não fizeste este pedido, ignora a mensagem.",
+      "trigger": "access_requested"
+    },
+    {
+      "id": "dica-1",
+      "kind": "marketing",
+      "subject": "Uma melhoria concreta para a próxima candidatura",
+      "body": "Escolhe uma frase do teu CV que descreva uma tarefa. Agora acrescenta contexto: o que fizeste e qual foi o teu papel? Não precisas de inventar percentagens para tornar a descrição mais clara.\n\nNo Kit Emprego dos Sonhos encontras exemplos, modelos descarregáveis e um percurso de preparação.\n\n[Conhecer o kit]\n\n[Cancelar subscrição]",
+      "trigger": "verified_marketing_opt_in_and_not_purchased"
+    },
+    {
+      "id": "dica-2",
+      "kind": "marketing",
+      "subject": "O que escrever antes de anexar o CV",
+      "body": "Uma mensagem pode ser simples: identifica a função, explica uma ligação concreta ao teu percurso e indica o anexo. Antes de enviar, confirma empresa, destinatário e ficheiro.\n\nO kit reúne estruturas de carta e mensagens para adaptares à tua oportunidade.\n\n[Ver os recursos do kit]\n\n[Cancelar subscrição]",
+      "trigger": "verified_marketing_opt_in_and_not_purchased"
+    },
+    {
+      "id": "dica-3",
+      "kind": "marketing",
+      "subject": "Saber o próximo passo também faz parte da candidatura",
+      "body": "Registar empresa, função, estado e próxima ação ajuda-te a manter o processo organizado. Começa por uma oportunidade e uma tarefa concreta.\n\nConhece o Kit Emprego dos Sonhos e os recursos para preparar e acompanhar candidaturas. Sem promessas de emprego; com ferramentas para trabalhar no que controlas.\n\n[Conhecer o kit]\n\n[Cancelar subscrição]",
+      "trigger": "verified_marketing_opt_in_and_not_purchased"
+    }
+  ]
+}

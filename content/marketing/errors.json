@@ -1,0 +1,16 @@
+{
+  "uploadTooLarge": "O ficheiro ultrapassa o limite de 5 MiB. Envia uma versão mais pequena ou cola o texto.",
+  "unsupportedFile": "Este formato não é suportado. Usa PDF textual ou DOCX, cola o texto ou faz o quiz.",
+  "unreadableFile": "Não conseguimos extrair texto legível deste ficheiro. Podes colar o conteúdo ou continuar pelo quiz.",
+  "protectedFile": "O ficheiro está protegido. Usa uma versão acessível ou cola o texto.",
+  "analysisUnavailable": "A análise de CV não está disponível neste momento. Podes começar pelo quiz.",
+  "analysisFailed": "Não conseguimos concluir a análise. Não foi gerado um resultado. Tenta novamente ou faz o quiz.",
+  "expiredResult": "Este resultado já não está disponível. Podes iniciar um novo diagnóstico.",
+  "rateLimit": "Foi atingido o limite de pedidos desta sessão. Volta mais tarde ou continua pelo quiz.",
+  "emailGeneric": "Se o endereço estiver correto, receberás as instruções necessárias. Verifica também a pasta de correio não solicitado.",
+  "paymentPending": "O pagamento ainda não foi confirmado. O acesso será apresentado quando recebermos a confirmação.",
+  "paymentUnavailable": "A compra não está disponível neste momento. Não foi efetuada qualquer cobrança por esta página.",
+  "accessDenied": "Este recurso não está incluído nos teus acessos ativos. Consulta os artigos da tua compra.",
+  "downloadFailed": "Não foi possível preparar o ficheiro. Tenta novamente ou contacta o apoio.",
+  "marketingOff": "A tua preferência foi guardada. Não receberás novas mensagens promocionais desta lista."
+}

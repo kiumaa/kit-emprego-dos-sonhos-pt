@@ -1,0 +1,22 @@
+{
+  "version": "2.0",
+  "pricesFrom": "config/offer.json",
+  "provider": "okanda",
+  "preselected": false,
+  "items": [
+    {
+      "productId": "entrevista",
+      "title": "Prepara também a tua entrevista",
+      "description": "Acrescenta o Entrevista dos Sonhos: perguntas para praticar, estruturas de resposta, exercícios e checklist.",
+      "cta": "Adicionar por {{entrevista_price}}",
+      "includedInMain": false
+    },
+    {
+      "productId": "linkedin",
+      "title": "Trabalha também no teu perfil de LinkedIn",
+      "description": "Acrescenta o LinkedIn dos Sonhos: estruturas para o perfil, exemplos de apresentação, mensagens e checklist.",
+      "cta": "Adicionar por {{linkedin_price}}",
+      "includedInMain": false
+    }
+  ]
+}

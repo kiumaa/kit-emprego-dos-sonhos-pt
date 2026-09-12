@@ -1,0 +1,53 @@
+{
+  "version": "2.0",
+  "currency": "EUR",
+  "locale": "pt-PT",
+  "commercialStatus": "requires_owner_and_tax_review",
+  "pricesIncludeApplicableTaxes": null,
+  "accessMonthsProposed": 12,
+  "accessTermsApproved": false,
+  "automaticRenewal": false,
+  "unlimitedAiIncluded": false,
+  "products": [
+    {
+      "id": "kit-emprego-pt",
+      "name": "Kit Emprego dos Sonhos — Portugal",
+      "priceMinorProposed": 1490,
+      "kind": "main",
+      "okandaProductId": null,
+      "enabledInSpec": true,
+      "live": false,
+      "entitlement": "kit"
+    },
+    {
+      "id": "entrevista",
+      "name": "Entrevista dos Sonhos",
+      "priceMinorProposed": 490,
+      "kind": "bump",
+      "okandaProductId": null,
+      "enabledInSpec": true,
+      "live": false,
+      "entitlement": "entrevista"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn dos Sonhos",
+      "priceMinorProposed": 590,
+      "kind": "bump",
+      "okandaProductId": null,
+      "enabledInSpec": true,
+      "live": false,
+      "entitlement": "linkedin"
+    }
+  ],
+  "referencePrice": null,
+  "discountCountdown": false,
+  "guaranteedEmployment": false,
+  "seller": {
+    "legalName": null,
+    "taxIdentifier": null,
+    "supportEmail": null,
+    "country": null
+  },
+  "publicationRule": "No checkout or public priced offer until all mandatory release gates are verified."
+}

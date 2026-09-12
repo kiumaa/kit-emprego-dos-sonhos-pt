@@ -1,0 +1,66 @@
+{
+  "version": "2.0",
+  "instruction": "Adaptar os campos entre parênteses retos e verificar todos os factos antes de enviar. A plataforma não envia candidaturas.",
+  "messages": [
+    {
+      "id": "envio-cv",
+      "title": "Candidatura a uma vaga",
+      "subject": "Candidatura — [Função] — [Nome]",
+      "body": "Bom dia,\n\nGostaria de apresentar a minha candidatura à função de [função], divulgada em [origem]. O meu percurso em [área] inclui [exemplo verdadeiro relacionado com a vaga].\n\nEnvio em anexo o meu CV e fico disponível para esclarecer qualquer questão.\n\nObrigado/a pela atenção,\n[Nome]"
+    },
+    {
+      "id": "espontanea",
+      "title": "Candidatura espontânea",
+      "subject": "Candidatura espontânea — [Área]",
+      "body": "Bom dia,\n\nContactar-vos faz sentido para mim pelo vosso trabalho em [motivo específico e verificável]. Gostaria de ser considerado/a para oportunidades na área de [área].\n\nTenho experiência em [facto] e posso contribuir com [competência demonstrável]. Envio o meu CV para análise, caso surja uma oportunidade adequada.\n\nObrigado/a,\n[Nome]"
+    },
+    {
+      "id": "primeiro-emprego",
+      "title": "Primeira candidatura",
+      "subject": "Candidatura — [Função]",
+      "body": "Bom dia,\n\nEstou a iniciar o meu percurso em [área] e gostaria de apresentar a minha candidatura a [função]. Durante [formação/projeto], trabalhei em [atividade concreta], desenvolvendo [competência real].\n\nEnvio o meu CV e fico disponível para apresentar melhor este percurso.\n\nCom os melhores cumprimentos,\n[Nome]"
+    },
+    {
+      "id": "mudanca",
+      "title": "Mudança de carreira",
+      "subject": "Candidatura — [Função] — [Nome]",
+      "body": "Bom dia,\n\nEstou a orientar o meu percurso para [nova área] e identifiquei a oportunidade de [função]. A minha experiência em [área anterior] permitiu-me trabalhar em [atividade transferível]. Tenho complementado essa experiência com [preparação real, se existir].\n\nEnvio o CV para análise. Obrigado/a pela atenção.\n\n[Nome]"
+    },
+    {
+      "id": "recrutador",
+      "title": "Contacto inicial com recrutamento",
+      "subject": "Interesse em [Função]",
+      "body": "Olá [Nome],\n\nVi a oportunidade de [função] e gostava de saber qual é o canal mais adequado para apresentar a minha candidatura. O meu percurso inclui [uma ligação concreta à função].\n\nObrigado/a pela indicação.\n[Nome]"
+    },
+    {
+      "id": "seguimento",
+      "title": "Pedido de atualização",
+      "subject": "Seguimento da candidatura — [Função]",
+      "body": "Bom dia,\n\nEnviei a minha candidatura a [função] em [data] e gostaria de saber se existe alguma atualização sobre o processo. Mantenho o interesse na oportunidade e fico disponível para informação adicional.\n\nObrigado/a pela atenção,\n[Nome]"
+    },
+    {
+      "id": "confirmacao",
+      "title": "Confirmação de entrevista",
+      "subject": "Confirmação — entrevista para [Função]",
+      "body": "Bom dia,\n\nObrigado/a pelo convite. Confirmo a minha disponibilidade para a entrevista no dia [data], às [hora e fuso quando relevante], em [local/canal confirmado].\n\nAgradeço a indicação de alguma preparação ou documento necessário.\n\nAté breve,\n[Nome]"
+    },
+    {
+      "id": "agradecimento",
+      "title": "Agradecimento após entrevista",
+      "subject": "Obrigado/a pela conversa — [Função]",
+      "body": "Bom dia,\n\nObrigado/a pela conversa sobre [função]. Foi útil conhecer melhor [tema realmente discutido]. Mantenho o interesse na oportunidade e fico disponível para os próximos passos ou para esclarecer questões adicionais.\n\nCom os melhores cumprimentos,\n[Nome]"
+    },
+    {
+      "id": "remarcacao",
+      "title": "Pedido de remarcação",
+      "subject": "Pedido de remarcação — entrevista [Função]",
+      "body": "Bom dia,\n\nSurgiu um imprevisto que me impede de estar disponível no horário combinado para [data]. Peço desculpa pelo transtorno. Seria possível reagendar para [opção 1] ou [opção 2]?\n\nMantenho todo o interesse na oportunidade. Obrigado/a pela compreensão.\n\n[Nome]"
+    },
+    {
+      "id": "encerrar",
+      "title": "Encerrar uma candidatura",
+      "subject": "Processo de candidatura — [Função]",
+      "body": "Bom dia,\n\nObrigado/a pelo tempo dedicado à minha candidatura. Após ponderar os próximos passos, decidi não prosseguir neste processo. Agradeço a oportunidade de conhecer melhor a função e a equipa.\n\nCom os melhores cumprimentos,\n[Nome]"
+    }
+  ]
+}

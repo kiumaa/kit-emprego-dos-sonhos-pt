@@ -1,0 +1,52 @@
+{
+  "status": "specification_not_connected",
+  "database": {
+    "suggested": "Neon PostgreSQL",
+    "configured": false
+  },
+  "auth": {
+    "suggested": "Clerk",
+    "configured": false,
+    "allowDemoOnlyInProtectedPreview": true
+  },
+  "email": {
+    "provider": null,
+    "configured": false,
+    "marketingOptInSeparate": true
+  },
+  "storage": {
+    "provider": null,
+    "private": true,
+    "configured": false
+  },
+  "analysis": {
+    "provider": null,
+    "model": null,
+    "configured": false,
+    "fileLimitBytes": 5242880,
+    "pdfPageLimit": 5,
+    "textLimitCharacters": 24000,
+    "docxExtractLimitCharacters": 24000,
+    "ocrEnabled": false,
+    "retentionApproved": false
+  },
+  "okanda": {
+    "configured": false,
+    "officialContractVerified": false,
+    "paymentMethodsTested": [],
+    "directStripeIntegration": false
+  },
+  "video": {
+    "platform": "HeyGen",
+    "rendered": false,
+    "avatarId": null,
+    "voiceId": null
+  },
+  "advertising": {
+    "platforms": [
+      "Meta"
+    ],
+    "campaignsEnabled": false,
+    "policyReviewComplete": false
+  }
+}

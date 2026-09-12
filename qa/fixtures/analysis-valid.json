@@ -1,0 +1,31 @@
+{
+  "source": "cv",
+  "summary": "O texto apresenta experiência de atendimento e organização de pedidos.",
+  "observations": [
+    {
+      "criterion": "evidence",
+      "status": "strength",
+      "evidenceType": "quote",
+      "evidenceExcerpt": "Atendimento presencial e telefónico e encaminhamento de pedidos.",
+      "suggestion": "Mantém os exemplos que correspondem às responsabilidades da vaga a que te candidatas."
+    },
+    {
+      "criterion": "job_relevance",
+      "status": "not_evaluable",
+      "evidenceType": "not_available",
+      "evidenceExcerpt": null,
+      "suggestion": "Não foi fornecida uma descrição de vaga para comparação."
+    }
+  ],
+  "priorities": [
+    {
+      "criterion": "evidence",
+      "title": "Rever o destaque dos exemplos",
+      "action": "Escolhe uma vaga e confirma que os exemplos destacados são relevantes, sem acrescentar factos."
+    }
+  ],
+  "limitations": [
+    "Esta revisão usa o texto extraído e não avalia o aspeto visual.",
+    "Não prevê decisões de recrutamento."
+  ]
+}

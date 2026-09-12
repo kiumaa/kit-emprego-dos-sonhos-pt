@@ -1,0 +1,138 @@
+{
+  "version": "2.0",
+  "resources": [
+    {
+      "id": "guia",
+      "title": "Guia Emprego dos Sonhos",
+      "entitlement": "kit",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/licoes.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "cv-essencial",
+      "title": "CV Essencial",
+      "entitlement": "kit",
+      "formats": [
+        "docx",
+        "pdf"
+      ],
+      "source": "content/templates/cv-essencial.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "cv-moderno",
+      "title": "CV Moderno",
+      "entitlement": "kit",
+      "formats": [
+        "docx",
+        "pdf"
+      ],
+      "source": "content/templates/cv-moderno.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "cartas",
+      "title": "Três cartas de apresentação",
+      "entitlement": "kit",
+      "formats": [
+        "docx",
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/cartas.md",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "mensagens",
+      "title": "Dez mensagens de candidatura",
+      "entitlement": "kit",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/mensagens.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "checklists",
+      "title": "Checklists de preparação",
+      "entitlement": "kit",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/checklists.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "prompts",
+      "title": "25 instruções de IA",
+      "entitlement": "kit",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/prompts.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "plano",
+      "title": "Plano de sete dias",
+      "entitlement": "kit",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/kit/plano-7-dias.json",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "tracker",
+      "title": "Organizador de candidaturas",
+      "entitlement": "kit",
+      "formats": [
+        "csv",
+        "web"
+      ],
+      "source": "content/templates/organizador-vazio.csv",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "entrevista-guia",
+      "title": "Entrevista dos Sonhos — guia e workbook",
+      "entitlement": "entrevista",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/bumps/entrevista.md",
+      "status": "source_ready",
+      "publishedAssets": []
+    },
+    {
+      "id": "linkedin-guia",
+      "title": "LinkedIn dos Sonhos — guia e workbook",
+      "entitlement": "linkedin",
+      "formats": [
+        "pdf",
+        "web"
+      ],
+      "source": "content/bumps/linkedin.md",
+      "status": "source_ready",
+      "publishedAssets": []
+    }
+  ]
+}

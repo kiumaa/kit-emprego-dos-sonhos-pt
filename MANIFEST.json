@@ -1,0 +1,454 @@
+{
+  "version": "2.0",
+  "date": "2026-09-12",
+  "package": "Kit Emprego dos Sonhos Portugal — Antigravity — sem editor",
+  "scope": "specification_and_content_sources_not_built_application",
+  "githubRemoteCreated": false,
+  "files": [
+    {
+      "path": ".agents/README.md",
+      "bytes": 418,
+      "sha256": "d4bac2e3cff77f3b88e7a4aaa463793e42338d3394b498b7220bd20d020d2b21"
+    },
+    {
+      "path": ".agents/rules/01-product-scope.md",
+      "bytes": 342,
+      "sha256": "19c3db7dd9b6df78010641a28fbc75c7315967759f0c13c2a30055dfe500cf1a"
+    },
+    {
+      "path": ".agents/rules/02-design-consistency.md",
+      "bytes": 426,
+      "sha256": "f98bbc72ced2aac5bfb1075b24f0f5a06d5be24d784837c1ab570b4f86dbb568"
+    },
+    {
+      "path": ".agents/rules/03-trust-and-security.md",
+      "bytes": 498,
+      "sha256": "01a8d7f3454d7360562fda18595e9c7030f428bd564b18fd188eb06913e02474"
+    },
+    {
+      "path": ".editorconfig",
+      "bytes": 137,
+      "sha256": "05f9463d683e5957ca2f7cad77a5fec2986298b1ea3c6ca314174805fa1aff44"
+    },
+    {
+      "path": ".env.example",
+      "bytes": 670,
+      "sha256": "9d41092dd70ba6ea8b412c4ae65f44d9e5937615366708f1f81dba699afa8694"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 99,
+      "sha256": "ef9cac60418a545f045dcdec8b6b8ce988c4c8644d3cd2adefef00a614fa58f2"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug.md",
+      "bytes": 273,
+      "sha256": "ab6ba2a391b5e2c59ca518275422cafa50ece0e5fae3d20f09a569dd7f842a4a"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature.md",
+      "bytes": 325,
+      "sha256": "1be7860fad31a42309d305b1fd0adb31478277c53324f3ecc28d049530691f4f"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 694,
+      "sha256": "5df8d4358c0456e56aa65f772c7c5f6ceabca6da9fa6ab84b58699d3071d92f4"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 258,
+      "sha256": "6a3d45d517ee0468be405e1449a790f0edf531a9e6caf143c2c76a58a9fea018"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2535,
+      "sha256": "c5acb01d976afa1460b52deb92f45efd8556975ce3345bf8a6fbc101643a5cbd"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 655,
+      "sha256": "f5d089cb0264aa55b745f06169ef24dd03905ce7a7f602a149c27a185581b243"
+    },
+    {
+      "path": "COMECAR_AQUI.md",
+      "bytes": 2444,
+      "sha256": "898989789c50dbcbf71e2fde484e6de9e4ef538d3bb68366254b08d661451d1c"
+    },
+    {
+      "path": "GEMINI.md",
+      "bytes": 341,
+      "sha256": "3068a9f73ba263e61b2bf7e35233792cb26fe0cde2b087dbfdd5a76f7e4d3675"
+    },
+    {
+      "path": "INDICE.md",
+      "bytes": 2989,
+      "sha256": "d369177dffeda2f6f259fcb1f06619f00e02ff375bf8c2384759b697fe9a3426"
+    },
+    {
+      "path": "PROMPT_ANTIGRAVITY.md",
+      "bytes": 4022,
+      "sha256": "7cd2bd60bf1235f3d553cf0c578c036145e92861a69a7b4df0647135c489c83a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2700,
+      "sha256": "8f733367f37973fa985d667e8a9f002522b303c314cc9d052f5a789b7c0fd17b"
+    },
+    {
+      "path": "config/features.json",
+      "bytes": 678,
+      "sha256": "d7c0957f37cc4aa582ce69b95845c312e7a1d1d07426d1a9743fc12d8c8760a7"
+    },
+    {
+      "path": "config/integrations.example.json",
+      "bytes": 1087,
+      "sha256": "c93fd5de08997334347f8122f5cb8ab8a4fb8e6da6be285b8db7fc061d633231"
+    },
+    {
+      "path": "config/offer.json",
+      "bytes": 1364,
+      "sha256": "86ae611a4db27860e16ccdbc7bad860b28692f904f565ea10a2c737069d551da"
+    },
+    {
+      "path": "config/release-gates.json",
+      "bytes": 1925,
+      "sha256": "8b07fd0199365d527e0757dc12b025a8f26e9d2275bea05b8ac0f126b07006da"
+    },
+    {
+      "path": "content/ai/analysis-system.md",
+      "bytes": 2385,
+      "sha256": "7bdc8fa8a63954f5a184ac0d88aca82a914203d7e10f066ab4e857bb13230207"
+    },
+    {
+      "path": "content/bumps/entrevista.md",
+      "bytes": 5807,
+      "sha256": "7abfbcb9e6d541f6e8053f04080b297acf7d83be01091ebdaa5aec6bc3d565de"
+    },
+    {
+      "path": "content/bumps/linkedin.md",
+      "bytes": 5165,
+      "sha256": "97e7928e8150a33850e714984dbb05828e6942cfc1c6e9776b59658b8c146ba6"
+    },
+    {
+      "path": "content/kit/cartas.md",
+      "bytes": 3061,
+      "sha256": "b9855bc8ea71ed409262a0856ff8bb59fe802472f1c0d08aa478276e48ec93e5"
+    },
+    {
+      "path": "content/kit/checklists.json",
+      "bytes": 1444,
+      "sha256": "8922c6fbbaaa2d5059987b7bfad0f0247142fd460da343a041a52a98ecab7c9c"
+    },
+    {
+      "path": "content/kit/licoes/01-objetivo.md",
+      "bytes": 2001,
+      "sha256": "91c822158e445cbe90f4b1be0d26dd87f968ecf83467e6f95405341f7ed0d968"
+    },
+    {
+      "path": "content/kit/licoes/02-ler-vaga.md",
+      "bytes": 1897,
+      "sha256": "b38ad982f188c307a1af4a718c788694570d4f49742eb48339cf57f1c9cacf99"
+    },
+    {
+      "path": "content/kit/licoes/03-estrutura-cv.md",
+      "bytes": 2055,
+      "sha256": "9ae46161d497302eb082bc78f77a49eaf9f2fa3f252c2ec2b2711815479f1ba8"
+    },
+    {
+      "path": "content/kit/licoes/04-experiencia.md",
+      "bytes": 1837,
+      "sha256": "009e45f1dc07f22d2f15fb94570cb6e3221145c44ebe3994921b74a5b6a7c157"
+    },
+    {
+      "path": "content/kit/licoes/05-primeiro-emprego.md",
+      "bytes": 1900,
+      "sha256": "ffcf6ba818ee6c1440e0caba7d16b2eef350ddeabec05431d9fc1780c27bfa95"
+    },
+    {
+      "path": "content/kit/licoes/06-mensagens.md",
+      "bytes": 1780,
+      "sha256": "5a9f07cc560e855da1702fc2a2dafc0f62e943bce365eb43f77e2046fc1c3f4b"
+    },
+    {
+      "path": "content/kit/licoes/07-organizacao.md",
+      "bytes": 1725,
+      "sha256": "e2b68e70d9b34033931d811f6031ad015a9a040716c975065e2772fcc3e1222d"
+    },
+    {
+      "path": "content/kit/licoes/08-usar-ia.md",
+      "bytes": 1683,
+      "sha256": "01059e13dff46e59c96c3adda4df083c847fb14bc76fca5c06d738b4d94d2111"
+    },
+    {
+      "path": "content/kit/licoes/09-plano.md",
+      "bytes": 1698,
+      "sha256": "e23a2380bbd43cacb343b5547b6c1f3c93ec528b03da3b2ffb675c9570e4d971"
+    },
+    {
+      "path": "content/kit/licoes/10-revisao.md",
+      "bytes": 1789,
+      "sha256": "efbd3f3eed60a5b173566e3409c611345a9e5684103a9876c062af42fa8622ee"
+    },
+    {
+      "path": "content/kit/licoes.json",
+      "bytes": 1841,
+      "sha256": "89307267b86f4807962900fb7871f9ef5d739a384bf0adb5b69d8b83829d6759"
+    },
+    {
+      "path": "content/kit/mensagens.json",
+      "bytes": 4633,
+      "sha256": "f6d2a8de3b5d4f266fd71fad25c3018f7a851c83ef7000c0f2e85ff31910d275"
+    },
+    {
+      "path": "content/kit/plano-7-dias.json",
+      "bytes": 1357,
+      "sha256": "9fd8acf00d6db74e23ee943a32a40988aafdaeee099748baed2bd034a04d75e6"
+    },
+    {
+      "path": "content/kit/prompts.json",
+      "bytes": 5597,
+      "sha256": "6019b51d4088dcf22e59ab5b71a9d55e2a064e0e3f169ad0fe09d45ac9400527"
+    },
+    {
+      "path": "content/marketing/VSL_HEYGEN.md",
+      "bytes": 3847,
+      "sha256": "c793e4870aa8175bd3cb640e895028e1beb5bd5bdfc9ce56a380b57aff83a71c"
+    },
+    {
+      "path": "content/marketing/ads.json",
+      "bytes": 4235,
+      "sha256": "56eb565cd831e8b51b1c8810bc41c1232f9293aa080c4611ea7753d8f4054b92"
+    },
+    {
+      "path": "content/marketing/checkout-bumps.json",
+      "bytes": 756,
+      "sha256": "40e7eeb47f09b594415648992dd8556909a80169a8e2e5c62e73dc5cb2d934f6"
+    },
+    {
+      "path": "content/marketing/emails.json",
+      "bytes": 3721,
+      "sha256": "f09bf3b7dedca87e3bc4717bb088666747084e901ccc82b0ec585074048b5304"
+    },
+    {
+      "path": "content/marketing/errors.json",
+      "bytes": 1610,
+      "sha256": "1b596d5b7dfd91bf4301c22363f5bbf229a4e07bb495e432a90d133736bc5127"
+    },
+    {
+      "path": "content/marketing/pages.json",
+      "bytes": 5793,
+      "sha256": "527476398e1e51a92a7f87f3cc858c90a8d6fb33f721c2fe0e35a0f410836dd7"
+    },
+    {
+      "path": "content/quiz/quiz.json",
+      "bytes": 8389,
+      "sha256": "070a7cee51207ca03dbab4e560b8eb6f3222cda33043d8a1129adb5fd7e201d2"
+    },
+    {
+      "path": "content/resources.json",
+      "bytes": 3099,
+      "sha256": "73993920fd58ac32d37facc2290432640c0593d1d75c65b9dbf70badcaf36c41"
+    },
+    {
+      "path": "content/templates/LEIA-ME.md",
+      "bytes": 469,
+      "sha256": "29fad41cd29e872f6f27f96fba640db12add989da8a339f323dc4fb0d75f95b7"
+    },
+    {
+      "path": "content/templates/cv-essencial.json",
+      "bytes": 805,
+      "sha256": "94432b8c050b28701b80a26b557adb15a04c95080d902d2b9df6cf09fe33bccc"
+    },
+    {
+      "path": "content/templates/cv-exemplo-ficticio.json",
+      "bytes": 1085,
+      "sha256": "9d49a50372e24db115c68421e16cb4e615bce4236efc978a103c530163d929bf"
+    },
+    {
+      "path": "content/templates/cv-moderno.json",
+      "bytes": 794,
+      "sha256": "1a0b4d7493bec0d83b8eb2ec322f56226005dcc4b3ea66cfcf542fcb5d60d4f8"
+    },
+    {
+      "path": "content/templates/organizador-vazio.csv",
+      "bytes": 92,
+      "sha256": "fdfb15f3f9b0af88575f27f959119c88868afe839967ba8ea3aacff72af50299"
+    },
+    {
+      "path": "contracts/analysis-output.schema.json",
+      "bytes": 2540,
+      "sha256": "ead86be5b518fd460853e0fc7d8bf85a59dcb4fe6e9ed04dc3ed21eafac302dc"
+    },
+    {
+      "path": "contracts/domain.d.ts",
+      "bytes": 2345,
+      "sha256": "de6781213e75c956f42ffba69536cf21480db24ff2f4e066e13e48737a7032e4"
+    },
+    {
+      "path": "contracts/internal-api.json",
+      "bytes": 2172,
+      "sha256": "00cfdfb74c56da7de60280357b5f05a32fc1ed867f59ccfc82020a0ce18bb3d3"
+    },
+    {
+      "path": "contracts/routes.json",
+      "bytes": 3401,
+      "sha256": "c4922ca6ad2698cc4613f1beb68bda3a883791fbc057ee8f989615bc22a7fa3a"
+    },
+    {
+      "path": "design/ASSETS_BRIEF.md",
+      "bytes": 1423,
+      "sha256": "a217dbaed6b2f72b073f66353b8109c804d66a5bcea4a0b08fab6739c746a30c"
+    },
+    {
+      "path": "design/COMPONENTS.md",
+      "bytes": 2353,
+      "sha256": "97407cd63d2e7a3d37e88962470723e4a73cde4fd6a5901ce27c31e8ff05757f"
+    },
+    {
+      "path": "design/DESIGN_SYSTEM.md",
+      "bytes": 4618,
+      "sha256": "0cf1e753394f5674153942b7cdc633d02de9202ae3d0ef53dc54005577e15db4"
+    },
+    {
+      "path": "design/DOCUMENTS_EMAILS_ADS.md",
+      "bytes": 3086,
+      "sha256": "fe05b087c29d73262578a7ce2113788257ba6a69352e5fe1881eab23c78daea2"
+    },
+    {
+      "path": "design/SCREEN_SPEC.md",
+      "bytes": 5090,
+      "sha256": "d8d744ffd44cd14c96347f6ac65514e2ab6756a1200ef035dad88985ef639dcf"
+    },
+    {
+      "path": "design/tokens.css",
+      "bytes": 1886,
+      "sha256": "b5859f9ca7cb0b95fccd7ae8b5e17216a835946f67478a84115d1ced457be7ba"
+    },
+    {
+      "path": "design/tokens.json",
+      "bytes": 2015,
+      "sha256": "95a490247a4c908b0c95f29f1273a98d4ecb01a03ebde1895a44b4f1b1565342"
+    },
+    {
+      "path": "docs/00_DECISOES.md",
+      "bytes": 2374,
+      "sha256": "4f029ee0a746aea8c0421ac43b1f11a53af61e4b008cdf5c3f99fdb1e71ef8f9"
+    },
+    {
+      "path": "docs/01_PRODUTO.md",
+      "bytes": 3069,
+      "sha256": "8f171c95e2ad35c63604f7f9ce9cb5f4cf25299db0b0b053ce3d074e3715165d"
+    },
+    {
+      "path": "docs/02_FUNIL_E_QUIZ.md",
+      "bytes": 2345,
+      "sha256": "e331889e849c956989ccb2361a7a64203d4a10860fb47adeff7d43c69a5c90da"
+    },
+    {
+      "path": "docs/03_ANALISADOR_IA.md",
+      "bytes": 3703,
+      "sha256": "6038374c915fdfd9bfd47b6ade476546244642bdfc74452d29a1a2aa838f9d5b"
+    },
+    {
+      "path": "docs/04_ARQUITETURA.md",
+      "bytes": 3570,
+      "sha256": "92a127ca040452d1221105869747a6828afb3d1becad66c2964ce1b969203eef"
+    },
+    {
+      "path": "docs/05_OKANDA.md",
+      "bytes": 3627,
+      "sha256": "e8b279d832e8f8e1f945aceb62b1c7492d395ba373dca10f73cd974ed1cbe648"
+    },
+    {
+      "path": "docs/06_DADOS_PRIVACIDADE.md",
+      "bytes": 4149,
+      "sha256": "c8ee84d8c3a06b11e7bc42c840958e32962e7dc0a75976855f2b9b4b21d0e926"
+    },
+    {
+      "path": "docs/07_ANALYTICS_EMAIL.md",
+      "bytes": 2291,
+      "sha256": "59f445b34bb2dc2d92ef499912b1aa079584d9b4eedcb890b71dde6ec272f7cb"
+    },
+    {
+      "path": "docs/08_PRODUCAO_RECURSOS.md",
+      "bytes": 2144,
+      "sha256": "49c5247fd977230ea76a300ac7cf2fab57f086983bf7da58fb9d937cf4bc444d"
+    },
+    {
+      "path": "docs/09_EXECUCAO.md",
+      "bytes": 3893,
+      "sha256": "278906877dce4ffaee3c67bba2a68ce2092f2dd66574bf878280e6a122d52bc1"
+    },
+    {
+      "path": "docs/10_PUBLICACAO.md",
+      "bytes": 2308,
+      "sha256": "20ff1f24968e29a16231910be0cdba17c2c36155d9de0a50ddf77403cb50f56d"
+    },
+    {
+      "path": "docs/11_GITHUB.md",
+      "bytes": 2926,
+      "sha256": "5d1638173084d718ce9ac2df307124faf6733a89c17f568f123535ad1ed7e0d5"
+    },
+    {
+      "path": "docs/12_FONTES.md",
+      "bytes": 2179,
+      "sha256": "fd8d665464115f52080c48b7d4f6d8fdac7d15892306edf51b2f275d4d1e0905"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "bytes": 1464,
+      "sha256": "fb628642f055033d1e31de36ac6fc07bb0ac55e903969bd58f578c8ec09ee091"
+    },
+    {
+      "path": "qa/ACCEPTANCE.md",
+      "bytes": 3110,
+      "sha256": "e2ed7df09f833c0088332e26534bcd38dbdfc6ca3018e858183b295c6b180202"
+    },
+    {
+      "path": "qa/VALIDATION_REPORT.md",
+      "bytes": 2221,
+      "sha256": "a1e4913d061f48ecdef20a838eba70707914e96eb18fb78007df707f24a81886"
+    },
+    {
+      "path": "qa/check_spec.py",
+      "bytes": 8450,
+      "sha256": "1b54a53fc3bf2965bf8d5160cbb9f4a50d81f6889241cd17cb3228af335ae0c0"
+    },
+    {
+      "path": "qa/fixtures/analysis-valid.json",
+      "bytes": 1049,
+      "sha256": "0c4e959471152d67bcb27be46c1884ca733e06846a09d7c0dd309a832182ec80"
+    },
+    {
+      "path": "qa/fixtures/cv-ficticio.txt",
+      "bytes": 433,
+      "sha256": "12e1f91c0300c510a0395bcf6bc1a953bebcfc455b8493f4568de56a53599bdf"
+    },
+    {
+      "path": "qa/fixtures/cv-prompt-injection.txt",
+      "bytes": 531,
+      "sha256": "10a86e1743f0737623b7b6cc1816d29a8f1c525fb2e9efb4d9916a201104c474"
+    },
+    {
+      "path": "reference/analysis_validation.py",
+      "bytes": 4269,
+      "sha256": "aafa6c7d2101bc9925f56beade378c305f5a8253f5cde986c12edb9ba1932847"
+    },
+    {
+      "path": "reference/quiz_engine.py",
+      "bytes": 2702,
+      "sha256": "4ac7f2d6f5eb41cc6d8ebd6589594dd17d23053f36e1148d857060500534c08f"
+    },
+    {
+      "path": "scripts/create-github-repo.sh",
+      "bytes": 2935,
+      "sha256": "8d4f200f04c7badc212d4265d66fcbc18cb51fb8a306bc9b53c11ead9ff00a6c"
+    },
+    {
+      "path": "scripts/verify_manifest.py",
+      "bytes": 1202,
+      "sha256": "33ef049ef246a28909ee30995d7e473e1ab284c6a741436a514afd885b6c4e5d"
+    }
+  ]
+}

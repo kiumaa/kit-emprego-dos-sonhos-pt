@@ -1,0 +1,27 @@
+{
+  "id": "essencial",
+  "name": "Essencial",
+  "type": "static_download_template",
+  "onlineEditing": false,
+  "photoOptional": false,
+  "columns": 1,
+  "paper": "A4",
+  "designTokens": "design/tokens.json",
+  "brandingInUserCv": false,
+  "sections": [
+    "Nome e contactos profissionais",
+    "Função / perfil profissional",
+    "Experiência",
+    "Formação",
+    "Projetos relevantes",
+    "Competências",
+    "Idiomas, quando relevantes"
+  ],
+  "deliverables": [
+    "cv-essencial-modelo.docx",
+    "cv-essencial-exemplo-ficticio.docx",
+    "cv-essencial-referencia.pdf"
+  ],
+  "status": "source_ready_not_rendered",
+  "instructions": "Usar estilos nativos DOCX. Modelo estático para edição externa. Não prometer compatibilidade universal ATS. Sem dados reais ou fontes redistribuídas."
+}

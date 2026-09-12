@@ -1,0 +1,66 @@
+{
+  "version": "2.0",
+  "entitlement": "kit",
+  "lessons": [
+    {
+      "slug": "01-objetivo",
+      "title": "Define o teu próximo passo",
+      "source": "content/kit/licoes/01-objetivo.md",
+      "order": 1
+    },
+    {
+      "slug": "02-ler-vaga",
+      "title": "Lê a vaga antes de adaptar o CV",
+      "source": "content/kit/licoes/02-ler-vaga.md",
+      "order": 2
+    },
+    {
+      "slug": "03-estrutura-cv",
+      "title": "Escolhe e preenche um modelo de CV",
+      "source": "content/kit/licoes/03-estrutura-cv.md",
+      "order": 3
+    },
+    {
+      "slug": "04-experiencia",
+      "title": "Descreve o que fizeste com exemplos concretos",
+      "source": "content/kit/licoes/04-experiencia.md",
+      "order": 4
+    },
+    {
+      "slug": "05-primeiro-emprego",
+      "title": "Apresenta formação e projetos sem inventar experiência",
+      "source": "content/kit/licoes/05-primeiro-emprego.md",
+      "order": 5
+    },
+    {
+      "slug": "06-mensagens",
+      "title": "Prepara uma mensagem que acompanha a candidatura",
+      "source": "content/kit/licoes/06-mensagens.md",
+      "order": 6
+    },
+    {
+      "slug": "07-organizacao",
+      "title": "Organiza as candidaturas sem perder o próximo passo",
+      "source": "content/kit/licoes/07-organizacao.md",
+      "order": 7
+    },
+    {
+      "slug": "08-usar-ia",
+      "title": "Usa IA como apoio, não como autora da tua experiência",
+      "source": "content/kit/licoes/08-usar-ia.md",
+      "order": 8
+    },
+    {
+      "slug": "09-plano",
+      "title": "Segue um plano de sete dias ao teu ritmo",
+      "source": "content/kit/licoes/09-plano.md",
+      "order": 9
+    },
+    {
+      "slug": "10-revisao",
+      "title": "Revê antes de enviar e aprende com o processo",
+      "source": "content/kit/licoes/10-revisao.md",
+      "order": 10
+    }
+  ]
+}

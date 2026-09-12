@@ -1,0 +1,66 @@
+/* Generated from design/tokens.json. Regenerate after changing tokens. */
+:root {
+  --font-primary: "Manrope", Arial, Helvetica, sans-serif;
+  --color-background: #FFFFFF;
+  --color-surface: #F5F5F7;
+  --color-surface-raised: #FFFFFF;
+  --color-text: #1D1D1F;
+  --color-text-secondary: #51515A;
+  --color-border: #D2D2D7;
+  --color-accent: #0057D9;
+  --color-accent-hover: #0047B3;
+  --color-accent-soft: #EDF3FF;
+  --color-on-accent: #FFFFFF;
+  --color-success: #216E45;
+  --color-warning: #805B00;
+  --color-danger: #B42318;
+  --color-focus: #0057D9;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --radius-large: 28px;
+  --radius-pill: 999px;
+  --type-hero-desktop: 64px;
+  --type-hero-mobile: 40px;
+  --type-h1-desktop: 48px;
+  --type-h1-mobile: 32px;
+  --type-h2-desktop: 36px;
+  --type-h2-mobile: 28px;
+  --type-h3: 24px;
+  --type-body: 17px;
+  --type-small: 14px;
+  --type-label: 14px;
+  --type-button: 16px;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --line-height-heading: 1.08;
+  --line-height-subheading: 1.2;
+  --line-height-body: 1.55;
+  --layout-max-content: 1200px;
+  --layout-reading: 720px;
+  --layout-form: 560px;
+  --layout-mobile-gutter: 20px;
+  --layout-desktop-gutter: 40px;
+  --layout-section-mobile: 56px;
+  --layout-section-desktop: 96px;
+  --layout-control-height: 48px;
+  --shadow-card: 0 8px 32px rgba(29, 29, 31, 0.06);
+  --shadow-overlay: 0 16px 48px rgba(29, 29, 31, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,2 @@
+# Design único
+Aplicar `design/tokens.json`, `design/DESIGN_SYSTEM.md` e o inventário de componentes. Manrope/fallback, branco, grafite e azul discreto; inspiração de qualidade Apple, identidade própria. Mesma linguagem em páginas, produtos, emails, anúncios e vídeo. Não importar fontes para o repositório. Não usar editor de CV em mockups. Rever desktop/mobile e amostra de documento antes de concluir uma fatia.

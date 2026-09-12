@@ -1,0 +1,106 @@
+{
+  "version": "2.0",
+  "usage": "Copiar para a ferramenta de IA escolhida pelo utilizador, com dados minimizados. O kit não inclui planos de terceiros nem IA ilimitada. Rever sempre a resposta.",
+  "prompts": [
+    {
+      "id": "objetivo",
+      "text": "Ajuda-me a formular um objetivo profissional para [função], usando apenas estes factos: [factos]. Apresenta três versões curtas. Não acrescentes competências."
+    },
+    {
+      "id": "requisitos",
+      "text": "A partir desta vaga [texto], separa requisitos obrigatórios, preferenciais e responsabilidades, apenas quando isso for explícito. Assinala ambiguidades em vez de as resolveres por suposição."
+    },
+    {
+      "id": "mapa-evidencia",
+      "text": "Relaciona estes requisitos [lista] com estes exemplos reais [lista]. Quando não existe exemplo, escreve “sem evidência fornecida”. Não inventes correspondências."
+    },
+    {
+      "id": "resumo",
+      "text": "Revê este resumo profissional [texto] para a função [função]. Mantém os factos, remove generalidades e explica as alterações. Português de Portugal."
+    },
+    {
+      "id": "experiencia",
+      "text": "Torna esta descrição de experiência mais clara [excerto]. Não acrescentes números, cargo, responsabilidades ou competências. Dá duas alternativas e explica a diferença."
+    },
+    {
+      "id": "resultados",
+      "text": "Com base neste relato [factos], ajuda-me a identificar resultados que posso demonstrar. Faz perguntas sobre o que falta. Não assumes percentagens ou metas alcançadas."
+    },
+    {
+      "id": "projeto",
+      "text": "Ajuda-me a descrever este projeto académico [factos] indicando objetivo, papel, tarefas e resultado. Não o apresentes como emprego formal."
+    },
+    {
+      "id": "transferiveis",
+      "text": "A minha experiência é [factos] e quero candidatar-me a [função]. Identifica possíveis competências transferíveis e a evidência disponível. Distingue hipótese de demonstração."
+    },
+    {
+      "id": "lacunas",
+      "text": "Compara esta vaga [texto] com estes factos do meu percurso [texto]. Lista informação em falta para avaliar a relação. Não concluas que não tenho uma competência só porque não foi mencionada."
+    },
+    {
+      "id": "clareza",
+      "text": "Lê este parágrafo [texto] como alguém que não conhece o meu trabalho. Diz o que se percebe e quais expressões são vagas. Sugere melhorias sem mudar factos."
+    },
+    {
+      "id": "concisao",
+      "text": "Encurta este texto [texto] mantendo função, atividades e contexto. Não elimines informações que alterem o significado. Mostra o que retiraste."
+    },
+    {
+      "id": "ordem",
+      "text": "Sugere uma ordem para estas secções de CV [secções] tendo em conta a função [função] e o percurso [factos]. Explica a escolha sem prometer aprovação em sistemas."
+    },
+    {
+      "id": "ortografia",
+      "text": "Revê ortografia e gramática em português de Portugal: [texto]. Não alteres o sentido. Lista correções importantes."
+    },
+    {
+      "id": "primeiro-email",
+      "text": "Escreve um email curto de candidatura para [função] usando estes factos [factos]. Identifica todos os campos que ainda preciso de preencher."
+    },
+    {
+      "id": "espontanea",
+      "text": "Ajuda-me a preparar uma candidatura espontânea a [empresa]. Só conheço estes factos sobre a empresa [factos]. Não inventes elogios, contactos ou vagas."
+    },
+    {
+      "id": "carta-experiencia",
+      "text": "Cria uma estrutura de carta para [função] com base em [factos]. Mantém espaço para um motivo específico de interesse. Não acrescentes resultados não fornecidos."
+    },
+    {
+      "id": "carta-primeiro",
+      "text": "Ajuda-me a estruturar uma carta para o primeiro emprego usando [formação e projetos]. Distingue claramente formação de experiência profissional."
+    },
+    {
+      "id": "carta-mudanca",
+      "text": "Estrutura uma carta para transição de [área] para [área], usando [factos]. Mostra ligações transferíveis sem fingir experiência na nova função."
+    },
+    {
+      "id": "assuntos",
+      "text": "Propõe cinco assuntos informativos e sóbrios para uma candidatura a [função]. Sem urgência artificial ou linguagem promocional."
+    },
+    {
+      "id": "seguimento",
+      "text": "Redige uma mensagem breve para pedir atualização da candidatura enviada em [data], respeitando este prazo indicado [prazo]. Não pressiones nem assumes uma decisão."
+    },
+    {
+      "id": "confirmar",
+      "text": "Ajuda-me a confirmar uma entrevista com estes dados [data/hora/canal]. Assinala o que falta confirmar. Não inventes moradas ou ligações."
+    },
+    {
+      "id": "organizar",
+      "text": "Transforma estas tarefas de candidatura [lista sem dados pessoais] num plano simples de próximos passos. Não envies mensagens nem executes ações."
+    },
+    {
+      "id": "semana",
+      "text": "Ajuda-me a distribuir estas tarefas [lista] pela minha disponibilidade [janelas]. Prefiro passos concretos a metas de resultado que não controlo."
+    },
+    {
+      "id": "revisao-final",
+      "text": "Usa esta checklist [itens] para rever a minha mensagem e excertos [texto]. Distingue erros confirmados de sugestões. Não dês uma nota de empregabilidade."
+    },
+    {
+      "id": "verificar-ia",
+      "text": "Compara original [texto] e versão revista [texto]. Identifica qualquer facto, número, competência ou responsabilidade acrescentado. Sinaliza o que preciso de confirmar."
+    }
+  ]
+}

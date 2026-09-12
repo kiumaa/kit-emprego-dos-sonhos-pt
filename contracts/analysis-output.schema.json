@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CvAnalysisReportInternal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source",
+    "summary",
+    "observations",
+    "priorities",
+    "limitations"
+  ],
+  "properties": {
+    "source": {
+      "const": "cv"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion",
+          "status",
+          "evidenceType",
+          "evidenceExcerpt",
+          "suggestion"
+        ],
+        "properties": {
+          "criterion": {
+            "enum": [
+              "objective",
+              "text_structure",
+              "clarity",
+              "evidence",
+              "job_relevance"
+            ]
+          },
+          "status": {
+            "enum": [
+              "strength",
+              "improve",
+              "not_evaluable"
+            ]
+          },
+          "evidenceType": {
+            "enum": [
+              "quote",
+              "absence_in_text",
+              "not_available"
+            ]
+          },
+          "evidenceExcerpt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 600
+          },
+          "suggestion": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 800
+          }
+        }
+      }
+    },
+    "priorities": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion",
+          "title",
+          "action"
+        ],
+        "properties": {
+          "criterion": {
+            "enum": [
+              "objective",
+              "text_structure",
+              "clarity",
+              "evidence",
+              "job_relevance"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 800
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 400
+      }
+    }
+  }
+}

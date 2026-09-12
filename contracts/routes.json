@@ -1,0 +1,149 @@
+{
+  "version": "2.0",
+  "routes": [
+    {
+      "id": "home",
+      "path": "/",
+      "access": "public",
+      "purpose": "Entrada CV/quiz"
+    },
+    {
+      "id": "analyze",
+      "path": "/analisar-cv",
+      "access": "public",
+      "purpose": "Envio de ficheiro ou texto"
+    },
+    {
+      "id": "quiz",
+      "path": "/quiz",
+      "access": "public",
+      "purpose": "Oito perguntas"
+    },
+    {
+      "id": "processing",
+      "path": "/diagnostico/em-processamento",
+      "access": "session",
+      "purpose": "Estado real de processamento"
+    },
+    {
+      "id": "result",
+      "path": "/resultado/[id]",
+      "access": "session_or_verified_owner",
+      "purpose": "Resultado + captura + VSL + oferta"
+    },
+    {
+      "id": "product",
+      "path": "/kit",
+      "access": "public",
+      "purpose": "Oferta direta"
+    },
+    {
+      "id": "thanks",
+      "path": "/obrigado",
+      "access": "order_session",
+      "purpose": "Confirmação legítima ou pendente"
+    },
+    {
+      "id": "login",
+      "path": "/entrar",
+      "access": "public",
+      "purpose": "Autenticação e recuperação"
+    },
+    {
+      "id": "accountHome",
+      "path": "/area",
+      "access": "entitled",
+      "purpose": "Próximo passo e progresso"
+    },
+    {
+      "id": "library",
+      "path": "/area/biblioteca",
+      "access": "entitled",
+      "purpose": "Recursos e formatos"
+    },
+    {
+      "id": "lesson",
+      "path": "/area/licoes/[slug]",
+      "access": "entitled",
+      "purpose": "Conteúdo e exercício"
+    },
+    {
+      "id": "templates",
+      "path": "/area/modelos-cv",
+      "access": "entitled",
+      "purpose": "Modelos descarregáveis, sem edição online"
+    },
+    {
+      "id": "messages",
+      "path": "/area/mensagens",
+      "access": "entitled",
+      "purpose": "Modelos copiáveis"
+    },
+    {
+      "id": "tracker",
+      "path": "/area/candidaturas",
+      "access": "entitled",
+      "purpose": "Gestor de candidaturas"
+    },
+    {
+      "id": "plan",
+      "path": "/area/plano",
+      "access": "entitled",
+      "purpose": "Tarefas de sete dias"
+    },
+    {
+      "id": "interview",
+      "path": "/area/entrevista",
+      "access": "entitlement_entrevista",
+      "purpose": "Bump adquirido"
+    },
+    {
+      "id": "linkedin",
+      "path": "/area/linkedin",
+      "access": "entitlement_linkedin",
+      "purpose": "Bump adquirido"
+    },
+    {
+      "id": "settings",
+      "path": "/area/conta",
+      "access": "authenticated",
+      "purpose": "Acessos, privacidade e exportação"
+    },
+    {
+      "id": "support",
+      "path": "/apoio",
+      "access": "public",
+      "purpose": "Contactos e ajuda"
+    },
+    {
+      "id": "privacy",
+      "path": "/privacidade",
+      "access": "public",
+      "purpose": "Política real aprovada"
+    },
+    {
+      "id": "terms",
+      "path": "/termos",
+      "access": "public",
+      "purpose": "Condições reais"
+    },
+    {
+      "id": "cookies",
+      "path": "/cookies",
+      "access": "public",
+      "purpose": "Preferências e informação"
+    },
+    {
+      "id": "designSystem",
+      "path": "/design-system",
+      "access": "development_or_protected_preview",
+      "purpose": "Inventário interno"
+    },
+    {
+      "id": "admin",
+      "path": "/admin",
+      "access": "admin",
+      "purpose": "Encomendas, acessos, erros e operação mínima"
+    }
+  ]
+}

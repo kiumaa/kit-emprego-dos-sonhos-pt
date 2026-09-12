@@ -1,0 +1,77 @@
+{
+  "notice": "Proposta para o nosso backend; não corresponde à API da OKANDA. Implementar auth, rate limit, CSRF e validação.",
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/api/diagnostics/cv",
+      "auth": "anonymous_session",
+      "action": "validar e criar job de análise"
+    },
+    {
+      "method": "POST",
+      "path": "/api/diagnostics/quiz",
+      "auth": "anonymous_session",
+      "action": "validar oito escolhas e calcular resultado"
+    },
+    {
+      "method": "GET",
+      "path": "/api/diagnostics/[id]",
+      "auth": "session_owner_or_verified_user",
+      "action": "estado/resultado próprio, no-store"
+    },
+    {
+      "method": "POST",
+      "path": "/api/reports/send",
+      "auth": "session_owner",
+      "action": "pedir envio do plano, sem opt-in implícito"
+    },
+    {
+      "method": "POST",
+      "path": "/api/commerce/checkout",
+      "auth": "validated_session",
+      "action": "criar intenção e redirecionar para OKANDA real"
+    },
+    {
+      "method": "POST",
+      "path": "/api/commerce/okanda/webhook",
+      "auth": "verified_provider_signature",
+      "action": "normalizar e processar confirmação idempotente"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/[id]",
+      "auth": "order_owner",
+      "action": "ler estado verificado"
+    },
+    {
+      "method": "POST",
+      "path": "/api/resources/[id]/download",
+      "auth": "valid_entitlement",
+      "action": "URL assinada de recurso privado"
+    },
+    {
+      "method": "GET|POST",
+      "path": "/api/applications",
+      "auth": "authenticated_owner",
+      "action": "listar/criar candidaturas próprias"
+    },
+    {
+      "method": "PATCH|DELETE",
+      "path": "/api/applications/[id]",
+      "auth": "authenticated_owner",
+      "action": "atualizar/arquivar registo próprio"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/export",
+      "auth": "authenticated_owner",
+      "action": "CSV sanitizado"
+    },
+    {
+      "method": "POST",
+      "path": "/api/privacy/request",
+      "auth": "verified_user_or_verified_request",
+      "action": "pedido de direitos e auditoria"
+    }
+  ]
+}

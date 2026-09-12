@@ -1,0 +1,290 @@
+{
+  "version": "2.0",
+  "locale": "pt-PT",
+  "scoreMeaning": "Índice interno de autorrelato de preparação; não mede empregabilidade.",
+  "displayNumericScore": false,
+  "questions": [
+    {
+      "id": "q1",
+      "dimension": null,
+      "question": "Que próximo passo queres preparar?",
+      "options": [
+        {
+          "id": "primeiro",
+          "label": "A minha primeira candidatura"
+        },
+        {
+          "id": "nova",
+          "label": "Uma nova oportunidade na minha área"
+        },
+        {
+          "id": "mudanca",
+          "label": "Uma mudança de área profissional"
+        },
+        {
+          "id": "explorar",
+          "label": "Ainda estou a definir o objetivo"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "dimension": null,
+      "question": "Qual é a área principal que estás a considerar?",
+      "options": [
+        {
+          "id": "administrativo",
+          "label": "Administrativo, apoio e atendimento"
+        },
+        {
+          "id": "comercio",
+          "label": "Comércio e serviços"
+        },
+        {
+          "id": "tecnologia",
+          "label": "Tecnologia e funções digitais"
+        },
+        {
+          "id": "operacoes",
+          "label": "Operações e funções técnicas"
+        },
+        {
+          "id": "outra",
+          "label": "Outra área ou ainda por definir"
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "dimension": "cv",
+      "question": "Em que ponto está o teu CV?",
+      "options": [
+        {
+          "id": "nao-tenho",
+          "label": "Ainda não tenho um CV",
+          "score": 0
+        },
+        {
+          "id": "desatualizado",
+          "label": "Tenho um CV, mas precisa de atualização",
+          "score": 1
+        },
+        {
+          "id": "atualizado",
+          "label": "Está atualizado, mas falta uma revisão",
+          "score": 2
+        },
+        {
+          "id": "revisto",
+          "label": "Está atualizado e já foi revisto",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "dimension": "adaptacao",
+      "question": "Como preparas o CV para cada oportunidade?",
+      "options": [
+        {
+          "id": "igual",
+          "label": "Uso o mesmo documento sem alterações",
+          "score": 0
+        },
+        {
+          "id": "pontual",
+          "label": "Faço pequenas alterações pontuais",
+          "score": 1
+        },
+        {
+          "id": "requisitos",
+          "label": "Revejo os requisitos e ajusto o destaque",
+          "score": 2
+        },
+        {
+          "id": "evidencia",
+          "label": "Relaciono requisitos com exemplos verdadeiros",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "dimension": "evidencia",
+      "question": "Como apresentas a tua experiência, formação ou projetos?",
+      "options": [
+        {
+          "id": "nao-sei",
+          "label": "Ainda não sei o que destacar",
+          "score": 0
+        },
+        {
+          "id": "lista",
+          "label": "Faço sobretudo uma lista de tarefas ou cursos",
+          "score": 1
+        },
+        {
+          "id": "exemplos",
+          "label": "Incluo alguns exemplos concretos",
+          "score": 2
+        },
+        {
+          "id": "contexto",
+          "label": "Explico o meu papel e o que fiz em cada exemplo",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "dimension": "organizacao",
+      "question": "Como acompanhas as oportunidades a que te candidatas?",
+      "options": [
+        {
+          "id": "memoria",
+          "label": "Não tenho um registo organizado",
+          "score": 0
+        },
+        {
+          "id": "notas",
+          "label": "Tenho notas dispersas ou emails guardados",
+          "score": 1
+        },
+        {
+          "id": "lista",
+          "label": "Uso uma lista com candidaturas e estados",
+          "score": 2
+        },
+        {
+          "id": "proximos",
+          "label": "Registo também próximos passos e datas",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "dimension": "mensagem",
+      "question": "Como preparas a mensagem de candidatura?",
+      "options": [
+        {
+          "id": "dificuldade",
+          "label": "Tenho dificuldade em saber o que escrever",
+          "score": 0
+        },
+        {
+          "id": "generica",
+          "label": "Uso uma mensagem genérica",
+          "score": 1
+        },
+        {
+          "id": "adaptada",
+          "label": "Adapto a mensagem à função ou empresa",
+          "score": 2
+        },
+        {
+          "id": "concreta",
+          "label": "Adapto e incluo uma ligação concreta à oportunidade",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "dimension": "revisao",
+      "question": "O que fazes antes de enviar a candidatura?",
+      "options": [
+        {
+          "id": "sem-rotina",
+          "label": "Ainda não tenho uma rotina de revisão",
+          "score": 0
+        },
+        {
+          "id": "rapida",
+          "label": "Faço uma leitura rápida",
+          "score": 1
+        },
+        {
+          "id": "verifico",
+          "label": "Verifico texto, contactos e anexos",
+          "score": 2
+        },
+        {
+          "id": "checklist",
+          "label": "Uso uma checklist e confirmo as instruções da vaga",
+          "score": 3
+        }
+      ]
+    }
+  ],
+  "priorityOrder": [
+    "cv",
+    "adaptacao",
+    "evidencia",
+    "organizacao",
+    "mensagem",
+    "revisao"
+  ],
+  "recommendations": {
+    "cv": {
+      "title": "Preparar o teu CV",
+      "action": "Descarrega um modelo e começa por confirmar contactos, objetivo e uma experiência ou projeto verdadeiro.",
+      "refinement": "Revê se o CV que vais usar continua atualizado para esta oportunidade.",
+      "resource": "cv-essencial"
+    },
+    "adaptacao": {
+      "title": "Ligar o percurso à oportunidade",
+      "action": "Escolhe três requisitos de uma vaga e escreve um exemplo verdadeiro para cada um.",
+      "refinement": "Confirma que os exemplos em destaque respondem às responsabilidades desta vaga.",
+      "resource": "guia"
+    },
+    "evidencia": {
+      "title": "Mostrar exemplos concretos",
+      "action": "Escolhe uma tarefa ou projeto e explica o que fizeste, em que contexto e qual foi o teu papel.",
+      "refinement": "Revê se cada resultado referido tem contexto e corresponde ao teu contributo real.",
+      "resource": "guia"
+    },
+    "organizacao": {
+      "title": "Definir o próximo passo",
+      "action": "Cria um registo de uma oportunidade com empresa, função, estado e uma ação seguinte.",
+      "refinement": "Atualiza os estados e datas para não perder o próximo passo das oportunidades em curso.",
+      "resource": "tracker"
+    },
+    "mensagem": {
+      "title": "Dar contexto à mensagem",
+      "action": "Escreve por que estás a contactar aquela empresa e uma ligação concreta entre o teu percurso e a função.",
+      "refinement": "Retira repetições e confirma se a mensagem continua específica para esta empresa.",
+      "resource": "mensagens"
+    },
+    "revisao": {
+      "title": "Rever antes de enviar",
+      "action": "Confirma destinatário, função, contactos, anexos e instruções da oferta antes do envio.",
+      "refinement": "Guarda a versão enviada e verifica se registaste o próximo passo.",
+      "resource": "checklists"
+    }
+  },
+  "bands": [
+    {
+      "min": 0,
+      "max": 6,
+      "id": "base",
+      "title": "Preparar a base",
+      "summary": "Pelas tuas respostas, o melhor ponto de partida é construir uma base simples e organizada para a candidatura."
+    },
+    {
+      "min": 7,
+      "max": 12,
+      "id": "consolidar",
+      "title": "Consolidar a candidatura",
+      "summary": "Pelas tuas respostas, já tens parte da preparação feita. O próximo passo é tornar o processo mais consistente."
+    },
+    {
+      "min": 13,
+      "max": 18,
+      "id": "afinar",
+      "title": "Afinar e acompanhar",
+      "summary": "Pelas tuas respostas, já tens uma preparação estruturada. Vale a pena rever os detalhes e acompanhar os próximos passos."
+    }
+  ],
+  "disclaimer": "Este resultado baseia-se nas tuas respostas. Não analisámos um documento nem prevemos decisões de recrutamento."
+}

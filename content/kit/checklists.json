@@ -1,0 +1,43 @@
+{
+  "version": "2.0",
+  "checklists": [
+    {
+      "id": "cv",
+      "items": [
+        "Nome e contactos corretos e consultados regularmente.",
+        "Função/objetivo identificável.",
+        "Datas e qualificações verificadas.",
+        "Experiência descrita sem factos ou números inventados.",
+        "Projetos académicos identificados como projetos.",
+        "Competências sustentadas por exemplos.",
+        "Sem campos de modelo por preencher.",
+        "Sem dados pessoais desnecessários ou de terceiros.",
+        "Todas as páginas revistas após exportação externa.",
+        "Ficheiro final abre e tem um nome claro."
+      ]
+    },
+    {
+      "id": "candidatura",
+      "items": [
+        "Oferta e canal verificados.",
+        "Instruções, prazo e documentos respeitados.",
+        "Destinatário, empresa e função corretos.",
+        "Mensagem adaptada a esta oportunidade.",
+        "Anexos corretos e acessíveis.",
+        "Ortografia e tom revistos.",
+        "Cópia da versão enviada guardada.",
+        "Candidatura registada com próximo passo."
+      ]
+    },
+    {
+      "id": "revisao-semanal",
+      "items": [
+        "Atualizar estados no gestor.",
+        "Arquivar oportunidades concluídas.",
+        "Rever próximos passos e prazos.",
+        "Escolher candidaturas prioritárias.",
+        "Rever um elemento do processo, sem conclusões sobre causas desconhecidas."
+      ]
+    }
+  ]
+}
