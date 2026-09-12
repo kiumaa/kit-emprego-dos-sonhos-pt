@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       value: token,
       httpOnly: true,
       sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production' && process.env.ENABLE_DEV_OTP !== 'true',
       maxAge: 30 * 24 * 60 * 60, // 30 dias
       path: '/',
     });

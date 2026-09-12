@@ -15,7 +15,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Em modo produção sem fornecedor de email / Clerk configurado, reportamos estado pendente
-    const isProd = process.env.NODE_ENV === 'production' && !process.env.CLERK_SECRET_KEY && !process.env.RESEND_API_KEY;
+    const isProd =
+      process.env.NODE_ENV === 'production' &&
+      !process.env.CLERK_SECRET_KEY &&
+      !process.env.RESEND_API_KEY &&
+      process.env.ENABLE_DEV_OTP !== 'true';
     if (isProd) {
       return NextResponse.json(
         {
