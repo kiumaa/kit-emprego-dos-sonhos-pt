@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomInt } from 'node:crypto';
-import { setPendingOtp } from '@/server/auth/otp-store';
+import { setPendingOtp, signPendingOtp } from '@/server/auth/otp-store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -71,12 +71,26 @@ export async function POST(request: NextRequest) {
     // Em desenvolvimento ou ambiente de teste, devolvemos devCode para testes imediatos
     const devCode = process.env.NODE_ENV !== 'production' || process.env.ENABLE_DEV_OTP === 'true' ? code : undefined;
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       ok: true,
       message: 'Código de verificação gerado.',
       expiresInSeconds: 600,
       devCode,
     });
+
+    const pendingToken = signPendingOtp(email, code, expiresAt);
+    const isHttps = request.url.startsWith('https://');
+    response.cookies.set({
+      name: 'keds_pending_otp',
+      value: pendingToken,
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isHttps,
+      maxAge: 600,
+      path: '/',
+    });
+
+    return response;
   } catch {
     return NextResponse.json({ ok: false, error: 'INTERNAL_ERROR' }, { status: 500 });
   }

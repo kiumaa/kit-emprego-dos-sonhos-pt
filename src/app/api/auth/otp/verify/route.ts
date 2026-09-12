@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'node:crypto';
-import { getPendingOtp, deletePendingOtp } from '@/server/auth/otp-store';
+import { getPendingOtp, deletePendingOtp, verifyAndDecodePendingOtpToken } from '@/server/auth/otp-store';
 import { signSessionPayload } from '@/server/auth/session';
 import { store } from '@/server/db/store';
 
@@ -17,27 +17,41 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, error: 'MISSING_FIELDS' }, { status: 400 });
     }
 
-    const pending = getPendingOtp(email);
-    if (!pending) {
+    const pendingToken = request.cookies.get('keds_pending_otp')?.value;
+    const pendingCookieData = pendingToken ? verifyAndDecodePendingOtpToken(pendingToken) : null;
+    const pendingMem = getPendingOtp(email);
+
+    let isMatch = false;
+
+    if (pendingCookieData && pendingCookieData.email === email) {
+      if (pendingCookieData.code === code) {
+        isMatch = true;
+      } else {
+        return NextResponse.json({ ok: false, error: 'INVALID_CODE', attemptsLeft: 3 }, { status: 400 });
+      }
+    } else if (pendingMem) {
+      if (Date.now() > pendingMem.expiresAt) {
+        deletePendingOtp(email);
+        return NextResponse.json({ ok: false, error: 'CODE_EXPIRED' }, { status: 400 });
+      }
+      if (pendingMem.attempts >= 5) {
+        deletePendingOtp(email);
+        return NextResponse.json({ ok: false, error: 'TOO_MANY_ATTEMPTS' }, { status: 429 });
+      }
+      if (pendingMem.code !== code) {
+        pendingMem.attempts += 1;
+        return NextResponse.json({ ok: false, error: 'INVALID_CODE', attemptsLeft: 5 - pendingMem.attempts }, { status: 400 });
+      }
+      isMatch = true;
+    } else {
       return NextResponse.json({ ok: false, error: 'CODE_EXPIRED_OR_NOT_FOUND' }, { status: 400 });
     }
 
-    if (Date.now() > pending.expiresAt) {
-      deletePendingOtp(email);
-      return NextResponse.json({ ok: false, error: 'CODE_EXPIRED' }, { status: 400 });
+    if (!isMatch) {
+      return NextResponse.json({ ok: false, error: 'INVALID_CODE' }, { status: 400 });
     }
 
-    if (pending.attempts >= 5) {
-      deletePendingOtp(email);
-      return NextResponse.json({ ok: false, error: 'TOO_MANY_ATTEMPTS' }, { status: 429 });
-    }
-
-    if (pending.code !== code) {
-      pending.attempts += 1;
-      return NextResponse.json({ ok: false, error: 'INVALID_CODE', attemptsLeft: 5 - pending.attempts }, { status: 400 });
-    }
-
-    // Código válido! Consumir OTP
+    // Código válido! Consumir OTP em memória se existir
     deletePendingOtp(email);
 
     // Subject determinístico ou gerado
@@ -52,13 +66,27 @@ export async function POST(request: NextRequest) {
       claimedCount,
     });
 
+    const isHttps = request.url.startsWith('https://');
+
+    // Definir cookie de sessão
     response.cookies.set({
       name: 'keds_session',
       value: token,
       httpOnly: true,
       sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production' && process.env.ENABLE_DEV_OTP !== 'true',
+      secure: isHttps,
       maxAge: 30 * 24 * 60 * 60, // 30 dias
+      path: '/',
+    });
+
+    // Limpar cookie de pending OTP
+    response.cookies.set({
+      name: 'keds_pending_otp',
+      value: '',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isHttps,
+      maxAge: 0,
       path: '/',
     });
 
@@ -67,3 +95,4 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'INTERNAL_ERROR' }, { status: 500 });
   }
 }
+
