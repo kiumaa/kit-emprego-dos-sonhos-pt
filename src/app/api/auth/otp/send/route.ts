@@ -37,6 +37,37 @@ export async function POST(request: NextRequest) {
 
     setPendingOtp(email, code, expiresAt);
 
+    // Se tivermos fornecedor Resend configurado, enviamos o email real
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'Kit Emprego dos Sonhos <onboarding@resend.dev>';
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: fromEmail,
+            to: [email],
+            subject: `O teu código de acesso: ${code} — Kit Emprego dos Sonhos`,
+            html: `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1D1D1F;">
+                <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #1D1D1F;">Acesso ao Kit Emprego dos Sonhos</h2>
+                <p style="font-size: 15px; line-height: 1.5; color: #51515A;">Utiliza o código abaixo para acederes aos teus produtos e ferramentas:</p>
+                <div style="margin: 24px 0; padding: 20px; background-color: #F5F5F7; border-radius: 12px; text-align: center;">
+                  <span style="font-size: 32px; font-weight: 800; letter-spacing: 0.2em; color: #0057D9;">${code}</span>
+                </div>
+                <p style="font-size: 13px; color: #86868B; line-height: 1.4;">Este código expira em 10 minutos. Se não fizeste este pedido, podes ignorar esta mensagem com segurança.</p>
+              </div>
+            `,
+          }),
+        });
+      } catch (err) {
+        console.error('Erro ao enviar email via Resend:', err);
+      }
+    }
+
     // Em desenvolvimento ou ambiente de teste, devolvemos devCode para testes imediatos
     const devCode = process.env.NODE_ENV !== 'production' || process.env.ENABLE_DEV_OTP === 'true' ? code : undefined;
 
