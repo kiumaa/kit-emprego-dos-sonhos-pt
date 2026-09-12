@@ -42,6 +42,10 @@ export const Footer: React.FC = () => {
             fontSize: '13px',
           }}
         >
+          <a href="/acesso" style={{ color: 'var(--color-text-secondary)' }}>
+            Aceder ao meu produto
+          </a>
+          <span style={{ color: 'var(--color-border)' }}>·</span>
           <a href="/termos" style={{ color: 'var(--color-text-secondary)' }}>
             Termos
           </a>
