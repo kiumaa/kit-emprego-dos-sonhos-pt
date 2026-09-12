@@ -1,5 +1,6 @@
 import { cookies, headers } from 'next/headers';
 import { createHmac, timingSafeEqual } from 'node:crypto';
+import { store } from '@/server/db/store';
 
 export interface VerifiedSession {
   subject: string;
@@ -37,11 +38,13 @@ export async function getVerifiedSession(): Promise<VerifiedSession | null> {
   const testSubject = headerList.get('x-keds-auth-subject');
   const testEmail = headerList.get('x-keds-auth-email');
   if (testSubject && testEmail) {
-    return {
+    const verified = {
       subject: testSubject.trim(),
       email: testEmail.trim().toLowerCase(),
       isMock: true,
     };
+    store.seedTestEntitlementsIfApplicable(verified.email, verified.subject);
+    return verified;
   }
 
   // Cookie assinado
@@ -50,6 +53,7 @@ export async function getVerifiedSession(): Promise<VerifiedSession | null> {
   if (sessionCookie?.value) {
     const verified = verifySessionToken(sessionCookie.value);
     if (verified) {
+      store.seedTestEntitlementsIfApplicable(verified.email, verified.subject);
       return verified;
     }
   }

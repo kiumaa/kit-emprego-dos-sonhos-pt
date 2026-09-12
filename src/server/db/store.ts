@@ -79,6 +79,15 @@ export function hashEmail(email: string): string {
     .digest('hex');
 }
 
+export function isTestUserEmail(email: string): boolean {
+  if (!email) return false;
+  const normalized = email.trim().toLowerCase();
+  return (
+    normalized === 'teste@exemplo.pt' ||
+    Boolean(process.env.TEST_USER_EMAIL && normalized === process.env.TEST_USER_EMAIL.trim().toLowerCase())
+  );
+}
+
 class Store {
   private webhookEvents = new Map<string, WebhookEventRecord>();
   private entitlements = new Map<string, StoredEntitlement>();
@@ -86,6 +95,7 @@ class Store {
   private activationRequests = new Map<string, string>(); // key: `${entitlementId}:${requestId}` -> windowId
   private cvDrafts = new Map<string, StoredCVDraft>();
   private files = new Map<string, StoredFile>();
+  private subjectToEmail = new Map<string, string>();
 
   // Helper para testes e resets controlados
   clear() {
@@ -95,6 +105,74 @@ class Store {
     this.activationRequests.clear();
     this.cvDrafts.clear();
     this.files.clear();
+    this.subjectToEmail.clear();
+  }
+
+  seedTestEntitlementsIfApplicable(email: string, subject: string) {
+    if (!isTestUserEmail(email)) return;
+    this.subjectToEmail.set(subject, email.trim().toLowerCase());
+
+    const products: Array<{ key: 'kit' | 'entrevista' | 'linkedin'; price: number }> = [
+      { key: 'kit', price: 1499 },
+      { key: 'entrevista', price: 499 },
+      { key: 'linkedin', price: 599 },
+    ];
+
+    const now = Date.now();
+    const expires24h = now + 24 * 60 * 60 * 1000;
+
+    for (const p of products) {
+      const entId = `test_ent_${p.key}_${subject}`;
+      const existing = this.entitlements.get(entId);
+      if (!existing) {
+        const ent: StoredEntitlement = {
+          id: entId,
+          provider: 'test_portal',
+          saleId: `sale_test_${p.key}`,
+          productId: `prod_${p.key}`,
+          productKey: p.key,
+          emailLookupKey: hashEmail(email),
+          email: email.trim().toLowerCase(),
+          authSubject: subject,
+          status: 'active',
+          amountMinor: p.price,
+          currency: 'EUR',
+          offerVersion: 'v5_standard',
+          policyVersion: 'v5_standard',
+          maxActivations: 3,
+          activationsUsed: 1,
+          windowHours: 24,
+          accessExpiresAtMs: null,
+          createdAtMs: now,
+        };
+        this.entitlements.set(entId, ent);
+
+        const windowId = `test_win_${p.key}_${subject}`;
+        this.workWindows.set(windowId, {
+          id: windowId,
+          entitlementId: entId,
+          ordinal: 1,
+          startedAtMs: now,
+          expiresAtMs: expires24h,
+          revokedAtMs: null,
+        });
+      } else {
+        existing.authSubject = subject;
+        existing.status = 'active';
+        const activeWin = this.getActiveWindow(entId, now);
+        if (!activeWin) {
+          const windowId = `test_win_${p.key}_${subject}`;
+          this.workWindows.set(windowId, {
+            id: windowId,
+            entitlementId: entId,
+            ordinal: existing.activationsUsed || 1,
+            startedAtMs: now,
+            expiresAtMs: expires24h,
+            revokedAtMs: null,
+          });
+        }
+      }
+    }
   }
 
   getWebhookEvent(provider: string, eventId: string): WebhookEventRecord | undefined {
@@ -153,6 +231,7 @@ class Store {
   }
 
   claimEntitlements(email: string, subject: string): number {
+    this.seedTestEntitlementsIfApplicable(email, subject);
     const lookupKey = hashEmail(email);
     let count = 0;
     for (const ent of this.entitlements.values()) {
@@ -165,6 +244,10 @@ class Store {
   }
 
   getEntitlementsBySubject(subject: string): StoredEntitlement[] {
+    const email = this.subjectToEmail.get(subject);
+    if (email) {
+      this.seedTestEntitlementsIfApplicable(email, subject);
+    }
     const results: StoredEntitlement[] = [];
     for (const ent of this.entitlements.values()) {
       if (ent.authSubject === subject) {
@@ -180,6 +263,10 @@ class Store {
   }
 
   getEntitlementForProduct(subject: string, productKey: 'kit' | 'entrevista' | 'linkedin'): StoredEntitlement | undefined {
+    const email = this.subjectToEmail.get(subject);
+    if (email) {
+      this.seedTestEntitlementsIfApplicable(email, subject);
+    }
     for (const ent of this.entitlements.values()) {
       if (ent.authSubject === subject && ent.productKey === productKey && ent.status === 'active') {
         return { ...ent };
