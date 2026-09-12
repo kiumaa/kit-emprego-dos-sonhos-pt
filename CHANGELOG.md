@@ -41,6 +41,15 @@
 - **Leitor de Apresentação em Vídeo Vertical (Story 9:16)**: Implementação do formato vertical estilo story/reels (9:16), com barras de segmento tipo story no topo, botão de destaque pulsante `Sem som · Toca para ouvir` (reproduz desde o início com som) e barra de controlos integrada.
 - **Quiz Otimizado para 5 Perguntas**: Fluxo do utilizador reduzido para 5 perguntas diretas e de alto impacto (`q1`, `q3`, `q4`, `q5`, `q7`), com preenchimento determinístico de respostas de linha de base nas dimensões secundárias ao submeter, mantendo 100% de compatibilidade com os contratos de avaliação.
 - **Preço Atualizado para 14,99 €**: Atualização do valor da oferta principal para 14,99 € com a frase `pagamento único` posicionada verticalmente abaixo do preço em todos os blocos de conversão.
-- **Verificação e Conformidade**: 25/25 testes unitários aprovados, 23/23 testes de especificação Python validados, zero erros de tipagem TypeScript e compilação de produção Next.js 15 confirmada.
+## 3.3 — 12/09/2026 (Correção de Margens do Cabeçalho, Ocultação Visual do Skip Link e Apresentação de Análise de CV)
+- **Ocultação do Skip Link Visível**: O texto de acessibilidade `Saltar para o conteúdo principal` foi configurado com estilização dedicada em `src/app/globals.css`, ficando 100% invisível para a navegação normal e ativando-se apenas sob foco de teclado (`:focus-visible`).
+- **Margens e Espaçamento do Cabeçalho**: Definição da classe `.container` no CSS e injeção de margens explícitas (`paddingInline: clamp(20px, 4vw, 36px)`) no wrapper do `Header`, eliminando o problema onde o logótipo e o botão "Novo teste" tocavam nos extremos da janela.
+- **Página de Resultado Específica para Análise de CV**: A página `/resultado/[id]` agora distingue diagnósticos provenientes do CV (`source: 'cv'`) de diagnósticos do Quiz:
+  - Badge dedicada: `Diagnóstico do teu Currículo`.
+  - Exibição contextual da função pretendida do candidato (`Candidatura para: ...`).
+  - Apresentação dos excertos concretos observados no CV do candidato em cada prioridade.
+  - Ação imediata gratuita com botão direto para descarregar o modelo Word/DOCX.
+  - Botão de navegação superior adaptativo (`Nova análise` apontando para `/analisar-cv`).
+
 
 

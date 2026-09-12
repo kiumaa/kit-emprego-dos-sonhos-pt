@@ -25,11 +25,16 @@ export const Header: React.FC<HeaderProps> = ({
       <div
         className="container"
         style={{
+          width: '100%',
+          maxWidth: 'var(--layout-wide-max, 1140px)',
+          marginInline: 'auto',
+          paddingInline: 'clamp(20px, 4vw, 36px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: showBack ? 'space-between' : 'center',
-          paddingTop: 'var(--space-6)',
-          paddingBottom: 'var(--space-5)',
+          paddingTop: 'var(--space-5)',
+          paddingBottom: 'var(--space-4)',
+          boxSizing: 'border-box',
         }}
       >
         <BrandLogo />

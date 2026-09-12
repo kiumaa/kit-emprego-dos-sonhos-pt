@@ -38,12 +38,48 @@ main {
   flex: 1;
 }
 
+/* Accessible Skip Link — Visually hidden until keyboard focus */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  z-index: 99999;
+  padding: 10px 18px;
+  background-color: var(--color-accent, #0057D9);
+  color: #FFFFFF;
+  font-family: var(--font-primary, 'Satoshi', Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 87, 217, 0.35);
+  transition: top 140ms ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  outline: 3px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
 /* Layout Utilities — Satoshi Editorial Standard */
+.container {
+  width: 100%;
+  max-width: var(--layout-wide-max, 1140px);
+  margin-inline: auto;
+  padding-inline: var(--space-6, 24px);
+  box-sizing: border-box;
+}
+
 .container-reading {
   width: 100%;
   max-width: var(--layout-reading-max);
   margin-inline: auto;
   padding-inline: var(--space-4);
+  box-sizing: border-box;
 }
 
 .container-wide {
@@ -51,12 +87,14 @@ main {
   max-width: var(--layout-wide-max);
   margin-inline: auto;
   padding-inline: var(--space-4);
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
+  .container,
   .container-reading,
   .container-wide {
-    padding-inline: var(--layout-mobile-gutter);
+    padding-inline: var(--layout-mobile-gutter, 20px);
   }
 }
 

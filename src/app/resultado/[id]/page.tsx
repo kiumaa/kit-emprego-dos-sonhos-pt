@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/footer';
 import { OfferPanel } from '@/components/ui/offer-panel';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
-import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown } from 'lucide-react';
+import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Download } from 'lucide-react';
 import type { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
 
 export default function ResultPage() {
@@ -144,7 +144,11 @@ export default function ResultPage() {
   return (
     <div style={{ backgroundColor: 'var(--color-background)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header com logo oficial e botão discreto de novo diagnóstico */}
-      <Header showBack={true} backHref="/quiz" backLabel="Novo teste" />
+      <Header
+        showBack={true}
+        backHref={result.source === 'cv' ? '/analisar-cv' : '/quiz'}
+        backLabel={result.source === 'cv' ? 'Nova análise' : 'Novo teste'}
+      />
 
       <main style={{ flex: 1, padding: 'var(--space-6) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)' }}>
         <div
@@ -184,8 +188,15 @@ export default function ResultPage() {
                   marginBottom: 'var(--space-2)',
                 }}
               >
-                O teu diagnóstico
+                {result.source === 'cv' ? 'Diagnóstico do teu Currículo' : 'O teu diagnóstico'}
               </span>
+
+              {result.targetRole && (
+                <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-2)', fontWeight: 500 }}>
+                  Candidatura para: <strong style={{ color: 'var(--color-text)' }}>{result.targetRole}</strong>
+                </div>
+              )}
+
               <h1
                 style={{
                   fontSize: 'clamp(24px, 5.5vw, 32px)',
@@ -264,9 +275,25 @@ export default function ResultPage() {
                       <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)' }}>
                         {item.title}
                       </div>
-                      <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.4 }}>
-                        {item.action || item.evidenceText || item.evidenceAnswer}
+                      <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.45 }}>
+                        {item.action || item.evidenceAnswer || item.evidenceText}
                       </div>
+                      {item.evidenceText && item.action && (
+                        <div
+                          style={{
+                            marginTop: '6px',
+                            fontSize: '12px',
+                            color: 'var(--color-text-secondary)',
+                            fontStyle: 'italic',
+                            backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            borderLeft: '2px solid var(--color-accent)',
+                          }}
+                        >
+                          Excerto do CV: &ldquo;{item.evidenceText}&rdquo;
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -286,14 +313,33 @@ export default function ResultPage() {
               }}
             >
               <CheckCircle2 size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-              <div>
+              <div style={{ flex: 1 }}>
                 <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Ação Imediata
+                  Ação Imediata · {result.freeAction?.title || 'Revisão Prática'}
                 </span>
                 <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '2px', lineHeight: 1.45, margin: 0 }}>
                   {result.freeAction?.description ||
                     'Revê as tuas experiências mais recentes e reformula as frases para incluírem números, prazos ou tarefas concretas executadas.'}
                 </p>
+                {result.freeAction?.sampleUrl && (
+                  <a
+                    href={result.freeAction.sampleUrl}
+                    download
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      marginTop: '8px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: 'var(--color-accent)',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Download size={14} aria-hidden="true" />
+                    <span>{result.freeAction.actionLabel || 'Descarregar Modelo Gratuito'}</span>
+                  </a>
+                )}
               </div>
             </div>
           </section>
