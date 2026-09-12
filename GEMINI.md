@@ -1,2 +1,4 @@
-# Contexto do projeto
-Ler `AGENTS.md`, `COMECAR_AQUI.md` e `docs/00_DECISOES.md`. Este é um ficheiro auxiliar de contexto; verificar a ativação das regras de workspace em `.agents/rules/` na versão instalada do Antigravity. A última decisão é: **sem editor de CV na plataforma**. Análise, quiz e modelos para descarregar mantêm-se.
+# Contexto do projeto — KEDS v3 (Funil + OKANDA)
+
+Ler `AGENTS.md`, `COMECAR_AQUI.md`, `KEDS_v3_Prompt_Antigravity.md`, `KEDS_v3_Direcao_Visual_Produtos.md` e `docs/00_DECISOES.md`.
+A nova decisão de produto v3 substitui e arquiva como histórico a área de membros, login, biblioteca online e gestor de candidaturas. O percurso é: Análise CV / Quiz → Resultado útil → Botão âncora `#apresentacao` → VSL e Oferta na mesma página → Checkout OKANDA PAY. Entrega dos produtos e bumps feita pela OKANDA. Proibido desenvolver editor de CV. Tipografia oficial: Satoshi.

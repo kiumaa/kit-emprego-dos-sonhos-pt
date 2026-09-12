@@ -4,9 +4,10 @@ import { CheckCircle2, AlertCircle, HelpCircle } from 'lucide-react';
 export interface InsightCardProps {
   title: string;
   action: string;
-  kind: 'first_step' | 'refinement' | 'unrated';
+  kind: 'first_step' | 'refinement' | 'unrated' | 'essential';
   source?: string;
   evidenceAnswer?: string;
+  evidenceText?: string;
   resourceId?: string;
 }
 
@@ -16,6 +17,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
   kind,
   source = 'Autorrelato do questionário',
   evidenceAnswer,
+  evidenceText,
 }) => {
   const getBadgeConfig = () => {
     switch (kind) {
@@ -28,6 +30,7 @@ export const InsightCard: React.FC<InsightCardProps> = ({
           bgTag: '#EBF6EE',
           textTag: 'var(--color-success)',
         };
+      case 'essential':
       case 'first_step':
         return {
           label: 'Prioridade identificada',
@@ -92,6 +95,12 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       {evidenceAnswer && (
         <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
           <strong>A tua resposta:</strong> “{evidenceAnswer}”
+        </p>
+      )}
+
+      {evidenceText && (
+        <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
+          <strong>Evidência no CV:</strong> “{evidenceText}”
         </p>
       )}
 

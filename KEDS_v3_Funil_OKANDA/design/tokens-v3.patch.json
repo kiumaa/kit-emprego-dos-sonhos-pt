@@ -1,0 +1,26 @@
+{
+  "version": "3.0",
+  "font": {
+    "primary": "Satoshi",
+    "fallback": "Arial, Helvetica, sans-serif",
+    "filesIncluded": false,
+    "source": "Fontshare — canal oficial; licença verificada pelo implementador"
+  },
+  "color": {
+    "background": "#FFFFFF",
+    "surface": "#F5F5F7",
+    "text": "#1D1D1F",
+    "textSecondary": "#51515A",
+    "border": "#D2D2D7",
+    "accent": "#0057D9",
+    "accentHover": "#0047B3",
+    "accentSoft": "#EDF3FF"
+  },
+  "weight": {
+    "regular": 400,
+    "medium": 500,
+    "semibold": 700,
+    "bold": 700
+  },
+  "note": "Patch a fundir no tokens.json existente. Preservar chaves de espaço/layout/semântica; não usar este ficheiro como substituição integral."
+}

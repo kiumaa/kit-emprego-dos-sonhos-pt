@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "locale": "pt-PT",
+  "checkout": {
+    "provider": "okanda",
+    "url": null,
+    "allowedHosts": [
+      "okandapay.com"
+    ],
+    "deliveryOwner": "okanda",
+    "selectionOfBumps": "okanda-only"
+  },
+  "offer": {
+    "productName": "Kit Emprego dos Sonhos — Portugal",
+    "currency": "EUR",
+    "amountMinor": 1490,
+    "priceFormatted": "14,90 €",
+    "priceStatus": "confirmar com checkout",
+    "format": "download",
+    "membership": false,
+    "bumps": [
+      {
+        "id": "entrevista",
+        "title": "Entrevista dos Sonhos",
+        "priceFormatted": "+ 4,90 €",
+        "amountMinor": 490,
+        "description": "Manual prático + Caderno de exercícios método STAR e perguntas contextualizadas."
+      },
+      {
+        "id": "linkedin",
+        "title": "LinkedIn dos Sonhos",
+        "priceFormatted": "+ 5,90 €",
+        "amountMinor": 590,
+        "description": "Manual prático + Caderno de exercícios para perfil e rotina de contactos em Portugal."
+      }
+    ]
+  },
+  "vsl": {
+    "src": null,
+    "poster": null,
+    "captionsSrc": null,
+    "anchor": "apresentacao",
+    "autoplay": "muted-when-visible",
+    "restartOnSoundActivation": true
+  },
+  "leads": {
+    "enabled": false,
+    "reason": "Ativar apenas com envio real e consentimentos implementados"
+  },
+  "features": {
+    "memberArea": false,
+    "cvEditor": false,
+    "localCommerce": false,
+    "cvAnalysisRequiresLiveProvider": true
+  },
+  "pending": [
+    "URL real de checkout",
+    "Fornecedor e credencial de análise real",
+    "VSL/poster/legendas",
+    "Produtos finais carregados na OKANDA",
+    "Dados/condições comerciais e privacidade revistos"
+  ]
+}

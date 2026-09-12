@@ -58,4 +58,48 @@ Acrescentar data, commit, alterações, verificações executadas e bloqueios no
 - **Bloqueios de Publicação Restantes:**
   - Conforme `config/release-gates.json` e `docs/05_OKANDA.md`, antes do lançamento público e aceitação de pagamentos reais, o responsável deve facultar a documentação técnica oficial da OKANDA, chaves de API/webhook definitivas e aprovação fiscal/comercial. O sistema mantém-se seguro com modo demo e falha fechada (fail-closed) quando em modo live.
 
+### 12/09/2026 — Refatoração Integral KEDS v3: Funil Comercial + Entrega Externa OKANDA + Satoshi
+- **Branch de refatoração:** `refactor/funil-okanda-satoshi` (partindo de `b75d31a`).
+- **Decisão do produto implementada:**
+  - Substituição total do âmbito v2 (área de membros, login, DRM, acompanhamento do comprador, gestor online e checkout local) pelo funil v3 enxuto e de alta conversão.
+  - O site serve exclusivamente para captar interesse, produzir diagnóstico real, apresentar a oferta comercial e encaminhar para o checkout OKANDA PAY.
+  - Entrega dos produtos digitais gerida integralmente pela OKANDA via email após confirmação de pagamento.
+  - Proibição estrita de editor de CV cumprida e reiterada em todos os pontos de contacto.
+- **Auditoria P0 e P1 corrigida integralmente:**
+  - `src/server/diagnostics/document-parser.ts`: Leitura e extração autêntica de ficheiros PDF (`pdf-parse`) e DOCX (`mammoth`), validação estrita de magic bytes (`%PDF`, `PK`), limite de 5 MiB, limite de caracteres e bloqueio de imagens digitalizadas/ficheiros protegidos (`NO_TEXT_EXTRACTED`) com convite honesto para colagem de texto ou realização do Quiz de 8 perguntas.
+  - `src/server/diagnostics/ai-analyzer.ts`: Análise real via Google Gemini API com isolamento de blocos de dados não confiáveis (`<untrusted_cv_text>`), interceção de injeções de prompt (`PROMPT_INJECTION_DETECTED`) e comportamento fail-closed (`IA_NAO_CONFIGURADA`) na ausência de credenciais válidas (nunca simula nem gera falsos sucessos).
+  - `src/app/analisar-cv/page.tsx`: Envio real por `FormData` com feedback de progresso e tratamento honesto de erros.
+  - `src/app/diagnostico/em-processamento/page.tsx`: Remoção total de temporizadores artificiais (`setTimeout`) que simulavam leitura de CV.
+  - `src/app/resultado/[id]/page.tsx`: Remoção de quaisquer `fallbackAnswers` pré-fabricadas. Diagnósticos anónimos residem temporariamente em `sessionStorage`; diagnósticos ausentes ou expirados exibem aviso honesto de expiração/ausência.
+- **Percurso Unificado: Diagnóstico + VSL + Oferta na mesma página:**
+  - Apresenta título do diagnóstico, resumo de 2-3 frases, indicação explícita da fonte (`source: 'cv'` vs `source: 'quiz'`) e até 3 prioridades justificadas com evidência factual.
+  - Ação gratuita concreta e imediata com modelo de referência para download.
+  - Botão âncora `Ver como preparar a minha candidatura` com destino `#apresentacao`.
+  - Bloco de transição: *“Já tens um ponto de partida. Agora, prepara a próxima candidatura.”*
+  - Componente `VslPlayer`: Pré-visualização automática e muda ao entrar no viewport, botão legível `Ativar som e ver desde o início` (reinicia no segundo 0 e desativa o mute no mesmo gesto do utilizador), controlos nativos e estado honesto de vídeo em preparação.
+  - Painel de oferta `OfferPanel` com preço transparente de 14,90 € e link oficial HTTPS validado contra a lista restrita de domínios permitidos (`okandapay.com`).
+- **Design System & Tipografia Satoshi:**
+  - Substituição da fonte Manrope por Satoshi (Fontshare CDN com fallback seguro `Arial, Helvetica, sans-serif`).
+  - Tokens e paleta oficial (#FFFFFF, #1D1D1F, #51515A, #F5F5F7, #0057D9) aplicados a todas as páginas e componentes.
+  - Layouts responsivos validados em resoluções mobile (360px, 390px), tablet (768px) e desktop (1280px, 1440px).
+- **Entregáveis e Quarentena de Ficheiros Pagos:**
+  - Eliminados todos os ficheiros pagos da pasta pública `public/downloads/` (apenas permanecem 2 amostras gratuitas aprovadas: `amostra-guia-keds.pdf` e `cv-essencial-referencia.pdf`).
+  - Gerados 3 pacotes ZIP independentes na diretoria privada `dist/deliverables/`:
+    1. `kit-principal-keds-portugal.zip` (14 ficheiros, 39.4 KB)
+    2. `bump-entrevista-dos-sonhos.zip` (1 ficheiro, 4.2 KB)
+    3. `bump-linkedin-dos-sonhos.zip` (1 ficheiro, 3.9 KB)
+  - Manifesto oficial de ficheiros com hashes SHA-256 gerado em `dist/deliverables/MANIFEST_OKANDA.json`.
+- **Verificações de Qualidade e Segurança Executadas:**
+  - `npm run typecheck`: 0 erros de compilação TypeScript.
+  - `npm run test` (Vitest): 25/25 testes unitários aprovados em 5 suites (`quiz-engine`, `document-parser`, `ai-analyzer`, `funnel-config`, `csv-export`).
+  - `npm run build`: Build de produção concluído com sucesso gerando 16 rotas ativas.
+  - Remoção confirmada de rotas antigas: `/area`, `/entrar`, `/admin` e endpoints de comércio local respondem com HTTP 404.
+  - Capturas fotográficas de ecrã registadas em `screenshots/` atestando qualidade visual em desktop e mobile.
+- **Pendências de Integração do Responsável:**
+  1. Fornecer o URL definitivo de checkout na OKANDA PAY (`https://okandapay.com/...`).
+  2. Fornecer a chave da API Gemini (`GEMINI_API_KEY`) para análise de CV com IA em produção.
+  3. Carregar o ficheiro de vídeo final da VSL (MP4/WebM + poster + legendas WebVTT).
+  4. Fazer upload dos 3 ZIPs em `dist/deliverables/` para a plataforma OKANDA.
+
+
 

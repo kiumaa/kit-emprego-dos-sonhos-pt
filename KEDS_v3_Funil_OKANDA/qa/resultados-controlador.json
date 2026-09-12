@@ -1,0 +1,58 @@
+[
+  {
+    "test": "Preview automática sem som",
+    "passed": true
+  },
+  {
+    "test": "Clique reinicia em 0 e ativa som",
+    "passed": true
+  },
+  {
+    "test": "Controlos nativos e sem loop após ativar som",
+    "passed": true
+  },
+  {
+    "test": "Pausa fora da zona visível",
+    "passed": true
+  },
+  {
+    "test": "Não retoma som automaticamente ao regressar",
+    "passed": true
+  },
+  {
+    "test": "Pausa manual da preview respeitada",
+    "passed": true
+  },
+  {
+    "test": "Sem erros JavaScript no percurso normal",
+    "passed": true
+  },
+  {
+    "test": "Movimento reduzido impede preview automática",
+    "passed": true
+  },
+  {
+    "test": "Layout 390px sem overflow horizontal",
+    "passed": true
+  },
+  {
+    "test": "Tecla Enter inicia som e reprodução",
+    "passed": true
+  },
+  {
+    "test": "Bloqueio simulado de autoplay oferece início manual",
+    "passed": true
+  },
+  {
+    "test": "Recuperação manual de bloqueio de autoplay",
+    "passed": true
+  },
+  {
+    "test": "Media inválido produz estado de erro",
+    "passed": true
+  },
+  {
+    "test": "Cleanup remove callbacks",
+    "passed": true
+  }
+]

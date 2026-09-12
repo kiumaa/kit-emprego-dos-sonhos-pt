@@ -4,33 +4,31 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, HelpCircle } from 'lucide-react';
 
 function ProcessingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const id = searchParams.get('id') || `diag-${Date.now().toString(36)}`;
-  const [statusText, setStatusText] = useState('A ler a estrutura do documento...');
+  const id = searchParams.get('id');
+  const [hasChecked, setHasChecked] = useState(false);
 
   useEffect(() => {
-    // Simula as etapas reais de sanitização e extração segura
-    const t1 = setTimeout(() => {
-      setStatusText('A verificar pontos de contacto com oportunidades...');
-    }, 1200);
+    if (!id) {
+      setHasChecked(true);
+      return;
+    }
 
-    const t2 = setTimeout(() => {
-      setStatusText('A preparar as tuas 3 prioridades de ação...');
-    }, 2400);
-
-    const t3 = setTimeout(() => {
-      router.push(`/resultado/${id}`);
-    }, 3600);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
+    try {
+      const stored = sessionStorage.getItem(`keds_result_${id}`);
+      if (stored) {
+        // Redirecionamento imediato sem atrasos artificiais
+        router.replace(`/resultado/${id}`);
+        return;
+      }
+    } catch {
+      // Ignorar erro de storage
+    }
+    setHasChecked(true);
   }, [id, router]);
 
   return (
@@ -70,40 +68,51 @@ function ProcessingContent() {
 
           <div>
             <h1 style={{ fontSize: 'var(--type-h2-mobile)', fontWeight: 'var(--weight-semibold)' }}>
-              A processar o teu diagnóstico
+              Diagnóstico de Candidatura
             </h1>
             <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)' }}>
-              {statusText}
+              {hasChecked
+                ? 'Nenhum resultado pendente encontrado para este identificador.'
+                : 'A verificar os dados do teu relatório...'}
             </p>
           </div>
 
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '320px',
-              height: '6px',
-              backgroundColor: 'var(--color-surface)',
-              borderRadius: 'var(--radius-pill)',
-              overflow: 'hidden',
-              position: 'relative',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                width: '40%',
-                backgroundColor: 'var(--color-accent)',
-                borderRadius: 'var(--radius-pill)',
-                animation: 'indeterminate 1.5s infinite ease-in-out',
-              }}
-            />
-          </div>
-
-          <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
-            Não fechamos este separador. O teu relatório será apresentado de seguida.
-          </span>
+          {hasChecked && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%', maxWidth: '320px' }}>
+              <a
+                href="/quiz"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 'var(--space-2)',
+                  height: '48px',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-on-accent)',
+                  borderRadius: 'var(--radius-control)',
+                  fontWeight: 'var(--weight-semibold)',
+                  textDecoration: 'none',
+                }}
+              >
+                <HelpCircle size={18} aria-hidden="true" />
+                <span>Fazer o Quiz Gratuito</span>
+              </a>
+              <a
+                href="/analisar-cv"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '44px',
+                  color: 'var(--color-text)',
+                  textDecoration: 'none',
+                  fontSize: 'var(--type-small)',
+                }}
+              >
+                Analisar outro currículo
+              </a>
+            </div>
+          )}
         </div>
       </main>
 
@@ -117,7 +126,7 @@ export default function ProcessingPage() {
     <React.Suspense
       fallback={
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <p className="secondary">A carregar diagnóstico...</p>
+          <p className="secondary">A verificar diagnóstico...</p>
         </div>
       }
     >

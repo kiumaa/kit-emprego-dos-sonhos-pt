@@ -1,0 +1,2 @@
+# Referências já apresentadas na conversa
+Estas três imagens foram produzidas anteriormente para o projeto e são referências de composição, paleta e comunicação humanizada. Não são novas artes deste pacote, nem documentos finais do produto. A fotografia gerada não representa um testemunho real. Reconstruir tipografia em Satoshi e ajustar os produtos/previews ao âmbito v3. Não extrair palavras minúsculas dos mockups como conteúdo oficial.

@@ -164,11 +164,7 @@ export default function DesignSystemPage() {
               }}
             />
 
-            <OfferPanel
-              onCheckout={() => {
-                alert('Ação de checkout (redirecionamento para a OKANDA em modo produção).');
-              }}
-            />
+            <OfferPanel />
           </div>
         </section>
 

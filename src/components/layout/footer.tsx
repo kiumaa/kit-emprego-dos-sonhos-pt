@@ -40,12 +40,11 @@ export const Footer: React.FC = () => {
 
           <div>
             <h4 style={{ fontSize: 'var(--type-label)', fontWeight: 'var(--weight-semibold)', marginBottom: 'var(--space-3)' }}>
-              Produtos & Acesso
+              O Kit
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', fontSize: 'var(--type-small)' }}>
               <li><a href="/kit" style={{ color: 'var(--color-text-secondary)' }}>Kit Emprego dos Sonhos</a></li>
-              <li><a href="/area" style={{ color: 'var(--color-text-secondary)' }}>Área do Membro</a></li>
-              <li><a href="/entrar" style={{ color: 'var(--color-text-secondary)' }}>Entrar / Recuperar Conta</a></li>
+              <li><a href="/kit#comprar" style={{ color: 'var(--color-text-secondary)' }}>Comprar na OKANDA</a></li>
             </ul>
           </div>
 

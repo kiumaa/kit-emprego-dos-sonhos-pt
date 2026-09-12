@@ -1,6 +1,6 @@
 /* Generated from design/tokens.json. Regenerate after changing tokens. */
 :root {
-  --font-primary: "Manrope", Arial, Helvetica, sans-serif;
+  --font-primary: "Satoshi", Arial, Helvetica, sans-serif;
   --color-background: #FFFFFF;
   --color-surface: #F5F5F7;
   --color-surface-raised: #FFFFFF;
@@ -44,7 +44,7 @@
   --type-button: 16px;
   --weight-regular: 400;
   --weight-medium: 500;
-  --weight-semibold: 600;
+  --weight-semibold: 700;
   --weight-bold: 700;
   --line-height-heading: 1.08;
   --line-height-subheading: 1.2;

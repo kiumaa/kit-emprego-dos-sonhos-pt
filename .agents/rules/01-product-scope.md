@@ -1,2 +1,2 @@
-# Âmbito obrigatório
-Ler `AGENTS.md` e `docs/00_DECISOES.md`. Não desenvolver editor/construtor de CV nem exportação personalizada. Analisador gratuito, quiz e modelos estáticos descarregáveis mantêm-se. Checkout exclusivamente OKANDA. Kit, Entrevista e LinkedIn têm direitos separados. Não reintroduzir requisitos revogados da v1.
+# Âmbito KEDS v3 (Funil + Entrega OKANDA)
+Ler `AGENTS.md` e `docs/00_DECISOES.md`. KEDS v3: O site é exclusivamente um funil de captação e diagnóstico gratuito (CV/quiz), apresentando o resultado útil e a oferta com VSL na mesma página, com link para checkout externo OKANDA PAY. Não desenvolver editor/construtor de CV, área de membros, login, gestão de utilizadores/candidaturas nem comércio local. Os produtos pagos e bumps são entregues pela OKANDA por email e mantidos fora de public/downloads.

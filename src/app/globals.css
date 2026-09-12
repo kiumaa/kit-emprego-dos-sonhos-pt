@@ -1,3 +1,4 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
 @import "../../design/tokens.css";
 
 /* Base CSS Reset & Box Sizing */
@@ -187,4 +188,66 @@ button, input, textarea, select {
 .member-nav-link:hover {
   background-color: var(--color-surface-raised);
   color: var(--color-accent);
+}
+
+/* Header Responsive Navigation */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.header-badge {
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .header-container {
+    height: 56px;
+  }
+  .header-title {
+    font-size: 15px;
+  }
+  .header-badge {
+    display: none;
+  }
+  .header-nav {
+    gap: var(--space-3);
+  }
+  .header-nav a {
+    font-size: 13px !important;
+  }
+  .header-nav .header-kit-btn {
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+  }
 }

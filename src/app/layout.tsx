@@ -1,14 +1,5 @@
 import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
 import './globals.css';
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-primary',
-  fallback: ['Arial', 'Helvetica', 'sans-serif'],
-  weight: ['400', '500', '600', '700'],
-});
 
 export const metadata: Metadata = {
   title: 'Kit Emprego dos Sonhos — Portugal',
@@ -24,7 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-PT" className={manrope.variable}>
+    <html lang="pt-PT">
+      <head>
+        {/* Fonte oficial Satoshi obtida via Fontshare */}
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
+        />
+      </head>
       <body>
         <a href="#main-content" className="skip-link">
           Saltar para o conteúdo principal

@@ -1,11 +1,12 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "currency": "EUR",
   "locale": "pt-PT",
   "commercialStatus": "requires_owner_and_tax_review",
   "pricesIncludeApplicableTaxes": null,
-  "accessMonthsProposed": 12,
-  "accessTermsApproved": false,
+  "deliveryFormat": "download",
+  "deliveryOwner": "okanda",
+  "membership": false,
   "automaticRenewal": false,
   "unlimitedAiIncluded": false,
   "products": [
@@ -14,30 +15,30 @@
       "name": "Kit Emprego dos Sonhos — Portugal",
       "priceMinorProposed": 1490,
       "kind": "main",
-      "okandaProductId": null,
+      "format": "digital_download",
+      "delivery": "okanda",
       "enabledInSpec": true,
-      "live": false,
-      "entitlement": "kit"
+      "live": false
     },
     {
       "id": "entrevista",
       "name": "Entrevista dos Sonhos",
       "priceMinorProposed": 490,
       "kind": "bump",
-      "okandaProductId": null,
+      "format": "digital_download",
+      "delivery": "okanda",
       "enabledInSpec": true,
-      "live": false,
-      "entitlement": "entrevista"
+      "live": false
     },
     {
       "id": "linkedin",
       "name": "LinkedIn dos Sonhos",
       "priceMinorProposed": 590,
       "kind": "bump",
-      "okandaProductId": null,
+      "format": "digital_download",
+      "delivery": "okanda",
       "enabledInSpec": true,
-      "live": false,
-      "entitlement": "linkedin"
+      "live": false
     }
   ],
   "referencePrice": null,

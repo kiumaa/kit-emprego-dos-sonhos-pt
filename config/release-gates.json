@@ -1,73 +1,73 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "allMandatoryMustPass": true,
   "gates": [
     {
       "id": "commercial",
-      "label": "Preço final, impostos e prazo de acesso aprovados",
+      "label": "Preço final, impostos e link único de checkout aprovados",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "seller",
-      "label": "Identidade do vendedor e contactos reais",
+      "label": "Identidade do vendedor e contactos reais de apoio",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "legal",
-      "label": "Privacidade, cookies, termos e direitos do consumidor revistos",
+      "label": "Privacidade, cookies, termos e direitos de resolução revistos",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "content",
-      "label": "Recursos finais gerados, revistos e descarregáveis",
+      "label": "Ficheiros finais gerados, separados dos bumps e validados editorialmente",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "okanda",
-      "label": "Contrato real, EUR, métodos, bumps e pagamento completo verificados",
+      "label": "URL oficial HTTPS de checkout OKANDA PAY validado e bumps configurados",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
-      "id": "auth",
-      "label": "Conta, recuperação e autorização por artigo testadas",
+      "id": "delivery_okanda",
+      "label": "Entrega dos ficheiros digitais por email e pós-venda verificada na OKANDA",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
-      "id": "privacy",
-      "label": "Prestadores, conservação, eliminação e transferências verificadas",
+      "id": "vsl",
+      "label": "Vídeo VSL final carregado, reprodução muda e som no clique verificados",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "analysis",
-      "label": "IA real, limites, evidência e testes de segurança",
+      "label": "Fornecedor de IA real configurado com proteção de injeção ou modo honesto sem simulação",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
       "id": "quality",
-      "label": "Testes funcionais, visuais e acessibilidade aprovados",
+      "label": "Testes funcionais, visuais (Satoshi), responsivos (360-1440px) e acessibilidade aprovados",
       "mandatory": true,
       "status": "pending",
       "evidence": null
     },
     {
-      "id": "email",
-      "label": "Entrega transacional e consentimento promocional testados",
+      "id": "security",
+      "label": "Ficheiros pagos excluídos de public/downloads e sem dados de utilizadores em consolas ou URLs",
       "mandatory": true,
       "status": "pending",
       "evidence": null

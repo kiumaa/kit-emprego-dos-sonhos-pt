@@ -1,2 +1,2 @@
-# Design único
-Aplicar `design/tokens.json`, `design/DESIGN_SYSTEM.md` e o inventário de componentes. Manrope/fallback, branco, grafite e azul discreto; inspiração de qualidade Apple, identidade própria. Mesma linguagem em páginas, produtos, emails, anúncios e vídeo. Não importar fontes para o repositório. Não usar editor de CV em mockups. Rever desktop/mobile e amostra de documento antes de concluir uma fatia.
+# Design único com Satoshi
+Aplicar `design/tokens.json`, `design/DIRECAO_VISUAL_PRODUTOS.md`. Satoshi/fallback, branco #FFFFFF, superfície #F5F5F7, grafite #1D1D1F e azul #0057D9. Inspiração de acabamento Apple. Mesma linguagem visual em páginas, produtos, capas e VSL. Não distribuir ficheiros de fonte no repositório nem nos ZIPs. Modelos DOCX com fallback tipográfico e sem editor em mockups.

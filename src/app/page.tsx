@@ -40,7 +40,7 @@ export default function HomePage() {
 
           <h1
             style={{
-              fontSize: 'clamp(32px, 5vw, 56px)',
+              fontSize: 'clamp(26px, 5vw, 56px)',
               lineHeight: 'var(--line-height-heading)',
               fontWeight: 'var(--weight-bold)',
               letterSpacing: '-0.025em',
@@ -166,7 +166,7 @@ export default function HomePage() {
               {
                 num: '03',
                 title: 'Método & Recursos do Kit',
-                desc: 'Acede ao guia completo de 10 lições, modelos descarregáveis DOCX, cartas, mensagens e gestor de candidaturas na área privada.',
+                desc: 'Recebe o guia completo de 10 lições, modelos descarregáveis DOCX, cartas, mensagens e organizador de candidaturas entregues pela OKANDA.',
               },
             ].map((step, idx) => (
               <div
@@ -235,8 +235,8 @@ export default function HomePage() {
               },
               {
                 icon: <Shield size={24} color="var(--color-accent)" />,
-                title: 'Organizador de Candidaturas',
-                desc: 'Painel simples na área privada para gerir empresas, funções, estados e datas com exportação em CSV.',
+                title: 'Organizador de Candidaturas (CSV)',
+                desc: 'Ficheiro de controlo simples para gerir empresas, funções, estados e datas diretamente no teu computador.',
               },
             ].map((item, idx) => (
               <div
@@ -332,7 +332,7 @@ export default function HomePage() {
                     paddingTop: 'var(--space-3)',
                   }}
                 >
-                  {item.answer.replace('{{approved_access_terms}}', '12 meses de acesso à área privada, sem renovação automática. Os ficheiros descarregados são teus para uso pessoal.')}
+                  {item.answer.replace('{{approved_access_terms}}', 'Os ficheiros digitais são enviados diretamente para o teu email pela OKANDA após a compra, ficando disponíveis para teu uso pessoal no computador.')}
                 </p>
               </details>
             ))}

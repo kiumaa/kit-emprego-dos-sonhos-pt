@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Button } from '@/components/ui/button';
 import { TextField, TextArea } from '@/components/ui/text-field';
-import { UploadCloud, FileText, Lock, ShieldAlert, ArrowRight, HelpCircle } from 'lucide-react';
+import { UploadCloud, FileText, Lock, ArrowRight, HelpCircle, AlertCircle } from 'lucide-react';
 import pagesData from '../../../content/marketing/pages.json';
 
 export default function AnalyzeCvPage() {
@@ -17,22 +17,27 @@ export default function AnalyzeCvPage() {
   const [targetRole, setTargetRole] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ message: string; offerQuiz?: boolean; allowPaste?: boolean } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
     if (e.target.files && e.target.files[0]) {
       const selected = e.target.files[0];
-      // Validar tamanho (máximo 5 MiB = 5 * 1024 * 1024 bytes)
       if (selected.size > 5 * 1024 * 1024) {
-        setError('O ficheiro excede o limite de 5 MiB. Por favor reduz o tamanho ou cola o texto.');
+        setError({
+          message: 'O ficheiro excede o limite de 5 MiB. Por favor reduz o ficheiro ou cola o texto.',
+          allowPaste: true,
+        });
         return;
       }
-      // Validar extensão
       const name = selected.name.toLowerCase();
       if (!name.endsWith('.pdf') && !name.endsWith('.docx') && !name.endsWith('.txt')) {
-        setError('Por favor envia um ficheiro em formato PDF, DOCX ou TXT.');
+        setError({
+          message: 'Por favor envia um ficheiro em formato PDF, DOCX ou TXT.',
+          allowPaste: true,
+        });
         return;
       }
       setFile(selected);
@@ -44,35 +49,69 @@ export default function AnalyzeCvPage() {
     setError(null);
 
     if (activeTab === 'upload' && !file) {
-      setError('Por favor seleciona um ficheiro de CV ou muda para a aba de colar texto.');
+      setError({
+        message: 'Por favor seleciona um ficheiro de CV ou muda para a aba de colar texto.',
+        allowPaste: true,
+      });
       return;
     }
 
-    if (activeTab === 'paste' && cvText.trim().length < 50) {
-      setError('Por favor introduz o texto do teu CV (mínimo de 50 caracteres).');
+    if (activeTab === 'paste' && cvText.trim().length < 40) {
+      setError({
+        message: 'Por favor introduz o texto do teu CV (mínimo de 40 caracteres).',
+        offerQuiz: true,
+      });
       return;
     }
 
     setIsSubmitting(true);
+    setStatusMessage('A enviar o documento para validação e leitura segura...');
 
     try {
-      // Criação de sessão de diagnóstico
-      const analysisId = `cv-${Date.now().toString(36)}`;
-      sessionStorage.setItem(
-        `keds_analysis_${analysisId}`,
-        JSON.stringify({
-          source: 'cv',
-          targetRole: targetRole.trim() || undefined,
-          jobDescription: jobDescription.trim() || undefined,
-          submittedAt: new Date().toISOString(),
-        })
-      );
+      const formData = new FormData();
+      if (activeTab === 'upload' && file) {
+        formData.append('file', file);
+      } else {
+        formData.append('text', cvText.trim());
+      }
 
-      // Redirecionamento para a rota de processamento
-      router.push(`/diagnostico/em-processamento?id=${analysisId}`);
+      if (targetRole.trim()) {
+        formData.append('targetRole', targetRole.trim());
+      }
+      if (jobDescription.trim()) {
+        formData.append('jobDescription', jobDescription.trim());
+      }
+
+      const response = await fetch('/api/diagnostics/cv', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setIsSubmitting(false);
+        setStatusMessage(null);
+        setError({
+          message: data.message || 'Ocorreu um erro ao processar o currículo.',
+          offerQuiz: data.offerQuiz ?? true,
+          allowPaste: data.allowPaste ?? true,
+        });
+        return;
+      }
+
+      // Sucesso: guardar derivação mínima em sessionStorage da sessão atual
+      sessionStorage.setItem(`keds_result_${data.id}`, JSON.stringify(data));
+
+      // Navegação direta sem temporizadores fictícios
+      router.push(`/resultado/${data.id}`);
     } catch {
       setIsSubmitting(false);
-      setError('Ocorreu um erro ao submeter o pedido de análise.');
+      setStatusMessage(null);
+      setError({
+        message: 'Não foi possível ligar ao servidor de análise. Verifica a tua ligação ou faz o Quiz gratuito.',
+        offerQuiz: true,
+      });
     }
   };
 
@@ -92,7 +131,7 @@ export default function AnalyzeCvPage() {
                 letterSpacing: '0.04em',
               }}
             >
-              Diagnóstico de Conteúdo Gratuito
+              Diagnóstico Gratuito de Candidatura
             </span>
             <h1 style={{ fontSize: 'var(--type-h1-mobile)', marginTop: 'var(--space-2)' }}>
               {analyzerData.title}
@@ -197,7 +236,7 @@ export default function AnalyzeCvPage() {
                     {file ? file.name : 'Clica para escolher o ficheiro do teu CV'}
                   </span>
                   <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                    PDF ou DOCX (até 5 MiB)
+                    PDF ou DOCX (até 5 MiB com texto selecionável)
                   </span>
                   <input
                     id="cv-file-input"
@@ -223,12 +262,12 @@ export default function AnalyzeCvPage() {
             ) : (
               <TextArea
                 label="Texto do teu CV"
-                description="Cola o conteúdo do teu currículo para revisão."
+                description="Cola o conteúdo textual do teu currículo para revisão."
                 placeholder="Exemplo: Experiência profissional, formação, projetos..."
                 rows={8}
                 value={cvText}
                 onChange={(e) => setCvText(e.target.value)}
-                maxLength={24000}
+                maxLength={30000}
                 required
               />
             )}
@@ -258,15 +297,57 @@ export default function AnalyzeCvPage() {
               <div
                 role="alert"
                 style={{
-                  padding: 'var(--space-3) var(--space-4)',
+                  padding: 'var(--space-4)',
                   backgroundColor: '#FDECEB',
                   borderRadius: 'var(--radius-control)',
+                  border: '1px solid rgba(180, 35, 24, 0.2)',
                   color: 'var(--color-danger)',
                   fontSize: 'var(--type-small)',
-                  fontWeight: 'var(--weight-medium)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-3)',
                 }}
               >
-                {error}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-2)' }}>
+                  <AlertCircle size={18} style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                  <span style={{ fontWeight: 'var(--weight-medium)' }}>{error.message}</span>
+                </div>
+
+                {error.offerQuiz && (
+                  <div style={{ paddingTop: 'var(--space-2)', borderTop: '1px solid rgba(180, 35, 24, 0.15)' }}>
+                    <a
+                      href="/quiz"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-2)',
+                        color: 'var(--color-accent)',
+                        fontWeight: 'var(--weight-semibold)',
+                        textDecoration: 'none',
+                        fontSize: 'var(--type-small)',
+                      }}
+                    >
+                      <HelpCircle size={16} aria-hidden="true" />
+                      <span>Fazer o Quiz de Diagnóstico Gratuito (sem ficheiro)</span>
+                    </a>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {isSubmitting && statusMessage && (
+              <div
+                style={{
+                  padding: 'var(--space-3) var(--space-4)',
+                  backgroundColor: 'var(--color-accent-soft)',
+                  borderRadius: 'var(--radius-control)',
+                  color: 'var(--color-accent)',
+                  fontSize: 'var(--type-small)',
+                  fontWeight: 'var(--weight-medium)',
+                  textAlign: 'center',
+                }}
+              >
+                {statusMessage}
               </div>
             )}
 
@@ -309,7 +390,7 @@ export default function AnalyzeCvPage() {
             }}
           >
             <p className="secondary" style={{ fontSize: 'var(--type-small)' }}>
-              Não tens um CV preparado ou estás a começar do zero?
+              Não tens um CV preparado ou preferes responder a perguntas rápidas?
             </p>
             <a
               href="/quiz"
@@ -325,7 +406,7 @@ export default function AnalyzeCvPage() {
               }}
             >
               <HelpCircle size={16} aria-hidden="true" />
-              <span>Fazer o quiz de diagnóstico sem enviar documento</span>
+              <span>Fazer o quiz de diagnóstico de 8 perguntas</span>
             </a>
           </div>
         </div>

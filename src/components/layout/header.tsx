@@ -11,49 +11,13 @@ export const Header: React.FC = () => {
         zIndex: 100,
       }}
     >
-      <div
-        className="container"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: '64px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
-          <a
-            href="/"
-            style={{
-              fontSize: '20px',
-              fontWeight: 'var(--weight-bold)',
-              color: 'var(--color-text)',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Emprego dos Sonhos
-          </a>
-          <span
-            style={{
-              fontSize: '12px',
-              fontWeight: 'var(--weight-semibold)',
-              color: 'var(--color-text-secondary)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.04em',
-            }}
-          >
-            Portugal
-          </span>
-        </div>
+      <div className="container header-container">
+        <a href="/" className="header-brand">
+          <span className="header-title">Emprego dos Sonhos</span>
+          <span className="header-badge">Portugal</span>
+        </a>
 
-        <nav
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-6)',
-          }}
-          aria-label="Navegação principal"
-        >
+        <nav className="header-nav" aria-label="Navegação principal">
           <a
             href="/analisar-cv"
             style={{
@@ -78,17 +42,7 @@ export const Header: React.FC = () => {
           </a>
           <a
             href="/kit"
-            style={{
-              fontSize: 'var(--type-button)',
-              fontWeight: 'var(--weight-medium)',
-              color: 'var(--color-text)',
-              textDecoration: 'none',
-            }}
-          >
-            O Kit
-          </a>
-          <a
-            href="/area"
+            className="header-kit-btn"
             style={{
               fontSize: 'var(--type-button)',
               fontWeight: 'var(--weight-semibold)',
@@ -99,7 +53,7 @@ export const Header: React.FC = () => {
               borderRadius: 'var(--radius-pill)',
             }}
           >
-            Área do Membro
+            O Kit
           </a>
         </nav>
       </div>

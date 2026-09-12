@@ -3,7 +3,14 @@
 ## Confirmado pelo responsável
 Nome: Kit Emprego dos Sonhos — Portugal. Desenvolvimento dos produtos e das páginas no Antigravity. Design profissional, clean, moderno, com inspiração de qualidade Apple e consistente em todos os elementos. Duas entradas gratuitas: análise de CV e quiz. Resultado seguido de oferta com VSL. Checkout na OKANDA; bumps no checkout. Pacote ZIP e intenção de partilhar trabalho por repositório GitHub.
 
-**Última alteração: esquecer o editor de CV.** Esta decisão remove UI, motor de composição, armazenamento de campos de currículo e exportação personalizada. Não remove análise de CV, quiz, ficheiros editáveis descarregáveis, recursos de candidatura ou gestor de candidaturas.
+**Decisão KEDS v3 (12/09/2026): Funil de Diagnóstico + VSL + Entrega OKANDA**
+- O site serve exclusivamente para captar interesse, produzir diagnóstico real, apresentar uma oferta com VSL na mesma página e encaminhar para checkout externo OKANDA PAY.
+- A OKANDA é responsável pelo checkout, bumps (Entrevista 4,90 € e LinkedIn 5,90 €), pagamento, confirmação e entrega dos produtos descarregáveis por email.
+- O âmbito anterior v2 (área de membros, autenticação do comprador, biblioteca privada online, gestor de candidaturas web e entrega de encomendas no site) fica arquivado como histórico e desativado da versão publicada.
+- Continua rigorosamente proibido construir editor de CV, canvas ou exportação personalizada.
+- Satoshi substitui Manrope na linguagem tipográfica do sistema de design.
+- Todos os produtos pagos são gerados em pastas locais privadas (`dist/deliverables/`), ficando estritamente excluídos de `public/downloads`.
+- Corrigidos os pontos críticos de auditoria: leitura real de ficheiros no servidor, sem IA simulada, sem temporizadores artificiais e sem resultados de fallback fabricados.
 
 ## Defaults de implementação, sem necessidade de bloquear o arranque
 - Manrope, branco, grafite, cinzas neutros, azul discreto; tema claro único no lançamento.

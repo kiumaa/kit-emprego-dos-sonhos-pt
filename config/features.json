@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "locale": "pt-PT",
   "cvEditor": false,
   "cvBuilder": false,
@@ -11,12 +11,13 @@
   "resultsBeforeMarketingOptIn": true,
   "resultAndOfferSamePage": true,
   "publicProductPage": true,
-  "memberLibrary": true,
-  "lessonProgress": true,
-  "applicationTracker": true,
-  "applicationTrackerCsvExport": true,
+  "memberLibrary": false,
+  "lessonProgress": false,
+  "applicationTracker": false,
+  "applicationTrackerCsvExport": false,
   "checkoutProvider": "okanda",
   "directStripeCheckout": false,
+  "deliveryOwner": "okanda",
   "bumps": [
     "entrevista",
     "linkedin"
@@ -24,5 +25,6 @@
   "additionalCvPackEnabled": false,
   "aiUpsellEnabled": false,
   "darkMode": false,
-  "automaticCampaigns": false
+  "automaticCampaigns": false,
+  "note": "Âmbito v2 (área privada, gestor de candidaturas, biblioteca online) arquivado; entrega de produtos e bumps gerida pela OKANDA."
 }

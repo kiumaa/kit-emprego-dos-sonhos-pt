@@ -7,12 +7,14 @@
 - Conteúdo editorial, contratos, lógica de referência do quiz e verificações locais acrescentados.
 - Documentação v1 não incorporada para evitar requisitos contraditórios.
 
-## 2.0-app — 12/09/2026 (Implementação Integral da Plataforma)
-- Plataforma completa em Next.js 15 App Router, React 19, TypeScript e Vanilla CSS sem Tailwind.
-- Repositório remoto no GitHub sincronizado em `https://github.com/kiumaa/kit-emprego-dos-sonhos-pt.git`.
-- Geração de 15 entregáveis estáticos autênticos (modelos DOCX abertos e editáveis externamente no Word/Docs, e PDFs editoriais A4) sem dependências externas.
-- Rotas públicas e comerciais (/analisar-cv, /quiz, /resultado/[id], /kit, /obrigado) com diagnóstico honesto sem notas falsas de ATS.
-- Área do membro (/area/*) com leitor completo de 10 lições markdown, biblioteca de recursos, modelos de CV para descarregar, gestor de candidaturas com proteção CWE-1236, plano de 7 dias, bumps de Entrevista e LinkedIn, e centro de privacidade RGPD.
-- Painel de Operação e Governação (/admin) para controlo de barreiras de lançamento (release gates), auditoria de encomendas e concessão documentada de suporte.
-- API interna completa (/api/diagnostics/*, /api/commerce/*, /api/orders/*, /api/applications/export).
-- 100% de testes aprovados: Vitest (11/11), Next.js production build (40/40 páginas estáticas/dinâmicas geradas), e QA Spec (23/23).
+## 3.0 — 12/09/2026 (Refatoração KEDS v3: Funil + Entrega OKANDA)
+- Substituição dos requisitos de área de membros, login, DRM, acompanhamento do comprador, gestor online e checkout local por funil de conversão direto.
+- Percurso unificado: Analisador de CV / Quiz → Resultado resumido com 3 prioridades e 1 ação gratuita útil → Botão âncora (#apresentacao) → VSL e Oferta na mesma página → Checkout externo OKANDA PAY.
+- Proibição estrita de editor de CV mantida e reforçada.
+- Auditoria P0 e P1 corrigida: parsing autêntico de PDF/DOCX (`pdf-parse`, `mammoth`), limites de 5 MiB e magic bytes; motor de IA com isolamento de prompt injection e fail-closed (`IA_NAO_CONFIGURADA`) sem dados simulados; remoção de temporizadores falsos; remoção de respostas predefinidas (`fallbackAnswers`).
+- VSL interativa implementada com pré-visualização automática e muda, botão "Ativar som e ver desde o início" (reinicia no segundo 0 sem mute no mesmo gesto), controlos reais e modo honesto de preparação.
+- Todos os botões de compra usam link único validado para checkout oficial na OKANDA (`okandapay.com`).
+- Tipografia Satoshi implementada via Fontshare CDN em substituição da Manrope, com fallback seguro para todo o sistema visual.
+- Isolamento estrito de entregáveis pagos: remoção de ficheiros pagos de `public/downloads/`; empacotamento em 3 ZIPs independentes em `dist/deliverables/` com manifesto criptográfico SHA-256 (`MANIFEST_OKANDA.json`).
+- Qualidade e testes: 25/25 testes Vitest aprovados, typecheck com 0 erros e build de produção Next.js 15 compilado com sucesso.
+

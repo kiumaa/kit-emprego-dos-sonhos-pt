@@ -1,0 +1,107 @@
+{
+  "version": "3.0",
+  "sourceCommit": "b75d31a223ca6b624b56723a4c1b90dc52efe76e",
+  "repoModified": false,
+  "files": [
+    {
+      "path": "PROMPT_ANTIGRAVITY.md",
+      "bytes": 12372,
+      "sha256": "e80a25d746f477e46d01232edd58f7fab55af2ac1e12024c47b4cc649bc16937"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2191,
+      "sha256": "55745b08893c4d3849a475a65f01a639b907230532d9b193abe82882937bb801"
+    },
+    {
+      "path": "config/funnel.example.json",
+      "bytes": 1111,
+      "sha256": "1e19ad3c7c5e9d63104bfccf97421d7be03a02a55388ef953018c3e3038f0261"
+    },
+    {
+      "path": "design/DIRECAO_VISUAL_PRODUTOS.md",
+      "bytes": 7969,
+      "sha256": "5a4414ecf24a1e40ca5e3037d0e60473562b252b2089d0728db78cf519d172b4"
+    },
+    {
+      "path": "design/referencias/01-analise-cv-referencia.png",
+      "bytes": 1735629,
+      "sha256": "357031aa0556eddd70480f4f02345e04377157b62a659410e4b537fd3f4a1789"
+    },
+    {
+      "path": "design/referencias/02-quiz-referencia.png",
+      "bytes": 1799932,
+      "sha256": "c0060278ef983021842b1b7a2a386a8a2a056ebb20d1350173c159f529aab258"
+    },
+    {
+      "path": "design/referencias/03-kit-referencia.png",
+      "bytes": 1860490,
+      "sha256": "a680fd6ed754b8cbdaa31103be21fc44811ecf29e3c4b5c470fffe6a8c304f24"
+    },
+    {
+      "path": "design/referencias/LEIA-ME.md",
+      "bytes": 458,
+      "sha256": "b3a7b70f12eb42564d33b53b835db331b8cadaf45cc8d80bf4dfeb5ad6913e01"
+    },
+    {
+      "path": "design/tokens-v3.patch.json",
+      "bytes": 712,
+      "sha256": "5f6258f18cec31b5743c18313790c51de8d53ec73531bc4f11efa424b68acece"
+    },
+    {
+      "path": "docs/AUDITORIA.md",
+      "bytes": 6476,
+      "sha256": "deb2598eb4ab8bf07f09010201879672b10b6582159e4367432f1fc153bd36f2"
+    },
+    {
+      "path": "docs/FONTES.md",
+      "bytes": 1171,
+      "sha256": "b05fbcb95a07a8fba22f6f64d1cfc40b0ab935442c4817b72a16088de9426163"
+    },
+    {
+      "path": "implementation/INTEGRACAO.md",
+      "bytes": 2130,
+      "sha256": "30daecbd5eab26911996b5968f23d5e871b4a8790440d992d0234f81001f508a"
+    },
+    {
+      "path": "implementation/VslPlayer.tsx",
+      "bytes": 3675,
+      "sha256": "3f9955e7138b36d86e0604ff8222bce7b6f7f5082357d885dd74b7c8fc16afd2"
+    },
+    {
+      "path": "implementation/compiled/vsl-controller.d.ts",
+      "bytes": 735,
+      "sha256": "d9a1a44493590bfa227ae2ebb6df0ba4324ce198d1169c5dd7ca5ed14881ca58"
+    },
+    {
+      "path": "implementation/compiled/vsl-controller.js",
+      "bytes": 5239,
+      "sha256": "b488bdc84271bca6e5816e3e0574205c41a0f8751422c82cbe6438df3aaeb95d"
+    },
+    {
+      "path": "implementation/vsl-controller.ts",
+      "bytes": 5256,
+      "sha256": "2170b92debc8e1436fb0add2ddb76d81de3ae43fab5cc4356d1df6367add75a4"
+    },
+    {
+      "path": "implementation/vsl-player.css",
+      "bytes": 2780,
+      "sha256": "5ca8be13a1b89be8a8234cc1bcc5f9b0f62499ec6bc1fa44ab3e4dc0cc3b4a3a"
+    },
+    {
+      "path": "qa/ACEITACAO.md",
+      "bytes": 3219,
+      "sha256": "549eb39bd245a414cb8fc49f68eee655ace138d2c5485c2b5afcd809248df038"
+    },
+    {
+      "path": "qa/VALIDACAO_VSL.md",
+      "bytes": 2498,
+      "sha256": "b4b125e911eae20b3221c98fad2d4884f774277beb44e3af8317c303a3d000fb"
+    },
+    {
+      "path": "qa/resultados-controlador.json",
+      "bytes": 1142,
+      "sha256": "e69cb0f92b1aa139ce19c7af5c381d2e3fdc19b6f52d920659d1f5fe0e1dc988"
+    }
+  ]
+}

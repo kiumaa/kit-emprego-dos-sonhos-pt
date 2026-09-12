@@ -1,0 +1,46 @@
+{
+  "version": "3.0",
+  "locale": "pt-PT",
+  "checkout": {
+    "provider": "okanda",
+    "url": null,
+    "allowedHosts": [
+      "okandapay.com"
+    ],
+    "deliveryOwner": "okanda",
+    "selectionOfBumps": "okanda-only"
+  },
+  "offer": {
+    "productName": "Kit Emprego dos Sonhos — Portugal",
+    "currency": "EUR",
+    "amountMinor": 1490,
+    "priceStatus": "confirmar com checkout",
+    "format": "download",
+    "membership": false
+  },
+  "vsl": {
+    "src": null,
+    "poster": null,
+    "captionsSrc": null,
+    "anchor": "apresentacao",
+    "autoplay": "muted-when-visible",
+    "restartOnSoundActivation": true
+  },
+  "leads": {
+    "enabled": false,
+    "reason": "Ativar apenas com envio real e consentimentos implementados"
+  },
+  "features": {
+    "memberArea": false,
+    "cvEditor": false,
+    "localCommerce": false,
+    "cvAnalysisRequiresLiveProvider": true
+  },
+  "pending": [
+    "URL real de checkout",
+    "Fornecedor e credencial de análise real",
+    "VSL/poster/legendas",
+    "Produtos finais carregados na OKANDA",
+    "Dados/condições comerciais e privacidade revistos"
+  ]
+}

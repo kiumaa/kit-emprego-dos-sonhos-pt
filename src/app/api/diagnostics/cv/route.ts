@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { parseDocument } from '@/server/diagnostics/document-parser';
+import { runCvAnalysis } from '@/server/diagnostics/ai-analyzer';
 
 export async function POST(request: Request) {
   try {
@@ -9,78 +11,72 @@ export async function POST(request: Request) {
 
     if (contentType.includes('application/json')) {
       const body = await request.json();
-      cvText = (body.cvText || '').trim();
-      targetRole = (body.targetRole || '').trim();
+      cvText = (body.cvText || body.text || '').trim();
+      targetRole = (body.targetRole || body.role || '').trim();
       jobDescription = (body.jobDescription || '').trim();
     } else {
       const formData = await request.formData();
       cvText = (formData.get('text') as string || '').trim();
-      targetRole = (formData.get('role') as string || '').trim();
+      targetRole = (formData.get('role') as string || formData.get('targetRole') as string || '').trim();
       jobDescription = (formData.get('jobDescription') as string || '').trim();
 
       const file = formData.get('file') as File | null;
-      if (file) {
-        if (file.size > 5 * 1024 * 1024) {
+      if (file && file.size > 0) {
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        const parseResult = await parseDocument(buffer, file.name, file.type);
+        if (!parseResult.success) {
+          const status = parseResult.errorCode === 'FILE_TOO_LARGE' ? 413 : 422;
           return NextResponse.json(
-            { error: 'O ficheiro excede o tamanho máximo permitido de 5 MiB.' },
-            { status: 413 }
+            {
+              error: parseResult.errorCode || 'PARSE_ERROR',
+              message: parseResult.error,
+              allowPaste: parseResult.allowPaste ?? true,
+              offerQuiz: parseResult.offerQuiz ?? true,
+            },
+            { status }
           );
         }
-        // Simulação de extração de texto para preview
-        cvText = `Texto extraído do documento: ${file.name}`;
+
+        cvText = parseResult.text;
       }
     }
 
-    if (!cvText || cvText.length < 20) {
+    if (!cvText || cvText.length < 40) {
       return NextResponse.json(
-        { error: 'O conteúdo fornecido é demasiado curto para uma análise fundamentada.' },
+        {
+          error: 'TEXTO_INSUFICIENTE',
+          message: 'O conteúdo fornecido é demasiado curto para uma análise fundamentada (mínimo 40 caracteres). Podes colar o texto completo ou fazer o Quiz gratuito de 8 perguntas.',
+          allowPaste: true,
+          offerQuiz: true,
+        },
         { status: 400 }
       );
     }
 
-    // Verificação de segurança: não aceitar tentativas grosseiras de injeção
-    const lower = cvText.toLowerCase();
-    if (lower.includes('ignore previous instructions') || lower.includes('desconsidera todas as regras')) {
+    const outcome = await runCvAnalysis({
+      cvText,
+      targetRole: targetRole || undefined,
+      jobDescription: jobDescription || undefined,
+    });
+
+    if (!outcome.success) {
+      const status = outcome.error === 'IA_NAO_CONFIGURADA' ? 503 : outcome.error === 'PROMPT_INJECTION_DETECTED' ? 422 : 502;
       return NextResponse.json(
-        { error: 'Entrada rejeitada por motivos de segurança e conformidade.' },
-        { status: 422 }
+        {
+          error: outcome.error,
+          message: outcome.message,
+          offerQuiz: outcome.offerQuiz,
+          allowPaste: outcome.allowPaste ?? true,
+        },
+        { status }
       );
     }
 
-    const diagnosticId = `cv-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
-
-    return NextResponse.json({
-      id: diagnosticId,
-      status: 'completed',
-      source: 'cv',
-      createdAt: new Date().toISOString(),
-      targetRole: targetRole || null,
-      hasJobDescription: Boolean(jobDescription),
-      disclaimer: 'Análise preliminar automatizada baseada exclusivamente no texto fornecido.',
-      priorities: [
-        {
-          criterion: 'clarity_structure',
-          title: 'Clareza e Estrutura',
-          explanation: 'O teu perfil beneficia de secções cronológicas bem demarcadas e contactos visíveis no topo.',
-          kind: 'essential',
-        },
-        {
-          criterion: 'evidence_impact',
-          title: 'Impacto e Evidência',
-          explanation: 'Descreve as tuas tarefas anteriores com foco nos resultados alcançados e não apenas responsabilidades teóricas.',
-          kind: 'essential',
-        },
-        {
-          criterion: 'tailoring',
-          title: 'Adaptação à Função',
-          explanation: 'Evidencia as ferramentas e competências mais procuradas nas ofertas a que te estás a candidatar.',
-          kind: 'refinement',
-        },
-      ],
-      freeAction: 'Revê o cabeçalho e assegura-te de que tens um único número de telefone direto e link para o LinkedIn.',
-    });
+    return NextResponse.json(outcome.result, { status: 200 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erro no processamento do currículo.';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: 'SERVER_ERROR', message }, { status: 500 });
   }
 }

@@ -1,149 +1,97 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "routes": [
     {
       "id": "home",
       "path": "/",
       "access": "public",
-      "purpose": "Entrada CV/quiz"
+      "purpose": "Entrada: Apresentação da proposta de valor, escolha entre Analisar CV ou Quiz"
     },
     {
       "id": "analyze",
       "path": "/analisar-cv",
       "access": "public",
-      "purpose": "Envio de ficheiro ou texto"
+      "purpose": "Upload de PDF/DOCX ou colagem de texto para análise transparente"
     },
     {
       "id": "quiz",
       "path": "/quiz",
       "access": "public",
-      "purpose": "Oito perguntas"
+      "purpose": "Questionário de 8 perguntas de autorrelato sobre preparação"
     },
     {
       "id": "processing",
       "path": "/diagnostico/em-processamento",
       "access": "session",
-      "purpose": "Estado real de processamento"
+      "purpose": "Transição de leitura ou validação de sessão"
     },
     {
       "id": "result",
       "path": "/resultado/[id]",
       "access": "session_or_verified_owner",
-      "purpose": "Resultado + captura + VSL + oferta"
+      "purpose": "Diagnóstico resumido + Ação gratuita + Botão âncora + VSL + Oferta + Link OKANDA"
     },
     {
       "id": "product",
       "path": "/kit",
       "access": "public",
-      "purpose": "Oferta direta"
+      "purpose": "Página comercial de compra direta com oferta, VSL e link OKANDA"
     },
     {
       "id": "thanks",
       "path": "/obrigado",
-      "access": "order_session",
-      "purpose": "Confirmação legítima ou pendente"
-    },
-    {
-      "id": "login",
-      "path": "/entrar",
       "access": "public",
-      "purpose": "Autenticação e recuperação"
-    },
-    {
-      "id": "accountHome",
-      "path": "/area",
-      "access": "entitled",
-      "purpose": "Próximo passo e progresso"
-    },
-    {
-      "id": "library",
-      "path": "/area/biblioteca",
-      "access": "entitled",
-      "purpose": "Recursos e formatos"
-    },
-    {
-      "id": "lesson",
-      "path": "/area/licoes/[slug]",
-      "access": "entitled",
-      "purpose": "Conteúdo e exercício"
-    },
-    {
-      "id": "templates",
-      "path": "/area/modelos-cv",
-      "access": "entitled",
-      "purpose": "Modelos descarregáveis, sem edição online"
-    },
-    {
-      "id": "messages",
-      "path": "/area/mensagens",
-      "access": "entitled",
-      "purpose": "Modelos copiáveis"
-    },
-    {
-      "id": "tracker",
-      "path": "/area/candidaturas",
-      "access": "entitled",
-      "purpose": "Gestor de candidaturas"
-    },
-    {
-      "id": "plan",
-      "path": "/area/plano",
-      "access": "entitled",
-      "purpose": "Tarefas de sete dias"
-    },
-    {
-      "id": "interview",
-      "path": "/area/entrevista",
-      "access": "entitlement_entrevista",
-      "purpose": "Bump adquirido"
-    },
-    {
-      "id": "linkedin",
-      "path": "/area/linkedin",
-      "access": "entitlement_linkedin",
-      "purpose": "Bump adquirido"
-    },
-    {
-      "id": "settings",
-      "path": "/area/conta",
-      "access": "authenticated",
-      "purpose": "Acessos, privacidade e exportação"
+      "purpose": "Informação pós-compra sobre a entrega dos ficheiros pela OKANDA por email"
     },
     {
       "id": "support",
       "path": "/apoio",
       "access": "public",
-      "purpose": "Contactos e ajuda"
+      "purpose": "Contactos reais de apoio e esclarecimento de dúvidas"
     },
     {
       "id": "privacy",
       "path": "/privacidade",
       "access": "public",
-      "purpose": "Política real aprovada"
+      "purpose": "Política de privacidade adaptada ao funil e sem retenção indevida"
     },
     {
       "id": "terms",
       "path": "/termos",
       "access": "public",
-      "purpose": "Condições reais"
+      "purpose": "Termos e condições do produto digital entregue pela OKANDA"
     },
     {
       "id": "cookies",
       "path": "/cookies",
       "access": "public",
-      "purpose": "Preferências e informação"
+      "purpose": "Preferências de cookies estritamente necessárias"
     },
     {
       "id": "designSystem",
       "path": "/design-system",
       "access": "development_or_protected_preview",
-      "purpose": "Inventário interno"
+      "purpose": "Showcase visual dos tokens Satoshi, botões e acessibilidade"
+    }
+  ],
+  "retiredRoutes": [
+    {
+      "path": "/area/**",
+      "status": "archived_v2",
+      "action": "404_or_neutral_redirect",
+      "reason": "Entrega digital gerida integralmente pela OKANDA sem plataforma online de membros"
     },
     {
-      "id": "admin",
+      "path": "/entrar",
+      "status": "archived_v2",
+      "action": "404_or_neutral_redirect",
+      "reason": "Sem autenticação de compradores no site"
+    },
+    {
       "path": "/admin",
-      "access": "admin",
-      "purpose": "Encomendas, acessos, erros e operação mínima"
+      "status": "archived_v2",
+      "action": "404",
+      "reason": "Sem gestão local de encomendas ou utilizadores"
     }
   ]
 }
