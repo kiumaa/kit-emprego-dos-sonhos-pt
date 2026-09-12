@@ -95,11 +95,14 @@ Acrescentar data, commit, alterações, verificações executadas e bloqueios no
   - `npm run build`: Build de produção concluído com sucesso gerando 16 rotas ativas.
   - Remoção confirmada de rotas antigas: `/area`, `/entrar`, `/admin` e endpoints de comércio local respondem com HTTP 404.
   - Capturas fotográficas de ecrã registadas em `screenshots/` atestando qualidade visual em desktop e mobile.
-- **Pendências de Integração do Responsável:**
-  1. Fornecer o URL definitivo de checkout na OKANDA PAY (`https://okandapay.com/...`).
-  2. Fornecer a chave da API Gemini (`GEMINI_API_KEY`) para análise de CV com IA em produção.
-  3. Carregar o ficheiro de vídeo final da VSL (MP4/WebM + poster + legendas WebVTT).
-  4. Fazer upload dos 3 ZIPs em `dist/deliverables/` para a plataforma OKANDA.
+- **Publicação na Vercel (Produção):**
+  - **Projeto:** `kiuma-franciscos-projects/kit-emprego-dos-sonhos-pt`
+  - **Domínio Principal (Aliased):** `https://kit-emprego-dos-sonhos-pt.vercel.app`
+  - **URL da Versão:** `https://kit-emprego-dos-sonhos-b2ealamap-kiuma-franciscos-projects.vercel.app`
+  - **Dashboard de Inspeção:** `https://vercel.com/kiuma-franciscos-projects/kit-emprego-dos-sonhos-pt/5Jsy8s7LWQ8TR12k3KEHVgwZhZyf`
+  - **Estado:** `READY` (Compilação concluída em 35s, 16 rotas ativas com resposta HTTP 200).
+  - **Rotas descontinuadas:** `/area`, `/entrar` e `/admin` confirmadas com resposta HTTP 404 em produção.
+
 
 
 
