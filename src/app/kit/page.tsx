@@ -68,12 +68,31 @@ export default function ProductKitPage() {
               Modelos de CV editáveis em Word, cartas de apresentação, mensagens para recrutadores e um plano de 7 dias desenhado para o mercado de trabalho em Portugal.
             </p>
 
-            {/* Visual dos Componentes do Produto */}
-            <div style={{ margin: 'var(--space-2) 0 var(--space-6) 0' }}>
-              <ProductMockup />
+            {/* Resumo compacto dos entregáveis */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '8px',
+                marginBottom: 'var(--space-6)',
+              }}
+            >
+              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', backgroundColor: 'var(--color-surface)', borderRadius: '999px', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}>
+                14 ficheiros descarregáveis
+              </span>
+              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', backgroundColor: 'var(--color-surface)', borderRadius: '999px', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}>
+                Modelos em Word (DOCX)
+              </span>
+              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', backgroundColor: 'var(--color-surface)', borderRadius: '999px', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}>
+                Guia em PDF · 10 Lições
+              </span>
+              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', backgroundColor: 'var(--color-surface)', borderRadius: '999px', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}>
+                Organizador CSV & 25 Prompts
+              </span>
             </div>
 
-            {/* Preço e CTA de Compra */}
+            {/* Preço e CTA de Compra Imediatos no Topo */}
             <div
               style={{
                 display: 'flex',
@@ -141,7 +160,7 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 2. VSL PROTAGONISTA (16:9 Autêntico)                              */}
+          {/* 2. VSL PROTAGONISTA (9:16 Autêntico)                              */}
           {/* ================================================================= */}
           <VslPlayer
             id="apresentacao-kit"
@@ -152,7 +171,22 @@ export default function ProductKitPage() {
           />
 
           {/* ================================================================= */}
-          {/* 3. ANTES VS DEPOIS CONCEPTUAL (Sem Métricas Falsas)               */}
+          {/* 3. DETALHE DOS COMPONENTES DO PRODUTO (Após a Apresentação)       */}
+          {/* ================================================================= */}
+          <section>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>
+              <h2 style={{ fontSize: 'clamp(22px, 4.5vw, 28px)', fontWeight: 700, color: 'var(--color-text)' }}>
+                Tudo o que está incluído no kit
+              </h2>
+              <p className="secondary" style={{ fontSize: '15px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+                Ficheiros práticos para descarregar de imediato e editar no teu computador.
+              </p>
+            </div>
+            <ProductMockup />
+          </section>
+
+          {/* ================================================================= */}
+          {/* 4. ANTES VS DEPOIS CONCEPTUAL (Sem Métricas Falsas)               */}
           {/* ================================================================= */}
           <section
             style={{
@@ -238,7 +272,7 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 4. BUMPS INFORMATIVOS                                             */}
+          {/* 5. BUMPS INFORMATIVOS                                             */}
           {/* ================================================================= */}
           <div
             style={{
@@ -258,7 +292,7 @@ export default function ProductKitPage() {
           </div>
 
           {/* ================================================================= */}
-          {/* 5. PREÇO E CTA FINAL                                              */}
+          {/* 6. PREÇO E CTA FINAL                                              */}
           {/* ================================================================= */}
           <section style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-3)' }}>
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', fontWeight: 700, letterSpacing: '-0.02em' }}>
@@ -315,7 +349,7 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 6. FAQ CURTO E OBJETIVO                                            */}
+          {/* 7. FAQ CURTO E OBJETIVO                                            */}
           {/* ================================================================= */}
           <section style={{ borderTop: '1px solid var(--color-border)', paddingTop: 'var(--space-8)' }}>
             <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: 'var(--space-4)', textAlign: 'center' }}>
@@ -366,7 +400,7 @@ export default function ProductKitPage() {
                   Quais são os métodos de pagamento aceites?
                 </summary>
                 <p style={{ marginTop: '8px', fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: '8px 0 0 0' }}>
-                  O checkout da OKANDA PAY suporta os métodos habituais em Portugal, incluindo MB WAY, cartões bancários Visa/Mastercard e referência multibanco.
+                  O checkout da OKANDA PAY suporta os métodos habituais em Portugal, incluindo MB WAY e cartões bancários Visa/Mastercard.
                 </p>
               </details>
             </div>

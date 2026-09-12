@@ -13,7 +13,7 @@ def evaluate_quiz(answers: dict[str, str], spec: dict[str, Any] | None = None) -
         raise ValueError('As respostas devem ser um objeto de escolhas únicas.')
     required = {q['id'] for q in spec['questions']}
     if set(answers) != required:
-        raise ValueError('O questionário deve conter exatamente as oito respostas esperadas.')
+        raise ValueError('O questionário deve conter exatamente as cinco respostas esperadas.')
     dimensions: dict[str, int] = {}
     context: dict[str, str] = {}
     selected: dict[str, str] = {}

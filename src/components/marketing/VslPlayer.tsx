@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { mountVslController, type VslController, type VslState } from './vsl-controller';
-import { Play, Pause, Volume2, VolumeX, Maximize2, CheckCircle2 } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize2, ArrowDown, ArrowRight } from 'lucide-react';
+import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import './vsl-player.css';
 
 export interface VslPlayerProps {
@@ -15,6 +16,13 @@ export interface VslPlayerProps {
 }
 
 const initialState: VslState = { mode: 'preview', phase: 'idle', message: '' };
+
+function formatTime(seconds: number): string {
+  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
 
 /** Componente de Apresentação em Vídeo (VSL Formato Vertical Story 9:16) */
 export function VslPlayer({
@@ -30,70 +38,159 @@ export function VslPlayer({
   const frameRef = useRef<HTMLDivElement>(null);
   const controller = useRef<VslController | null>(null);
   const [state, setState] = useState<VslState>(initialState);
-  const [isPlayingSimulated, setIsPlayingSimulated] = useState(false);
+
+  // Estados reais do elemento de vídeo quando src está presente
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [bufferedPercent, setBufferedPercent] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreenSupported, setIsFullscreenSupported] = useState(false);
+  const [showCta, setShowCta] = useState(false);
+
+  const checkout = getValidatedCheckoutUrl();
+  const isExternalCheckout = checkout.isConfigured && Boolean(checkout.url);
+  const checkoutHref = isExternalCheckout && checkout.url ? checkout.url : '#oferta';
+
+  useEffect(() => {
+    // Verificar suporte a fullscreen no cliente
+    if (typeof document !== 'undefined') {
+      const el = document.documentElement;
+      setIsFullscreenSupported(
+        Boolean(
+          document.fullscreenEnabled ||
+          'webkitFullscreenEnabled' in document ||
+          'mozFullScreenEnabled' in document ||
+          'msFullscreenEnabled' in document ||
+          (el && 'webkitRequestFullscreen' in el)
+        )
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!src || !video) return;
+
     controller.current = mountVslController({
       video,
       viewportTarget: frameRef.current ?? video,
       onState: setState,
     });
+
+    const handleTimeUpdate = () => {
+      const t = video.currentTime;
+      setCurrentTime(t);
+      // Revelar o botão pulse ao minuto 1:13 (73 segundos)
+      if (t >= 73) {
+        setShowCta(true);
+      }
+      if (video.buffered.length > 0 && video.duration > 0) {
+        const end = video.buffered.end(video.buffered.length - 1);
+        setBufferedPercent(Math.min(100, Math.round((end / video.duration) * 100)));
+      }
+    };
+
+    const handleDurationChange = () => {
+      if (Number.isFinite(video.duration)) {
+        setDuration(video.duration);
+      }
+    };
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleVolumeChange = () => setIsMuted(video.muted);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setShowCta(true);
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('durationchange', handleDurationChange);
+    video.addEventListener('loadedmetadata', handleDurationChange);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('volumechange', handleVolumeChange);
+    video.addEventListener('ended', handleEnded);
+
     return () => {
       controller.current?.destroy();
       controller.current = null;
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('durationchange', handleDurationChange);
+      video.removeEventListener('loadedmetadata', handleDurationChange);
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('volumechange', handleVolumeChange);
+      video.removeEventListener('ended', handleEnded);
     };
   }, [src]);
 
-  const handleRestartWithSound = () => {
-    setIsMuted(false);
-    if (src && controller.current) {
+  // Primeiro clique para ouvir desde o início com som
+  const handleFirstPlayWithSound = () => {
+    if (controller.current) {
       controller.current.restartWithSound();
-      return;
     }
-
-    // Se src ainda não está carregado pelo cliente
-    setIsPlayingSimulated(true);
-    setNotice('Áudio ativado · A reproduzir apresentação do início');
-    setTimeout(() => setNotice(null), 4000);
   };
 
+  // Pausa normal ou retoma a partir do tempo atual
   const handleTogglePlay = () => {
-    if (src && controller.current) {
-      if (state.phase === 'playing') {
-        videoRef.current?.pause();
-      } else {
-        controller.current.restartWithSound();
-      }
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (state.mode === 'preview') {
+      handleFirstPlayWithSound();
       return;
     }
 
-    setIsPlayingSimulated(prev => !prev);
+    if (video.paused) {
+      void video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
   };
+
+  const handleToggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+  };
+
+  const handleToggleFullscreen = () => {
+    const frame = frameRef.current;
+    const video = videoRef.current;
+    if (!frame && !video) return;
+
+    if (document.fullscreenElement) {
+      void document.exitFullscreen().catch(() => {});
+    } else if (frame?.requestFullscreen) {
+      void frame.requestFullscreen().catch(() => {});
+    } else if ((video as unknown as { webkitEnterFullscreen?: () => void })?.webkitEnterFullscreen) {
+      (video as unknown as { webkitEnterFullscreen: () => void }).webkitEnterFullscreen();
+    }
+  };
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const video = videoRef.current;
+    if (!video || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    video.currentTime = ratio * duration;
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <section className="keds-vsl" id={id} aria-labelledby={`${uid}-title`}>
       <div className="keds-vsl__header">
-        <span className="keds-vsl__tag">
-          <span>Apresentação Oficial</span>
-        </span>
         <h2 id={`${uid}-title`}>{title}</h2>
-        <p className="keds-vsl__intro">
-          Em 3 minutos compreendes porque é que disparar currículos ao acaso não funciona em Portugal — e como estruturar a tua próxima candidatura.
-        </p>
       </div>
 
-      <div className="keds-vsl__frame" ref={frameRef}>
-        {/* Barras de Segmento Tipo Story (Instagram / Reels / Shorts) */}
-        <div className="keds-vsl__story-bars" aria-hidden="true">
-          <div className="keds-vsl__story-bar keds-vsl__story-bar--active" />
-          <div className="keds-vsl__story-bar" />
-          <div className="keds-vsl__story-bar" />
-        </div>
-
+      <div
+        className={`keds-vsl__frame ${state.mode === 'preview' ? 'keds-vsl__frame--preview' : ''}`}
+        ref={frameRef}
+        onClick={state.mode === 'preview' ? handleFirstPlayWithSound : undefined}
+      >
         {src ? (
           <>
             <video
@@ -102,180 +199,175 @@ export function VslPlayer({
               src={src}
               poster={poster ?? undefined}
               playsInline
-              preload="metadata"
+              autoPlay
+              muted
+              loop
+              preload="auto"
               aria-label="Apresentação do Kit Emprego dos Sonhos"
               aria-describedby={`${uid}-status`}
+              onClick={state.mode === 'full' ? handleTogglePlay : undefined}
             >
               {captionsSrc && (
                 <track kind="captions" src={captionsSrc} srcLang="pt-PT" label="Português" default />
               )}
               O teu navegador não suporta este vídeo.
             </video>
-            {(state.mode === 'preview' || ['error', 'ready'].includes(state.phase)) && (
-              <div className="keds-vsl__poster-screen">
-                <div className="keds-vsl__poster-top">
-                  <span className="keds-vsl__live-pill">
-                    <span className="keds-vsl__live-dot" />
-                    <span>VSL Oficial</span>
-                  </span>
-                  <span className="keds-vsl__duration-pill">3:45</span>
-                </div>
 
-                {/* Banner "Sem som · Toca para ouvir" */}
+            {/* Badge "AO VIVO" sempre visível no canto superior */}
+            <div className="keds-vsl__live-badge-wrapper">
+              <span className="keds-vsl__live-pill">
+                <span className="keds-vsl__live-dot" />
+                <span>AO VIVO</span>
+              </span>
+              {duration > 0 && (
+                <span className="keds-vsl__duration-pill">{formatTime(duration)}</span>
+              )}
+            </div>
+
+            {/* Overlay limpo em Modo Preview (Autoplay mudo + Toca para ouvir com som) */}
+            {state.mode === 'preview' && (
+              <div className="keds-vsl__preview-overlay">
                 <button
                   type="button"
                   className="keds-vsl__sound-alert-banner"
-                  onClick={handleRestartWithSound}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFirstPlayWithSound();
+                  }}
                   aria-label="Tocar para ouvir com som desde o início"
                 >
-                  <Volume2 size={16} aria-hidden="true" />
+                  <Volume2 size={18} aria-hidden="true" />
                   <span>Sem som · Toca para ouvir</span>
                 </button>
+              </div>
+            )}
 
-                <div className="keds-vsl__poster-center">
-                  <h3 className="keds-vsl__poster-title">
-                    Como Ser Chamado para Entrevistas em Portugal
-                  </h3>
-                  <p className="keds-vsl__poster-subtitle">
-                    O método prático para destacar a tua candidatura na triagem.
-                  </p>
-                  <button
-                    type="button"
-                    className="keds-vsl__play-action"
-                    onClick={handleRestartWithSound}
-                    aria-label="Assistir à apresentação com som"
-                  >
-                    <span className="keds-vsl__play-button">
-                      <Play size={28} fill="currentColor" aria-hidden="true" />
+            {/* Barra de Controlo Real quando em reprodução ativa (modo completo com som) */}
+            {state.mode === 'full' && (
+              <div className="keds-vsl__control-bar" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="keds-vsl__progress-container"
+                  onClick={handleSeek}
+                  role="progressbar"
+                  aria-valuenow={Math.round(progressPercent)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label="Barra de progresso"
+                >
+                  <div
+                    className="keds-vsl__progress-buffered"
+                    style={{ width: `${bufferedPercent}%` }}
+                  />
+                  <div
+                    className="keds-vsl__progress-played"
+                    style={{ width: `${progressPercent}%` }}
+                  />
+                </div>
+
+                <div className="keds-vsl__controls-row">
+                  <div className="keds-vsl__controls-left">
+                    <button
+                      type="button"
+                      className="keds-vsl__btn-ctrl"
+                      onClick={handleTogglePlay}
+                      aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
+                    >
+                      {isPlaying ? (
+                        <Pause size={15} fill="currentColor" aria-hidden="true" />
+                      ) : (
+                        <Play size={15} fill="currentColor" aria-hidden="true" />
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      className="keds-vsl__btn-ctrl"
+                      onClick={handleToggleMute}
+                      aria-label={isMuted ? 'Ativar som' : 'Silenciar som'}
+                    >
+                      {isMuted ? (
+                        <VolumeX size={15} aria-hidden="true" />
+                      ) : (
+                        <Volume2 size={15} aria-hidden="true" />
+                      )}
+                    </button>
+                    <span className="keds-vsl__time-display">
+                      {formatTime(currentTime)} / {formatTime(duration)}
                     </span>
-                    <span className="keds-vsl__play-label">▶ Ver apresentação</span>
-                  </button>
+                  </div>
+
+                  <div className="keds-vsl__controls-right">
+                    {isFullscreenSupported && (
+                      <button
+                        type="button"
+                        className="keds-vsl__btn-ctrl"
+                        onClick={handleToggleFullscreen}
+                        aria-label="Ecrã inteiro"
+                      >
+                        <Maximize2 size={14} aria-hidden="true" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
           </>
         ) : (
-          /* Visual de Player Story Vertical 9:16 Real e Funcional */
-          <div className="keds-vsl__poster-screen">
-            {notice && (
-              <div className="keds-vsl__notice-toast" role="status">
-                <CheckCircle2 size={15} color="#34C759" aria-hidden="true" />
-                <span>{notice}</span>
-              </div>
-            )}
-
+          /* Estado Honesto e Funcional Sem Vídeo Configurado: Poster 9:16 de Preparação */
+          <div className="keds-vsl__poster-screen keds-vsl__poster-screen--preparation">
             <div className="keds-vsl__poster-top">
-              <span className="keds-vsl__live-pill">
-                <span className="keds-vsl__live-dot" />
-                <span>Apresentação Oficial</span>
+              <span className="keds-vsl__prep-pill">
+                <span>Apresentação em preparação</span>
               </span>
-              <span className="keds-vsl__duration-pill">3:45</span>
             </div>
-
-            {/* Aviso Obrigatório: "Sem som · Toca para ouvir" */}
-            <button
-              type="button"
-              className="keds-vsl__sound-alert-banner"
-              onClick={handleRestartWithSound}
-              aria-label="Tocar para ouvir com som desde o início"
-            >
-              <Volume2 size={16} aria-hidden="true" />
-              <span>Sem som · Toca para ouvir</span>
-            </button>
 
             <div className="keds-vsl__poster-center">
               <h3 className="keds-vsl__poster-title">
-                Como Ser Chamado para Entrevistas em Portugal
+                Prepara a tua próxima candidatura.
               </h3>
               <p className="keds-vsl__poster-subtitle">
-                A estrutura que os recrutadores procuram e como evitar o filtro de rejeição.
+                Vê como usar os recursos do kit.
               </p>
 
-              <button
-                type="button"
-                className="keds-vsl__play-action"
-                onClick={handleTogglePlay}
-                aria-label="Assistir à apresentação em vídeo"
+              <a
+                href="#oferta"
+                className="keds-vsl__prep-cta"
+                aria-label="Consultar os recursos do kit na secção da oferta"
               >
-                <span className="keds-vsl__play-button">
-                  {isPlayingSimulated ? (
-                    <Pause size={28} fill="currentColor" aria-hidden="true" />
-                  ) : (
-                    <Play size={28} fill="currentColor" aria-hidden="true" />
-                  )}
-                </span>
-                <span className="keds-vsl__play-label">
-                  {isPlayingSimulated ? 'Pausar vídeo' : '▶ Assistir (3 min)'}
-                </span>
-              </button>
+                <span>Consultar recursos da oferta</span>
+                <ArrowDown size={15} aria-hidden="true" />
+              </a>
             </div>
 
-            {/* Barra de Controlos Inferior Integrada */}
-            <div className="keds-vsl__control-bar">
-              <div
-                className="keds-vsl__progress-container"
-                onClick={handleTogglePlay}
-                role="progressbar"
-                aria-valuenow={isPlayingSimulated ? 45 : 25}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label="Barra de progresso"
-              >
-                <div className="keds-vsl__progress-buffered" style={{ width: '65%' }} />
-                <div
-                  className="keds-vsl__progress-played"
-                  style={{ width: isPlayingSimulated ? '45%' : '25%' }}
-                />
-              </div>
-
-              <div className="keds-vsl__controls-row">
-                <div className="keds-vsl__controls-left">
-                  <button
-                    type="button"
-                    className="keds-vsl__btn-ctrl"
-                    onClick={handleTogglePlay}
-                    aria-label={isPlayingSimulated ? 'Pausar' : 'Reproduzir'}
-                  >
-                    {isPlayingSimulated ? (
-                      <Pause size={15} fill="currentColor" aria-hidden="true" />
-                    ) : (
-                      <Play size={15} fill="currentColor" aria-hidden="true" />
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    className="keds-vsl__btn-ctrl"
-                    onClick={() => setIsMuted(prev => !prev)}
-                    aria-label={isMuted ? 'Ativar som' : 'Silenciar som'}
-                  >
-                    {isMuted ? <VolumeX size={15} aria-hidden="true" /> : <Volume2 size={15} aria-hidden="true" />}
-                  </button>
-                  <span className="keds-vsl__time-display">
-                    {isPlayingSimulated ? '0:42' : '0:00'} / 3:45
-                  </span>
-                </div>
-
-                <div className="keds-vsl__controls-right">
-                  <span className="keds-vsl__hd-badge">1080p HD</span>
-                  <button
-                    type="button"
-                    className="keds-vsl__btn-ctrl"
-                    onClick={handleTogglePlay}
-                    aria-label="Ecrã inteiro"
-                  >
-                    <Maximize2 size={14} aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
+            <div className="keds-vsl__prep-footer">
+              <span>Oferta completa disponível abaixo</span>
             </div>
           </div>
         )}
       </div>
 
+      {/* Botão de conversão com pulsação aos 1:13 do vídeo */}
+      {showCta && (
+        <div className="keds-vsl__cta-wrapper" id="vsl-cta">
+          <a
+            href={checkoutHref}
+            target={isExternalCheckout ? '_blank' : undefined}
+            rel={isExternalCheckout ? 'noopener noreferrer' : undefined}
+            className="keds-vsl__cta-button"
+            aria-label="Eu quero aderir ao Kit Emprego dos Sonhos"
+          >
+            <span>EU QUERO ADERIR!</span>
+            <ArrowRight size={20} aria-hidden="true" />
+          </a>
+          <p className="keds-vsl__cta-caption">
+            Acesso imediato · Pagamento único de 14,99 € · Entrega por email
+          </p>
+        </div>
+      )}
+
       {src && (
         <p className="keds-vsl__status" id={`${uid}-status`} role="status" aria-live="polite">
           {state.message ||
-            (state.mode === 'preview' ? 'Ao ativar o som, o vídeo recomeça do princípio.' : '')}
+            (state.mode === 'preview' ? 'Ao tocar, o vídeo recomeça do princípio com som.' : '')}
         </p>
       )}
 

@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "locale": "pt-PT",
   "scoreMeaning": "Índice interno de autorrelato de preparação; não mede empregabilidade.",
   "displayNumericScore": false,
@@ -24,33 +24,6 @@
         {
           "id": "explorar",
           "label": "Ainda estou a definir o objetivo"
-        }
-      ]
-    },
-    {
-      "id": "q2",
-      "dimension": null,
-      "question": "Qual é a área principal que estás a considerar?",
-      "options": [
-        {
-          "id": "administrativo",
-          "label": "Administrativo, apoio e atendimento"
-        },
-        {
-          "id": "comercio",
-          "label": "Comércio e serviços"
-        },
-        {
-          "id": "tecnologia",
-          "label": "Tecnologia e funções digitais"
-        },
-        {
-          "id": "operacoes",
-          "label": "Operações e funções técnicas"
-        },
-        {
-          "id": "outra",
-          "label": "Outra área ou ainda por definir"
         }
       ]
     },
@@ -136,33 +109,6 @@
       ]
     },
     {
-      "id": "q6",
-      "dimension": "organizacao",
-      "question": "Como acompanhas as oportunidades a que te candidatas?",
-      "options": [
-        {
-          "id": "memoria",
-          "label": "Não tenho um registo organizado",
-          "score": 0
-        },
-        {
-          "id": "notas",
-          "label": "Tenho notas dispersas ou emails guardados",
-          "score": 1
-        },
-        {
-          "id": "lista",
-          "label": "Uso uma lista com candidaturas e estados",
-          "score": 2
-        },
-        {
-          "id": "proximos",
-          "label": "Registo também próximos passos e datas",
-          "score": 3
-        }
-      ]
-    },
-    {
       "id": "q7",
       "dimension": "mensagem",
       "question": "Como preparas a mensagem de candidatura?",
@@ -188,42 +134,13 @@
           "score": 3
         }
       ]
-    },
-    {
-      "id": "q8",
-      "dimension": "revisao",
-      "question": "O que fazes antes de enviar a candidatura?",
-      "options": [
-        {
-          "id": "sem-rotina",
-          "label": "Ainda não tenho uma rotina de revisão",
-          "score": 0
-        },
-        {
-          "id": "rapida",
-          "label": "Faço uma leitura rápida",
-          "score": 1
-        },
-        {
-          "id": "verifico",
-          "label": "Verifico texto, contactos e anexos",
-          "score": 2
-        },
-        {
-          "id": "checklist",
-          "label": "Uso uma checklist e confirmo as instruções da vaga",
-          "score": 3
-        }
-      ]
     }
   ],
   "priorityOrder": [
     "cv",
     "adaptacao",
     "evidencia",
-    "organizacao",
-    "mensagem",
-    "revisao"
+    "mensagem"
   ],
   "recommendations": {
     "cv": {
@@ -244,43 +161,31 @@
       "refinement": "Revê se cada resultado referido tem contexto e corresponde ao teu contributo real.",
       "resource": "guia"
     },
-    "organizacao": {
-      "title": "Definir o próximo passo",
-      "action": "Cria um registo de uma oportunidade com empresa, função, estado e uma ação seguinte.",
-      "refinement": "Atualiza os estados e datas para não perder o próximo passo das oportunidades em curso.",
-      "resource": "tracker"
-    },
     "mensagem": {
       "title": "Dar contexto à mensagem",
       "action": "Escreve por que estás a contactar aquela empresa e uma ligação concreta entre o teu percurso e a função.",
       "refinement": "Retira repetições e confirma se a mensagem continua específica para esta empresa.",
       "resource": "mensagens"
-    },
-    "revisao": {
-      "title": "Rever antes de enviar",
-      "action": "Confirma destinatário, função, contactos, anexos e instruções da oferta antes do envio.",
-      "refinement": "Guarda a versão enviada e verifica se registaste o próximo passo.",
-      "resource": "checklists"
     }
   },
   "bands": [
     {
       "min": 0,
-      "max": 6,
+      "max": 4,
       "id": "base",
       "title": "Preparar a base",
       "summary": "Pelas tuas respostas, o melhor ponto de partida é construir uma base simples e organizada para a candidatura."
     },
     {
-      "min": 7,
-      "max": 12,
+      "min": 5,
+      "max": 8,
       "id": "consolidar",
       "title": "Consolidar a candidatura",
       "summary": "Pelas tuas respostas, já tens parte da preparação feita. O próximo passo é tornar o processo mais consistente."
     },
     {
-      "min": 13,
-      "max": 18,
+      "min": 9,
+      "max": 12,
       "id": "afinar",
       "title": "Afinar e acompanhar",
       "summary": "Pelas tuas respostas, já tens uma preparação estruturada. Vale a pena rever os detalhes e acompanhar os próximos passos."

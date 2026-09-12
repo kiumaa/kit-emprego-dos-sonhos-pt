@@ -7,9 +7,31 @@ import { BrandLogo } from '@/components/layout/brand-logo';
 import { evaluateQuiz } from '@/lib/quiz/quiz-engine';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
-// As 5 perguntas centrais de autorrelato para um diagnóstico ágil e de alta precisão
-const ACTIVE_QUESTION_IDS = ['q1', 'q3', 'q4', 'q5', 'q7'];
-const activeQuestions = defaultSpec.questions.filter((q) => ACTIVE_QUESTION_IDS.includes(q.id));
+// As 5 perguntas centrais de autorrelato para o diagnóstico de 5 perguntas
+const activeQuestions = defaultSpec.questions;
+const ALLOWED_QUESTION_IDS = new Set(defaultSpec.questions.map((q) => q.id));
+const VALID_OPTIONS = new Map<string, Set<string>>(
+  defaultSpec.questions.map((q) => [q.id, new Set(q.options.map((o) => o.id))])
+);
+
+const STORAGE_KEY_V2 = 'keds_quiz_answers_v2';
+const STORAGE_KEY_LEGACY = 'keds_quiz_answers';
+
+function sanitizeAnswers(data: unknown): Record<string, string> {
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+    return {};
+  }
+  const clean: Record<string, string> = {};
+  for (const [key, val] of Object.entries(data as Record<string, unknown>)) {
+    if (ALLOWED_QUESTION_IDS.has(key) && typeof val === 'string') {
+      const allowedOpts = VALID_OPTIONS.get(key);
+      if (allowedOpts && allowedOpts.has(val)) {
+        clean[key] = val;
+      }
+    }
+  }
+  return clean;
+}
 
 export default function QuizPage() {
   const router = useRouter();
@@ -18,15 +40,30 @@ export default function QuizPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Restaurar respostas da sessão se o utilizador regressar
+  // Restaurar respostas da sessão de forma segura e com sanitização
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem('keds_quiz_answers');
-      if (saved) {
-        setAnswers(JSON.parse(saved));
+      const savedV2 = sessionStorage.getItem(STORAGE_KEY_V2);
+      if (savedV2) {
+        const parsed = JSON.parse(savedV2);
+        const clean = sanitizeAnswers(parsed);
+        setAnswers(clean);
+        return;
+      }
+
+      // Migração graciosa de sessão anterior (descartando q2, q6, q8 e dados inválidos)
+      const legacy = sessionStorage.getItem(STORAGE_KEY_LEGACY);
+      if (legacy) {
+        const parsed = JSON.parse(legacy);
+        const clean = sanitizeAnswers(parsed);
+        if (Object.keys(clean).length > 0) {
+          setAnswers(clean);
+          sessionStorage.setItem(STORAGE_KEY_V2, JSON.stringify(clean));
+        }
+        sessionStorage.removeItem(STORAGE_KEY_LEGACY);
       }
     } catch {
-      // Ignorar erros de storage
+      // Ignorar erros de storage malformado
     }
   }, []);
 
@@ -42,7 +79,7 @@ export default function QuizPage() {
     };
     setAnswers(updated);
     try {
-      sessionStorage.setItem('keds_quiz_answers', JSON.stringify(updated));
+      sessionStorage.setItem(STORAGE_KEY_V2, JSON.stringify(updated));
     } catch {
       // Ignorar erro
     }
@@ -73,15 +110,8 @@ export default function QuizPage() {
   const handleSubmitQuiz = () => {
     setIsSubmitting(true);
     try {
-      // Respostas base neutras para as dimensões complementares no quiz curto de 5 perguntas:
-      // q2: outra (área por definir), q6: notas (acompanhamento), q8: rapida (leitura rápida)
-      const baselineAnswers: Record<string, string> = {
-        q2: 'outra',
-        q6: 'notas',
-        q8: 'rapida',
-      };
-      const fullAnswers = { ...baselineAnswers, ...answers };
-      const result = evaluateQuiz(fullAnswers);
+      // Contrato de 5 perguntas: passa estritamente as respostas do utilizador sem injeção de baselineAnswers
+      const result = evaluateQuiz(answers);
       const resultId = `qz-${Date.now().toString(36)}`;
       sessionStorage.setItem(`keds_result_${resultId}`, JSON.stringify(result));
       router.push(`/resultado/${resultId}`);
@@ -340,7 +370,7 @@ export default function QuizPage() {
           color: 'var(--color-text-secondary)',
         }}
       >
-        <span>Diagnóstico confidencial de candidatura · Kit Emprego dos Sonhos</span>
+        <span>Diagnóstico gratuito de autorrelato · Kit Emprego dos Sonhos</span>
       </footer>
     </div>
   );

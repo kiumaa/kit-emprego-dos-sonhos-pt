@@ -1,4 +1,4 @@
-import { PDFParse } from 'pdf-parse';
+import './polyfills';
 import mammoth from 'mammoth';
 
 export interface DocumentParseResult {
@@ -51,6 +51,14 @@ export async function parseDocument(fileBuffer: Buffer, fileName: string, mimeTy
         };
       }
 
+      try {
+        // @ts-expect-error - worker mjs sem tipos dedicados
+        const worker = await import('pdfjs-dist/legacy/build/pdf.worker.mjs');
+        (globalThis as any).pdfjsWorker = worker;
+      } catch {
+        // Fallback se o import falhar
+      }
+      const { PDFParse } = await import('pdf-parse');
       const parser = new PDFParse({ data: fileBuffer });
       const result = await parser.getText();
       await parser.destroy();

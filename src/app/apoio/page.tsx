@@ -105,7 +105,7 @@ export default function SupportPage() {
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                 <Clock size={18} color="var(--color-text)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
                 <span>
-                  <strong>Tempo de resposta:</strong> Respondemos habitualmente em dias úteis no prazo de 24 a 48 horas.
+                  <strong>Tempo de resposta:</strong> Respondemos nos dias úteis por ordem de chegada de cada mensagem.
                 </span>
               </div>
 

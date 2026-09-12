@@ -84,15 +84,37 @@ export default function AnalyzeCvPage() {
         body: formData,
       });
 
-      const data = await response.json();
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch {
+        // Resposta não é JSON (ex: erro 500/504 em HTML do servidor)
+      }
 
       if (!response.ok) {
         setIsSubmitting(false);
         setStatusMessage(null);
         setError({
-          message: data.message || 'Ocorreu um erro ao processar o currículo.',
-          offerQuiz: data.offerQuiz ?? true,
-          allowPaste: data.allowPaste ?? true,
+          message: data?.message || (response.status === 503
+            ? 'O analisador de currículo com inteligência artificial está temporariamente indisponível. Podes responder ao Quiz de Diagnóstico gratuito.'
+            : response.status === 413
+            ? 'O ficheiro excede o tamanho máximo permitido de 5 MiB. Podes colar o texto diretamente.'
+            : response.status === 500
+            ? 'Ocorreu um erro no servidor ao processar o documento. Podes colar o texto ou responder ao Quiz gratuito.'
+            : 'Ocorreu um erro ao processar o currículo.'),
+          offerQuiz: data?.offerQuiz ?? true,
+          allowPaste: data?.allowPaste ?? true,
+        });
+        return;
+      }
+
+      if (!data || !data.id) {
+        setIsSubmitting(false);
+        setStatusMessage(null);
+        setError({
+          message: 'A resposta do analisador foi inconclusiva. Podes tentar colar o texto ou responder ao Quiz gratuito.',
+          offerQuiz: true,
+          allowPaste: true,
         });
         return;
       }

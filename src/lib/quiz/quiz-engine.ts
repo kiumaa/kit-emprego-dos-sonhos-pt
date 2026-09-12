@@ -84,7 +84,7 @@ export function evaluateQuiz(
     providedKeys.size !== requiredQuestions.size ||
     [...requiredQuestions].some((id) => !providedKeys.has(id))
   ) {
-    throw new Error('O questionário deve conter exatamente as oito respostas esperadas.');
+    throw new Error('O questionário deve conter exatamente as cinco respostas esperadas.');
   }
 
   const dimensions: Record<string, number> = {};

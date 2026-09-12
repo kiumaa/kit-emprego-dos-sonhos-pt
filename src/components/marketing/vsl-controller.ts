@@ -46,19 +46,19 @@ export function mountVslController(options: VslControllerOptions): VslController
   video.playsInline = true;
   video.controls = false;
   video.loop = true;
-  video.preload = 'metadata';
+  video.preload = 'auto';
 
   const previewAllowed = () => !motion.matches && !connection?.saveData;
   const tryPreview = () => {
     if (disposed || state.mode !== 'preview' || previewStoppedByUser ||
-        !inView || (typeof document !== 'undefined' && document.hidden) || !previewAllowed() || state.phase === 'error') return;
+        (typeof document !== 'undefined' && document.hidden) || !previewAllowed() || state.phase === 'error') return;
     const token = ++attempt;
     video.muted = true;
     video.loop = true;
     void video.play().catch((error: unknown) => {
       if (disposed || token !== attempt || state.mode !== 'preview') return;
       if (error instanceof DOMException && error.name === 'AbortError') return;
-      update({ phase: 'ready', message: 'Carrega no botão para iniciar o vídeo.' });
+      update({ phase: 'ready', message: 'Toca para iniciar o vídeo.' });
     });
   };
   const pauseForContext = () => {
@@ -80,15 +80,19 @@ export function mountVslController(options: VslControllerOptions): VslController
 
   const observer = typeof window !== 'undefined' && 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     const entry = entries[0];
-    inView = Boolean(entry && entry.isIntersecting && entry.intersectionRatio >= 0.5);
+    inView = Boolean(entry && entry.isIntersecting);
     if (inView) tryPreview();
     else pauseForContext();
-  }, { threshold: [0, 0.5] }) : null;
+  }, { threshold: [0, 0.1] }) : null;
   observer?.observe(options.viewportTarget ?? video);
+
+  // Iniciar preview de imediato se o navegador permitir
+  inView = true;
+  tryPreview();
 
   const onVisibility = () => {
     if (typeof document !== 'undefined' && document.hidden) pauseForContext();
-    else tryPreview(); // Nunca retoma som automaticamente.
+    else tryPreview();
   };
   const onMotionChange = () => {
     if (state.mode === 'preview') {
@@ -100,17 +104,16 @@ export function mountVslController(options: VslControllerOptions): VslController
     document.addEventListener('visibilitychange', onVisibility);
   }
   motion.addEventListener?.('change', onMotionChange);
-  update({ phase: previewAllowed() && observer ? 'idle' : 'ready' });
+  update({ phase: previewAllowed() ? 'preview' : 'ready' });
 
   return {
     restartWithSound() {
       if (disposed) return;
       const token = ++attempt;
-      // Não inserir await, setTimeout ou pedido de rede antes de play(): preserva o gesto do utilizador.
       video.pause();
       update({ mode: 'full', phase: 'starting', message: '' });
       video.loop = false;
-      video.controls = true;
+      video.controls = false;
       video.defaultMuted = false;
       video.muted = false;
       if (video.error) video.load();
@@ -118,7 +121,7 @@ export function mountVslController(options: VslControllerOptions): VslController
       void video.play().catch((error: unknown) => {
         if (disposed || token !== attempt) return;
         if (error instanceof DOMException && error.name === 'AbortError') return;
-        update({ phase: 'ready', message: 'O navegador não iniciou o vídeo. Carrega novamente para reproduzir com som.' });
+        update({ phase: 'ready', message: 'O navegador não iniciou o som. Toca novamente para reproduzir.' });
       });
     },
     pausePreview() {

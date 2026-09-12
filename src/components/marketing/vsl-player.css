@@ -71,41 +71,170 @@
 }
 
 /* =========================================================================
-   STORY SEGMENT PROGRESS (Top of 9:16 frame)
+   PREPARATION POSTER AND STORY FRAME
    ========================================================================= */
-.keds-vsl__story-bars {
-  position: absolute;
-  top: 10px;
-  left: 12px;
-  right: 12px;
-  display: flex;
-  gap: 4px;
-  z-index: 25;
+.keds-vsl__prep-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #D2D2D7;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  margin-inline: auto;
 }
 
-.keds-vsl__story-bar {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.28);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
+.keds-vsl__prep-cta {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--vsl-accent);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 87, 217, 0.35);
+  transition: background-color 160ms ease, transform 160ms ease;
 }
 
-.keds-vsl__story-bar--active::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  background: #FFFFFF;
+.keds-vsl__prep-cta:hover {
+  background: var(--vsl-accent-hover);
+  transform: translateY(-1px);
+}
+
+.keds-vsl__prep-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.keds-vsl__frame--preview {
+  cursor: pointer;
 }
 
 /* =========================================================================
-   REALISTIC STORY SCREEN / POSTER
+   LIVE BADGE & PREVIEW OVERLAY
    ========================================================================= */
-.keds-vsl__poster-screen {
+.keds-vsl__live-badge-wrapper {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.keds-vsl__live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.keds-vsl__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
+  animation: vsl-dot-pulse 1.6s infinite ease-in-out;
+}
+
+.keds-vsl__duration-pill {
+  font-size: 11px;
+  color: #E2E8F0;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.keds-vsl__preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 36px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+  z-index: 4;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* =========================================================================
+   AVISO OBRIGATÓRIO: "SEM SOM · TOCA PARA OUVIR"
+   ========================================================================= */
+.keds-vsl__sound-alert-banner {
+  cursor: pointer;
+  background: rgba(0, 87, 217, 0.95);
+  color: #FFFFFF;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 87, 217, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin-inline: auto;
+  transition: transform 140ms ease, background-color 140ms ease;
+  animation: vsl-sound-pulse 2s infinite ease-in-out;
+}
+
+.keds-vsl__sound-alert-banner:hover {
+  transform: scale(1.05);
+  background: #004BBF;
+}
+
+.keds-vsl__sound-alert-banner:active {
+  transform: scale(0.96);
+}
+
+@keyframes vsl-sound-pulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(0, 87, 217, 0.55), 0 0 0 0 rgba(0, 87, 217, 0.6);
+  }
+  50% {
+    box-shadow: 0 10px 30px rgba(0, 87, 217, 0.85), 0 0 0 8px rgba(0, 87, 217, 0);
+  }
+}
+
+/* =========================================================================
+   POSTER DE PREPARAÇÃO (QUANDO SEM SRC)
+   ========================================================================= */
+.keds-vsl__poster-screen--preparation {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -127,82 +256,6 @@
   justify-content: space-between;
   margin-top: 6px;
   z-index: 5;
-}
-
-.keds-vsl__live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.keds-vsl__live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #EF4444;
-  box-shadow: 0 0 6px #EF4444;
-  animation: vsl-dot-pulse 2s infinite ease-in-out;
-}
-
-.keds-vsl__duration-pill {
-  font-size: 11px;
-  color: #94A3B8;
-  font-weight: 500;
-}
-
-/* =========================================================================
-   AVISO OBRIGATÓRIO: "SEM SOM · TOCA PARA OUVIR"
-   ========================================================================= */
-.keds-vsl__sound-alert-banner {
-  cursor: pointer;
-  background: rgba(0, 87, 217, 0.9);
-  color: #FFFFFF;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 18px rgba(0, 87, 217, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  margin-inline: auto;
-  margin-top: 14px;
-  transition: transform 140ms ease, background-color 140ms ease;
-  animation: vsl-sound-pulse 2s infinite ease-in-out;
-}
-
-.keds-vsl__sound-alert-banner:hover {
-  transform: scale(1.04);
-  background: var(--vsl-accent-hover);
-}
-
-.keds-vsl__sound-alert-banner:active {
-  transform: scale(0.96);
-}
-
-@keyframes vsl-sound-pulse {
-  0%, 100% {
-    box-shadow: 0 4px 18px rgba(0, 87, 217, 0.5);
-  }
-  50% {
-    box-shadow: 0 4px 24px rgba(0, 87, 217, 0.85);
-  }
 }
 
 .keds-vsl__poster-center {
@@ -233,6 +286,79 @@
   line-height: 1.4;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   max-width: 280px;
+}
+
+/* =========================================================================
+   BOTÃO PULSE "EU QUERO ADERIR!" (REVELADO AOS 1:13)
+   ========================================================================= */
+.keds-vsl__cta-wrapper {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: vsl-fade-in-up 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.keds-vsl__cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 380px;
+  min-height: 56px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #0057D9 0%, #0042A6 100%);
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 87, 217, 0.45);
+  animation: vsl-cta-pulse 2s infinite ease-in-out;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  box-sizing: border-box;
+}
+
+.keds-vsl__cta-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 32px rgba(0, 87, 217, 0.6);
+}
+
+.keds-vsl__cta-button:active {
+  transform: scale(0.98);
+}
+
+.keds-vsl__cta-caption {
+  font-size: 13px;
+  color: var(--color-text-secondary, #51515A);
+  margin: 0;
+  font-weight: 500;
+}
+
+@keyframes vsl-cta-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(0, 87, 217, 0.45), 0 0 0 0 rgba(0, 87, 217, 0.6);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 12px 34px rgba(0, 87, 217, 0.7), 0 0 0 12px rgba(0, 87, 217, 0);
+  }
+}
+
+@keyframes vsl-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================================================
@@ -377,41 +503,6 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   color: #D2D2D7;
   letter-spacing: 0.02em;
-}
-
-.keds-vsl__hd-badge {
-  font-size: 9px;
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 1px 5px;
-  border-radius: 4px;
-  color: #FFFFFF;
-  letter-spacing: 0.04em;
-}
-
-/* Feedback message overlay */
-.keds-vsl__notice-toast {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(29, 29, 31, 0.94);
-  color: #FFFFFF;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 30;
-  animation: vsl-fade-in 200ms ease;
-  white-space: nowrap;
 }
 
 /* Animations */

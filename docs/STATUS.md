@@ -116,3 +116,41 @@ Acrescentar data, commit, alterações, verificações executadas e bloqueios no
   - `python3 -B qa/check_spec.py`: 23/23 testes de especificação aprovados (100%).
   - `npm run build`: Compilação de produção concluída com sucesso.
   - Evidência fotográfica capturada em desktop (1280px), iPhone (390px) e ecrãs compactos (360px).
+
+### 12/09/2026 — Ajustes Finais: Contrato Coerente de 5 Perguntas, Remoção de Simulações do VSL Player e Rigor Factual (v3.5)
+- **Contrato Oficial do Quiz (5 Perguntas)**:
+  - `content/quiz/quiz.json` atualizado para conter exclusivamente 5 perguntas (`q1`, `q3`, `q4`, `q5`, `q7`), com `q1` puramente contextual e 4 dimensões pontuadas (`cv`, `adaptacao`, `evidencia`, `mensagem`).
+  - As dimensões `organizacao` e `revisao` foram removidas do contrato ativo do quiz; não podem surgir em resultados ou prioridades.
+  - Recalibração determinística da pontuação para a nova escala de 0–12 pontos: `base` (0–4), `consolidar` (5–8) e `afinar` (9–12).
+  - Remoção de `baselineAnswers` (`q2`, `q6`, `q8`) em `src/app/quiz/page.tsx`, estabelecendo correspondência estrita 1:1 entre perguntas exibidas e avaliadas.
+  - Chave de `sessionStorage` versionada para `keds_quiz_answers_v2` com sanitização estrita e migração graciosa de sessões antigas.
+  - Validação da estrutura de diagnóstico em `src/app/resultado/[id]/page.tsx` para rejeitar graciosamente estados corrompidos.
+- **Remoção de Simulações no Leitor VSL**:
+  - `src/components/marketing/VslPlayer.tsx` e `vsl-player.css` limpos de qualquer simulação de reprodução (`isPlayingSimulated`, progresso falso 25%/45%, buffer fictício 65%, temporizador estático 3:45, badge 1080p e toast).
+  - Sem `src`: enquadramento visual vertical 9:16 preservado com poster honesto em preparação ("Prepara a tua próxima candidatura. Vê como usar os recursos do kit."), botão útil apontando para `#oferta` e sem barras decorativas de story.
+  - Com `src`: eventos reais do `HTMLVideoElement`, unmuting no primeiro clique iniciando do segundo 0, pausas/retomas sem perda da posição atual e ecrã inteiro nativo.
+- **Hierarquia Comercial e Acessibilidade Mobile**:
+  - Em `/kit`, antecipação do bloco de preço (`14,99 € · pagamento único`) e CTA para o topo do Hero antes dos 4 cards de produtos, com resumo compacto de entregáveis em pills.
+  - Grelha detalhada `ProductMockup` movida para depois da apresentação em vídeo.
+  - Em `ProductMockup.tsx`, etiqueta atualizada de "Exemplos reais" para "Exemplos preenchidos".
+  - Na homepage (`/`), botão secundário encurtado para "Fazer o quiz — sem CV", mantendo 48 px de altura e cabendo em 1 linha em ecrãs de 360 px.
+- **Microcopy, Apoio e Credibilidade**:
+  - Linha de confiança da homepage atualizada para "Gratuito · Sem cartão · Privacidade" com link funcional para `/privacidade`.
+  - Rodapé do quiz atualizado para "Diagnóstico gratuito de autorrelato · Kit Emprego dos Sonhos".
+  - Em `/apoio`, remoção de promessas de prazo de 24–48h, adotando "Respondemos nos dias úteis por ordem de chegada de cada mensagem."
+  - Na FAQ de `/kit`, removida menção não confirmada a Multibanco (mantendo MB WAY e cartões Visa/Mastercard).
+- **Verificações de Qualidade e Segurança Executadas:**
+  - `npm run typecheck`: 0 erros de compilação.
+  - `npm run test` (Vitest): 26/26 testes aprovados (100% de sucesso, cobrindo as 256 combinações válidas, sanitização e ausência de dimensões não perguntadas).
+  - `python3 -B qa/check_spec.py`: 23/23 testes de especificação aprovados (100%).
+  - `npm run build`: Compilação de produção Next.js 15 concluída com sucesso (16/16 páginas estáticas geradas).
+  - Screenshots capturados em 360 px, 390 px e 1280 px comprovando alinhamento estético e hierarquia.
+- **Ativação da IA Google Gemini para Análise Real de CV**:
+  - Chave de API Google Gemini configurada de forma segura em `.env.local` (estritamente excluído do Git por `.gitignore`).
+  - Modelo atualizado para `gemini-3.6-flash` em `src/server/diagnostics/ai-analyzer.ts`, com envio de cabeçalho `x-goog-api-key` e normalização robusta de tipos do diagnóstico (`essential | refinement` e `guide_step | download_sample`).
+  - Testado e validado end-to-end: `/api/diagnostics/cv` executou com sucesso chamada real ao Gemini, devolvendo diagnóstico estruturado e construtivo em pt-PT, sem inventar percentagens ou pontuações ATS.
+
+- **Bloqueios e Autorização**:
+  - Nenhuma alteração foi enviada para o repositório GitHub remoto (`origin/main`) nem foi efetuado novo deploy para a Vercel, cumprindo estritamente a instrução do utilizador.
+
+

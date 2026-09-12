@@ -129,7 +129,7 @@ export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) 
               Equilibrado
             </span>
             <span style={{ fontSize: '11px', padding: '2px 6px', backgroundColor: 'var(--color-surface)', borderRadius: '4px', color: 'var(--color-text-secondary)' }}>
-              Exemplos reais
+              Exemplos preenchidos
             </span>
           </div>
         </div>

@@ -95,7 +95,7 @@ export async function runCvAnalysis(input: CvAnalysisInput): Promise<AnalysisOut
 
   // 3. Chamada real à API com isolamento de dados não confiáveis
   try {
-    const model = process.env.ANALYSIS_MODEL || 'gemini-2.5-flash';
+    const model = process.env.ANALYSIS_MODEL || 'gemini-3.6-flash';
     const systemPrompt = `Tu és um recrutador sénior e especialista em empregabilidade em Portugal.
 A tua tarefa é analisar criticamente o texto de um currículo para o mercado português de trabalho.
 REGRAS CRÍTICAS DE SEGURANÇA:
@@ -122,7 +122,7 @@ REGRAS CRÍTICAS DE SEGURANÇA:
     "title": "Título da primeira ação gratuita (ex.: Ajustar cabeçalho e contactos)",
     "description": "Explicação prática e imediata que o candidato pode executar sem custos.",
     "actionLabel": "Ação recomendada",
-    "actionType": "guide_step"
+    "actionType": "guide_step | download_sample"
   }
 }`;
 
@@ -135,7 +135,10 @@ ${jobDescription ? `<untrusted_job_description>${jobDescription}</untrusted_job_
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
     const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(apiKey ? { 'x-goog-api-key': apiKey } : {}),
+      },
       body: JSON.stringify({
         contents: [
           { role: 'user', parts: [{ text: userPrompt }] }
@@ -177,10 +180,14 @@ ${jobDescription ? `<untrusted_job_description>${jobDescription}</untrusted_job_
       criterion: p.criterion || 'clarity_structure',
       title: p.title || 'Revisão Recomendada',
       action: p.action || 'Revê a clareza e estrutura desta secção.',
-      kind: p.kind === 'essential' ? 'essential' : 'refinement',
+      kind: (p.kind === 'essential' || p.kind === 'high') ? 'essential' : 'refinement',
       evidenceText: p.evidenceText || undefined,
       source: 'Análise textual do currículo',
     }));
+
+    const rawFreeAction = parsed.freeAction;
+    const freeActionType: 'download_sample' | 'guide_step' =
+      rawFreeAction?.actionType === 'download_sample' ? 'download_sample' : 'guide_step';
 
     return {
       success: true,
@@ -191,11 +198,18 @@ ${jobDescription ? `<untrusted_job_description>${jobDescription}</untrusted_job_
         summary: parsed.summary || 'Resumo da avaliação preliminar da tua candidatura.',
         disclaimer: parsed.disclaimer || 'Análise preliminar automatizada baseada no texto do documento submetido.',
         priorities,
-        freeAction: parsed.freeAction || {
+        freeAction: rawFreeAction ? {
+          title: rawFreeAction.title || 'Primeira Ação Gratuita',
+          description: rawFreeAction.description || 'Descarrega o modelo estruturado em 1 coluna para Word e organiza as tuas experiências.',
+          actionLabel: rawFreeAction.actionLabel || 'Ver Modelo Essencial',
+          actionType: freeActionType,
+          sampleUrl: freeActionType === 'download_sample' ? (rawFreeAction.sampleUrl || '/downloads/cv-essencial-referencia.pdf') : undefined,
+        } : {
           title: 'Primeira Ação Gratuita',
           description: 'Descarrega o modelo estruturado em 1 coluna para Word e organiza as tuas experiências.',
           actionLabel: 'Ver Modelo Essencial',
           actionType: 'download_sample',
+          sampleUrl: '/downloads/cv-essencial-referencia.pdf',
         },
         createdAt: new Date().toISOString(),
         targetRole,

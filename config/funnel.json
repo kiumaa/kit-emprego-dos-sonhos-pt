@@ -36,7 +36,7 @@
     ]
   },
   "vsl": {
-    "src": null,
+    "src": "/videos/vsl-keds.mp4",
     "poster": null,
     "captionsSrc": null,
     "anchor": "apresentacao",
@@ -55,8 +55,6 @@
   },
   "pending": [
     "URL real de checkout",
-    "Fornecedor e credencial de análise real",
-    "VSL/poster/legendas",
     "Produtos finais carregados na OKANDA",
     "Dados/condições comerciais e privacidade revistos"
   ]

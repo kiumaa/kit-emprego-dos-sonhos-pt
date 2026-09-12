@@ -1,4 +1,20 @@
 # Histórico
+## 3.4 — 12/09/2026 (Remoção de Elementos Obstrutivos, Badge 'AO VIVO', Autoplay Transparente e Botão Pulse aos 1:13)
+- **Remoção de Elementos Solicitados**:
+  - Removido texto sobreposto no vídeo ("Prepara a tua próxima candidatura." e "Vê como usar os recursos do kit.").
+  - Removido botão central preto ("▶ Ver apresentação").
+  - Removida badge duplicada "Apresentação Oficial" no topo da secção.
+  - Removido parágrafo "Vê a apresentação oficial de 3 minutos para descobrires a metodologia completa." em `/resultado/[id]`.
+- **Badge 'AO VIVO'**: Canto superior atualizado para `● AO VIVO` com ponto pulsante vermelho dinâmico.
+- **Autoplay Mudo Transparente & Reinício com Som**: O vídeo corre em autoplay sem som imediato e totalmente desimpedido; clicar em qualquer ponto do vídeo ou na faixa flutuante ("Sem som · Toca para ouvir") desativa o mute, reinicia o vídeo no segundo 0 e entra em modo completo de reprodução com controlos.
+- **Botão Pulsante 'EU QUERO ADERIR!' aos 1:13**: Aos 73 segundos (1:13) de vídeo, surge abaixo do reprodutor o botão CTA em pulsação contínua ("EU QUERO ADERIR!"), com ligação direta para o checkout (ou navegação fluida para a oferta).
+
+## 3.3 — 12/09/2026 (Integração da VSL Oficial em Vídeo e Deploy de Produção)
+- **VSL Oficial Aplicada**: Ficheiro de vídeo copiado para `public/videos/vsl-keds.mp4` (12 MB, formato vertical 9:16).
+- **Configuração do Funil**: `config/funnel.json` atualizado com `"src": "/videos/vsl-keds.mp4"`, ativando o reprodutor real em `/resultado/[id]` e `/kit`.
+- **Experiência do Utilizador**: Reprodução com pré-visualização contínua muda em viewport, botão tátil para ativar som e reiniciar no segundo 0, barra de progresso interativa, play/pause, suporte a ecrã inteiro e modo de transição fluida.
+- **Deploy em Produção**: Publicado no Vercel com sucesso em `https://kit-emprego-dos-sonhos-pt.vercel.app`, com streaming de vídeo a 100%.
+
 ## 2.0 — 12/09/2026
 - Pacote único de arranque para produtos, páginas, recursos, anúncios e VSL.
 - Editor de CV e exportação personalizada removidos por decisão explícita.
@@ -60,3 +76,36 @@
   - Eliminação de gutters duplicados: remoção de preenchimentos laterais redundantes em `<main>` que comprimiam os ecrãs mobile contra o `.container-reading` e os cards internos.
   - Unificação de calhas responsivas nos seletores `.container`, `.container-reading`, `.container-wide` e `.container-form` com `padding-inline: clamp(16px, 4vw, 24px)` e `margin-inline: auto`.
   - Otimização do preenchimento interno dos cartões em ecrãs estreitos (360–390 px) em todas as rotas (`/`, `/quiz`, `/analisar-cv`, `/resultado/[id]`, `/kit`, `/apoio`, `/obrigado`, `/termos`, `/privacidade`, `/cookies`).
+
+## 3.5 — 12/09/2026 (Ajustes Finais: Contrato Coerente de 5 Perguntas, Remoção de Simulações do VSL Player e Rigor Factual)
+- **Contrato Oficial de 5 Perguntas no Quiz**:
+  - `content/quiz/quiz.json` atualizado para conter exatamente 5 perguntas (`q1`, `q3`, `q4`, `q5`, `q7`), com `q1` puramente contextual e 4 dimensões pontuadas (`cv`, `adaptacao`, `evidencia`, `mensagem`).
+  - As dimensões `organizacao` e `revisao` foram completamente retiradas do contrato do quiz, garantindo que dimensões não perguntadas nunca sejam atribuídas ao utilizador como observação ou prioridade.
+  - Recalibração determinística das faixas internas para a nova escala de 0–12 pontos: `base` (0–4), `consolidar` (5–8) e `afinar` (9–12).
+  - Remoção de `baselineAnswers` (`q2='outra'`, `q6='notas'`, `q8='rapida'`) em `src/app/quiz/page.tsx`, estabelecendo correspondência 1:1 entre perguntas exibidas e avaliadas.
+  - Versionamento da chave em `sessionStorage` para `keds_quiz_answers_v2`, com sanitização rigorosa contra chaves desconhecidas ou opções inválidas e migração graciosa de sessões antigas.
+  - Validação de integridade estrutural ao recuperar diagnósticos em `src/app/resultado/[id]/page.tsx`, evitando falhas de execução com estados corrompidos.
+- **Remoção de Reprodução Simulada no Leitor VSL**:
+  - `src/components/marketing/VslPlayer.tsx` e `vsl-player.css` desprovidos de reprodução simulada (`isPlayingSimulated`), progresso falso (25%/45%), buffer inventado (65%), duração estática (3:45), badge "1080p HD" e toast de som.
+  - Na ausência de `src`: preservação do enquadramento vertical 9:16 com poster honesto identificado como preparação ("Prepara a tua próxima candidatura. Vê como usar os recursos do kit."), botão útil apontando para a oferta (`#oferta`) e zero barras decorativas de story.
+  - Com `src` presente: integração a eventos reais do `HTMLVideoElement` (`currentTime`, `duration`, `buffered`, `play/pause`, `volumechange`), primeiro clique com unmuting e reinício no segundo 0, pausas normais que retomam do tempo atual e suporte a ecrã inteiro nativo.
+- **Hierarquia Comercial e Acessibilidade em Mobile**:
+  - Na página `/kit`, o bloco de preço (`14,99 € · pagamento único`) e o CTA principal foram antecipados para o Hero antes dos 4 cartões de produtos, acompanhados de resumo compacto em pills dos 14 ficheiros entregues.
+  - A grelha detalhada `ProductMockup` foi deslocada para depois da apresentação em vídeo.
+  - Em `ProductMockup.tsx`, o badge "Exemplos reais" foi ajustado para "Exemplos preenchidos".
+  - Na homepage (`/`), o botão secundário foi encurtado para "Fazer o quiz — sem CV", mantendo 48 px de altura e cabendo em 1 linha limpa a 360 px.
+- **Microcopy, Apoio e Credibilidade**:
+  - Linha de confiança da homepage atualizada para "Gratuito · Sem cartão · Privacidade" (com link funcional para `/privacidade`), sem prometer ausência de tratamento externo de dados.
+  - Rodapé do quiz atualizado para "Diagnóstico gratuito de autorrelato · Kit Emprego dos Sonhos".
+  - Em `/apoio`, removida a menção ao prazo de 24–48h e adotada a descrição factual: "Respondemos nos dias úteis por ordem de chegada de cada mensagem."
+  - Na FAQ de `/kit`, removida a menção não confirmada a Multibanco, mantendo MB WAY e cartões Visa/Mastercard.
+- **Ativação da IA Google Gemini para Análise Real de Currículos**:
+  - Chave de API Google Gemini configurada com isolamento de segurança em `.env.local` (ignorado pelo git).
+  - Atualização do modelo padrão para `gemini-3.6-flash` em `src/server/diagnostics/ai-analyzer.ts`, com cabeçalho `x-goog-api-key` e normalização defensiva dos campos de resultado (`essential | refinement` e `guide_step | download_sample`).
+  - Validação end-to-end do endpoint `/api/diagnostics/cv`: análise ao vivo executada com sucesso, gerando diagnóstico técnico objetivo em pt-PT, sem simulação e sem notas ATS fictícias.
+- **Garantia de Qualidade e Conformidade**:
+  - 26/26 testes Vitest aprovados (incluindo todas as 256 combinações válidas da escala 0–12).
+  - 23/23 testes de especificação Python aprovados em `qa/check_spec.py`.
+  - Typecheck sem erros e compilação de produção Next.js 15 concluída com sucesso (16/16 páginas geradas).
+
+

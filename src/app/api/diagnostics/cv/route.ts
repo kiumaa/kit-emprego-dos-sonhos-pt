@@ -1,3 +1,4 @@
+import '@/server/diagnostics/polyfills';
 import { NextResponse } from 'next/server';
 import { parseDocument } from '@/server/diagnostics/document-parser';
 import { runCvAnalysis } from '@/server/diagnostics/ai-analyzer';

@@ -26,6 +26,17 @@ Nome: Kit Emprego dos Sonhos — Portugal. Desenvolvimento dos produtos e das p�
 - Landing page de vendas direta em `/kit` com estrutura de alta conversão.
 - Substituição do formulário simulado de `/apoio` por canal real de suporte por email e neutralização de `/obrigado` para entrega por email pela OKANDA.
 
+**Decisão KEDS v3.3 (12/09/2026): VSL Oficial em Vídeo Real Aplicada e Ativa**
+- Ficheiro real de vídeo fornecido pelo responsável aplicado em `public/videos/vsl-keds.mp4` e configurado no funil (`config/funnel.json`).
+- `VslPlayer` entra no modo de reprodução de vídeo real nas páginas `/resultado/[id]` e `/kit`.
+- Cumprimento de todos os requisitos de autoplay silencioso, ativação de som e reinício a partir do segundo 0 sem atrito no mesmo clique.
+
+**Decisão KEDS v3.4 (12/09/2026): Refinamento da VSL, Desobstrução Visual, Badge 'AO VIVO' e Botão Pulse 1:13**
+- Remoção dos textos sobrepostos na pré-visualização do vídeo, do botão escuro de play, da badge "Apresentação Oficial" e do texto de 3 minutos em `/resultado/[id]`.
+- Substituição da identificação de canto por `● AO VIVO` com animação de ponto vermelho pulsante.
+- Autoplay mudo transparente que não tapa o vídeo; clique no vídeo ou na faixa flutuante ativa o áudio e reinicia imediatamente a partir do segundo 0.
+- Surgimento de botão pulsante ("EU QUERO ADERIR!") exatamente aos 73 segundos (1:13) do vídeo, com link para o checkout.
+
 ## Defaults de implementação, sem necessidade de bloquear o arranque
 - Manrope, branco, grafite, cinzas neutros, azul discreto; tema claro único no lançamento.
 - Site e área privada no mesmo projeto. Conteúdo estruturado e tokens partilhados.

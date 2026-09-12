@@ -45,7 +45,7 @@ class PackageChecks(unittest.TestCase):
         self.assertEqual(len(load('content/kit/prompts.json')['prompts']),25)
         self.assertEqual(len(load('content/kit/mensagens.json')['messages']),10)
         self.assertEqual(len(load('content/marketing/ads.json')['ads']),6)
-        self.assertEqual(len(SPEC['questions']),8)
+        self.assertEqual(len(SPEC['questions']),5)
         for item in load('content/kit/licoes.json')['lessons']:
             p=ROOT/item['source']; self.assertTrue(p.is_file()); self.assertGreater(len(p.read_text().split()),180)
     def test_05_sources_and_entitlements(self):
@@ -91,39 +91,42 @@ class PackageChecks(unittest.TestCase):
             self.assertNotIn(promise,text)
 
 class QuizChecks(unittest.TestCase):
-    def test_11_all_4096_scored_combinations(self):
-        for scores in itertools.product(range(4),repeat=6):
+    def test_11_all_256_scored_combinations(self):
+        for scores in itertools.product(range(4),repeat=4):
             result=evaluate_quiz(answers_for(scores),SPEC)
             total=sum(scores)
             self.assertEqual(result['internalPreparationScore'],total)
-            expected='base' if total<=6 else 'consolidar' if total<=12 else 'afinar'
+            expected='base' if total<=4 else 'consolidar' if total<=8 else 'afinar'
             self.assertEqual(result['profileId'],expected)
             self.assertEqual(len(result['priorities']),3)
             self.assertFalse(result['showNumericScore'])
+            self.assertEqual(set(result['dimensions'].keys()),set(SPEC['priorityOrder']))
     def test_12_context_does_not_change_score(self):
-        answers=answers_for([1,2,1,3,1,2])
+        answers=answers_for([1,2,1,3])
         expected=evaluate_quiz(answers,SPEC)['internalPreparationScore']
         for q1 in SPEC['questions'][0]['options']:
-            for q2 in SPEC['questions'][1]['options']:
-                answers.update(q1=q1['id'],q2=q2['id'])
-                self.assertEqual(evaluate_quiz(answers,SPEC)['internalPreparationScore'],expected)
+            answers.update(q1=q1['id'])
+            self.assertEqual(evaluate_quiz(answers,SPEC)['internalPreparationScore'],expected)
     def test_13_incomplete_or_extra_answers_rejected(self):
-        answers=answers_for([0]*6)
-        del answers['q8']
+        answers=answers_for([0]*4)
+        del answers['q7']
         with self.assertRaises(ValueError): evaluate_quiz(answers,SPEC)
-        answers=answers_for([0]*6); answers['q9']='extra'
+        answers=answers_for([0]*4); answers['q9']='extra'
         with self.assertRaises(ValueError): evaluate_quiz(answers,SPEC)
     def test_14_invalid_choice_and_type_rejected(self):
         for value in ('inexistente',['lista'],True,None):
-            answers=answers_for([0]*6); answers['q3']=value
+            answers=answers_for([0]*4); answers['q3']=value
             with self.assertRaises(ValueError): evaluate_quiz(answers,SPEC)
     def test_15_good_result_keeps_refinements(self):
-        result=evaluate_quiz(answers_for([3]*6),SPEC)
+        result=evaluate_quiz(answers_for([3]*4),SPEC)
         self.assertEqual(result['profileId'],'afinar')
         self.assertTrue(all(p['kind']=='refinement' for p in result['priorities']))
+        self.assertNotIn('organizacao',[p['dimension'] for p in result['priorities']])
+        self.assertNotIn('revisao',[p['dimension'] for p in result['priorities']])
     def test_16_tie_break_is_deterministic(self):
-        result=evaluate_quiz(answers_for([0]*6),SPEC)
+        result=evaluate_quiz(answers_for([0]*4),SPEC)
         self.assertEqual([p['dimension'] for p in result['priorities']],SPEC['priorityOrder'][:3])
+        self.assertEqual([p['dimension'] for p in result['priorities']],['cv','adaptacao','evidencia'])
 
 class AnalysisContractChecks(unittest.TestCase):
     def setUp(self):

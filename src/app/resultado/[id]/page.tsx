@@ -23,12 +23,21 @@ export default function ResultPage() {
     try {
       const stored = sessionStorage.getItem(`keds_result_${resultId}`);
       if (stored) {
-        setResult(JSON.parse(stored));
-        setLoading(false);
-        return;
+        const parsed = JSON.parse(stored);
+        if (
+          parsed &&
+          typeof parsed === 'object' &&
+          typeof parsed.title === 'string' &&
+          typeof parsed.summary === 'string' &&
+          Array.isArray(parsed.priorities)
+        ) {
+          setResult(parsed);
+          setLoading(false);
+          return;
+        }
       }
     } catch {
-      // Ignorar erro de storage
+      // Ignorar erro de storage malformado
     }
 
     setNotFound(true);
@@ -361,8 +370,7 @@ export default function ResultPage() {
           >
             <h2
               style={{
-                fontSize: 'clamp(20px, 4.5vw, 26px)',
-                lineHeight: 1.25,
+                fontSize: 'clamp(20px, 4vw, 26px)',
                 fontWeight: 700,
                 letterSpacing: '-0.02em',
                 color: 'var(--color-text)',
@@ -371,17 +379,6 @@ export default function ResultPage() {
             >
               Como aplicar estas recomendações passo a passo?
             </h2>
-            <p
-              className="secondary"
-              style={{
-                fontSize: '15px',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.5,
-                maxWidth: '500px',
-              }}
-            >
-              Vê a apresentação oficial de 3 minutos para descobrires a metodologia completa.
-            </p>
 
             <a
               href="#apresentacao"

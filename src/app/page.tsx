@@ -128,23 +128,34 @@ export default function HomePage() {
               }}
             >
               <HelpCircle size={18} color="var(--color-text-secondary)" aria-hidden="true" />
-              <span>Não tenho o CV comigo — fazer o quiz</span>
+              <span>Fazer o quiz — sem CV</span>
             </a>
 
-            {/* Linha de Confiança Atualizada conforme Pedido */}
+            {/* Linha de Confiança Factual com Ligação à Privacidade */}
             <div
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px',
+                gap: '6px',
                 fontSize: '13px',
                 color: 'var(--color-text-secondary)',
                 marginTop: 'var(--space-2)',
+                flexWrap: 'wrap',
               }}
             >
               <CheckCircle2 size={14} color="var(--color-success)" aria-hidden="true" />
-              <span>Gratuito · Sem compromisso · 100% Confidencial</span>
+              <span>Gratuito · Sem cartão · </span>
+              <a
+                href="/privacidade"
+                style={{
+                  color: 'var(--color-text-secondary)',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '2px',
+                }}
+              >
+                Privacidade
+              </a>
             </div>
           </div>
         </section>
