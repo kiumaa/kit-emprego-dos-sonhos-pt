@@ -74,7 +74,7 @@ export function CvEditorClient() {
 
   // Carregar rascunho
   useEffect(() => {
-    fetch(`/api/me/cvs/${draftIdRef.current}`)
+    fetch(`/api/me/cv/${draftIdRef.current}`)
       .then((res) => {
         if (res.status === 401) {
           router.replace('/acesso');
@@ -103,7 +103,7 @@ export function CvEditorClient() {
       if (!activeWindow) return;
       setSaveStatus('saving');
       try {
-        const res = await fetch(`/api/me/cvs/${draftIdRef.current}`, {
+        const res = await fetch(`/api/me/cv/${draftIdRef.current}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -149,7 +149,7 @@ export function CvEditorClient() {
       // Guarda antes de exportar
       await saveDocument(doc);
 
-      const res = await fetch(`/api/me/cvs/${draftIdRef.current}/pdf`, {
+      const res = await fetch(`/api/me/cv/${draftIdRef.current}/pdf`, {
         method: 'POST',
       });
       const data = await res.json();
@@ -178,7 +178,7 @@ export function CvEditorClient() {
     setErrorMessage(null);
     setAiSuggestion(null);
     try {
-      const res = await fetch(`/api/me/cvs/${draftIdRef.current}/suggest`, {
+      const res = await fetch(`/api/me/cv/${draftIdRef.current}/suggest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
