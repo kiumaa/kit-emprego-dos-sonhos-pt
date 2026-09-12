@@ -66,7 +66,10 @@ function getProductMap(): Record<string, ProductMapping> {
 
 export async function POST(request: NextRequest) {
   try {
-    const rawSecret = process.env.OKANDA_WEBHOOK_SIGNING_SECRET || '';
+    const rawSecret =
+      process.env.OKANDA_WEBHOOK_SIGNING_SECRET ||
+      process.env.OKANDA_WEBHOOK_SECRET ||
+      '';
     const secrets = rawSecret
       .split(',')
       .map((s) => s.trim())

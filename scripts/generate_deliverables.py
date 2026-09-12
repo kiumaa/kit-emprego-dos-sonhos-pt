@@ -889,8 +889,8 @@ def main():
             {
                 "id": "kit-principal",
                 "productName": "Kit Emprego dos Sonhos — Portugal",
-                "priceMinor": 1490,
-                "priceFormatted": "14,90 €",
+                "priceMinor": 1499,
+                "priceFormatted": "14,99 €",
                 "zipFileName": "kit-principal-keds-portugal.zip",
                 "sizeBytes": meta_main["sizeBytes"],
                 "sha256": meta_main["sha256"],
@@ -902,8 +902,8 @@ def main():
             {
                 "id": "bump-entrevista",
                 "productName": "Entrevista dos Sonhos (Guia + Workbook)",
-                "priceMinor": 490,
-                "priceFormatted": "+ 4,90 €",
+                "priceMinor": 499,
+                "priceFormatted": "+ 4,99 €",
                 "zipFileName": "bump-entrevista-dos-sonhos.zip",
                 "sizeBytes": meta_ent["sizeBytes"],
                 "sha256": meta_ent["sha256"],
@@ -915,8 +915,8 @@ def main():
             {
                 "id": "bump-linkedin",
                 "productName": "LinkedIn dos Sonhos (Guia + Workbook)",
-                "priceMinor": 590,
-                "priceFormatted": "+ 5,90 €",
+                "priceMinor": 599,
+                "priceFormatted": "+ 5,99 €",
                 "zipFileName": "bump-linkedin-dos-sonhos.zip",
                 "sizeBytes": meta_lnk["sizeBytes"],
                 "sha256": meta_lnk["sha256"],

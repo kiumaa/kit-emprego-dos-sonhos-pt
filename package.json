@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "python3 scripts/generate_deliverables.py && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
