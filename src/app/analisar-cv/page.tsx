@@ -4,18 +4,15 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Button } from '@/components/ui/button';
-import { TextField, TextArea } from '@/components/ui/text-field';
-import { UploadCloud, FileText, Lock, ArrowRight, HelpCircle, AlertCircle } from 'lucide-react';
-import pagesData from '../../../content/marketing/pages.json';
+import { UploadCloud, FileText, Lock, ArrowRight, HelpCircle, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
 
 export default function AnalyzeCvPage() {
   const router = useRouter();
-  const analyzerData = pagesData.analyzer;
   const [activeTab, setActiveTab] = useState<'upload' | 'paste'>('upload');
   const [cvText, setCvText] = useState('');
   const [targetRole, setTargetRole] = useState('');
   const [jobDescription, setJobDescription] = useState('');
+  const [showOptionalFields, setShowOptionalFields] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<{ message: string; offerQuiz?: boolean; allowPaste?: boolean } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,7 +47,7 @@ export default function AnalyzeCvPage() {
 
     if (activeTab === 'upload' && !file) {
       setError({
-        message: 'Por favor seleciona um ficheiro de CV ou muda para a aba de colar texto.',
+        message: 'Por favor seleciona um ficheiro de CV ou muda para a opção de colar texto.',
         allowPaste: true,
       });
       return;
@@ -65,7 +62,7 @@ export default function AnalyzeCvPage() {
     }
 
     setIsSubmitting(true);
-    setStatusMessage('A enviar o documento para validação e leitura segura...');
+    setStatusMessage('A processar o documento em memória segura...');
 
     try {
       const formData = new FormData();
@@ -100,16 +97,14 @@ export default function AnalyzeCvPage() {
         return;
       }
 
-      // Sucesso: guardar derivação mínima em sessionStorage da sessão atual
+      // Guardar resultado na sessão e navegar imediatamente
       sessionStorage.setItem(`keds_result_${data.id}`, JSON.stringify(data));
-
-      // Navegação direta sem temporizadores fictícios
       router.push(`/resultado/${data.id}`);
     } catch {
       setIsSubmitting(false);
       setStatusMessage(null);
       setError({
-        message: 'Não foi possível ligar ao servidor de análise. Verifica a tua ligação ou faz o Quiz gratuito.',
+        message: 'Não foi possível contactar o servidor de análise. Verifica a tua ligação ou experimenta o Quiz de autorrelato.',
         offerQuiz: true,
       });
     }
@@ -117,296 +112,381 @@ export default function AnalyzeCvPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      <Header />
+      {/* Header com logo e botão voltar discreto */}
+      <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
-        <div className="container-form">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
-            <span
+      <main style={{ flex: 1, padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)' }}>
+        <div className="container-reading" style={{ maxWidth: '560px' }}>
+          {/* Headline & Subheadline simples */}
+          <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+            <h1
               style={{
-                fontSize: 'var(--type-small)',
-                fontWeight: 'var(--weight-semibold)',
-                color: 'var(--color-accent)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.04em',
+                fontSize: 'clamp(26px, 6vw, 34px)',
+                lineHeight: 1.15,
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                color: 'var(--color-text)',
               }}
             >
-              Diagnóstico Gratuito de Candidatura
-            </span>
-            <h1 style={{ fontSize: 'var(--type-h1-mobile)', marginTop: 'var(--space-2)' }}>
-              {analyzerData.title}
+              Vamos olhar para o teu CV.
             </h1>
-            <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)' }}>
-              {analyzerData.description}
+            <p
+              className="secondary"
+              style={{
+                marginTop: 'var(--space-2)',
+                fontSize: '15px',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.45,
+              }}
+            >
+              Envia o ficheiro ou cola o texto. Em poucos instantes mostramos-te os principais pontos a rever.
             </p>
           </div>
 
-          {/* Tab Selector */}
+          {/* Card do Formulário de Diagnóstico */}
           <div
             style={{
-              display: 'flex',
-              backgroundColor: 'var(--color-surface)',
-              padding: '4px',
-              borderRadius: 'var(--radius-control)',
-              marginBottom: 'var(--space-6)',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              padding: 'var(--space-6) var(--layout-mobile-gutter)',
               border: '1px solid var(--color-border)',
+              boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
             }}
           >
-            <button
-              type="button"
-              onClick={() => { setActiveTab('upload'); setError(null); }}
+            {/* Tabs: Enviar CV / Colar texto */}
+            <div
+              role="tablist"
               style={{
-                flex: 1,
-                height: '40px',
-                borderRadius: '8px',
-                border: 'none',
-                backgroundColor: activeTab === 'upload' ? 'var(--color-surface-raised)' : 'transparent',
-                color: 'var(--color-text)',
-                fontWeight: activeTab === 'upload' ? 'var(--weight-semibold)' : 'var(--weight-regular)',
-                boxShadow: activeTab === 'upload' ? 'var(--shadow-card)' : 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--space-2)',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '6px',
+                padding: '4px',
+                backgroundColor: 'var(--color-surface)',
+                borderRadius: '12px',
+                marginBottom: 'var(--space-6)',
               }}
             >
-              <UploadCloud size={18} aria-hidden="true" />
-              <span>{analyzerData.uploadTab}</span>
-            </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'upload'}
+                onClick={() => { setActiveTab('upload'); setError(null); }}
+                style={{
+                  height: '42px',
+                  borderRadius: '10px',
+                  border: 0,
+                  fontSize: '14px',
+                  fontWeight: activeTab === 'upload' ? 700 : 500,
+                  backgroundColor: activeTab === 'upload' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'upload' ? 'var(--color-text)' : 'var(--color-text-secondary)',
+                  boxShadow: activeTab === 'upload' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+                  cursor: 'pointer',
+                  transition: 'all 160ms ease',
+                }}
+              >
+                Enviar ficheiro
+              </button>
 
-            <button
-              type="button"
-              onClick={() => { setActiveTab('paste'); setError(null); }}
-              style={{
-                flex: 1,
-                height: '40px',
-                borderRadius: '8px',
-                border: 'none',
-                backgroundColor: activeTab === 'paste' ? 'var(--color-surface-raised)' : 'transparent',
-                color: 'var(--color-text)',
-                fontWeight: activeTab === 'paste' ? 'var(--weight-semibold)' : 'var(--weight-regular)',
-                boxShadow: activeTab === 'paste' ? 'var(--shadow-card)' : 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--space-2)',
-              }}
-            >
-              <FileText size={18} aria-hidden="true" />
-              <span>{analyzerData.pasteTab}</span>
-            </button>
-          </div>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'paste'}
+                onClick={() => { setActiveTab('paste'); setError(null); }}
+                style={{
+                  height: '42px',
+                  borderRadius: '10px',
+                  border: 0,
+                  fontSize: '14px',
+                  fontWeight: activeTab === 'paste' ? 700 : 500,
+                  backgroundColor: activeTab === 'paste' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'paste' ? 'var(--color-text)' : 'var(--color-text-secondary)',
+                  boxShadow: activeTab === 'paste' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+                  cursor: 'pointer',
+                  transition: 'all 160ms ease',
+                }}
+              >
+                Colar texto
+              </button>
+            </div>
 
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              backgroundColor: 'var(--color-surface-raised)',
-              padding: 'var(--space-8) var(--space-6)',
-              borderRadius: 'var(--radius-card)',
-              border: '1px solid var(--color-border)',
-              boxShadow: 'var(--shadow-card)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-6)',
-            }}
-          >
-            {activeTab === 'upload' ? (
-              <div>
-                <label
-                  htmlFor="cv-file-input"
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+              {/* Tab 1: Upload */}
+              {activeTab === 'upload' && (
+                <div>
+                  <label
+                    htmlFor="cv-file-upload"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '32px 20px',
+                      border: '2px dashed var(--color-border)',
+                      borderRadius: '16px',
+                      backgroundColor: file ? 'var(--color-surface)' : '#FAFAFC',
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      transition: 'border-color 160ms ease, background-color 160ms ease',
+                    }}
+                  >
+                    <UploadCloud size={36} color="var(--color-accent)" style={{ marginBottom: '10px' }} aria-hidden="true" />
+                    {file ? (
+                      <div>
+                        <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text)' }}>
+                          {file.name}
+                        </p>
+                        <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+                          {(file.size / 1024).toFixed(0)} KB · Clica para substituir
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text)' }}>
+                          Clica para escolher o teu CV
+                        </p>
+                        <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+                          Ficheiros PDF, DOCX ou TXT até 5 MiB
+                        </p>
+                      </div>
+                    )}
+                    <input
+                      id="cv-file-upload"
+                      type="file"
+                      accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+                      onChange={handleFileChange}
+                      style={{ display: 'none' }}
+                      aria-label="Selecionar ficheiro de currículo em PDF, DOCX ou TXT"
+                    />
+                  </label>
+                </div>
+              )}
+
+              {/* Tab 2: Colar Texto */}
+              {activeTab === 'paste' && (
+                <div>
+                  <textarea
+                    id="cv-text-input"
+                    rows={7}
+                    placeholder="Copia e cola aqui o conteúdo do teu currículo (experiência, formação, competências)..."
+                    value={cvText}
+                    onChange={(e) => setCvText(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '14px',
+                      borderRadius: '12px',
+                      border: '1px solid var(--color-border)',
+                      fontSize: '14px',
+                      lineHeight: 1.45,
+                      fontFamily: 'inherit',
+                      resize: 'vertical',
+                      outline: 'none',
+                    }}
+                    aria-label="Texto completo do currículo"
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+                    <span>Mínimo de 40 caracteres</span>
+                    <span>{cvText.length} caracteres</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Expandable Disclosure: Campos Opcionais de Contexto */}
+              <div
+                style={{
+                  borderTop: '1px solid rgba(0,0,0,0.06)',
+                  paddingTop: 'var(--space-3)',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setShowOptionalFields(!showOptionalFields)}
                   style={{
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 'var(--space-8) var(--space-4)',
-                    border: '2px dashed var(--color-border)',
-                    borderRadius: 'var(--radius-control)',
-                    backgroundColor: 'var(--color-surface)',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    background: 'none',
+                    border: 0,
+                    padding: '8px 0',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: 'var(--color-text-secondary)',
                     cursor: 'pointer',
-                    textAlign: 'center',
-                    transition: 'border-color 160ms ease',
+                    textAlign: 'left',
                   }}
                 >
-                  <UploadCloud size={36} color="var(--color-accent)" style={{ marginBottom: 'var(--space-2)' }} aria-hidden="true" />
-                  <span style={{ fontSize: 'var(--type-body)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-text)' }}>
-                    {file ? file.name : 'Clica para escolher o ficheiro do teu CV'}
-                  </span>
-                  <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                    PDF ou DOCX (até 5 MiB com texto selecionável)
-                  </span>
-                  <input
-                    id="cv-file-input"
-                    type="file"
-                    accept=".pdf,.docx,.txt"
-                    onChange={handleFileChange}
-                    style={{ display: 'none' }}
-                  />
-                </label>
-                {file && (
-                  <div style={{ marginTop: 'var(--space-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 'var(--type-small)' }}>
-                    <span>Ficheiro selecionado: {file.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => setFile(null)}
-                      style={{ background: 'none', border: 'none', color: 'var(--color-danger)', cursor: 'pointer', textDecoration: 'underline' }}
-                    >
-                      Remover
-                    </button>
+                  <span>Queres uma análise mais contextualizada? (Opcional)</span>
+                  {showOptionalFields ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
+
+                {showOptionalFields && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '8px' }}>
+                    <div>
+                      <label htmlFor="target-role" style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--color-text)', marginBottom: '4px' }}>
+                        Função pretendida
+                      </label>
+                      <input
+                        id="target-role"
+                        type="text"
+                        placeholder="Ex.: Gestor de Projetos, Contabilista, Desenvolvedor"
+                        value={targetRole}
+                        onChange={(e) => setTargetRole(e.target.value)}
+                        style={{
+                          width: '100%',
+                          height: '42px',
+                          padding: '0 12px',
+                          borderRadius: '10px',
+                          border: '1px solid var(--color-border)',
+                          fontSize: '14px',
+                          fontFamily: 'inherit',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="job-description" style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--color-text)', marginBottom: '4px' }}>
+                        Descrição da vaga
+                      </label>
+                      <textarea
+                        id="job-description"
+                        rows={3}
+                        placeholder="Cola aqui os requisitos ou a descrição da oferta que pretendes..."
+                        value={jobDescription}
+                        onChange={(e) => setJobDescription(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          borderRadius: '10px',
+                          border: '1px solid var(--color-border)',
+                          fontSize: '13px',
+                          fontFamily: 'inherit',
+                          resize: 'vertical',
+                        }}
+                      />
+                    </div>
                   </div>
                 )}
               </div>
-            ) : (
-              <TextArea
-                label="Texto do teu CV"
-                description="Cola o conteúdo textual do teu currículo para revisão."
-                placeholder="Exemplo: Experiência profissional, formação, projetos..."
-                rows={8}
-                value={cvText}
-                onChange={(e) => setCvText(e.target.value)}
-                maxLength={30000}
-                required
-              />
-            )}
 
-            {/* Context Fields (Optional) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', paddingTop: 'var(--space-4)', borderTop: '1px solid var(--color-surface)' }}>
-              <TextField
-                label="Cargo ou área pretendida (opcional)"
-                description="Ajuda a contextualizar se os teus exemplos estão alinhados com o teu objetivo."
-                placeholder="Ex.: Técnico Administrativo, Desenvolvedor Web..."
-                value={targetRole}
-                onChange={(e) => setTargetRole(e.target.value)}
-              />
+              {/* Mensagem de Erro com Alternativa do Quiz se Necessário */}
+              {error && (
+                <div
+                  role="alert"
+                  style={{
+                    backgroundColor: '#FFF0F0',
+                    border: '1px solid #FFD0D0',
+                    borderRadius: '12px',
+                    padding: '12px 16px',
+                    color: 'var(--color-danger)',
+                    fontSize: '13px',
+                    lineHeight: 1.4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                  }}
+                >
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                    <AlertCircle size={16} style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                    <span>{error.message}</span>
+                  </div>
 
-              <TextArea
-                label="Descrição ou requisitos da vaga (opcional)"
-                description="Se tiveres uma vaga concreta de referência, podemos verificar os pontos de contacto."
-                placeholder="Cola aqui os requisitos principais da oferta a que queres concorrer..."
-                rows={3}
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                maxLength={5000}
-              />
-            </div>
-
-            {error && (
-              <div
-                role="alert"
-                style={{
-                  padding: 'var(--space-4)',
-                  backgroundColor: '#FDECEB',
-                  borderRadius: 'var(--radius-control)',
-                  border: '1px solid rgba(180, 35, 24, 0.2)',
-                  color: 'var(--color-danger)',
-                  fontSize: 'var(--type-small)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-3)',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-2)' }}>
-                  <AlertCircle size={18} style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-                  <span style={{ fontWeight: 'var(--weight-medium)' }}>{error.message}</span>
-                </div>
-
-                {error.offerQuiz && (
-                  <div style={{ paddingTop: 'var(--space-2)', borderTop: '1px solid rgba(180, 35, 24, 0.15)' }}>
+                  {error.offerQuiz && (
                     <a
                       href="/quiz"
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 'var(--space-2)',
+                        gap: '4px',
+                        fontWeight: 700,
                         color: 'var(--color-accent)',
-                        fontWeight: 'var(--weight-semibold)',
                         textDecoration: 'none',
-                        fontSize: 'var(--type-small)',
+                        fontSize: '13px',
+                        alignSelf: 'flex-start',
                       }}
                     >
-                      <HelpCircle size={16} aria-hidden="true" />
-                      <span>Fazer o Quiz de Diagnóstico Gratuito (sem ficheiro)</span>
+                      <span>Fazer o Quiz de 8 perguntas em alternativa</span>
+                      <ArrowRight size={14} aria-hidden="true" />
                     </a>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
 
-            {isSubmitting && statusMessage && (
-              <div
+              {/* Botão de Envio Principal (50-52px) */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
                 style={{
-                  padding: 'var(--space-3) var(--space-4)',
-                  backgroundColor: 'var(--color-accent-soft)',
-                  borderRadius: 'var(--radius-control)',
-                  color: 'var(--color-accent)',
-                  fontSize: 'var(--type-small)',
-                  fontWeight: 'var(--weight-medium)',
-                  textAlign: 'center',
+                  height: '52px',
+                  borderRadius: '12px',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-on-accent)',
+                  border: 0,
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+                  marginTop: 'var(--space-2)',
+                  transition: 'background-color 160ms ease, opacity 160ms ease',
+                  opacity: isSubmitting ? 0.8 : 1,
                 }}
               >
-                {statusMessage}
+                {isSubmitting ? (
+                  <span>{statusMessage || 'A analisar o teu documento...'}</span>
+                ) : (
+                  <>
+                    <span>Analisar o meu CV</span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </>
+                )}
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+                <Lock size={13} aria-hidden="true" />
+                <span>Leitura segura em memória · Ficheiro não partilhado</span>
               </div>
-            )}
+            </form>
+          </div>
 
-            {/* Privacy Warning */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 'var(--space-3)',
-                padding: 'var(--space-4)',
-                backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-control)',
-                fontSize: 'var(--type-small)',
-                color: 'var(--color-text-secondary)',
-              }}
-            >
-              <Lock size={18} style={{ flexShrink: 0, marginTop: '2px' }} color="var(--color-accent)" aria-hidden="true" />
-              <span>{analyzerData.privacyHint}</span>
-            </div>
-
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={isSubmitting}
-              style={{ width: '100%', height: '50px', fontSize: '18px' }}
-            >
-              <span>{analyzerData.submit}</span>
-              <ArrowRight size={20} aria-hidden="true" />
-            </Button>
-          </form>
-
-          {/* Alternative: Quiz */}
+          {/* Alternativa Visível Permanente: Não tens o CV contigo? Faz o quiz */}
           <div
             style={{
               marginTop: 'var(--space-8)',
-              padding: 'var(--space-4)',
-              backgroundColor: 'var(--color-surface)',
-              borderRadius: 'var(--radius-control)',
               textAlign: 'center',
+              backgroundColor: 'var(--color-surface)',
+              borderRadius: '16px',
+              padding: '16px 20px',
+              border: '1px solid var(--color-border)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '6px',
             }}
           >
-            <p className="secondary" style={{ fontSize: 'var(--type-small)' }}>
-              Não tens um CV preparado ou preferes responder a perguntas rápidas?
+            <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-text)' }}>
+              Não tens o CV contigo?
+            </span>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', margin: 0 }}>
+              Responde a 8 perguntas breves e recebe o teu diagnóstico em menos de 2 minutos.
             </p>
             <a
               href="/quiz"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 'var(--space-2)',
-                marginTop: 'var(--space-2)',
-                fontSize: 'var(--type-small)',
-                fontWeight: 'var(--weight-semibold)',
+                gap: '6px',
+                fontSize: '14px',
+                fontWeight: 700,
                 color: 'var(--color-accent)',
                 textDecoration: 'none',
+                marginTop: '4px',
               }}
             >
-              <HelpCircle size={16} aria-hidden="true" />
-              <span>Fazer o quiz de diagnóstico de 8 perguntas</span>
+              <span>Fazer o quiz agora</span>
+              <ArrowRight size={15} aria-hidden="true" />
             </a>
           </div>
         </div>

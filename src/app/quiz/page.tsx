@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import defaultSpec from '../../../content/quiz/quiz.json';
-import { ProgressStepper } from '@/components/ui/progress-stepper';
-import { ChoiceGroup } from '@/components/ui/choice-group';
-import { Button } from '@/components/ui/button';
+import { BrandLogo } from '@/components/layout/brand-logo';
 import { evaluateQuiz } from '@/lib/quiz/quiz-engine';
-import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -16,7 +14,7 @@ export default function QuizPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Restore answers from session storage if returning
+  // Restaurar respostas da sessão se o utilizador regressar
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem('keds_quiz_answers');
@@ -56,7 +54,6 @@ export default function QuizPage() {
       setCurrentStepIndex((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Última pergunta -> Calcular resultado
       handleSubmitQuiz();
     }
   };
@@ -82,6 +79,8 @@ export default function QuizPage() {
     }
   };
 
+  const progressPercent = Math.round(((currentStepIndex + 1) / totalSteps) * 100);
+
   return (
     <div
       style={{
@@ -91,39 +90,79 @@ export default function QuizPage() {
         flexDirection: 'column',
       }}
     >
-      {/* Top Header */}
+      {/* Top Header Minimalista com Logótipo e Botão Voltar */}
       <header
         style={{
-          borderBottom: '1px solid var(--color-border)',
-          backgroundColor: 'var(--color-surface-raised)',
-          padding: 'var(--space-4) var(--layout-mobile-gutter)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+          backgroundColor: 'var(--color-background)',
+          padding: '16px var(--layout-mobile-gutter)',
         }}
       >
         <div
-          className="container-form"
+          className="container-reading"
           style={{
+            maxWidth: '560px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
-          <a
-            href="/"
-            style={{
-              fontSize: '18px',
-              fontWeight: 'var(--weight-bold)',
-              color: 'var(--color-text)',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Emprego dos Sonhos
-          </a>
-          <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
-            Diagnóstico Gratuito
-          </span>
+          <BrandLogo height={32} />
+
+          {currentStepIndex > 0 ? (
+            <button
+              type="button"
+              onClick={handleBack}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                background: 'none',
+                border: 0,
+                fontSize: '13px',
+                fontWeight: 600,
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                padding: '4px 8px',
+              }}
+            >
+              <ArrowLeft size={15} aria-hidden="true" />
+              <span>Anterior</span>
+            </button>
+          ) : (
+            <a
+              href="/"
+              style={{
+                fontSize: '13px',
+                fontWeight: 600,
+                color: 'var(--color-text-secondary)',
+                textDecoration: 'none',
+              }}
+            >
+              Cancelar
+            </a>
+          )}
         </div>
       </header>
+
+      {/* Barra de Progresso Fina */}
+      <div
+        style={{
+          width: '100%',
+          height: '3px',
+          backgroundColor: 'var(--color-surface)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            width: `${progressPercent}%`,
+            height: '100%',
+            backgroundColor: 'var(--color-accent)',
+            transition: 'width 240ms cubic-bezier(0.2, 0, 0, 1)',
+          }}
+        />
+      </div>
 
       {/* Main Quiz Stepper & Question Form */}
       <main
@@ -132,97 +171,161 @@ export default function QuizPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: 'var(--space-8) var(--layout-mobile-gutter)',
+          padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-12) var(--layout-mobile-gutter)',
         }}
       >
         <div
-          className="container-form"
+          className="container-reading"
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'var(--space-8)',
+            maxWidth: '520px',
+            width: '100%',
+            marginInline: 'auto',
           }}
         >
-          {/* Stepper Progress */}
-          <ProgressStepper
-            currentStep={currentStepIndex + 1}
-            totalSteps={totalSteps}
-            labelPrefix="Pergunta"
-          />
-
-          {/* Question Card */}
-          <div
-            style={{
-              backgroundColor: 'var(--color-surface-raised)',
-              padding: 'var(--space-8) var(--space-6)',
-              borderRadius: 'var(--radius-card)',
-              border: '1px solid var(--color-border)',
-              boxShadow: 'var(--shadow-card)',
-            }}
-          >
-            <h1
+          {/* Indicador de Passo */}
+          <div style={{ marginBottom: 'var(--space-2)' }}>
+            <span
               style={{
-                fontSize: 'var(--type-h2-mobile)',
-                lineHeight: 'var(--line-height-subheading)',
-                marginBottom: 'var(--space-6)',
-                fontWeight: 'var(--weight-semibold)',
+                fontSize: '13px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: 'var(--color-accent)',
               }}
             >
-              {currentQuestion.question}
-            </h1>
-
-            <ChoiceGroup
-              name={`question-${currentQuestion.id}`}
-              legend=""
-              options={currentQuestion.options}
-              selectedValue={selectedOption}
-              onChange={handleSelectOption}
-              error={error || undefined}
-            />
+              Pergunta {currentStepIndex + 1} de {totalSteps}
+            </span>
           </div>
 
-          {/* Navigation Controls */}
-          <div
+          {/* Pergunta */}
+          <h1
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 'var(--space-4)',
+              fontSize: 'clamp(20px, 4.5vw, 26px)',
+              lineHeight: 1.25,
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              color: 'var(--color-text)',
+              marginBottom: 'var(--space-6)',
             }}
           >
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={handleBack}
-              disabled={currentStepIndex === 0 || isSubmitting}
-              style={{ visibility: currentStepIndex === 0 ? 'hidden' : 'visible' }}
-            >
-              <ArrowLeft size={18} aria-hidden="true" />
-              <span>Voltar</span>
-            </Button>
+            {currentQuestion.question}
+          </h1>
 
-            <Button
-              type="button"
-              variant="primary"
-              onClick={handleNext}
-              isLoading={isSubmitting}
-              style={{ minWidth: '160px' }}
-            >
-              {currentStepIndex === totalSteps - 1 ? (
-                <>
-                  <Sparkles size={18} aria-hidden="true" />
-                  <span>Ver Diagnóstico</span>
-                </>
-              ) : (
-                <>
-                  <span>Continuar</span>
-                  <ArrowRight size={18} aria-hidden="true" />
-                </>
-              )}
-            </Button>
+          {/* Opções de Resposta Grandes e Fáceis de Tocar */}
+          <div
+            role="radiogroup"
+            aria-label={currentQuestion.question}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px',
+              marginBottom: 'var(--space-6)',
+            }}
+          >
+            {currentQuestion.options.map((opt) => {
+              const isChecked = selectedOption === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={isChecked}
+                  onClick={() => handleSelectOption(opt.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    minHeight: '54px',
+                    padding: '14px 18px',
+                    borderRadius: '14px',
+                    border: isChecked ? '2px solid var(--color-accent)' : '1px solid var(--color-border)',
+                    backgroundColor: isChecked ? 'var(--color-accent-soft)' : '#FFFFFF',
+                    color: 'var(--color-text)',
+                    fontSize: '15px',
+                    fontWeight: isChecked ? 600 : 400,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    boxShadow: isChecked ? '0 2px 10px rgba(0, 87, 217, 0.12)' : '0 2px 6px rgba(0, 0, 0, 0.02)',
+                    transition: 'all 140ms ease',
+                  }}
+                >
+                  <span style={{ lineHeight: 1.35, paddingRight: '12px' }}>{opt.label}</span>
+                  <div
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '999px',
+                      border: isChecked ? '0' : '2px solid var(--color-border)',
+                      backgroundColor: isChecked ? 'var(--color-accent)' : 'transparent',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {isChecked && <Check size={13} color="#FFFFFF" strokeWidth={3} aria-hidden="true" />}
+                  </div>
+                </button>
+              );
+            })}
           </div>
+
+          {/* Erro de Validação */}
+          {error && (
+            <div
+              role="alert"
+              style={{
+                fontSize: '13px',
+                color: 'var(--color-danger)',
+                marginBottom: 'var(--space-4)',
+                textAlign: 'center',
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          {/* Botão de Continuação */}
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              height: '52px',
+              borderRadius: '12px',
+              backgroundColor: 'var(--color-accent)',
+              color: 'var(--color-on-accent)',
+              border: 0,
+              fontSize: '16px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+              transition: 'background-color 160ms ease',
+            }}
+          >
+            <span>{currentStepIndex === totalSteps - 1 ? 'Ver o meu diagnóstico' : 'Continuar'}</span>
+            <ArrowRight size={18} aria-hidden="true" />
+          </button>
         </div>
       </main>
+
+      {/* Rodapé Mínimo Sem Distrações */}
+      <footer
+        style={{
+          padding: '16px',
+          textAlign: 'center',
+          fontSize: '12px',
+          color: 'var(--color-text-secondary)',
+        }}
+      >
+        <span>Diagnóstico confidencial de candidatura · Kit Emprego dos Sonhos</span>
+      </footer>
     </div>
   );
 }

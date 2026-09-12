@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { ResultSummary } from '@/components/ui/result-summary';
-import { InsightCard } from '@/components/ui/insight-card';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { OfferPanel } from '@/components/ui/offer-panel';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
 import { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
-import { CheckCircle2, ArrowRight, HelpCircle, FileText, AlertCircle, ChevronDown } from 'lucide-react';
+import { CheckCircle2, ArrowRight, HelpCircle, FileText, AlertCircle, ChevronDown, Check } from 'lucide-react';
 
 export default function ResultPage() {
   const params = useParams();
@@ -31,8 +31,6 @@ export default function ResultPage() {
       // Ignorar erro de storage
     }
 
-    // AUDITORIA P0: Remoção estrita de fallbackAnswers predefinidas em rotas públicas!
-    // Não inventar dados se a sessão expirou ou não existir.
     setNotFound(true);
     setLoading(false);
   }, [resultId]);
@@ -40,7 +38,7 @@ export default function ResultPage() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-background)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p className="secondary" style={{ fontSize: 'var(--type-body)' }}>A carregar os teus resultados...</p>
+        <p className="secondary" style={{ fontSize: '15px' }}>A carregar os teus resultados...</p>
       </div>
     );
   }
@@ -48,41 +46,30 @@ export default function ResultPage() {
   if (notFound || !result) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-background)', display: 'flex', flexDirection: 'column' }}>
-        <header
-          style={{
-            borderBottom: '1px solid var(--color-border)',
-            backgroundColor: 'var(--color-surface-raised)',
-            padding: 'var(--space-4) var(--layout-mobile-gutter)',
-          }}
-        >
-          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <a href="/" style={{ fontSize: '18px', fontWeight: 'var(--weight-bold)', color: 'var(--color-text)', textDecoration: 'none' }}>
-              Emprego dos Sonhos
-            </a>
-          </div>
-        </header>
+        <Header showBack={true} backHref="/" backLabel="Início" />
 
-        <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
+        <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-8) var(--layout-mobile-gutter)' }}>
           <div
-            className="container-form"
+            className="container-reading"
             style={{
+              maxWidth: '460px',
               textAlign: 'center',
-              backgroundColor: 'var(--color-surface-raised)',
-              borderRadius: 'var(--radius-card)',
-              padding: 'var(--space-10) var(--space-6)',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              padding: 'var(--space-8) var(--space-6)',
               border: '1px solid var(--color-border)',
-              boxShadow: 'var(--shadow-card)',
+              boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 'var(--space-6)',
+              gap: 'var(--space-4)',
             }}
           >
             <div
               style={{
-                width: '64px',
-                height: '64px',
-                borderRadius: 'var(--radius-pill)',
+                width: '56px',
+                height: '56px',
+                borderRadius: '999px',
                 backgroundColor: 'var(--color-surface)',
                 color: 'var(--color-text-secondary)',
                 display: 'flex',
@@ -90,35 +77,36 @@ export default function ResultPage() {
                 justifyContent: 'center',
               }}
             >
-              <AlertCircle size={36} aria-hidden="true" />
+              <AlertCircle size={28} aria-hidden="true" />
             </div>
 
             <div>
-              <h1 style={{ fontSize: 'var(--type-h2-mobile)', fontWeight: 'var(--weight-semibold)' }}>
+              <h1 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-text)' }}>
                 Diagnóstico não encontrado ou sessão expirada
               </h1>
-              <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)', lineHeight: 1.5 }}>
-                Por razões de privacidade e proteção de dados, os diagnósticos gratuitos não são armazenados de forma pública ou permanente. Podes iniciar um diagnóstico gratuito a qualquer momento.
+              <p className="secondary" style={{ marginTop: '8px', fontSize: '14px', lineHeight: 1.45 }}>
+                Por razões de privacidade, os diagnósticos gratuitos não são armazenados de forma pública ou permanente. Podes iniciar um novo diagnóstico a qualquer momento.
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%', maxWidth: '320px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', maxWidth: '320px', marginTop: '8px' }}>
               <a
                 href="/quiz"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 'var(--space-2)',
+                  gap: '8px',
                   height: '48px',
                   backgroundColor: 'var(--color-accent)',
                   color: 'var(--color-on-accent)',
-                  borderRadius: 'var(--radius-control)',
-                  fontWeight: 'var(--weight-semibold)',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: 700,
                   textDecoration: 'none',
                 }}
               >
-                <HelpCircle size={18} aria-hidden="true" />
+                <HelpCircle size={17} aria-hidden="true" />
                 <span>Fazer Quiz de 8 Perguntas</span>
               </a>
               <a
@@ -127,237 +115,277 @@ export default function ResultPage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 'var(--space-2)',
+                  gap: '8px',
                   height: '48px',
                   backgroundColor: 'var(--color-surface)',
                   color: 'var(--color-text)',
                   border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-control)',
-                  fontWeight: 'var(--weight-medium)',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  fontWeight: 600,
                   textDecoration: 'none',
                 }}
               >
-                <FileText size={18} aria-hidden="true" />
+                <FileText size={17} aria-hidden="true" />
                 <span>Analisar Currículo</span>
               </a>
             </div>
           </div>
         </main>
+
+        <Footer />
       </div>
     );
   }
 
-  const sourceLabel =
-    result.source === 'cv'
-      ? 'Diagnóstico por Análise de Currículo'
-      : 'Diagnóstico por Questionário (Autorrelato)';
+  // Filtrar para no máximo 3 prioridades essenciais
+  const topPriorities = (result.priorities || []).slice(0, 3);
 
   return (
-    <div style={{ backgroundColor: 'var(--color-background)', minHeight: '100vh', paddingBottom: 'var(--space-20)' }}>
-      {/* 1. Marca discreta e indicação Portugal */}
-      <header
-        style={{
-          borderBottom: '1px solid var(--color-border)',
-          backgroundColor: 'var(--color-surface-raised)',
-          padding: 'var(--space-4) var(--layout-mobile-gutter)',
-          position: 'sticky',
-          top: 0,
-          zIndex: 10,
-        }}
-      >
-        <div className="container header-container">
-          <a href="/" className="header-brand">
-            <span className="header-title">Emprego dos Sonhos</span>
-            <span className="header-badge">Portugal</span>
-          </a>
+    <div style={{ backgroundColor: 'var(--color-background)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Header com logo oficial e botão discreto de novo diagnóstico */}
+      <Header showBack={true} backHref="/quiz" backLabel="Novo teste" />
 
-          <a
-            href="/quiz"
-            style={{
-              fontSize: 'var(--type-small)',
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-              fontWeight: 'var(--weight-medium)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Novo diagnóstico
-          </a>
-        </div>
-      </header>
-
-      {/* 2. Título do resultado, resumo de 2-3 frases e prioridades */}
-      <div className="container-reading" style={{ paddingTop: 'var(--space-10)', display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-        <ResultSummary
-          title={result.title}
-          summary={result.summary}
-          disclaimer={result.disclaimer}
-          sourceLabel={sourceLabel}
-        />
-
-        {/* Prioridades Justificadas */}
-        <div>
-          <h2 style={{ fontSize: 'var(--type-h2-mobile)', marginBottom: 'var(--space-4)' }}>
-            As tuas prioridades imediatas
-          </h2>
-          <p className="secondary" style={{ marginBottom: 'var(--space-6)' }}>
-            Com base na tua avaliação, estas são as ações mais relevantes para o teu momento profissional:
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-            {result.priorities.map((item: DiagnosticPriority, idx: number) => (
-              <InsightCard
-                key={idx}
-                title={item.title}
-                action={item.action}
-                kind={item.kind}
-                evidenceAnswer={item.evidenceAnswer}
-                evidenceText={item.evidenceText}
-                source={item.source || sourceLabel}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* 3. Uma ação gratuita concreta e útil */}
-        <section
-          style={{
-            backgroundColor: 'var(--color-surface)',
-            borderRadius: 'var(--radius-card)',
-            padding: 'var(--space-6)',
-            border: '1px solid var(--color-border)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-2)' }}>
-            <CheckCircle2 size={20} color="var(--color-success)" aria-hidden="true" />
-            <h3 style={{ fontSize: 'var(--type-h3)' }}>O teu próximo passo gratuito</h3>
-          </div>
-          <p style={{ fontSize: 'var(--type-body)', color: 'var(--color-text)', marginBottom: 'var(--space-4)', lineHeight: 1.5 }}>
-            {result.freeAction?.description ||
-              'Revê os teus contactos no topo do currículo e certifica-te de que as tuas experiências mais recentes contêm tarefas concretas e resultados observáveis.'}
-          </p>
-        </section>
-
-        {/* 4. CTA Âncora para a apresentação */}
-        <div style={{ textAlign: 'center', margin: 'var(--space-4) 0' }}>
-          <a
-            href="#apresentacao"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 'var(--space-2)',
-              padding: '14px 28px',
-              backgroundColor: 'var(--color-accent)',
-              color: 'var(--color-on-accent)',
-              borderRadius: 'var(--radius-control)',
-              fontSize: '17px',
-              fontWeight: 'var(--weight-semibold)',
-              textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(0, 87, 217, 0.2)',
-            }}
-          >
-            <span>Ver como preparar a minha candidatura</span>
-            <ChevronDown size={18} aria-hidden="true" />
-          </a>
-        </div>
-
-        {/* 5. Transição editorial */}
+      <main style={{ flex: 1, padding: 'var(--space-6) var(--layout-mobile-gutter) var(--space-20) var(--layout-mobile-gutter)' }}>
         <div
+          className="container-reading"
           style={{
-            margin: 'var(--space-8) 0 var(--space-4) 0',
-            textAlign: 'center',
-            paddingTop: 'var(--space-8)',
-            borderTop: '1px solid var(--color-border)',
+            maxWidth: '680px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-8)',
           }}
         >
-          <span
+          {/* ================================================================= */}
+          {/* PARTE A: DIAGNÓSTICO GRATUITO (Concisão, Utilidade e Humanização) */}
+          {/* ================================================================= */}
+          <section
             style={{
-              fontSize: 'var(--type-small)',
-              fontWeight: 'var(--weight-semibold)',
-              color: 'var(--color-accent)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '24px',
+              padding: 'var(--space-8) var(--layout-mobile-gutter)',
+              border: '1px solid var(--color-border)',
+              boxShadow: '0 8px 32px rgba(29, 29, 31, 0.05)',
             }}
           >
-            Método estruturado para Portugal
-          </span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', lineHeight: 1.15, marginTop: 'var(--space-2)' }}>
-            Já tens um ponto de partida. Agora, prepara a próxima candidatura.
-          </h2>
-          <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)' }}>
-            Assiste à apresentação e conhece o conjunto completo de ferramentas e estratégias do Kit Emprego dos Sonhos.
-          </p>
+            {/* Indicação e Título */}
+            <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: 'var(--color-accent)',
+                  backgroundColor: 'var(--color-accent-soft)',
+                  padding: '4px 12px',
+                  borderRadius: '999px',
+                  marginBottom: 'var(--space-2)',
+                }}
+              >
+                O teu diagnóstico
+              </span>
+              <h1
+                style={{
+                  fontSize: 'clamp(24px, 5.5vw, 32px)',
+                  lineHeight: 1.2,
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--color-text)',
+                  marginTop: 'var(--space-1)',
+                }}
+              >
+                {result.title}
+              </h1>
+              <p
+                className="secondary"
+                style={{
+                  fontSize: '15px',
+                  lineHeight: 1.5,
+                  color: 'var(--color-text-secondary)',
+                  marginTop: 'var(--space-3)',
+                  maxWidth: '540px',
+                  marginInline: 'auto',
+                }}
+              >
+                {result.summary}
+              </p>
+            </div>
+
+            {/* As tuas prioridades — Máximo 3 Pontos com título, explicação e ação */}
+            <div style={{ marginBottom: 'var(--space-6)' }}>
+              <h2
+                style={{
+                  fontSize: '18px',
+                  fontWeight: 700,
+                  color: 'var(--color-text)',
+                  marginBottom: 'var(--space-3)',
+                }}
+              >
+                As tuas prioridades
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {topPriorities.map((item: DiagnosticPriority, idx: number) => (
+                  <div
+                    key={idx}
+                    style={{
+                      backgroundColor: 'var(--color-surface)',
+                      borderRadius: '14px',
+                      padding: '16px',
+                      border: '1px solid rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span
+                        style={{
+                          width: '22px',
+                          height: '22px',
+                          borderRadius: '999px',
+                          backgroundColor: 'var(--color-accent)',
+                          color: '#FFFFFF',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {idx + 1}
+                      </span>
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.4, margin: '4px 0 8px 30px' }}>
+                      {item.evidenceText || item.evidenceAnswer || 'Ponto crítico identificado na tua avaliação.'}
+                    </p>
+                    <div
+                      style={{
+                        marginLeft: '30px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: 'var(--color-text)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                      }}
+                    >
+                      <span style={{ color: 'var(--color-accent)' }}>Ação:</span>
+                      <span>{item.action}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* O teu primeiro passo — Uma ação gratuita concreta */}
+            <div
+              style={{
+                backgroundColor: 'var(--color-accent-soft)',
+                borderRadius: '16px',
+                padding: '16px 20px',
+                border: '1px solid rgba(0, 87, 217, 0.15)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '12px',
+              }}
+            >
+              <CheckCircle2 size={22} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+              <div>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                  O teu primeiro passo gratuito
+                </h3>
+                <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '4px', lineHeight: 1.45, margin: 0 }}>
+                  {result.freeAction?.description ||
+                    'Revê as tuas experiências mais recentes e reformula as frases para incluírem números, prazos ou tarefas concretas executadas.'}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* ================================================================= */}
+          {/* PARTE B: PONTE PARA A VENDA (#apresentacao)                        */}
+          {/* ================================================================= */}
+          <section
+            style={{
+              textAlign: 'center',
+              padding: 'var(--space-4) 0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'var(--space-3)',
+            }}
+          >
+            <h2
+              style={{
+                fontSize: 'clamp(20px, 4.5vw, 26px)',
+                lineHeight: 1.2,
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                color: 'var(--color-text)',
+              }}
+            >
+              Já sabes onde começar. Agora falta saber como aplicar tudo isto.
+            </h2>
+            <p
+              className="secondary"
+              style={{
+                fontSize: '15px',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.5,
+                maxWidth: '520px',
+              }}
+            >
+              Preparámos um método com modelos, mensagens e ferramentas para te ajudar a construir candidaturas mais fortes.
+            </p>
+
+            <a
+              href="#apresentacao"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                height: '50px',
+                padding: '0 28px',
+                backgroundColor: 'var(--color-accent)',
+                color: 'var(--color-on-accent)',
+                borderRadius: 'var(--radius-control)',
+                fontSize: '16px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+                marginTop: 'var(--space-2)',
+                transition: 'background-color 160ms ease',
+              }}
+            >
+              <span>Quero ver como funciona</span>
+              <ChevronDown size={18} aria-hidden="true" />
+            </a>
+          </section>
+
+          {/* ================================================================= */}
+          {/* 6. VSL PROTAGONISTA (16:9 de Alta Visibilidade em Mobile)          */}
+          {/* ================================================================= */}
+          <VslPlayer
+            id="apresentacao"
+            src={funnelConfig.vsl.src}
+            poster={funnelConfig.vsl.poster}
+            captionsSrc={funnelConfig.vsl.captionsSrc}
+            title="Antes de enviares a próxima candidatura, vê isto."
+          />
+
+          {/* ================================================================= */}
+          {/* 7. OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,90 €             */}
+          {/* ================================================================= */}
+          <OfferPanel id="oferta" />
         </div>
+      </main>
 
-        {/* 6. VSL Real */}
-        <VslPlayer
-          id="apresentacao"
-          src={funnelConfig.vsl.src}
-          poster={funnelConfig.vsl.poster}
-          captionsSrc={funnelConfig.vsl.captionsSrc}
-          title="Transforma o teu próximo passo numa candidatura preparada."
-        />
-
-        {/* 7. Apresentação da Oferta e Botão de Compra OKANDA */}
-        <OfferPanel id="oferta" />
-
-        {/* FAQ & Condições Transparentes */}
-        <section style={{ marginTop: 'var(--space-8)', borderTop: '1px solid var(--color-border)', paddingTop: 'var(--space-8)' }}>
-          <h3 style={{ fontSize: 'var(--type-h3)', marginBottom: 'var(--space-4)', textAlign: 'center' }}>
-            Perguntas Frequentes sobre a Compra e Entrega
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-            <details
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-control)',
-                padding: 'var(--space-4)',
-                border: '1px solid var(--color-border)',
-              }}
-            >
-              <summary style={{ cursor: 'pointer', fontWeight: 'var(--weight-semibold)', fontSize: 'var(--type-body)' }}>
-                Como recebo os ficheiros após a compra?
-              </summary>
-              <p style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                Os ficheiros são enviados automaticamente para o endereço de email que indicares no checkout da OKANDA. Vais receber as ligações diretas para descarregar o Guia principal em PDF, os modelos editáveis em Word (DOCX), as cartas e as mensagens.
-              </p>
-            </details>
-
-            <details
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-control)',
-                padding: 'var(--space-4)',
-                border: '1px solid var(--color-border)',
-              }}
-            >
-              <summary style={{ cursor: 'pointer', fontWeight: 'var(--weight-semibold)', fontSize: 'var(--type-body)' }}>
-                Preciso de algum programa específico para abrir os modelos?
-              </summary>
-              <p style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                Não. Os modelos são ficheiros DOCX padrão compatíveis com Microsoft Word, Google Docs e LibreOffice. Não tens de utilizar nenhum editor online nem precisas de criar conta no nosso site.
-              </p>
-            </details>
-
-            <details
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-control)',
-                padding: 'var(--space-4)',
-                border: '1px solid var(--color-border)',
-              }}
-            >
-              <summary style={{ cursor: 'pointer', fontWeight: 'var(--weight-semibold)', fontSize: 'var(--type-body)' }}>
-                Quais são os métodos de pagamento aceites?
-              </summary>
-              <p style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                O pagamento é processado pela OKANDA PAY com suporte aos métodos comuns em Portugal, incluindo MB WAY, cartão bancário e referência multibanco.
-              </p>
-            </details>
-          </div>
-        </section>
-      </div>
+      <Footer />
     </div>
   );
 }

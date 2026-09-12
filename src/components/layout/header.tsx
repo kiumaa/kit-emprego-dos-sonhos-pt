@@ -1,61 +1,62 @@
 import React from 'react';
+import { BrandLogo } from './brand-logo';
+import { ArrowLeft } from 'lucide-react';
 
-export const Header: React.FC = () => {
+export interface HeaderProps {
+  showBack?: boolean;
+  backHref?: string;
+  backLabel?: string;
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  showBack = false,
+  backHref = '/',
+  backLabel = 'Voltar',
+}) => {
   return (
     <header
       style={{
-        borderBottom: '1px solid var(--color-border)',
-        backgroundColor: 'var(--color-surface-raised)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
+        backgroundColor: 'var(--color-background)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+        position: 'relative',
+        zIndex: 50,
       }}
     >
-      <div className="container header-container">
-        <a href="/" className="header-brand">
-          <span className="header-title">Emprego dos Sonhos</span>
-          <span className="header-badge">Portugal</span>
-        </a>
+      <div
+        className="container"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: showBack ? 'space-between' : 'center',
+          paddingTop: 'var(--space-5)',
+          paddingBottom: 'var(--space-5)',
+          minHeight: '68px',
+        }}
+      >
+        <BrandLogo height={36} />
 
-        <nav className="header-nav" aria-label="Navegação principal">
+        {showBack && (
           <a
-            href="/analisar-cv"
+            href={backHref}
             style={{
-              fontSize: 'var(--type-button)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '14px',
               fontWeight: 'var(--weight-medium)',
-              color: 'var(--color-text)',
+              color: 'var(--color-text-secondary)',
               textDecoration: 'none',
-            }}
-          >
-            Analisar CV
-          </a>
-          <a
-            href="/quiz"
-            style={{
-              fontSize: 'var(--type-button)',
-              fontWeight: 'var(--weight-medium)',
-              color: 'var(--color-text)',
-              textDecoration: 'none',
-            }}
-          >
-            Quiz
-          </a>
-          <a
-            href="/kit"
-            className="header-kit-btn"
-            style={{
-              fontSize: 'var(--type-button)',
-              fontWeight: 'var(--weight-semibold)',
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-              padding: '6px 14px',
-              backgroundColor: 'var(--color-accent-soft)',
+              padding: '6px 12px',
               borderRadius: 'var(--radius-pill)',
+              backgroundColor: 'var(--color-surface)',
+              transition: 'background-color 160ms ease, color 160ms ease',
             }}
+            aria-label={backLabel}
           >
-            O Kit
+            <ArrowLeft size={16} aria-hidden="true" />
+            <span>{backLabel}</span>
           </a>
-        </nav>
+        )}
       </div>
     </header>
   );

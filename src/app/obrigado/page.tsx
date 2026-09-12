@@ -1,24 +1,23 @@
-'use client';
-
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { CheckCircle2, Mail, FileText, Download, HelpCircle } from 'lucide-react';
+import { Mail, Download, HelpCircle, Info } from 'lucide-react';
 
 export default function ThanksPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      <Header />
+      {/* Header com apenas o logótipo oficial */}
+      <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-16) var(--layout-mobile-gutter)' }}>
-        <div className="container-form">
+      <main style={{ flex: 1, padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
+        <div className="container-reading" style={{ maxWidth: '540px' }}>
           <div
             style={{
-              backgroundColor: 'var(--color-surface-raised)',
-              borderRadius: 'var(--radius-card)',
-              padding: 'var(--space-10) var(--space-6)',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
+              padding: 'var(--space-8) var(--space-6)',
               border: '1px solid var(--color-border)',
-              boxShadow: 'var(--shadow-card)',
+              boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
@@ -28,73 +27,74 @@ export default function ThanksPage() {
           >
             <div
               style={{
-                width: '64px',
-                height: '64px',
-                borderRadius: 'var(--radius-pill)',
-                backgroundColor: '#EBF6EE',
-                color: 'var(--color-success)',
+                width: '56px',
+                height: '56px',
+                borderRadius: '999px',
+                backgroundColor: 'var(--color-accent-soft)',
+                color: 'var(--color-accent)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <CheckCircle2 size={36} aria-hidden="true" />
+              <Info size={28} aria-hidden="true" />
             </div>
 
             <div>
-              <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-success)', textTransform: 'uppercase' }}>
+              <span
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                  color: 'var(--color-accent)',
+                }}
+              >
                 Entrega Digital por Email
               </span>
-              <h1 style={{ fontSize: 'var(--type-h2-desktop)', marginTop: 'var(--space-2)' }}>
-                Obrigado pelo teu pedido!
+              <h1 style={{ fontSize: 'clamp(24px, 5vw, 30px)', fontWeight: 700, color: 'var(--color-text)', marginTop: 'var(--space-1)', lineHeight: 1.2 }}>
+                Informação sobre o envio dos ficheiros
               </h1>
-              <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)', lineHeight: 1.5 }}>
-                Os teus ficheiros digitais são entregues diretamente no endereço de email associado à tua compra pela OKANDA.
+              <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: '14px', lineHeight: 1.5 }}>
+                Se acabaste de concluir o teu pedido na OKANDA PAY, a entrega dos ficheiros digitais é processada automaticamente e enviada pela OKANDA para o endereço de email introduzido no checkout.
               </p>
             </div>
 
             <div
               style={{
                 width: '100%',
-                padding: 'var(--space-6)',
+                padding: '20px',
                 backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-control)',
+                borderRadius: '16px',
                 textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--space-4)',
+                gap: '14px',
               }}
             >
-              <h2 style={{ fontSize: 'var(--type-body)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-text)' }}>
-                Próximos passos para aceder aos recursos:
+              <h2 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                O que fazer a seguir:
               </h2>
 
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
-                <Mail size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-                <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-                  <strong>1. Verifica o teu email:</strong> Procura a mensagem de confirmação da OKANDA com as ligações de descarregamento dos ficheiros (verifica também a pasta de spam/promoções).
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <Mail size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
+                  <strong>1. Verifica a tua caixa de correio:</strong> Procura o email da OKANDA com os links diretos para descarregar o Guia em PDF e os modelos em DOCX (consulta também a pasta de spam/promoções).
                 </p>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
-                <Download size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-                <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-                  <strong>2. Descarrega os ficheiros:</strong> Guarda o Guia em PDF, os modelos DOCX e os materiais no teu computador para os utilizares sempre que precisares.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
-                <FileText size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-                <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-                  <strong>3. Edita externamente:</strong> Abre os modelos de CV no Microsoft Word, Google Docs ou LibreOffice e preenche os teus dados com base nos exemplos fornecidos.
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <Download size={18} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
+                  <strong>2. Descarrega e guarda localmente:</strong> Guarda os ficheiros no teu computador para os editares quando precisares no Microsoft Word, Google Docs ou LibreOffice.
                 </p>
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <HelpCircle size={16} color="var(--color-text-secondary)" aria-hidden="true" />
-              <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
-                Dúvidas ou não recebeste o email? <a href="/apoio">Contacta a nossa equipa de apoio</a>.
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+              <HelpCircle size={15} aria-hidden="true" />
+              <span>
+                Não recebeste a mensagem? <a href="/apoio" style={{ fontWeight: 600 }}>Entra em contacto connosco</a>.
               </span>
             </div>
           </div>

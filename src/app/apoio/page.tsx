@@ -1,88 +1,121 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Button } from '@/components/ui/button';
-import { TextField, TextArea } from '@/components/ui/text-field';
-import { Mail, HelpCircle, CheckCircle2 } from 'lucide-react';
+import { Mail, Clock, ShieldCheck } from 'lucide-react';
 
 export default function SupportPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-  };
+  const supportEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'suporte@empregodossonhos.pt';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      <Header />
+      {/* Header com apenas o logótipo oficial */}
+      <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-16) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
-            <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-accent)', textTransform: 'uppercase' }}>
-              Apoio ao Cliente & Dúvidas
+      <main style={{ flex: 1, padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
+        <div className="container-reading" style={{ maxWidth: '540px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
+            <span
+              style={{
+                fontSize: '12px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: 'var(--color-accent)',
+              }}
+            >
+              Apoio ao Cliente
             </span>
-            <h1 style={{ fontSize: 'var(--type-h1-mobile)', marginTop: 'var(--space-2)' }}>
-              Como podemos ajudar?
+            <h1
+              style={{
+                fontSize: 'clamp(26px, 5.5vw, 34px)',
+                lineHeight: 1.2,
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                color: 'var(--color-text)',
+                marginTop: 'var(--space-1)',
+              }}
+            >
+              Precisas de ajuda?
             </h1>
-            <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: 'var(--type-body)' }}>
-              Tens dúvidas sobre o teu acesso, problemas técnicos com um ficheiro ou queres colocar uma questão? Fala connosco.
+            <p className="secondary" style={{ marginTop: 'var(--space-2)', fontSize: '15px', lineHeight: 1.5 }}>
+              Estamos disponíveis para te ajudar com dúvidas sobre os recursos, ficheiros descarregáveis ou questões da tua encomenda.
             </p>
           </div>
 
           <div
             style={{
-              backgroundColor: 'var(--color-surface-raised)',
-              borderRadius: 'var(--radius-card)',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '20px',
               padding: 'var(--space-8) var(--space-6)',
               border: '1px solid var(--color-border)',
-              boxShadow: 'var(--shadow-card)',
+              boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-6)',
             }}
           >
-            {sent ? (
-              <div style={{ textAlign: 'center', padding: 'var(--space-6) 0' }}>
-                <CheckCircle2 size={48} color="var(--color-success)" style={{ margin: '0 auto var(--space-3) auto' }} />
-                <h2 style={{ fontSize: 'var(--type-h3)' }}>Mensagem enviada com sucesso!</h2>
-                <p className="secondary" style={{ marginTop: 'var(--space-2)' }}>
-                  A nossa equipa de apoio responderá para <strong>{email}</strong> no prazo de 24 horas úteis.
-                </p>
+            {/* Bloco de Contacto por Email Direto */}
+            <div
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                borderRadius: '16px',
+                padding: '24px 20px',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <div
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '999px',
+                  backgroundColor: 'var(--color-accent-soft)',
+                  color: 'var(--color-accent)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Mail size={22} aria-hidden="true" />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                <TextField
-                  label="O teu nome"
-                  placeholder="Como preferes ser chamado"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                <TextField
-                  type="email"
-                  label="O teu email"
-                  placeholder="exemplo@email.pt"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <TextArea
-                  label="Mensagem ou descrição da dúvida"
-                  placeholder="Indica o número de encomenda se a tua questão estiver relacionada com uma compra..."
-                  rows={5}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  required
-                />
-                <Button type="submit" variant="primary" style={{ width: '100%', height: '48px', marginTop: 'var(--space-2)' }}>
-                  Enviar mensagem de apoio
-                </Button>
-              </form>
-            )}
+
+              <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+                Escreve-nos diretamente para:
+              </span>
+
+              <a
+                href={`mailto:${supportEmail}`}
+                style={{
+                  fontSize: 'clamp(17px, 4vw, 20px)',
+                  fontWeight: 700,
+                  color: 'var(--color-accent)',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {supportEmail}
+              </a>
+            </div>
+
+            {/* Recomendações Úteis */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.45 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <Clock size={18} color="var(--color-text)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                <span>
+                  <strong>Tempo de resposta:</strong> Respondemos habitualmente em dias úteis no prazo de 24 a 48 horas.
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <ShieldCheck size={18} color="var(--color-text)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                <span>
+                  <strong>Dúvidas de compra:</strong> Se a tua questão estiver relacionada com uma compra na OKANDA PAY, inclui o email utilizado no checkout para localizarmos o teu envio com rapidez.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </main>

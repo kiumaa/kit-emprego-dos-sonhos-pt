@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { mountVslController, type VslController, type VslState } from './vsl-controller';
+import { Play, Volume2 } from 'lucide-react';
 import './vsl-player.css';
 
 export interface VslPlayerProps {
@@ -12,16 +13,17 @@ export interface VslPlayerProps {
   id?: string;
   title?: string;
 }
+
 const initialState: VslState = { mode: 'preview', phase: 'idle', message: '' };
 
-/** Apenas apresentação de vídeo. A oferta e o link OKANDA ficam fora deste componente. */
+/** Componente de Apresentação em Vídeo (VSL Protagonista) */
 export function VslPlayer({
   src,
   poster,
   captionsSrc,
   transcript,
   id = 'apresentacao',
-  title = 'Transforma o teu próximo passo numa candidatura preparada.',
+  title = 'Antes de enviares a próxima candidatura, vê isto.',
 }: VslPlayerProps) {
   const uid = useId();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -43,79 +45,74 @@ export function VslPlayer({
     };
   }, [src]);
 
-  if (!src) {
-    return (
-      <section className="keds-vsl keds-vsl--empty" id={id} aria-labelledby={`${uid}-title`}>
-        <h2 id={`${uid}-title`}>{title}</h2>
-        <p className="keds-vsl__intro">
-          A apresentação em vídeo está em preparação. Podes consultar já abaixo todos os recursos e detalhes do kit.
-        </p>
-      </section>
-    );
-  }
-
-  const showStart = state.mode === 'preview' || ['error', 'ready'].includes(state.phase);
-  const buttonText =
-    state.phase === 'error'
-      ? 'Tentar reproduzir novamente'
-      : state.mode === 'full'
-      ? 'Reproduzir com som desde o início'
-      : 'Ativar som e ver desde o início';
-
   return (
     <section className="keds-vsl" id={id} aria-labelledby={`${uid}-title`}>
-      <h2 id={`${uid}-title`}>{title}</h2>
-      <p className="keds-vsl__intro">Conhece os recursos do Kit Emprego dos Sonhos — Portugal.</p>
+      <div className="keds-vsl__header">
+        <span className="keds-vsl__tag">Apresentação Oficial</span>
+        <h2 id={`${uid}-title`}>{title}</h2>
+        <p className="keds-vsl__intro">
+          Em poucos minutos mostramos-te como usar o Kit Emprego dos Sonhos para preparar melhor todo o processo.
+        </p>
+      </div>
+
       <div className="keds-vsl__frame" ref={frameRef}>
-        <video
-          key={src}
-          ref={videoRef}
-          src={src}
-          poster={poster ?? undefined}
-          playsInline
-          preload="metadata"
-          aria-label="Apresentação do Kit Emprego dos Sonhos"
-          aria-describedby={`${uid}-status`}
-        >
-          {captionsSrc && (
-            <track kind="captions" src={captionsSrc} srcLang="pt-PT" label="Português" default />
-          )}
-          O teu navegador não suporta este vídeo.
-        </video>
-        {showStart && (
-          <div className="keds-vsl__overlay">
-            {state.phase === 'preview' && (
-              <span className="keds-vsl__badge">Pré-visualização sem som</span>
-            )}
-            <button
-              type="button"
-              className="keds-vsl__start"
-              onClick={() => controller.current?.restartWithSound()}
+        {src ? (
+          <>
+            <video
+              key={src}
+              ref={videoRef}
+              src={src}
+              poster={poster ?? undefined}
+              playsInline
+              preload="metadata"
+              aria-label="Apresentação do Kit Emprego dos Sonhos"
+              aria-describedby={`${uid}-status`}
             >
-              <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="m9 5 10 7-10 7V5Z" fill="currentColor" />
-              </svg>
-              {buttonText}
-            </button>
-            {state.phase === 'preview' && (
-              <button
-                type="button"
-                className="keds-vsl__pause"
-                onClick={() => controller.current?.pausePreview()}
-              >
-                Pausar pré-visualização
-              </button>
+              {captionsSrc && (
+                <track kind="captions" src={captionsSrc} srcLang="pt-PT" label="Português" default />
+              )}
+              O teu navegador não suporta este vídeo.
+            </video>
+            {(state.mode === 'preview' || ['error', 'ready'].includes(state.phase)) && (
+              <div className="keds-vsl__overlay">
+                <button
+                  type="button"
+                  className="keds-vsl__start"
+                  onClick={() => controller.current?.restartWithSound()}
+                >
+                  <Volume2 size={20} aria-hidden="true" />
+                  <span>🔊 Ativar som e ver desde o início</span>
+                </button>
+              </div>
             )}
+          </>
+        ) : (
+          <div className="keds-vsl__placeholder">
+            <div className="keds-vsl__placeholder-content">
+              <div className="keds-vsl__placeholder-play">
+                <Play size={28} fill="currentColor" aria-hidden="true" />
+              </div>
+              <span className="keds-vsl__placeholder-label">
+                Vídeo de apresentação em preparação
+              </span>
+              <p className="keds-vsl__placeholder-sub">
+                Consulta os detalhes e recursos completos do kit logo abaixo.
+              </p>
+            </div>
           </div>
         )}
       </div>
-      <p className="keds-vsl__status" id={`${uid}-status`} role="status" aria-live="polite">
-        {state.message ||
-          (state.mode === 'preview' ? 'Ao ativar o som, o vídeo recomeça do princípio.' : '')}
-      </p>
+
+      {src && (
+        <p className="keds-vsl__status" id={`${uid}-status`} role="status" aria-live="polite">
+          {state.message ||
+            (state.mode === 'preview' ? 'Ao ativar o som, o vídeo recomeça do princípio.' : '')}
+        </p>
+      )}
+
       {transcript && (
         <details className="keds-vsl__transcript">
-          <summary>Ler a transcrição</summary>
+          <summary>Ler a transcrição da apresentação</summary>
           <p>{transcript}</p>
         </details>
       )}

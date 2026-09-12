@@ -1,123 +1,115 @@
 import React from 'react';
-import { Check, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
+import { ProductMockup } from '@/components/marketing/ProductMockup';
 
 export interface OfferPanelProps {
   id?: string;
+  title?: string;
+  subtitle?: string;
 }
 
-export const OfferPanel: React.FC<OfferPanelProps> = ({ id = 'oferta' }) => {
+export const OfferPanel: React.FC<OfferPanelProps> = ({
+  id = 'oferta',
+  title = 'Kit Emprego dos Sonhos — Portugal',
+  subtitle = 'Tudo o que precisas para preparar e submeter candidaturas mais consistentes no mercado português.',
+}) => {
   const checkout = getValidatedCheckoutUrl();
-
-  const inclusions = [
-    'Guia completo com 10 lições práticas de candidatura em Portugal',
-    '2 Modelos de CV estáticos para Word/DOCX (Essencial e Moderno)',
-    '3 Cartas de apresentação prontas a personalizar',
-    '10 Mensagens de candidatura direta e contacto com recrutadores',
-    'Checklists de preparação e verificação de pré-envio',
-    '25 Prompts estratégicos de IA para apoio na redação',
-    'Plano de ação organizado para 7 dias',
-    'Organizador de candidaturas em ficheiro CSV descarregável',
-    'Entrega imediata dos ficheiros digitais por email pela OKANDA',
-  ];
 
   return (
     <section
       id={id}
       style={{
-        backgroundColor: 'var(--color-surface)',
-        borderRadius: 'var(--radius-large)',
-        padding: 'var(--space-8) var(--space-6)',
-        border: '2px solid var(--color-accent-soft)',
-        boxShadow: 'var(--shadow-card)',
+        width: '100%',
+        maxWidth: '860px',
+        marginInline: 'auto',
+        scrollMarginTop: '64px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-6)',
+        gap: 'var(--space-8)',
       }}
+      aria-label="Apresentação do Kit Emprego dos Sonhos"
     >
-      <div style={{ textAlign: 'center' }}>
-        <span
-          style={{
-            fontSize: 'var(--type-small)',
-            fontWeight: 'var(--weight-semibold)',
-            color: 'var(--color-accent)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
-          Recursos Práticos & Entrega Digital
-        </span>
-        <h2 style={{ fontSize: 'var(--type-h2-desktop)', marginTop: 'var(--space-2)' }}>
-          Kit Emprego dos Sonhos — Portugal
-        </h2>
-        <p className="secondary" style={{ marginTop: 'var(--space-2)', maxWidth: '640px', marginInline: 'auto' }}>
-          Tudo o que precisas para preparar, organizar e submeter candidaturas consistentes no mercado de trabalho português.
-        </p>
-      </div>
+      {/* 1. Mockup Editorial dos Produtos */}
+      <ProductMockup />
 
+      {/* 2. Bloco Principal da Oferta */}
       <div
         style={{
+          backgroundColor: 'var(--color-surface)',
+          borderRadius: '24px',
+          padding: 'var(--space-8) var(--layout-mobile-gutter)',
+          border: '1px solid var(--color-border)',
+          boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
+          textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: 'var(--space-8) var(--space-6)',
-          backgroundColor: 'var(--color-surface-raised)',
-          borderRadius: 'var(--radius-card)',
-          border: '1px solid var(--color-border)',
+          gap: 'var(--space-6)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
-          <span style={{ fontSize: 'var(--type-hero-mobile)', fontWeight: 'var(--weight-bold)', color: 'var(--color-text)' }}>
+        <div>
+          <span
+            style={{
+              fontSize: '12px',
+              fontWeight: 'var(--weight-bold)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: 'var(--color-accent)',
+            }}
+          >
+            Produto Digital Descarregável
+          </span>
+          <h2
+            style={{
+              fontSize: 'clamp(26px, 5vw, 36px)',
+              fontWeight: 'var(--weight-bold)',
+              letterSpacing: '-0.02em',
+              color: 'var(--color-text)',
+              marginTop: 'var(--space-1)',
+              lineHeight: 1.15,
+            }}
+          >
+            {title}
+          </h2>
+          <p
+            className="secondary"
+            style={{
+              fontSize: '15px',
+              marginTop: 'var(--space-2)',
+              maxWidth: '540px',
+              marginInline: 'auto',
+              lineHeight: 1.5,
+            }}
+          >
+            {subtitle}
+          </p>
+        </div>
+
+        {/* Preço de 14,90 € */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+          <span
+            style={{
+              fontSize: 'clamp(36px, 8vw, 48px)',
+              fontWeight: 'var(--weight-bold)',
+              color: 'var(--color-text)',
+              letterSpacing: '-0.03em',
+            }}
+          >
             14,90 €
           </span>
-          <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
-            / pagamento único
+          <span
+            style={{
+              fontSize: '14px',
+              color: 'var(--color-text-secondary)',
+              fontWeight: 'var(--weight-medium)',
+            }}
+          >
+            pagamento único
           </span>
         </div>
-        <p style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', marginTop: 'var(--space-1)' }}>
-          Produto digital descarregável · Entrega segura dos ficheiros por email
-        </p>
 
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 'var(--space-6) 0',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'var(--space-3)',
-            width: '100%',
-            maxWidth: '560px',
-          }}
-        >
-          {inclusions.map((item, idx) => (
-            <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
-              <Check size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-              <span style={{ fontSize: 'var(--type-body)', color: 'var(--color-text)' }}>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Informação sobre os bumps opcionais */}
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '560px',
-            padding: 'var(--space-4)',
-            backgroundColor: 'var(--color-surface)',
-            borderRadius: 'var(--radius-control)',
-            marginBottom: 'var(--space-6)',
-            fontSize: 'var(--type-small)',
-            color: 'var(--color-text-secondary)',
-          }}
-        >
-          <strong style={{ color: 'var(--color-text)' }}>Aceleradores opcionais disponíveis no checkout:</strong>
-          <ul style={{ marginTop: 'var(--space-2)', paddingLeft: 'var(--space-4)' }}>
-            <li>Entrevista dos Sonhos (+ 4,90 €): Manual + Caderno STAR e perguntas difíceis.</li>
-            <li>LinkedIn dos Sonhos (+ 5,90 €): Manual + Otimização de perfil e rotina de contactos.</li>
-          </ul>
-        </div>
-
+        {/* CTA Principal para Checkout OKANDA */}
         {checkout.isConfigured && checkout.url ? (
           <a
             href={checkout.url}
@@ -129,34 +121,34 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({ id = 'oferta' }) => {
               justifyContent: 'center',
               gap: 'var(--space-2)',
               width: '100%',
-              maxWidth: '420px',
+              maxWidth: '440px',
               height: '52px',
               backgroundColor: 'var(--color-accent)',
               color: 'var(--color-on-accent)',
               borderRadius: 'var(--radius-control)',
-              fontSize: '18px',
-              fontWeight: 'var(--weight-semibold)',
+              fontSize: '17px',
+              fontWeight: 'var(--weight-bold)',
               textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(0, 87, 217, 0.25)',
-              transition: 'background-color 160ms ease',
+              boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+              transition: 'background-color 160ms ease, transform 160ms ease',
             }}
           >
-            <span>Quero o Kit Emprego dos Sonhos</span>
-            <ArrowRight size={20} aria-hidden="true" />
+            <span>Quero preparar a minha próxima candidatura</span>
+            <ArrowRight size={18} aria-hidden="true" />
           </a>
         ) : (
           <div
             style={{
               padding: 'var(--space-4)',
-              backgroundColor: 'var(--color-surface)',
+              backgroundColor: 'var(--color-surface-raised)',
               borderRadius: 'var(--radius-control)',
               textAlign: 'center',
               width: '100%',
-              maxWidth: '420px',
+              maxWidth: '440px',
               border: '1px solid var(--color-border)',
             }}
           >
-            <p style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-text)' }}>
+            <p style={{ fontSize: '14px', fontWeight: 'var(--weight-semibold)', color: 'var(--color-text)' }}>
               Checkout oficial em preparação
             </p>
             <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
@@ -165,11 +157,132 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({ id = 'oferta' }) => {
           </div>
         )}
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginTop: 'var(--space-4)' }}>
-          <ShieldCheck size={18} color="var(--color-text-secondary)" aria-hidden="true" />
-          <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)' }}>
-            Checkout seguro e entrega direta gerida pela OKANDA PAY
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <ShieldCheck size={16} color="var(--color-text-secondary)" aria-hidden="true" />
+          <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+            Pagamento seguro através da OKANDA PAY
           </span>
+        </div>
+
+        {/* 3. Conteúdo em Grupos (4 Pilares Claros) */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '680px',
+            marginTop: 'var(--space-4)',
+            textAlign: 'left',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'var(--space-4)',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              padding: '20px',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
+              O teu CV
+            </h3>
+            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+              2 modelos editáveis em Word/DOCX (Essencial e Moderno) + exemplos reais para o mercado português.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              padding: '20px',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
+              As tuas candidaturas
+            </h3>
+            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+              3 cartas de apresentação + 10 mensagens de abordagem direta + checklist de 15 pontos críticos de pré-envio.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              padding: '20px',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
+              O teu plano
+            </h3>
+            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+              Guia principal de 10 lições práticas + roteiro de 7 dias + organizador de candidaturas em CSV offline.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              padding: '20px',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
+              IA como apoio
+            </h3>
+            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+              25 prompts testados para acelerar a redação com ChatGPT ou Claude sem inventar experiências fictícias.
+            </p>
+          </div>
+        </div>
+
+        {/* 4. Complementos Opcionais (Bumps na OKANDA) */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '680px',
+            backgroundColor: 'var(--color-surface-raised)',
+            borderRadius: '16px',
+            padding: '20px',
+            border: '1px dashed var(--color-border)',
+            textAlign: 'left',
+          }}
+        >
+          <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
+            Queres ir ainda mais longe?
+          </div>
+          <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '4px', lineHeight: 1.4 }}>
+            Podes adicionar estes aceleradores diretamente no ecrã de checkout da OKANDA:
+          </p>
+          <ul
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              marginTop: '10px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+              fontSize: '13px',
+              color: 'var(--color-text)',
+            }}
+          >
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontWeight: 600 }}>Entrevista dos Sonhos (+ 4,90 €)</span>
+              <span style={{ color: 'var(--color-text-secondary)' }}>· Manual prático + Caderno STAR</span>
+            </li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontWeight: 600 }}>LinkedIn dos Sonhos (+ 5,90 €)</span>
+              <span style={{ color: 'var(--color-text-secondary)' }}>· Manual prático + Otimização de perfil</span>
+            </li>
+          </ul>
+          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '8px' }}>
+            Disponíveis como complementos opcionais no checkout. A escolha acontece exclusivamente na OKANDA.
+          </div>
         </div>
       </div>
     </section>

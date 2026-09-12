@@ -1,345 +1,316 @@
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Button } from '@/components/ui/button';
-import { FileSearch, HelpCircle, Check, ArrowRight, Shield, Download, FileText, CheckCircle2 } from 'lucide-react';
-import pagesData from '../../content/marketing/pages.json';
+import { FileSearch, HelpCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
-  const homeData = pagesData.home;
-  const faqData = pagesData.faq;
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
+      {/* Header com apenas o logótipo oficial */}
       <Header />
 
-      {/* Hero Section */}
-      <section
-        style={{
-          padding: 'var(--space-16) 0 var(--space-12) 0',
-          backgroundColor: 'var(--color-background)',
-          textAlign: 'center',
-        }}
-      >
-        <div className="container-reading">
-          <span
-            style={{
-              display: 'inline-flex',
-              padding: '6px 16px',
-              backgroundColor: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-pill)',
-              fontSize: 'var(--type-small)',
-              fontWeight: 'var(--weight-semibold)',
-              color: 'var(--color-text-secondary)',
-              marginBottom: 'var(--space-6)',
-            }}
-          >
-            Diagnóstico gratuito & Recursos de candidatura em Portugal
-          </span>
-
-          <h1
-            style={{
-              fontSize: 'clamp(26px, 5vw, 56px)',
-              lineHeight: 'var(--line-height-heading)',
-              fontWeight: 'var(--weight-bold)',
-              letterSpacing: '-0.025em',
-              marginBottom: 'var(--space-6)',
-              color: 'var(--color-text)',
-            }}
-          >
-            {homeData.title}
-          </h1>
-
-          <p
-            className="secondary"
-            style={{
-              fontSize: 'clamp(17px, 2.5vw, 20px)',
-              lineHeight: 'var(--line-height-body)',
-              marginBottom: 'var(--space-8)',
-              maxWidth: '640px',
-              marginInline: 'auto',
-            }}
-          >
-            {homeData.description}
-          </p>
-
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-4)',
-              justifyContent: 'center',
-              alignItems: 'center',
-              maxWidth: '460px',
-              marginInline: 'auto',
-            }}
-          >
-            <a
-              href="/analisar-cv"
+      {/* Hero Principal — Foco Total na Decisão Gratuita */}
+      <main style={{ flex: 1 }}>
+        <section
+          style={{
+            padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-10) var(--layout-mobile-gutter)',
+            textAlign: 'center',
+          }}
+        >
+          <div className="container-reading" style={{ maxWidth: '640px' }}>
+            <h1
               style={{
-                width: '100%',
-                height: '52px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--space-2)',
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-on-accent)',
-                borderRadius: 'var(--radius-control)',
-                fontSize: '18px',
-                fontWeight: 'var(--weight-semibold)',
-                textDecoration: 'none',
-                boxShadow: 'var(--shadow-card)',
-              }}
-            >
-              <FileSearch size={20} aria-hidden="true" />
-              <span>{homeData.primaryCta}</span>
-            </a>
-
-            <a
-              href="/quiz"
-              style={{
-                width: '100%',
-                height: '48px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--space-2)',
-                backgroundColor: 'var(--color-surface)',
+                fontSize: 'clamp(28px, 6.5vw, 40px)',
+                lineHeight: 1.15,
+                fontWeight: 700,
+                letterSpacing: '-0.025em',
                 color: 'var(--color-text)',
-                borderRadius: 'var(--radius-control)',
-                fontSize: '16px',
-                fontWeight: 'var(--weight-medium)',
-                textDecoration: 'none',
-                border: '1px solid var(--color-border)',
+                marginBottom: 'var(--space-3)',
               }}
             >
-              <HelpCircle size={18} color="var(--color-text-secondary)" aria-hidden="true" />
-              <span>{homeData.secondaryCta}</span>
-            </a>
+              Antes da próxima candidatura, descobre o que podes melhorar.
+            </h1>
 
-            <span style={{ fontSize: 'var(--type-small)', color: 'var(--color-text-secondary)', marginTop: 'var(--space-2)' }}>
-              {homeData.note}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Como Funciona — 3 Passos Claros */}
-      <section
-        style={{
-          padding: 'var(--space-12) 0',
-          backgroundColor: 'var(--color-surface)',
-          borderTop: '1px solid var(--color-border)',
-          borderBottom: '1px solid var(--color-border)',
-        }}
-      >
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
-            <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Processo Transparente
-            </span>
-            <h2 style={{ fontSize: 'var(--type-h2-desktop)', marginTop: 'var(--space-2)' }}>
-              Três passos para candidaturas consistentes
-            </h2>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'var(--space-6)',
-            }}
-          >
-            {[
-              {
-                num: '01',
-                title: 'Diagnóstico Gratuito',
-                desc: 'Envia o teu CV ou responde ao quiz de 8 perguntas para identificar as tuas prioridades imediatas sem notas inventadas.',
-              },
-              {
-                num: '02',
-                title: 'Ação Recomendada',
-                desc: 'Recebe imediatamente uma ação prática aplicável e uma amostra gratuita para começar já hoje a preparar a tua candidatura.',
-              },
-              {
-                num: '03',
-                title: 'Método & Recursos do Kit',
-                desc: 'Recebe o guia completo de 10 lições, modelos descarregáveis DOCX, cartas, mensagens e organizador de candidaturas entregues pela OKANDA.',
-              },
-            ].map((step, idx) => (
-              <div
-                key={idx}
-                style={{
-                  backgroundColor: 'var(--color-surface-raised)',
-                  padding: 'var(--space-8) var(--space-6)',
-                  borderRadius: 'var(--radius-card)',
-                  border: '1px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-card)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-3)',
-                }}
-              >
-                <span style={{ fontSize: '32px', fontWeight: 'var(--weight-bold)', color: 'var(--color-accent)' }}>
-                  {step.num}
-                </span>
-                <h3 style={{ fontSize: 'var(--type-h3)' }}>{step.title}</h3>
-                <p className="secondary" style={{ fontSize: 'var(--type-body)', lineHeight: 1.5 }}>
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* O que está incluído no Kit */}
-      <section style={{ padding: 'var(--space-16) 0' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
-            <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Sem Editor Online · Edição Externa no Word
-            </span>
-            <h2 style={{ fontSize: 'var(--type-h2-desktop)', marginTop: 'var(--space-2)' }}>
-              Tudo o que o Kit inclui para o mercado de trabalho em Portugal
-            </h2>
-            <p className="secondary" style={{ marginTop: 'var(--space-2)', maxWidth: '640px', marginInline: 'auto' }}>
-              Materiais estruturados para apoiar quem procura primeiro emprego, transição ou progressão de carreira.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: 'var(--space-6)',
-            }}
-          >
-            {[
-              {
-                icon: <FileText size={24} color="var(--color-accent)" />,
-                title: '2 Modelos de CV Descarregáveis',
-                desc: 'Modelos Essencial e Moderno em formato DOCX limpo. Descarregas e editas externamente no teu processador de texto habitual.',
-              },
-              {
-                icon: <CheckCircle2 size={24} color="var(--color-accent)" />,
-                title: '10 Lições Práticas',
-                desc: 'Do objetivo profissional à leitura de vagas, estrutura de CV e revisão final, com explicações reais e tarefas.',
-              },
-              {
-                icon: <Download size={24} color="var(--color-accent)" />,
-                title: '3 Cartas & 10 Mensagens',
-                desc: 'Estruturas de apresentação e mensagens diretas para recrutadores prontas a adaptar com contexto real.',
-              },
-              {
-                icon: <Shield size={24} color="var(--color-accent)" />,
-                title: 'Organizador de Candidaturas (CSV)',
-                desc: 'Ficheiro de controlo simples para gerir empresas, funções, estados e datas diretamente no teu computador.',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  padding: 'var(--space-6)',
-                  backgroundColor: 'var(--color-surface)',
-                  borderRadius: 'var(--radius-card)',
-                  border: '1px solid var(--color-border)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-3)',
-                }}
-              >
-                <div>{item.icon}</div>
-                <h3 style={{ fontSize: 'var(--type-body)', fontWeight: 'var(--weight-semibold)' }}>{item.title}</h3>
-                <p className="secondary" style={{ fontSize: 'var(--type-small)', lineHeight: 1.4 }}>
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: 'var(--space-10)', textAlign: 'center' }}>
-            <a
-              href="/kit"
+            <p
+              className="secondary"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 'var(--space-2)',
-                fontSize: '18px',
-                fontWeight: 'var(--weight-semibold)',
-                color: 'var(--color-accent)',
-                textDecoration: 'none',
+                fontSize: 'clamp(15px, 3.5vw, 17px)',
+                lineHeight: 1.5,
+                color: 'var(--color-text-secondary)',
+                marginBottom: 'var(--space-6)',
+                maxWidth: '520px',
+                marginInline: 'auto',
               }}
             >
-              <span>Conhecer todos os detalhes e condições do Kit</span>
-              <ArrowRight size={20} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Perguntas Frequentes (FAQ) */}
-      <section
-        style={{
-          padding: 'var(--space-16) 0',
-          backgroundColor: 'var(--color-surface)',
-          borderTop: '1px solid var(--color-border)',
-        }}
-      >
-        <div className="container-reading">
-          <div style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
-            <h2 style={{ fontSize: 'var(--type-h2-desktop)' }}>Perguntas Frequentes</h2>
-            <p className="secondary" style={{ marginTop: 'var(--space-2)' }}>
-              Respostas claras sobre os diagnósticos, os ficheiros e o funcionamento do Kit.
+              Analisa o teu CV ou responde a algumas perguntas e recebe um diagnóstico gratuito.
             </p>
-          </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-            {faqData.map((item, idx) => (
-              <details
-                key={idx}
+            {/* CTAs Principais */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3)',
+                maxWidth: '380px',
+                marginInline: 'auto',
+              }}
+            >
+              <a
+                href="/analisar-cv"
                 style={{
-                  backgroundColor: 'var(--color-surface-raised)',
+                  height: '52px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 'var(--space-2)',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-on-accent)',
                   borderRadius: 'var(--radius-control)',
-                  padding: 'var(--space-4) var(--space-6)',
-                  border: '1px solid var(--color-border)',
-                  cursor: 'pointer',
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+                  transition: 'background-color 160ms ease, transform 160ms ease',
                 }}
               >
-                <summary
-                  style={{
-                    fontSize: 'var(--type-body)',
-                    fontWeight: 'var(--weight-semibold)',
-                    color: 'var(--color-text)',
-                    listStyle: 'none',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <span>{item.question}</span>
-                  <span style={{ fontSize: '18px', color: 'var(--color-text-secondary)' }}>+</span>
-                </summary>
-                <p
-                  className="secondary"
-                  style={{
-                    marginTop: 'var(--space-3)',
-                    fontSize: 'var(--type-small)',
-                    lineHeight: 1.5,
-                    borderTop: '1px solid var(--color-surface)',
-                    paddingTop: 'var(--space-3)',
-                  }}
-                >
-                  {item.answer.replace('{{approved_access_terms}}', 'Os ficheiros digitais são enviados diretamente para o teu email pela OKANDA após a compra, ficando disponíveis para teu uso pessoal no computador.')}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+                <FileSearch size={19} aria-hidden="true" />
+                <span>Analisar o meu CV</span>
+              </a>
 
+              <a
+                href="/quiz"
+                style={{
+                  height: '48px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 'var(--space-2)',
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-text)',
+                  borderRadius: 'var(--radius-control)',
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  border: '1px solid var(--color-border)',
+                  transition: 'background-color 160ms ease',
+                }}
+              >
+                <HelpCircle size={18} color="var(--color-text-secondary)" aria-hidden="true" />
+                <span>Não tenho o CV comigo — fazer o quiz</span>
+              </a>
+
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  fontSize: '13px',
+                  color: 'var(--color-text-secondary)',
+                  marginTop: 'var(--space-1)',
+                }}
+              >
+                <CheckCircle2 size={14} color="var(--color-success)" aria-hidden="true" />
+                <span>Gratuito · Sem cartão</span>
+              </div>
+            </div>
+
+            {/* Imagem de Apoio Humana e Profissional */}
+            <div
+              style={{
+                marginTop: 'var(--space-8)',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
+                position: 'relative',
+              }}
+            >
+              <img
+                src="/images/ref-cv.png"
+                alt="Profissional a preparar a sua candidatura em Portugal"
+                style={{
+                  width: '100%',
+                  maxHeight: '360px',
+                  objectFit: 'cover',
+                  objectPosition: 'center 20%',
+                  display: 'block',
+                }}
+                loading="eager"
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  insetInline: 0,
+                  padding: '16px 20px',
+                  background: 'linear-gradient(to top, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0) 100%)',
+                  color: '#FFFFFF',
+                  textAlign: 'left',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <span style={{ fontSize: '13px', fontWeight: 600 }}>
+                  Clareza para o mercado de trabalho em Portugal
+                </span>
+                <span style={{ fontSize: '12px', color: '#D2D2D7' }}>
+                  100% Confidencial
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Secção Imediatamente Abaixo: Escolhe como queres começar */}
+        <section
+          style={{
+            padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)',
+            backgroundColor: 'var(--color-surface)',
+            borderTop: '1px solid var(--color-border)',
+          }}
+        >
+          <div className="container-reading" style={{ maxWidth: '640px' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+              <h2
+                style={{
+                  fontSize: 'clamp(22px, 5vw, 28px)',
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--color-text)',
+                }}
+              >
+                Escolhe como queres começar
+              </h2>
+              <p className="secondary" style={{ fontSize: '14px', marginTop: '4px' }}>
+                Os dois caminhos são gratuitos e mostram-te onde podes melhorar.
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 'var(--space-4)',
+              }}
+            >
+              {/* Opção 1: Analisar CV */}
+              <a
+                href="/analisar-cv"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  padding: '24px 20px',
+                  border: '1px solid var(--color-border)',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
+                  transition: 'transform 160ms ease, border-color 160ms ease',
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      backgroundColor: 'var(--color-accent-soft)',
+                      color: 'var(--color-accent)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    <FileSearch size={22} aria-hidden="true" />
+                  </div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                    Tenho o meu CV
+                  </h3>
+                  <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.45 }}>
+                    Envia o teu ficheiro PDF, Word ou cola o texto para uma leitura estruturada dos pontos mais fracos e fortes.
+                  </p>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: 'var(--color-accent)',
+                    marginTop: '16px',
+                  }}
+                >
+                  <span>Analisar CV agora</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </div>
+              </a>
+
+              {/* Opção 2: Fazer Quiz */}
+              <a
+                href="/quiz"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  padding: '24px 20px',
+                  border: '1px solid var(--color-border)',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
+                  transition: 'transform 160ms ease, border-color 160ms ease',
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '10px',
+                      backgroundColor: 'var(--color-surface)',
+                      color: 'var(--color-text-secondary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    <HelpCircle size={22} aria-hidden="true" />
+                  </div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                    Não tenho o CV à mão
+                  </h3>
+                  <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.45 }}>
+                    Responde a 8 perguntas simples em menos de 2 minutos e descobre as tuas prioridades imediatas.
+                  </p>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: 'var(--color-accent)',
+                    marginTop: '16px',
+                  }}
+                >
+                  <span>Iniciar questionário</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer Mínimo */}
       <Footer />
     </div>
   );

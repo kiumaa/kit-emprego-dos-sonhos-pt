@@ -12,6 +12,20 @@ Nome: Kit Emprego dos Sonhos — Portugal. Desenvolvimento dos produtos e das p�
 - Todos os produtos pagos são gerados em pastas locais privadas (`dist/deliverables/`), ficando estritamente excluídos de `public/downloads`.
 - Corrigidos os pontos críticos de auditoria: leitura real de ficheiros no servidor, sem IA simulada, sem temporizadores artificiais e sem resultados de fallback fabricados.
 
+**Decisão de Redesign e Conversão Visual KEDS v3.1 (12/09/2026): Estética Editorial Apple, Mobile-First e Logótipo Oficial**
+- Instalação do logótipo oficial do Emprego dos Sonhos como assinatura visual central e exclusiva.
+- Remoção total de headers e menus tradicionais de SaaS; topo das páginas passa a apresentar exclusivamente o logótipo oficial com margens generosas e botão voltar opcional nas páginas de diagnóstico.
+- Footer mínimo e institucional mobile-first (Termos, Privacidade, Cookies, Apoio e menção à segurança OKANDA PAY), sem colunas pesadas nem links técnicos.
+- Escala tipográfica refinada para mobile-first (H1 30–36px, H2 24–28px, botões 48–52px, margens de 20px).
+- Homepage reduzida ao essencial com foco imediato nas duas opções gratuitas (CV vs Quiz), fotografia humana realista e sem cards de funcionalidades SaaS.
+- Analisador de CV com tabs limpas e campos secundários em disclosure recolhido ("Queres uma análise mais contextualizada?").
+- Quiz minimalista contínuo de 8 perguntas com barra de progresso fina e opções de toque grandes.
+- Página de resultado reestruturada em Parte A (Diagnóstico conciso + 3 prioridades + 1 ação gratuita útil) e Parte B (Ponte para a venda com scroll suave para `#apresentacao`).
+- Protagonismo total da VSL (16:9 de largura total mobile, autoplay muted em viewport e overlay claro "🔊 Ativar som e ver desde o início").
+- Oferta apresentada visualmente com mockup editorial dos produtos, preço único de 14,90 €, agrupamento em 4 pilares e nota informativa sobre os bumps da OKANDA.
+- Landing page de vendas direta em `/kit` com estrutura de alta conversão.
+- Substituição do formulário simulado de `/apoio` por canal real de suporte por email e neutralização de `/obrigado` para entrega por email pela OKANDA.
+
 ## Defaults de implementação, sem necessidade de bloquear o arranque
 - Manrope, branco, grafite, cinzas neutros, azul discreto; tema claro único no lançamento.
 - Site e área privada no mesmo projeto. Conteúdo estruturado e tokens partilhados.
