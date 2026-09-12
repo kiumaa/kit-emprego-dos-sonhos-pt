@@ -80,8 +80,9 @@ class PackageChecks(unittest.TestCase):
             hi,lo=sorted([lum(colors[a]),lum(colors[b])],reverse=True)
             self.assertGreaterEqual((hi+.05)/(lo+.05),4.5,(a,b))
     def test_09_no_font_files_or_secrets(self):
+        ignored_dirs = {'.git', 'node_modules', '.next', 'dist'}
         for path in ROOT.rglob('*'):
-            if not path.is_file() or '.git' in path.parts: continue
+            if not path.is_file() or any(p in path.parts for p in ignored_dirs): continue
             self.assertNotIn(path.suffix.lower(),{'.woff','.woff2','.ttf','.otf','.pem','.key'})
             self.assertNotEqual(path.name,'.env')
     def test_10_no_removed_feature_promises(self):

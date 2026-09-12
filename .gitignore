@@ -26,3 +26,4 @@ exports-private/
 *.woff2
 *.ttf
 *.otf
+*.tsbuildinfo
