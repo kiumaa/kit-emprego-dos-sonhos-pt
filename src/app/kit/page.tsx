@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/footer';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
-import { ArrowRight, ShieldCheck, Check, Sparkles, HelpCircle } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Check, Sparkles } from 'lucide-react';
 
 export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
@@ -14,11 +14,11 @@ export default function ProductKitPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      {/* Header com apenas o logótipo oficial */}
+      {/* Header com o logótipo oficial em destaque */}
       <Header />
 
       <main style={{ flex: 1, padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-20) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading" style={{ maxWidth: '820px', display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+        <div className="container-reading" style={{ maxWidth: '820px', display: 'flex', flexDirection: 'column', gap: 'var(--space-10)' }}>
           
           {/* ================================================================= */}
           {/* 1. HERO COM VISUAL DO PRODUTO, PREÇO E CTA IMEDIATO               */}
@@ -26,11 +26,13 @@ export default function ProductKitPage() {
           <section style={{ textAlign: 'center' }}>
             <span
               style={{
-                display: 'inline-block',
-                fontSize: '12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '11px',
                 fontWeight: 700,
                 textTransform: 'uppercase',
-                letterSpacing: '0.06em',
+                letterSpacing: '0.08em',
                 color: 'var(--color-accent)',
                 backgroundColor: 'var(--color-accent-soft)',
                 padding: '4px 14px',
@@ -38,7 +40,8 @@ export default function ProductKitPage() {
                 marginBottom: 'var(--space-3)',
               }}
             >
-              Kit Completo · Recursos Descarregáveis
+              <Sparkles size={12} aria-hidden="true" />
+              <span>Kit Completo · Recursos Descarregáveis</span>
             </span>
 
             <h1
@@ -68,8 +71,8 @@ export default function ProductKitPage() {
               Modelos de CV editáveis em Word, cartas de apresentação, mensagens para recrutadores e um plano de 7 dias desenhado para o mercado de trabalho em Portugal.
             </p>
 
-            {/* Visual Grande do Produto (Mockup Editorial) */}
-            <div style={{ margin: 'var(--space-4) 0 var(--space-8) 0' }}>
+            {/* Visual dos Componentes do Produto */}
+            <div style={{ margin: 'var(--space-2) 0 var(--space-6) 0' }}>
               <ProductMockup />
             </div>
 
@@ -81,15 +84,16 @@ export default function ProductKitPage() {
                 alignItems: 'center',
                 gap: 'var(--space-3)',
                 padding: 'var(--space-6)',
-                backgroundColor: 'var(--color-surface)',
-                borderRadius: '20px',
+                backgroundColor: '#FFFFFF',
+                borderRadius: '24px',
                 border: '1px solid var(--color-border)',
+                boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
                 maxWidth: '520px',
                 marginInline: 'auto',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                <span style={{ fontSize: 'clamp(32px, 6vw, 44px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em' }}>
+                <span style={{ fontSize: 'clamp(34px, 7vw, 46px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em' }}>
                   14,90 €
                 </span>
                 <span style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
@@ -106,9 +110,9 @@ export default function ProductKitPage() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
+                    gap: '10px',
                     width: '100%',
-                    height: '52px',
+                    minHeight: '52px',
                     backgroundColor: 'var(--color-accent)',
                     color: 'var(--color-on-accent)',
                     borderRadius: '12px',
@@ -117,6 +121,8 @@ export default function ProductKitPage() {
                     textDecoration: 'none',
                     boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
                     transition: 'background-color 160ms ease',
+                    padding: '14px 24px',
+                    boxSizing: 'border-box',
                   }}
                 >
                   <span>Quero o Kit Emprego dos Sonhos</span>
@@ -138,7 +144,7 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 2. VSL PROTAGONISTA                                                */}
+          {/* 2. VSL PROTAGONISTA (16:9 Autêntico)                              */}
           {/* ================================================================= */}
           <VslPlayer
             id="apresentacao-kit"
@@ -149,79 +155,22 @@ export default function ProductKitPage() {
           />
 
           {/* ================================================================= */}
-          {/* 3. TUDO O QUE RECEBES (4 PILARES E PREVIEWS REAIS)                */}
-          {/* ================================================================= */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-            <div style={{ textAlign: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', fontWeight: 700, letterSpacing: '-0.02em' }}>
-                Tudo o que está incluído no Kit
-              </h2>
-              <p className="secondary" style={{ fontSize: '15px', marginTop: '4px' }}>
-                Materiais estáticos, práticos e organizados para usares no teu próprio computador.
-              </p>
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: 'var(--space-4)',
-              }}
-            >
-              <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '16px', padding: '24px 20px', border: '1px solid var(--color-border)' }}>
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '8px' }}>
-                  O teu CV
-                </h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
-                  2 modelos editáveis no Word (DOCX): Modelo Essencial (1 coluna) e Modelo Moderno (equilibrado), acompanhados de exemplos reais para Portugal.
-                </p>
-              </div>
-
-              <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '16px', padding: '24px 20px', border: '1px solid var(--color-border)' }}>
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '8px' }}>
-                  As tuas candidaturas
-                </h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
-                  3 cartas de apresentação prontas (anúncio, candidatura espontânea, transição), 10 mensagens de abordagem direta e checklist de 15 pontos críticos.
-                </p>
-              </div>
-
-              <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '16px', padding: '24px 20px', border: '1px solid var(--color-border)' }}>
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '8px' }}>
-                  O teu plano
-                </h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
-                  Guia central com 10 lições práticas em PDF, plano de ação diário para 7 dias e folha de cálculo CSV offline para controlar as candidaturas.
-                </p>
-              </div>
-
-              <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '16px', padding: '24px 20px', border: '1px solid var(--color-border)' }}>
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '8px' }}>
-                  IA como apoio
-                </h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
-                  25 prompts estratégicos testados para ChatGPT e Claude, desenhados para extrair pontos fortes reais sem criar biografias inventadas.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ================================================================= */}
-          {/* 4. ANTES VS DEPOIS CONCEPTUAL (Sem Métricas Falsas)               */}
+          {/* 3. ANTES VS DEPOIS CONCEPTUAL (Sem Métricas Falsas)               */}
           {/* ================================================================= */}
           <section
             style={{
-              backgroundColor: 'var(--color-surface)',
+              backgroundColor: '#FFFFFF',
               borderRadius: '24px',
-              padding: 'var(--space-8) var(--layout-mobile-gutter)',
+              padding: 'clamp(24px, 5vw, 36px) clamp(20px, 4vw, 32px)',
               border: '1px solid var(--color-border)',
+              boxShadow: '0 8px 30px rgba(29, 29, 31, 0.04)',
             }}
           >
             <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
               <h2 style={{ fontSize: 'clamp(22px, 4.5vw, 28px)', fontWeight: 700, color: 'var(--color-text)' }}>
                 A diferença de ter um método
               </h2>
-              <p className="secondary" style={{ fontSize: '14px', marginTop: '4px' }}>
+              <p className="secondary" style={{ fontSize: '14px', marginTop: '4px', color: 'var(--color-text-secondary)' }}>
                 Como o processo muda quando deixas de disparar currículos ao acaso.
               </p>
             </div>
@@ -230,19 +179,19 @@ export default function ProductKitPage() {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: 'var(--space-6)',
+                gap: 'var(--space-4)',
               }}
             >
-              {/* Antes */}
+              {/* Sem Método */}
               <div
                 style={{
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   borderRadius: '16px',
                   padding: '20px',
                   border: '1px solid var(--color-border)',
                 }}
               >
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', marginBottom: '8px' }}>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '10px' }}>
                   Sem método
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
@@ -261,16 +210,16 @@ export default function ProductKitPage() {
                 </ul>
               </div>
 
-              {/* Com Método */}
+              {/* Com o Kit */}
               <div
                 style={{
                   backgroundColor: 'var(--color-accent-soft)',
                   borderRadius: '16px',
                   padding: '20px',
-                  border: '1px solid rgba(0, 87, 217, 0.2)',
+                  border: '1px solid rgba(0, 87, 217, 0.18)',
                 }}
               >
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', marginBottom: '8px' }}>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '10px' }}>
                   Com o Kit Emprego dos Sonhos
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', color: 'var(--color-text)' }}>
@@ -292,33 +241,33 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 5. BUMPS INFORMATIVOS                                             */}
+          {/* 4. BUMPS INFORMATIVOS                                             */}
           {/* ================================================================= */}
           <div
             style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
-              padding: '24px 20px',
+              backgroundColor: 'var(--color-surface)',
+              borderRadius: '16px',
+              padding: '18px 20px',
               border: '1px solid var(--color-border)',
               textAlign: 'center',
             }}
           >
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
-              Queres ir ainda mais longe?
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: '0 0 4px 0' }}>
+              Aceleradores opcionais disponíveis no checkout
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', maxWidth: '520px', marginInline: 'auto', lineHeight: 1.45 }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', maxWidth: '520px', marginInline: 'auto', lineHeight: 1.45, margin: 0 }}>
               Durante a finalização da encomenda na OKANDA PAY, podes adicionar os manuais especializados de <strong>Entrevista dos Sonhos (+ 4,90 €)</strong> e <strong>LinkedIn dos Sonhos (+ 5,90 €)</strong>.
             </p>
           </div>
 
           {/* ================================================================= */}
-          {/* 6. PREÇO E CTA REPETIDO NO FINAL                                  */}
+          {/* 5. PREÇO E CTA FINAL                                              */}
           {/* ================================================================= */}
           <section style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-3)' }}>
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', fontWeight: 700, letterSpacing: '-0.02em' }}>
               Dá o próximo passo na tua carreira.
             </h2>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: 'var(--space-2) 0' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: 'var(--space-1) 0' }}>
               <span style={{ fontSize: 'clamp(36px, 7vw, 48px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em' }}>
                 14,90 €
               </span>
@@ -339,7 +288,7 @@ export default function ProductKitPage() {
                   gap: '8px',
                   width: '100%',
                   maxWidth: '440px',
-                  height: '52px',
+                  minHeight: '52px',
                   backgroundColor: 'var(--color-accent)',
                   color: 'var(--color-on-accent)',
                   borderRadius: '12px',
@@ -347,6 +296,8 @@ export default function ProductKitPage() {
                   fontWeight: 700,
                   textDecoration: 'none',
                   boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+                  padding: '14px 24px',
+                  boxSizing: 'border-box',
                 }}
               >
                 <span>Quero preparar a minha próxima candidatura</span>
@@ -367,7 +318,7 @@ export default function ProductKitPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* 7. FAQ CURTO E OBJETIVO                                            */}
+          {/* 6. FAQ CURTO E OBJETIVO                                            */}
           {/* ================================================================= */}
           <section style={{ borderTop: '1px solid var(--color-border)', paddingTop: 'var(--space-8)' }}>
             <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: 'var(--space-4)', textAlign: 'center' }}>
@@ -376,8 +327,8 @@ export default function ProductKitPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <details
                 style={{
-                  backgroundColor: 'var(--color-surface)',
-                  borderRadius: '12px',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '14px',
                   padding: '16px',
                   border: '1px solid var(--color-border)',
                 }}
@@ -392,8 +343,8 @@ export default function ProductKitPage() {
 
               <details
                 style={{
-                  backgroundColor: 'var(--color-surface)',
-                  borderRadius: '12px',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '14px',
                   padding: '16px',
                   border: '1px solid var(--color-border)',
                 }}
@@ -408,8 +359,8 @@ export default function ProductKitPage() {
 
               <details
                 style={{
-                  backgroundColor: 'var(--color-surface)',
-                  borderRadius: '12px',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '14px',
                   padding: '16px',
                   border: '1px solid var(--color-border)',
                 }}

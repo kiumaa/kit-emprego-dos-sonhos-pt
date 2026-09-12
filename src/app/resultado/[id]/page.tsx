@@ -8,7 +8,7 @@ import { OfferPanel } from '@/components/ui/offer-panel';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
 import { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
-import { CheckCircle2, ArrowRight, HelpCircle, FileText, AlertCircle, ChevronDown, Check } from 'lucide-react';
+import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Sparkles } from 'lucide-react';
 
 export default function ResultPage() {
   const params = useParams();
@@ -146,37 +146,39 @@ export default function ResultPage() {
       {/* Header com logo oficial e botão discreto de novo diagnóstico */}
       <Header showBack={true} backHref="/quiz" backLabel="Novo teste" />
 
-      <main style={{ flex: 1, padding: 'var(--space-6) var(--layout-mobile-gutter) var(--space-20) var(--layout-mobile-gutter)' }}>
+      <main style={{ flex: 1, padding: 'var(--space-6) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)' }}>
         <div
           className="container-reading"
           style={{
-            maxWidth: '680px',
+            maxWidth: '720px',
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--space-8)',
           }}
         >
           {/* ================================================================= */}
-          {/* PARTE A: DIAGNÓSTICO GRATUITO (Concisão, Utilidade e Humanização) */}
+          {/* PARTE A: DIAGNÓSTICO GRATUITO (Leve, Respirável e Visualmente Limpo) */}
           {/* ================================================================= */}
           <section
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
-              padding: 'var(--space-8) var(--layout-mobile-gutter)',
+              padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)',
               border: '1px solid var(--color-border)',
-              boxShadow: '0 8px 32px rgba(29, 29, 31, 0.05)',
+              boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
             }}
           >
             {/* Indicação e Título */}
             <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
               <span
                 style={{
-                  display: 'inline-block',
-                  fontSize: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11px',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
+                  letterSpacing: '0.08em',
                   color: 'var(--color-accent)',
                   backgroundColor: 'var(--color-accent-soft)',
                   padding: '4px 12px',
@@ -184,7 +186,8 @@ export default function ResultPage() {
                   marginBottom: 'var(--space-2)',
                 }}
               >
-                O teu diagnóstico
+                <Sparkles size={12} aria-hidden="true" />
+                <span>O teu diagnóstico</span>
               </span>
               <h1
                 style={{
@@ -213,68 +216,60 @@ export default function ResultPage() {
               </p>
             </div>
 
-            {/* As tuas prioridades — Máximo 3 Pontos com título, explicação e ação */}
+            {/* As tuas prioridades — 3 Pontos Estruturados e Leves */}
             <div style={{ marginBottom: 'var(--space-6)' }}>
               <h2
                 style={{
-                  fontSize: '18px',
+                  fontSize: '16px',
                   fontWeight: 700,
-                  color: 'var(--color-text)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  color: 'var(--color-text-secondary)',
                   marginBottom: 'var(--space-3)',
                 }}
               >
-                As tuas prioridades
+                Prioridades identificadas
               </h2>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {topPriorities.map((item: DiagnosticPriority, idx: number) => (
                   <div
                     key={idx}
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       borderRadius: '14px',
-                      padding: '16px',
-                      border: '1px solid rgba(0, 0, 0, 0.05)',
+                      padding: '14px 16px',
+                      border: '1px solid rgba(0, 0, 0, 0.04)',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '12px',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <span
-                        style={{
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '999px',
-                          backgroundColor: 'var(--color-accent)',
-                          color: '#FFFFFF',
-                          fontSize: '12px',
-                          fontWeight: 700,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {idx + 1}
-                      </span>
-                      <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
-                        {item.title}
-                      </h3>
-                    </div>
-                    <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.4, margin: '4px 0 8px 30px' }}>
-                      {item.evidenceText || item.evidenceAnswer || 'Ponto crítico identificado na tua avaliação.'}
-                    </p>
-                    <div
+                    <span
                       style={{
-                        marginLeft: '30px',
-                        fontSize: '13px',
-                        fontWeight: 600,
-                        color: 'var(--color-text)',
-                        display: 'flex',
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--color-accent)',
+                        color: '#FFFFFF',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        display: 'inline-flex',
                         alignItems: 'center',
-                        gap: '6px',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        marginTop: '2px',
                       }}
                     >
-                      <span style={{ color: 'var(--color-accent)' }}>Ação:</span>
-                      <span>{item.action}</span>
+                      {idx + 1}
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)' }}>
+                        {item.title}
+                      </div>
+                      <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.4 }}>
+                        {item.action || item.evidenceText || item.evidenceAnswer}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -285,20 +280,20 @@ export default function ResultPage() {
             <div
               style={{
                 backgroundColor: 'var(--color-accent-soft)',
-                borderRadius: '16px',
-                padding: '16px 20px',
+                borderRadius: '14px',
+                padding: '14px 18px',
                 border: '1px solid rgba(0, 87, 217, 0.15)',
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '12px',
+                gap: '10px',
               }}
             >
-              <CheckCircle2 size={22} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+              <CheckCircle2 size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
               <div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
-                  O teu primeiro passo gratuito
-                </h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '4px', lineHeight: 1.45, margin: 0 }}>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Ação Imediata
+                </span>
+                <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '2px', lineHeight: 1.45, margin: 0 }}>
                   {result.freeAction?.description ||
                     'Revê as tuas experiências mais recentes e reformula as frases para incluírem números, prazos ou tarefas concretas executadas.'}
                 </p>
@@ -307,12 +302,12 @@ export default function ResultPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* PARTE B: PONTE PARA A VENDA (#apresentacao)                        */}
+          {/* PARTE B: PONTE DIRETA E LEVE PARA A VSL (#apresentacao)           */}
           {/* ================================================================= */}
           <section
             style={{
               textAlign: 'center',
-              padding: 'var(--space-4) 0',
+              padding: 'var(--space-2) 0',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -322,13 +317,14 @@ export default function ResultPage() {
             <h2
               style={{
                 fontSize: 'clamp(20px, 4.5vw, 26px)',
-                lineHeight: 1.2,
+                lineHeight: 1.25,
                 fontWeight: 700,
                 letterSpacing: '-0.02em',
                 color: 'var(--color-text)',
+                maxWidth: '560px',
               }}
             >
-              Já sabes onde começar. Agora falta saber como aplicar tudo isto.
+              Como aplicar estas recomendações passo a passo?
             </h2>
             <p
               className="secondary"
@@ -336,10 +332,10 @@ export default function ResultPage() {
                 fontSize: '15px',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.5,
-                maxWidth: '520px',
+                maxWidth: '500px',
               }}
             >
-              Preparámos um método com modelos, mensagens e ferramentas para te ajudar a construir candidaturas mais fortes.
+              Vê a apresentação oficial de 3 minutos para descobrires a metodologia completa.
             </p>
 
             <a
@@ -349,26 +345,26 @@ export default function ResultPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
-                height: '50px',
-                padding: '0 28px',
+                height: '48px',
+                padding: '0 24px',
                 backgroundColor: 'var(--color-accent)',
                 color: 'var(--color-on-accent)',
                 borderRadius: 'var(--radius-control)',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: 700,
                 textDecoration: 'none',
-                boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
-                marginTop: 'var(--space-2)',
+                boxShadow: '0 4px 14px rgba(0, 87, 217, 0.22)',
+                marginTop: 'var(--space-1)',
                 transition: 'background-color 160ms ease',
               }}
             >
-              <span>Quero ver como funciona</span>
-              <ChevronDown size={18} aria-hidden="true" />
+              <span>Ver apresentação em vídeo</span>
+              <ChevronDown size={17} aria-hidden="true" />
             </a>
           </section>
 
           {/* ================================================================= */}
-          {/* 6. VSL PROTAGONISTA (16:9 de Alta Visibilidade em Mobile)          */}
+          {/* PARTE C: VSL PROTAGONISTA (16:9 de Alta Visibilidade em Mobile)   */}
           {/* ================================================================= */}
           <VslPlayer
             id="apresentacao"
@@ -379,7 +375,7 @@ export default function ResultPage() {
           />
 
           {/* ================================================================= */}
-          {/* 7. OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,90 €             */}
+          {/* PARTE D: OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,90 €      */}
           {/* ================================================================= */}
           <OfferPanel id="oferta" />
         </div>

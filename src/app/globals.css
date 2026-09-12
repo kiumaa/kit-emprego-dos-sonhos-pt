@@ -8,6 +8,16 @@
   padding: 0;
 }
 
+:root {
+  --brand-logo-height: 48px;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --brand-logo-height: 42px;
+  }
+}
+
 html {
   font-family: var(--font-primary);
   font-size: var(--type-body);

@@ -1,23 +1,40 @@
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { FileSearch, HelpCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { FileSearch, HelpCircle, CheckCircle2, ShieldCheck, Target, Zap } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
-      {/* Header com apenas o logótipo oficial */}
+      {/* Header com logótipo oficial em destaque */}
       <Header />
 
-      {/* Hero Principal — Foco Total na Decisão Gratuita */}
-      <main style={{ flex: 1 }}>
+      {/* Hero Principal — Direto, Limpo e Focado na Conversão */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <section
           style={{
-            padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-10) var(--layout-mobile-gutter)',
+            padding: 'var(--space-10) var(--layout-mobile-gutter) var(--space-12) var(--layout-mobile-gutter)',
             textAlign: 'center',
           }}
         >
-          <div className="container-reading" style={{ maxWidth: '640px' }}>
+          <div className="container-reading" style={{ maxWidth: '600px' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                fontSize: '12px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: 'var(--color-accent)',
+                backgroundColor: 'var(--color-accent-soft)',
+                padding: '4px 14px',
+                borderRadius: '999px',
+                marginBottom: 'var(--space-4)',
+              }}
+            >
+              Diagnóstico Gratuito de Candidatura
+            </span>
+
             <h1
               style={{
                 fontSize: 'clamp(28px, 6.5vw, 40px)',
@@ -37,15 +54,15 @@ export default function HomePage() {
                 fontSize: 'clamp(15px, 3.5vw, 17px)',
                 lineHeight: 1.5,
                 color: 'var(--color-text-secondary)',
-                marginBottom: 'var(--space-6)',
-                maxWidth: '520px',
+                marginBottom: 'var(--space-8)',
+                maxWidth: '500px',
                 marginInline: 'auto',
               }}
             >
               Analisa o teu CV ou responde a algumas perguntas e recebe um diagnóstico gratuito.
             </p>
 
-            {/* CTAs Principais */}
+            {/* Ações Principais (Únicas no ecrã — sem duplicações) */}
             <div
               style={{
                 display: 'flex',
@@ -107,204 +124,106 @@ export default function HomePage() {
                   gap: '8px',
                   fontSize: '13px',
                   color: 'var(--color-text-secondary)',
-                  marginTop: 'var(--space-1)',
+                  marginTop: 'var(--space-2)',
                 }}
               >
                 <CheckCircle2 size={14} color="var(--color-success)" aria-hidden="true" />
-                <span>Gratuito · Sem cartão</span>
-              </div>
-            </div>
-
-            {/* Imagem de Apoio Humana e Profissional */}
-            <div
-              style={{
-                marginTop: 'var(--space-8)',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                backgroundColor: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
-                position: 'relative',
-              }}
-            >
-              <img
-                src="/images/ref-cv.png"
-                alt="Profissional a preparar a sua candidatura em Portugal"
-                style={{
-                  width: '100%',
-                  maxHeight: '360px',
-                  objectFit: 'cover',
-                  objectPosition: 'center 20%',
-                  display: 'block',
-                }}
-                loading="eager"
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  insetInline: 0,
-                  padding: '16px 20px',
-                  background: 'linear-gradient(to top, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0) 100%)',
-                  color: '#FFFFFF',
-                  textAlign: 'left',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <span style={{ fontSize: '13px', fontWeight: 600 }}>
-                  Clareza para o mercado de trabalho em Portugal
-                </span>
-                <span style={{ fontSize: '12px', color: '#D2D2D7' }}>
-                  100% Confidencial
-                </span>
+                <span>Gratuito · Sem cartão · 100% Confidencial</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Secção Imediatamente Abaixo: Escolhe como queres começar */}
+        {/* Secção Leve e Discreta: Como te ajudamos (Sem duplicações de cartões) */}
         <section
           style={{
-            padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)',
+            padding: 'var(--space-10) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)',
             backgroundColor: 'var(--color-surface)',
-            borderTop: '1px solid var(--color-border)',
+            borderTop: '1px solid rgba(0, 0, 0, 0.05)',
           }}
         >
-          <div className="container-reading" style={{ maxWidth: '640px' }}>
-            <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
-              <h2
-                style={{
-                  fontSize: 'clamp(22px, 5vw, 28px)',
-                  fontWeight: 700,
-                  letterSpacing: '-0.02em',
-                  color: 'var(--color-text)',
-                }}
-              >
-                Escolhe como queres começar
-              </h2>
-              <p className="secondary" style={{ fontSize: '14px', marginTop: '4px' }}>
-                Os dois caminhos são gratuitos e mostram-te onde podes melhorar.
-              </p>
-            </div>
-
+          <div className="container-reading" style={{ maxWidth: '680px' }}>
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: 'var(--space-4)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: 'var(--space-6)',
+                textAlign: 'left',
               }}
             >
-              {/* Opção 1: Analisar CV */}
-              <a
-                href="/analisar-cv"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '16px',
-                  padding: '24px 20px',
-                  border: '1px solid var(--color-border)',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
-                  transition: 'transform 160ms ease, border-color 160ms ease',
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '10px',
-                      backgroundColor: 'var(--color-accent-soft)',
-                      color: 'var(--color-accent)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: '14px',
-                    }}
-                  >
-                    <FileSearch size={22} aria-hidden="true" />
-                  </div>
-                  <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
-                    Tenho o meu CV
-                  </h3>
-                  <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.45 }}>
-                    Envia o teu ficheiro PDF, Word ou cola o texto para uma leitura estruturada dos pontos mais fracos e fortes.
-                  </p>
-                </div>
+              {/* Ponto 1: Diagnóstico */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <div
                   style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    backgroundColor: 'var(--color-accent-soft)',
+                    color: 'var(--color-accent)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--color-accent)',
-                    marginTop: '16px',
+                    justifyContent: 'center',
                   }}
                 >
-                  <span>Analisar CV agora</span>
-                  <ArrowRight size={16} aria-hidden="true" />
+                  <Target size={18} aria-hidden="true" />
                 </div>
-              </a>
+                <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                  Sem rodeios
+                </h2>
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
+                  Identificamos de imediato os pontos mais críticos que os recrutadores em Portugal notam num currículo.
+                </p>
+              </div>
 
-              {/* Opção 2: Fazer Quiz */}
-              <a
-                href="/quiz"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '16px',
-                  padding: '24px 20px',
-                  border: '1px solid var(--color-border)',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
-                  transition: 'transform 160ms ease, border-color 160ms ease',
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '10px',
-                      backgroundColor: 'var(--color-surface)',
-                      color: 'var(--color-text-secondary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: '14px',
-                    }}
-                  >
-                    <HelpCircle size={22} aria-hidden="true" />
-                  </div>
-                  <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
-                    Não tenho o CV à mão
-                  </h3>
-                  <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.45 }}>
-                    Responde a 8 perguntas simples em menos de 2 minutos e descobre as tuas prioridades imediatas.
-                  </p>
-                </div>
+              {/* Ponto 2: Prático */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <div
                   style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    backgroundColor: 'var(--color-surface-raised)',
+                    color: 'var(--color-text)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--color-accent)',
-                    marginTop: '16px',
+                    justifyContent: 'center',
+                    border: '1px solid var(--color-border)',
                   }}
                 >
-                  <span>Iniciar questionário</span>
-                  <ArrowRight size={16} aria-hidden="true" />
+                  <Zap size={18} aria-hidden="true" />
                 </div>
-              </a>
+                <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                  Ação imediata
+                </h2>
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
+                  Recebes prioridades claras e uma recomendação gratuita que podes aplicar logo na próxima candidatura.
+                </p>
+              </div>
+
+              {/* Ponto 3: Seguro */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    backgroundColor: 'var(--color-surface-raised)',
+                    color: 'var(--color-success)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid var(--color-border)',
+                  }}
+                >
+                  <ShieldCheck size={18} aria-hidden="true" />
+                </div>
+                <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>
+                  100% Seguro
+                </h2>
+                <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45, margin: 0 }}>
+                  Leitura em memória volátil. O teu documento nunca é partilhado, armazenado em bases de dados públicas ou vendido.
+                </p>
+              </div>
             </div>
           </div>
         </section>

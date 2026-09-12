@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Check, Sparkles } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 
@@ -21,53 +21,60 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
       id={id}
       style={{
         width: '100%',
-        maxWidth: '860px',
+        maxWidth: '820px',
         marginInline: 'auto',
-        scrollMarginTop: '64px',
+        scrollMarginTop: '80px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-8)',
+        gap: 'var(--space-6)',
       }}
-      aria-label="Apresentação do Kit Emprego dos Sonhos"
+      aria-label="Apresentação da Oferta do Kit Emprego dos Sonhos"
     >
-      {/* 1. Mockup Editorial dos Produtos */}
+      {/* 1. Mockup Editorial dos 4 Componentes do Kit */}
       <ProductMockup />
 
-      {/* 2. Bloco Principal da Oferta */}
+      {/* 2. Bloco Principal da Oferta (Leve, Clean e de Alta Conversão) */}
       <div
         style={{
-          backgroundColor: 'var(--color-surface)',
+          backgroundColor: '#FFFFFF',
           borderRadius: '24px',
-          padding: 'var(--space-8) var(--layout-mobile-gutter)',
+          padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)',
           border: '1px solid var(--color-border)',
-          boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
+          boxShadow: '0 12px 40px rgba(29, 29, 31, 0.06)',
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 'var(--space-6)',
+          gap: 'var(--space-4)',
         }}
       >
         <div>
           <span
             style={{
-              fontSize: '12px',
-              fontWeight: 'var(--weight-bold)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '11px',
+              fontWeight: 700,
               textTransform: 'uppercase',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.08em',
               color: 'var(--color-accent)',
+              backgroundColor: 'var(--color-accent-soft)',
+              padding: '4px 12px',
+              borderRadius: '999px',
             }}
           >
-            Produto Digital Descarregável
+            <Sparkles size={12} aria-hidden="true" />
+            <span>Acesso Completo e Imediato</span>
           </span>
           <h2
             style={{
-              fontSize: 'clamp(26px, 5vw, 36px)',
-              fontWeight: 'var(--weight-bold)',
-              letterSpacing: '-0.02em',
+              fontSize: 'clamp(24px, 5vw, 34px)',
+              fontWeight: 700,
+              letterSpacing: '-0.025em',
               color: 'var(--color-text)',
-              marginTop: 'var(--space-1)',
-              lineHeight: 1.15,
+              marginTop: 'var(--space-2)',
+              lineHeight: 1.2,
             }}
           >
             {title}
@@ -77,9 +84,10 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             style={{
               fontSize: '15px',
               marginTop: 'var(--space-2)',
-              maxWidth: '540px',
+              maxWidth: '520px',
               marginInline: 'auto',
               lineHeight: 1.5,
+              color: 'var(--color-text-secondary)',
             }}
           >
             {subtitle}
@@ -87,13 +95,14 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
         </div>
 
         {/* Preço de 14,90 € */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '4px 0' }}>
           <span
             style={{
-              fontSize: 'clamp(36px, 8vw, 48px)',
-              fontWeight: 'var(--weight-bold)',
+              fontSize: 'clamp(38px, 8vw, 50px)',
+              fontWeight: 700,
               color: 'var(--color-text)',
-              letterSpacing: '-0.03em',
+              letterSpacing: '-0.035em',
+              lineHeight: 1,
             }}
           >
             14,90 €
@@ -102,7 +111,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             style={{
               fontSize: '14px',
               color: 'var(--color-text-secondary)',
-              fontWeight: 'var(--weight-medium)',
+              fontWeight: 500,
             }}
           >
             pagamento único
@@ -119,28 +128,30 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 'var(--space-2)',
+              gap: '10px',
               width: '100%',
               maxWidth: '440px',
-              height: '52px',
+              minHeight: '52px',
               backgroundColor: 'var(--color-accent)',
               color: 'var(--color-on-accent)',
               borderRadius: 'var(--radius-control)',
               fontSize: '17px',
-              fontWeight: 'var(--weight-bold)',
+              fontWeight: 700,
               textDecoration: 'none',
-              boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
+              boxShadow: '0 6px 20px rgba(0, 87, 217, 0.28)',
               transition: 'background-color 160ms ease, transform 160ms ease',
+              padding: '14px 24px',
+              boxSizing: 'border-box',
             }}
           >
-            <span>Quero preparar a minha próxima candidatura</span>
+            <span>Quero o Kit Completo — 14,90 €</span>
             <ArrowRight size={18} aria-hidden="true" />
           </a>
         ) : (
           <div
             style={{
-              padding: 'var(--space-4)',
-              backgroundColor: 'var(--color-surface-raised)',
+              padding: '16px 20px',
+              backgroundColor: 'var(--color-surface)',
               borderRadius: 'var(--radius-control)',
               textAlign: 'center',
               width: '100%',
@@ -148,140 +159,78 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               border: '1px solid var(--color-border)',
             }}
           >
-            <p style={{ fontSize: '14px', fontWeight: 'var(--weight-semibold)', color: 'var(--color-text)' }}>
+            <p style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-text)', margin: 0 }}>
               Checkout oficial em preparação
             </p>
-            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '4px', margin: 0 }}>
               O link de compra na OKANDA PAY será ativado assim que os parâmetros comerciais forem finalizados.
             </p>
           </div>
         )}
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <ShieldCheck size={16} color="var(--color-text-secondary)" aria-hidden="true" />
-          <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
-            Pagamento seguro através da OKANDA PAY
+        {/* Trust strip em linha única */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            fontSize: '13px',
+            color: 'var(--color-text-secondary)',
+            marginTop: '4px',
+          }}
+        >
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <Check size={15} color="var(--color-accent)" aria-hidden="true" />
+            Entrega imediata por email
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <ShieldCheck size={15} color="var(--color-accent)" aria-hidden="true" />
+            Pagamento seguro OKANDA PAY
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <Check size={15} color="var(--color-accent)" aria-hidden="true" />
+            Sem fidelização nem subscrições
           </span>
         </div>
 
-        {/* 3. Conteúdo em Grupos (4 Pilares Claros) */}
+        {/* 3. Aceleradores Opcionais (Bumps na OKANDA) — Caixa Leve e Discreta */}
         <div
           style={{
             width: '100%',
-            maxWidth: '680px',
-            marginTop: 'var(--space-4)',
-            textAlign: 'left',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 'var(--space-4)',
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              padding: '20px',
-              border: '1px solid var(--color-border)',
-            }}
-          >
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
-              O teu CV
-            </h3>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-              2 modelos editáveis em Word/DOCX (Essencial e Moderno) + exemplos reais para o mercado português.
-            </p>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              padding: '20px',
-              border: '1px solid var(--color-border)',
-            }}
-          >
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
-              As tuas candidaturas
-            </h3>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-              3 cartas de apresentação + 10 mensagens de abordagem direta + checklist de 15 pontos críticos de pré-envio.
-            </p>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              padding: '20px',
-              border: '1px solid var(--color-border)',
-            }}
-          >
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
-              O teu plano
-            </h3>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-              Guia principal de 10 lições práticas + roteiro de 7 dias + organizador de candidaturas em CSV offline.
-            </p>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '16px',
-              padding: '20px',
-              border: '1px solid var(--color-border)',
-            }}
-          >
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '6px' }}>
-              IA como apoio
-            </h3>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
-              25 prompts testados para acelerar a redação com ChatGPT ou Claude sem inventar experiências fictícias.
-            </p>
-          </div>
-        </div>
-
-        {/* 4. Complementos Opcionais (Bumps na OKANDA) */}
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '680px',
-            backgroundColor: 'var(--color-surface-raised)',
-            borderRadius: '16px',
-            padding: '20px',
-            border: '1px dashed var(--color-border)',
+            maxWidth: '560px',
+            marginTop: 'var(--space-3)',
+            backgroundColor: 'var(--color-surface)',
+            borderRadius: '14px',
+            padding: '14px 18px',
+            border: '1px solid var(--color-border)',
             textAlign: 'left',
           }}
         >
-          <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-            Queres ir ainda mais longe?
+          <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-text)' }}>
+            Aceleradores opcionais disponíveis no checkout:
           </div>
-          <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '4px', lineHeight: 1.4 }}>
-            Podes adicionar estes aceleradores diretamente no ecrã de checkout da OKANDA:
-          </p>
-          <ul
+          <div
             style={{
-              listStyle: 'none',
-              padding: 0,
-              marginTop: '10px',
+              fontSize: '13px',
+              color: 'var(--color-text-secondary)',
+              marginTop: '4px',
+              lineHeight: 1.4,
               display: 'flex',
               flexDirection: 'column',
-              gap: '6px',
-              fontSize: '13px',
-              color: 'var(--color-text)',
+              gap: '4px',
             }}
           >
-            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontWeight: 600 }}>Entrevista dos Sonhos (+ 4,90 €)</span>
-              <span style={{ color: 'var(--color-text-secondary)' }}>· Manual prático + Caderno STAR</span>
-            </li>
-            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontWeight: 600 }}>LinkedIn dos Sonhos (+ 5,90 €)</span>
-              <span style={{ color: 'var(--color-text-secondary)' }}>· Manual prático + Otimização de perfil</span>
-            </li>
-          </ul>
-          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '8px' }}>
-            Disponíveis como complementos opcionais no checkout. A escolha acontece exclusivamente na OKANDA.
+            <div>
+              • <strong>Entrevista dos Sonhos (+ 4,90 €):</strong> Manual prático e Caderno STAR.
+            </div>
+            <div>
+              • <strong>LinkedIn dos Sonhos (+ 5,90 €):</strong> Manual de perfil e abordagem direta.
+            </div>
+          </div>
+          <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '6px' }}>
+            A seleção dos complementos é 100% opcional e feita diretamente na página de pagamento da OKANDA.
           </div>
         </div>
       </div>

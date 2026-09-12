@@ -7,7 +7,7 @@ export interface BrandLogoProps {
 }
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
-  height = 36,
+  height,
   className = '',
   href = '/',
 }) => {
@@ -16,7 +16,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       src="/images/logo.png"
       alt="Emprego dos Sonhos — Portugal"
       style={{
-        height: `${height}px`,
+        height: height ? `${height}px` : 'var(--brand-logo-height, 46px)',
         width: 'auto',
         maxHeight: '100%',
         display: 'block',

@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       style={{
         backgroundColor: 'var(--color-background)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.04)',
         position: 'relative',
         zIndex: 50,
       }}
@@ -28,12 +28,11 @@ export const Header: React.FC<HeaderProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: showBack ? 'space-between' : 'center',
-          paddingTop: 'var(--space-5)',
+          paddingTop: 'var(--space-6)',
           paddingBottom: 'var(--space-5)',
-          minHeight: '68px',
         }}
       >
-        <BrandLogo height={36} />
+        <BrandLogo />
 
         {showBack && (
           <a
@@ -42,18 +41,18 @@ export const Header: React.FC<HeaderProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              fontSize: '14px',
-              fontWeight: 'var(--weight-medium)',
+              fontSize: '13px',
+              fontWeight: 'var(--weight-semibold)',
               color: 'var(--color-text-secondary)',
               textDecoration: 'none',
-              padding: '6px 12px',
+              padding: '6px 14px',
               borderRadius: 'var(--radius-pill)',
               backgroundColor: 'var(--color-surface)',
               transition: 'background-color 160ms ease, color 160ms ease',
             }}
             aria-label={backLabel}
           >
-            <ArrowLeft size={16} aria-hidden="true" />
+            <ArrowLeft size={15} aria-hidden="true" />
             <span>{backLabel}</span>
           </a>
         )}
