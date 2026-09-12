@@ -34,7 +34,7 @@ export default function CookiesPage() {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       <Header />
 
-      <main style={{ flex: 1, padding: 'var(--space-16) var(--layout-mobile-gutter)' }}>
+      <main style={{ flex: 1, padding: 'clamp(24px, 5vh, 48px) 0 clamp(40px, 6vh, 64px) 0' }}>
         <div className="container-reading">
           <header style={{ marginBottom: 'var(--space-8)' }}>
             <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-accent)', textTransform: 'uppercase' }}>

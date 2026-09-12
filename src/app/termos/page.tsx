@@ -7,7 +7,7 @@ export default function TermsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       <Header />
 
-      <main style={{ flex: 1, padding: 'var(--space-16) var(--layout-mobile-gutter)' }}>
+      <main style={{ flex: 1, padding: 'clamp(24px, 5vh, 48px) 0 clamp(40px, 6vh, 64px) 0' }}>
         <article className="container-reading" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
           <header>
             <span style={{ fontSize: 'var(--type-small)', fontWeight: 'var(--weight-semibold)', color: 'var(--color-accent)', textTransform: 'uppercase' }}>

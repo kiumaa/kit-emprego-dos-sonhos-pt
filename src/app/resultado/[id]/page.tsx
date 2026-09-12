@@ -48,15 +48,16 @@ export default function ResultPage() {
       <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-background)', display: 'flex', flexDirection: 'column' }}>
         <Header showBack={true} backHref="/" backLabel="Início" />
 
-        <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-8) var(--layout-mobile-gutter)' }}>
+        <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(20px, 4vh, 40px) 0' }}>
           <div
             className="container-reading"
             style={{
               maxWidth: '460px',
+              marginInline: 'auto',
               textAlign: 'center',
               backgroundColor: '#FFFFFF',
               borderRadius: '20px',
-              padding: 'var(--space-8) var(--space-6)',
+              padding: 'clamp(24px, 5vw, 36px) clamp(18px, 4vw, 24px)',
               border: '1px solid var(--color-border)',
               boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
               display: 'flex',
@@ -150,11 +151,12 @@ export default function ResultPage() {
         backLabel={result.source === 'cv' ? 'Nova análise' : 'Novo teste'}
       />
 
-      <main style={{ flex: 1, padding: 'var(--space-6) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)' }}>
+      <main style={{ flex: 1, padding: 'clamp(20px, 3vh, 32px) 0 clamp(40px, 6vh, 64px) 0' }}>
         <div
           className="container-reading"
           style={{
             maxWidth: '720px',
+            marginInline: 'auto',
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--space-8)',
@@ -167,7 +169,7 @@ export default function ResultPage() {
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
-              padding: 'clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)',
+              padding: 'clamp(24px, 5vw, 40px) clamp(18px, 4vw, 36px)',
               border: '1px solid var(--color-border)',
               boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
             }}

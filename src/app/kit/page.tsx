@@ -17,8 +17,8 @@ export default function ProductKitPage() {
       {/* Header com o logótipo oficial em destaque */}
       <Header />
 
-      <main style={{ flex: 1, padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-20) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading" style={{ maxWidth: '820px', display: 'flex', flexDirection: 'column', gap: 'var(--space-10)' }}>
+      <main style={{ flex: 1, padding: 'clamp(24px, 4vh, 40px) 0 clamp(48px, 8vh, 80px) 0' }}>
+        <div className="container-reading" style={{ maxWidth: '820px', marginInline: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-10)' }}>
           
           {/* ================================================================= */}
           {/* 1. HERO COM VISUAL DO PRODUTO, PREÇO E CTA IMEDIATO               */}

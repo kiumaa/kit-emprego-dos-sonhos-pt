@@ -107,19 +107,21 @@ export default function QuizPage() {
         style={{
           borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
           backgroundColor: 'var(--color-background)',
-          padding: '16px var(--layout-mobile-gutter)',
+          paddingTop: 'clamp(14px, 2.5vw, 18px)',
+          paddingBottom: 'clamp(14px, 2.5vw, 18px)',
         }}
       >
         <div
           className="container-reading"
           style={{
             maxWidth: '560px',
+            marginInline: 'auto',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
-          <BrandLogo height={32} />
+          <BrandLogo className="brand-logo-quiz" />
 
           {currentStepIndex > 0 ? (
             <button
@@ -183,7 +185,9 @@ export default function QuizPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-12) var(--layout-mobile-gutter)',
+          paddingTop: 'clamp(20px, 4vh, 36px)',
+          paddingBottom: 'clamp(28px, 5vh, 48px)',
+          paddingInline: 0,
         }}
       >
         <div

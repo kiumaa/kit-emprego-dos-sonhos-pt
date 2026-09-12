@@ -115,8 +115,8 @@ export default function AnalyzeCvPage() {
       {/* Header com logo e botão voltar discreto */}
       <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-8) var(--layout-mobile-gutter) var(--space-16) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading" style={{ maxWidth: '560px' }}>
+      <main style={{ flex: 1, padding: 'clamp(20px, 4vh, 32px) 0 clamp(32px, 6vh, 64px) 0' }}>
+        <div className="container-reading" style={{ maxWidth: '560px', marginInline: 'auto' }}>
           {/* Headline & Subheadline simples */}
           <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
             <h1
@@ -148,7 +148,7 @@ export default function AnalyzeCvPage() {
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '20px',
-              padding: 'var(--space-6) var(--layout-mobile-gutter)',
+              padding: 'clamp(20px, 4vw, 28px) clamp(16px, 4vw, 24px)',
               border: '1px solid var(--color-border)',
               boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
             }}

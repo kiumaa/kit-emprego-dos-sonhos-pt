@@ -103,6 +103,16 @@ Acrescentar data, commit, alterações, verificações executadas e bloqueios no
   - **Estado:** `READY` (Compilação concluída em 35s, 16 rotas ativas com resposta HTTP 200).
   - **Rotas descontinuadas:** `/area`, `/entrar` e `/admin` confirmadas com resposta HTTP 404 em produção.
 
-
-
-
+### 12/09/2026 — Destaque do Logótipo na Homepage e Quiz, Centralização e Responsividade Mobile (v3.4)
+- **Logótipo com Maior Destaque**:
+  - Homepage: Aumento da escala visual para 88 px em desktop e 64 px em mobile (~194 px de largura máxima), garantindo captação imediata da atenção e autoridade de marca para novos visitantes.
+  - Quiz: Substituição da altura fixa reduzida de 32 px pela classe responsiva `.brand-logo-quiz` (52 px em desktop e 44 px em mobile), trazendo harmonia com as ações de topo.
+- **Centralização Aperfeiçoada e Responsividade Mobile**:
+  - Eliminação de gutters duplicados: remoção de preenchimentos laterais redundantes em `<main>` em todas as páginas, transferindo o controlo de margens e calhas responsivas para as classes padronizadas do sistema de design (`.container`, `.container-reading`, `.container-wide`, `.container-form`).
+  - Calhas mobile refinadas para `clamp(14px, 4vw, 18px)` e preenchimento interno dos cartões otimizado para ecrãs de 360–390 px de largura, eliminando compressões de conteúdo.
+- **Testes e Validação:**
+  - `npm run typecheck`: 0 erros.
+  - `npm run test` (Vitest): 25/25 testes aprovados.
+  - `python3 -B qa/check_spec.py`: 23/23 testes de especificação aprovados (100%).
+  - `npm run build`: Compilação de produção concluída com sucesso.
+  - Evidência fotográfica capturada em desktop (1280px), iPhone (390px) e ecrãs compactos (360px).

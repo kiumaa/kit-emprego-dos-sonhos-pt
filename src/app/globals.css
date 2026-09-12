@@ -9,12 +9,16 @@
 }
 
 :root {
-  --brand-logo-height: 56px;
+  --brand-logo-height: 60px;
+  --brand-logo-home-height: 88px;
+  --brand-logo-quiz-height: 52px;
 }
 
 @media (max-width: 480px) {
   :root {
-    --brand-logo-height: 48px;
+    --brand-logo-height: 50px;
+    --brand-logo-home-height: 64px;
+    --brand-logo-quiz-height: 44px;
   }
 }
 
@@ -65,36 +69,64 @@ main {
   outline-offset: 2px;
 }
 
+/* Brand Logo Prominence Utilities */
+.brand-logo-home img {
+  height: var(--brand-logo-home-height, 88px) !important;
+}
+
+.brand-logo-quiz img {
+  height: var(--brand-logo-quiz-height, 52px) !important;
+}
+
+@media (max-width: 480px) {
+  .brand-logo-home img {
+    height: var(--brand-logo-home-height-mobile, 64px) !important;
+  }
+
+  .brand-logo-quiz img {
+    height: var(--brand-logo-quiz-height-mobile, 44px) !important;
+  }
+}
+
 /* Layout Utilities — Satoshi Editorial Standard */
 .container {
   width: 100%;
-  max-width: var(--layout-wide-max, 1140px);
+  max-width: var(--layout-max-content, 1140px);
   margin-inline: auto;
-  padding-inline: var(--space-6, 24px);
+  padding-inline: clamp(16px, 4vw, 24px);
   box-sizing: border-box;
 }
 
 .container-reading {
   width: 100%;
-  max-width: var(--layout-reading-max);
+  max-width: var(--layout-reading, 720px);
   margin-inline: auto;
-  padding-inline: var(--space-4);
+  padding-inline: clamp(16px, 4vw, 24px);
   box-sizing: border-box;
 }
 
 .container-wide {
   width: 100%;
-  max-width: var(--layout-wide-max);
+  max-width: var(--layout-max-content, 1140px);
   margin-inline: auto;
-  padding-inline: var(--space-4);
+  padding-inline: clamp(16px, 4vw, 24px);
+  box-sizing: border-box;
+}
+
+.container-form {
+  width: 100%;
+  max-width: var(--layout-form, 560px);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 24px);
   box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
   .container,
   .container-reading,
-  .container-wide {
-    padding-inline: var(--layout-mobile-gutter, 20px);
+  .container-wide,
+  .container-form {
+    padding-inline: clamp(14px, 4vw, 18px);
   }
 }
 

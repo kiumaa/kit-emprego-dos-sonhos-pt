@@ -6,12 +6,16 @@ export interface HeaderProps {
   showBack?: boolean;
   backHref?: string;
   backLabel?: string;
+  isHome?: boolean;
+  logoHeight?: number | string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   showBack = false,
   backHref = '/',
   backLabel = 'Voltar',
+  isHome = false,
+  logoHeight,
 }) => {
   return (
     <header
@@ -26,18 +30,21 @@ export const Header: React.FC<HeaderProps> = ({
         className="container"
         style={{
           width: '100%',
-          maxWidth: 'var(--layout-wide-max, 1140px)',
+          maxWidth: 'var(--layout-max-content, 1140px)',
           marginInline: 'auto',
-          paddingInline: 'clamp(20px, 4vw, 36px)',
+          paddingInline: 'clamp(16px, 4vw, 36px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: showBack ? 'space-between' : 'center',
-          paddingTop: 'var(--space-5)',
-          paddingBottom: 'var(--space-4)',
+          paddingTop: isHome ? 'clamp(26px, 4vw, 38px)' : 'var(--space-5)',
+          paddingBottom: isHome ? 'clamp(18px, 3vw, 26px)' : 'var(--space-4)',
           boxSizing: 'border-box',
         }}
       >
-        <BrandLogo />
+        <BrandLogo
+          className={isHome ? 'brand-logo-home' : undefined}
+          height={logoHeight}
+        />
 
         {showBack && (
           <a

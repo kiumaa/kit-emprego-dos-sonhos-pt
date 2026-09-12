@@ -11,8 +11,8 @@ export default function SupportPage() {
       {/* Header com apenas o logótipo oficial */}
       <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading" style={{ maxWidth: '540px' }}>
+      <main style={{ flex: 1, padding: 'clamp(24px, 5vh, 48px) 0 clamp(36px, 6vh, 64px) 0' }}>
+        <div className="container-reading" style={{ maxWidth: '540px', marginInline: 'auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
             <span
               style={{

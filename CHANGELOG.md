@@ -50,6 +50,13 @@
   - Apresentação dos excertos concretos observados no CV do candidato em cada prioridade.
   - Ação imediata gratuita com botão direto para descarregar o modelo Word/DOCX.
   - Botão de navegação superior adaptativo (`Nova análise` apontando para `/analisar-cv`).
-
-
-
+## 3.4 — 12/09/2026 (Destaque do Logótipo na Homepage e Quiz, Centralização e Responsividade Mobile)
+- **Destaque do Logótipo na Página Inicial**:
+  - Aumento expressivo da escala do logótipo no cabeçalho da homepage (altura de 88 px em desktop e 64 px em mobile, com ~194 px de largura máxima), conferindo autoridade visual imediata e captura da atenção do lead ao entrar.
+  - Espaçamento vertical generoso e harmonioso (`paddingTop: clamp(26px, 4vw, 38px)` e `paddingBottom: clamp(18px, 3vw, 26px)`).
+- **Logótipo Ampliado no Quiz**:
+  - Substituição da altura fixa reduzida (32 px) pela classe responsiva `.brand-logo-quiz` (52 px em desktop e 44 px em mobile, com ~100–115 px de largura), proporcionando equilíbrio visual com o botão "Cancelar"/"Anterior".
+- **Centralização Aperfeiçoada e Responsividade Mobile**:
+  - Eliminação de gutters duplicados: remoção de preenchimentos laterais redundantes em `<main>` que comprimiam os ecrãs mobile contra o `.container-reading` e os cards internos.
+  - Unificação de calhas responsivas nos seletores `.container`, `.container-reading`, `.container-wide` e `.container-form` com `padding-inline: clamp(16px, 4vw, 24px)` e `margin-inline: auto`.
+  - Otimização do preenchimento interno dos cartões em ecrãs estreitos (360–390 px) em todas as rotas (`/`, `/quiz`, `/analisar-cv`, `/resultado/[id]`, `/kit`, `/apoio`, `/obrigado`, `/termos`, `/privacidade`, `/cookies`).

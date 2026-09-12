@@ -7,10 +7,23 @@ export default function HomePage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       {/* Header com logótipo oficial em destaque */}
-      <Header />
+      <Header isHome={true} />
 
       {/* Hero Principal — Focado, Limpo e Sem Distrações */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
+      <main
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 'clamp(28px, 6vh, 48px)',
+          paddingBottom: 'clamp(32px, 6vh, 56px)',
+          paddingInline: 'clamp(16px, 4vw, 24px)',
+          boxSizing: 'border-box',
+          width: '100%',
+        }}
+      >
         <section
           style={{
             width: '100%',

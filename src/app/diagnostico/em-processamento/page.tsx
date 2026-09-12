@@ -35,14 +35,15 @@ function ProcessingContent() {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
       <Header />
 
-      <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
+      <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(24px, 5vh, 48px) 0' }}>
         <div
           className="container-form"
           style={{
+            marginInline: 'auto',
             textAlign: 'center',
             backgroundColor: 'var(--color-surface-raised)',
             borderRadius: 'var(--radius-card)',
-            padding: 'var(--space-12) var(--space-6)',
+            padding: 'clamp(28px, 6vw, 48px) clamp(18px, 4vw, 28px)',
             border: '1px solid var(--color-border)',
             boxShadow: 'var(--shadow-card)',
             display: 'flex',

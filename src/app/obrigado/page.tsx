@@ -9,13 +9,13 @@ export default function ThanksPage() {
       {/* Header com apenas o logótipo oficial */}
       <Header showBack={true} backHref="/" backLabel="Início" />
 
-      <main style={{ flex: 1, padding: 'var(--space-12) var(--layout-mobile-gutter)' }}>
-        <div className="container-reading" style={{ maxWidth: '540px' }}>
+      <main style={{ flex: 1, padding: 'clamp(24px, 5vh, 48px) 0 clamp(36px, 6vh, 64px) 0' }}>
+        <div className="container-reading" style={{ maxWidth: '540px', marginInline: 'auto' }}>
           <div
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '20px',
-              padding: 'var(--space-8) var(--space-6)',
+              padding: 'clamp(24px, 5vw, 36px) clamp(18px, 4vw, 28px)',
               border: '1px solid var(--color-border)',
               boxShadow: '0 8px 30px rgba(29, 29, 31, 0.05)',
               textAlign: 'center',
