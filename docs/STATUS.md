@@ -18,3 +18,10 @@ Consultar `qa/VALIDATION_REPORT.md` após a validação de entrega. Distinguir t
 
 ## Atualizações do agente
 Acrescentar data, commit, alterações, verificações executadas e bloqueios no fim de cada etapa. Não apagar este histórico para esconder pendências.
+
+### 12/09/2026 — Inicialização e publicação do repositório remoto
+- **Commit inicial:** `534c92e` ("docs: pacote inicial KEDS Portugal sem editor de CV")
+- **Remoto configurado:** `https://github.com/kiumaa/kit-emprego-dos-sonhos-pt.git` (HTTPS via osxkeychain)
+- **Branch:** `main` (sincronizada com `origin/main`)
+- **Verificações:** Executados `scripts/verify_manifest.py` e `qa/check_spec.py` com 100% de sucesso (23/23 testes válidos) antes do envio. Staged apenas os 90 ficheiros catalogados em `MANIFEST.json`.
+
