@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: 'TEXTO_INSUFICIENTE',
-          message: 'O conteúdo fornecido é demasiado curto para uma análise fundamentada (mínimo 40 caracteres). Podes colar o texto completo ou fazer o Quiz gratuito de 8 perguntas.',
+          message: 'O conteúdo fornecido é demasiado curto para uma análise fundamentada (mínimo 40 caracteres). Podes colar o texto completo ou fazer o Quiz gratuito de 5 perguntas.',
           allowPaste: true,
           offerQuiz: true,
         },

@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { mountVslController, type VslController, type VslState } from './vsl-controller';
-import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize2, CheckCircle2 } from 'lucide-react';
 import './vsl-player.css';
 
 export interface VslPlayerProps {
@@ -16,7 +16,7 @@ export interface VslPlayerProps {
 
 const initialState: VslState = { mode: 'preview', phase: 'idle', message: '' };
 
-/** Componente de Apresentação em Vídeo (VSL Protagonista Autêntico) */
+/** Componente de Apresentação em Vídeo (VSL Formato Vertical Story 9:16) */
 export function VslPlayer({
   src,
   poster,
@@ -31,8 +31,7 @@ export function VslPlayer({
   const controller = useRef<VslController | null>(null);
   const [state, setState] = useState<VslState>(initialState);
   const [isPlayingSimulated, setIsPlayingSimulated] = useState(false);
-  const [simulatedTime, setSimulatedTime] = useState('0:00');
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [notice, setNotice] = useState<string | null>(null);
 
   useEffect(() => {
@@ -49,23 +48,36 @@ export function VslPlayer({
     };
   }, [src]);
 
-  const handlePlayClick = () => {
+  const handleRestartWithSound = () => {
+    setIsMuted(false);
     if (src && controller.current) {
       controller.current.restartWithSound();
       return;
     }
 
-    // Se src ainda não foi carregado pelo cliente no CMS/config
+    // Se src ainda não está carregado pelo cliente
+    setIsPlayingSimulated(true);
+    setNotice('Áudio ativado · A reproduzir apresentação do início');
+    setTimeout(() => setNotice(null), 4000);
+  };
+
+  const handleTogglePlay = () => {
+    if (src && controller.current) {
+      if (state.phase === 'playing') {
+        videoRef.current?.pause();
+      } else {
+        controller.current.restartWithSound();
+      }
+      return;
+    }
+
     setIsPlayingSimulated(prev => !prev);
-    setNotice('Vídeo oficial em preparação · Consulta a oferta completa abaixo.');
-    setTimeout(() => setNotice(null), 5000);
   };
 
   return (
     <section className="keds-vsl" id={id} aria-labelledby={`${uid}-title`}>
       <div className="keds-vsl__header">
         <span className="keds-vsl__tag">
-          <Sparkles size={13} aria-hidden="true" />
           <span>Apresentação Oficial</span>
         </span>
         <h2 id={`${uid}-title`}>{title}</h2>
@@ -75,6 +87,13 @@ export function VslPlayer({
       </div>
 
       <div className="keds-vsl__frame" ref={frameRef}>
+        {/* Barras de Segmento Tipo Story (Instagram / Reels / Shorts) */}
+        <div className="keds-vsl__story-bars" aria-hidden="true">
+          <div className="keds-vsl__story-bar keds-vsl__story-bar--active" />
+          <div className="keds-vsl__story-bar" />
+          <div className="keds-vsl__story-bar" />
+        </div>
+
         {src ? (
           <>
             <video
@@ -99,36 +118,48 @@ export function VslPlayer({
                     <span className="keds-vsl__live-dot" />
                     <span>VSL Oficial</span>
                   </span>
-                  <span className="keds-vsl__duration-pill">Duração: 3:45</span>
+                  <span className="keds-vsl__duration-pill">3:45</span>
                 </div>
+
+                {/* Banner "Sem som · Toca para ouvir" */}
+                <button
+                  type="button"
+                  className="keds-vsl__sound-alert-banner"
+                  onClick={handleRestartWithSound}
+                  aria-label="Tocar para ouvir com som desde o início"
+                >
+                  <Volume2 size={16} aria-hidden="true" />
+                  <span>Sem som · Toca para ouvir</span>
+                </button>
+
                 <div className="keds-vsl__poster-center">
                   <h3 className="keds-vsl__poster-title">
                     Como Ser Chamado para Entrevistas em Portugal
                   </h3>
                   <p className="keds-vsl__poster-subtitle">
-                    O método prático para destacar a tua experiência e passar na triagem dos recrutadores.
+                    O método prático para destacar a tua candidatura na triagem.
                   </p>
                   <button
                     type="button"
                     className="keds-vsl__play-action"
-                    onClick={() => controller.current?.restartWithSound()}
-                    aria-label="Ativar som e assistir à apresentação"
+                    onClick={handleRestartWithSound}
+                    aria-label="Assistir à apresentação com som"
                   >
                     <span className="keds-vsl__play-button">
                       <Play size={28} fill="currentColor" aria-hidden="true" />
                     </span>
-                    <span className="keds-vsl__play-label">🔊 Ativar som e ver desde o início</span>
+                    <span className="keds-vsl__play-label">▶ Ver apresentação</span>
                   </button>
                 </div>
               </div>
             )}
           </>
         ) : (
-          /* Visual de Player Real e Funcional mesmo antes do upload de MP4 */
+          /* Visual de Player Story Vertical 9:16 Real e Funcional */
           <div className="keds-vsl__poster-screen">
             {notice && (
               <div className="keds-vsl__notice-toast" role="status">
-                <CheckCircle2 size={16} color="#34C759" aria-hidden="true" />
+                <CheckCircle2 size={15} color="#34C759" aria-hidden="true" />
                 <span>{notice}</span>
               </div>
             )}
@@ -138,21 +169,32 @@ export function VslPlayer({
                 <span className="keds-vsl__live-dot" />
                 <span>Apresentação Oficial</span>
               </span>
-              <span className="keds-vsl__duration-pill">3:45 · 1080p Full HD</span>
+              <span className="keds-vsl__duration-pill">3:45</span>
             </div>
+
+            {/* Aviso Obrigatório: "Sem som · Toca para ouvir" */}
+            <button
+              type="button"
+              className="keds-vsl__sound-alert-banner"
+              onClick={handleRestartWithSound}
+              aria-label="Tocar para ouvir com som desde o início"
+            >
+              <Volume2 size={16} aria-hidden="true" />
+              <span>Sem som · Toca para ouvir</span>
+            </button>
 
             <div className="keds-vsl__poster-center">
               <h3 className="keds-vsl__poster-title">
                 Como Ser Chamado para Entrevistas em Portugal
               </h3>
               <p className="keds-vsl__poster-subtitle">
-                A estrutura que os recrutadores procuram e como evitar o filtro de rejeição imediata.
+                A estrutura que os recrutadores procuram e como evitar o filtro de rejeição.
               </p>
 
               <button
                 type="button"
                 className="keds-vsl__play-action"
-                onClick={handlePlayClick}
+                onClick={handleTogglePlay}
                 aria-label="Assistir à apresentação em vídeo"
               >
                 <span className="keds-vsl__play-button">
@@ -163,23 +205,23 @@ export function VslPlayer({
                   )}
                 </span>
                 <span className="keds-vsl__play-label">
-                  {isPlayingSimulated ? 'Pausar apresentação' : '▶ Assistir à apresentação (3 min)'}
+                  {isPlayingSimulated ? 'Pausar vídeo' : '▶ Assistir (3 min)'}
                 </span>
               </button>
             </div>
 
-            {/* Barra de Controlos Autêntica de Player de Vídeo */}
+            {/* Barra de Controlos Inferior Integrada */}
             <div className="keds-vsl__control-bar">
               <div
                 className="keds-vsl__progress-container"
-                onClick={handlePlayClick}
+                onClick={handleTogglePlay}
                 role="progressbar"
                 aria-valuenow={isPlayingSimulated ? 45 : 25}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label="Barra de progresso do vídeo"
+                aria-label="Barra de progresso"
               >
-                <div className="keds-vsl__progress-buffered" style={{ width: '68%' }} />
+                <div className="keds-vsl__progress-buffered" style={{ width: '65%' }} />
                 <div
                   className="keds-vsl__progress-played"
                   style={{ width: isPlayingSimulated ? '45%' : '25%' }}
@@ -191,13 +233,13 @@ export function VslPlayer({
                   <button
                     type="button"
                     className="keds-vsl__btn-ctrl"
-                    onClick={handlePlayClick}
+                    onClick={handleTogglePlay}
                     aria-label={isPlayingSimulated ? 'Pausar' : 'Reproduzir'}
                   >
                     {isPlayingSimulated ? (
-                      <Pause size={16} fill="currentColor" aria-hidden="true" />
+                      <Pause size={15} fill="currentColor" aria-hidden="true" />
                     ) : (
-                      <Play size={16} fill="currentColor" aria-hidden="true" />
+                      <Play size={15} fill="currentColor" aria-hidden="true" />
                     )}
                   </button>
                   <button
@@ -206,7 +248,7 @@ export function VslPlayer({
                     onClick={() => setIsMuted(prev => !prev)}
                     aria-label={isMuted ? 'Ativar som' : 'Silenciar som'}
                   >
-                    {isMuted ? <VolumeX size={16} aria-hidden="true" /> : <Volume2 size={16} aria-hidden="true" />}
+                    {isMuted ? <VolumeX size={15} aria-hidden="true" /> : <Volume2 size={15} aria-hidden="true" />}
                   </button>
                   <span className="keds-vsl__time-display">
                     {isPlayingSimulated ? '0:42' : '0:00'} / 3:45
@@ -218,10 +260,10 @@ export function VslPlayer({
                   <button
                     type="button"
                     className="keds-vsl__btn-ctrl"
-                    onClick={handlePlayClick}
+                    onClick={handleTogglePlay}
                     aria-label="Ecrã inteiro"
                   >
-                    <Maximize2 size={15} aria-hidden="true" />
+                    <Maximize2 size={14} aria-hidden="true" />
                   </button>
                 </div>
               </div>

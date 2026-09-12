@@ -103,7 +103,7 @@ export async function parseDocument(fileBuffer: Buffer, fileName: string, mimeTy
     return {
       success: false,
       text: '',
-      error: 'Não foi possível extrair texto legível suficiente deste documento (pode ser uma imagem digitalizada ou estar protegido). Podes colar o texto diretamente ou responder ao Quiz gratuito de 8 perguntas.',
+      error: 'Não foi possível extrair texto legível suficiente deste documento (pode ser uma imagem digitalizada ou estar protegido). Podes colar o texto diretamente ou responder ao Quiz gratuito de 5 perguntas.',
       errorCode: 'NO_TEXT_EXTRACTED',
       allowPaste: true,
       offerQuiz: true,

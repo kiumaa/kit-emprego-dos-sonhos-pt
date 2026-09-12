@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/footer';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
-import { ArrowRight, ShieldCheck, Check, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Check } from 'lucide-react';
 
 export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
@@ -26,9 +26,7 @@ export default function ProductKitPage() {
           <section style={{ textAlign: 'center' }}>
             <span
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
+                display: 'inline-block',
                 fontSize: '11px',
                 fontWeight: 700,
                 textTransform: 'uppercase',
@@ -40,8 +38,7 @@ export default function ProductKitPage() {
                 marginBottom: 'var(--space-3)',
               }}
             >
-              <Sparkles size={12} aria-hidden="true" />
-              <span>Kit Completo · Recursos Descarregáveis</span>
+              Kit Completo · Recursos Descarregáveis
             </span>
 
             <h1
@@ -92,11 +89,11 @@ export default function ProductKitPage() {
                 marginInline: 'auto',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                <span style={{ fontSize: 'clamp(34px, 7vw, 46px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em' }}>
-                  14,90 €
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                <span style={{ fontSize: 'clamp(38px, 8vw, 50px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  14,99 €
                 </span>
-                <span style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+                <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   pagamento único
                 </span>
               </div>
@@ -267,11 +264,11 @@ export default function ProductKitPage() {
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', fontWeight: 700, letterSpacing: '-0.02em' }}>
               Dá o próximo passo na tua carreira.
             </h2>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: 'var(--space-1) 0' }}>
-              <span style={{ fontSize: 'clamp(36px, 7vw, 48px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em' }}>
-                14,90 €
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', margin: 'var(--space-2) 0' }}>
+              <span style={{ fontSize: 'clamp(38px, 8vw, 50px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                14,99 €
               </span>
-              <span style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+              <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 pagamento único
               </span>
             </div>
@@ -300,7 +297,7 @@ export default function ProductKitPage() {
                   boxSizing: 'border-box',
                 }}
               >
-                <span>Quero preparar a minha próxima candidatura</span>
+                <span>Quero o Kit Completo — 14,99 €</span>
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             ) : (

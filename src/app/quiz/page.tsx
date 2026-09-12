@@ -7,6 +7,10 @@ import { BrandLogo } from '@/components/layout/brand-logo';
 import { evaluateQuiz } from '@/lib/quiz/quiz-engine';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
+// As 5 perguntas centrais de autorrelato para um diagnóstico ágil e de alta precisão
+const ACTIVE_QUESTION_IDS = ['q1', 'q3', 'q4', 'q5', 'q7'];
+const activeQuestions = defaultSpec.questions.filter((q) => ACTIVE_QUESTION_IDS.includes(q.id));
+
 export default function QuizPage() {
   const router = useRouter();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -26,8 +30,8 @@ export default function QuizPage() {
     }
   }, []);
 
-  const totalSteps = defaultSpec.questions.length;
-  const currentQuestion = defaultSpec.questions[currentStepIndex];
+  const totalSteps = activeQuestions.length;
+  const currentQuestion = activeQuestions[currentStepIndex];
   const selectedOption = answers[currentQuestion.id] || '';
 
   const handleSelectOption = (optionId: string) => {
@@ -69,7 +73,15 @@ export default function QuizPage() {
   const handleSubmitQuiz = () => {
     setIsSubmitting(true);
     try {
-      const result = evaluateQuiz(answers);
+      // Respostas base neutras para as dimensões complementares no quiz curto de 5 perguntas:
+      // q2: outra (área por definir), q6: notas (acompanhamento), q8: rapida (leitura rápida)
+      const baselineAnswers: Record<string, string> = {
+        q2: 'outra',
+        q6: 'notas',
+        q8: 'rapida',
+      };
+      const fullAnswers = { ...baselineAnswers, ...answers };
+      const result = evaluateQuiz(fullAnswers);
       const resultId = `qz-${Date.now().toString(36)}`;
       sessionStorage.setItem(`keds_result_${resultId}`, JSON.stringify(result));
       router.push(`/resultado/${resultId}`);

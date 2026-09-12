@@ -7,8 +7,8 @@ import { Footer } from '@/components/layout/footer';
 import { OfferPanel } from '@/components/ui/offer-panel';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
-import { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
-import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Sparkles } from 'lucide-react';
+import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown } from 'lucide-react';
+import type { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
 
 export default function ResultPage() {
   const params = useParams();
@@ -107,7 +107,7 @@ export default function ResultPage() {
                 }}
               >
                 <HelpCircle size={17} aria-hidden="true" />
-                <span>Fazer Quiz de 8 Perguntas</span>
+                <span>Fazer Quiz de 5 Perguntas</span>
               </a>
               <a
                 href="/analisar-cv"
@@ -172,22 +172,19 @@ export default function ResultPage() {
             <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
               <span
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
+                  display: 'inline-block',
                   fontSize: '11px',
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
                   color: 'var(--color-accent)',
                   backgroundColor: 'var(--color-accent-soft)',
-                  padding: '4px 12px',
+                  padding: '4px 14px',
                   borderRadius: '999px',
                   marginBottom: 'var(--space-2)',
                 }}
               >
-                <Sparkles size={12} aria-hidden="true" />
-                <span>O teu diagnóstico</span>
+                O teu diagnóstico
               </span>
               <h1
                 style={{
@@ -375,7 +372,7 @@ export default function ResultPage() {
           />
 
           {/* ================================================================= */}
-          {/* PARTE D: OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,90 €      */}
+          {/* PARTE D: OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,99 €      */}
           {/* ================================================================= */}
           <OfferPanel id="oferta" />
         </div>

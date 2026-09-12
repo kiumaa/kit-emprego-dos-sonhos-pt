@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
             letterSpacing: '-0.01em',
           }}
         >
-          Emprego dos Sonhos — Portugal
+          Emprego dos Sonhos
         </span>
 
         <nav

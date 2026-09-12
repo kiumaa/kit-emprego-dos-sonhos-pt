@@ -1,5 +1,4 @@
-import React from 'react';
-import { FileText, CheckCircle2, Sparkles, BookOpen, Layers, Calendar, MessageSquare } from 'lucide-react';
+import { FileText, CheckCircle2, BookOpen, Layers, Calendar, MessageSquare } from 'lucide-react';
 
 export interface ProductMockupProps {
   className?: string;
@@ -209,7 +208,7 @@ export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) 
               >
                 Método & IA
               </span>
-              <Sparkles size={18} color="var(--color-accent)" aria-hidden="true" />
+              <Layers size={18} color="var(--color-accent)" aria-hidden="true" />
             </div>
             <h3 style={{ fontSize: '18px', fontWeight: 700, lineHeight: 1.2, color: 'var(--color-text)', margin: 0 }}>
               Plano de 7 Dias & 25 Prompts

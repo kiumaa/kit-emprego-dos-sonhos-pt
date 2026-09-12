@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, ArrowRight, Check, Sparkles } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 
@@ -51,21 +51,18 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
         <div>
           <span
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
+              display: 'inline-block',
               fontSize: '11px',
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
               color: 'var(--color-accent)',
               backgroundColor: 'var(--color-accent-soft)',
-              padding: '4px 12px',
+              padding: '4px 14px',
               borderRadius: '999px',
             }}
           >
-            <Sparkles size={12} aria-hidden="true" />
-            <span>Acesso Completo e Imediato</span>
+            Acesso Completo e Imediato
           </span>
           <h2
             style={{
@@ -94,24 +91,34 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           </p>
         </div>
 
-        {/* Preço de 14,90 € */}
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '4px 0' }}>
+        {/* Preço de 14,99 € com "pagamento único" abaixo */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '4px',
+            margin: '6px 0 10px 0',
+          }}
+        >
           <span
             style={{
-              fontSize: 'clamp(38px, 8vw, 50px)',
+              fontSize: 'clamp(42px, 8vw, 54px)',
               fontWeight: 700,
               color: 'var(--color-text)',
               letterSpacing: '-0.035em',
               lineHeight: 1,
             }}
           >
-            14,90 €
+            14,99 €
           </span>
           <span
             style={{
-              fontSize: '14px',
+              fontSize: '13px',
               color: 'var(--color-text-secondary)',
-              fontWeight: 500,
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
             }}
           >
             pagamento único
@@ -144,7 +151,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               boxSizing: 'border-box',
             }}
           >
-            <span>Quero o Kit Completo — 14,90 €</span>
+            <span>Quero o Kit Completo — 14,99 €</span>
             <ArrowRight size={18} aria-hidden="true" />
           </a>
         ) : (

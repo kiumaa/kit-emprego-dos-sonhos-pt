@@ -404,7 +404,7 @@ export default function AnalyzeCvPage() {
                         alignSelf: 'flex-start',
                       }}
                     >
-                      <span>Fazer o Quiz de 8 perguntas em alternativa</span>
+                      <span>Fazer o Quiz de 5 perguntas em alternativa</span>
                       <ArrowRight size={14} aria-hidden="true" />
                     </a>
                   )}
@@ -470,7 +470,7 @@ export default function AnalyzeCvPage() {
               Não tens o CV contigo?
             </span>
             <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', margin: 0 }}>
-              Responde a 8 perguntas breves e recebe o teu diagnóstico em menos de 2 minutos.
+              Responde a 5 perguntas breves e recebe o teu diagnóstico em menos de 1 minuto.
             </p>
             <a
               href="/quiz"

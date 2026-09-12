@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Sparkles, HelpCircle } from 'lucide-react';
+import { FileSearch, HelpCircle } from 'lucide-react';
 
 function ProcessingContent() {
   const router = useRouter();
@@ -63,7 +63,7 @@ function ProcessingContent() {
               justifyContent: 'center',
             }}
           >
-            <Sparkles size={32} aria-hidden="true" />
+            <FileSearch size={32} aria-hidden="true" />
           </div>
 
           <div>

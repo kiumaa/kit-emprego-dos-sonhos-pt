@@ -43,7 +43,7 @@ export default function PrivacyPage() {
           <section>
             <h2 style={{ fontSize: 'var(--type-h3)', marginBottom: 'var(--space-2)' }}>3. Respostas ao Questionário (Quiz)</h2>
             <p style={{ lineHeight: 1.6 }}>
-              As respostas às 8 perguntas do quiz são autorrelatos anónimos utilizados unicamente no teu navegador para calcular o perfil de preparação e identificar as tuas prioridades de ação.
+              As respostas às perguntas do quiz são autorrelatos anónimos utilizados unicamente no teu navegador para calcular o perfil de preparação e identificar as tuas prioridades de ação.
             </p>
           </section>
 

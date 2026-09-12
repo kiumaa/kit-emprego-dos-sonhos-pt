@@ -32,3 +32,15 @@
 - Landing page de vendas direta em `/kit`.
 - Remoção de formulário simulado em `/apoio` e neutralização pós-venda em `/obrigado`.
 
+## 3.2 — 12/09/2026 (Refinamento Comercial, Vertical Story VSL 9:16, Quiz de 5 Perguntas e Preço 14,99 €)
+- **Homepage Focada Exclusivamente no Hero**: Remoção definitiva da secção secundária inferior ("sem rodeios, ação imediata"); a primeira página concentra 100% da atenção nas duas opções de diagnóstico gratuito.
+- **Logótipo com Maior Destaque**: Aumento da altura do logótipo da marca (`--brand-logo-height`: 56px em desktop, 48px em mobile).
+- **Linha de Confiança Atualizada**: Texto do Hero alterado para `Gratuito · Sem compromisso · 100% Confidencial`.
+- **Rodapé Simplificado**: Nome da marca atualizado para `Emprego dos Sonhos` (sem sufixo "/ Portugal").
+- **Eliminação Completa de Ícones de Estrelas / IA**: Remoção de todos os ícones `Sparkles` do projeto e substituição por ícones semânticos adequados (`Layers`, `FileSearch`).
+- **Leitor de Apresentação em Vídeo Vertical (Story 9:16)**: Implementação do formato vertical estilo story/reels (9:16), com barras de segmento tipo story no topo, botão de destaque pulsante `Sem som · Toca para ouvir` (reproduz desde o início com som) e barra de controlos integrada.
+- **Quiz Otimizado para 5 Perguntas**: Fluxo do utilizador reduzido para 5 perguntas diretas e de alto impacto (`q1`, `q3`, `q4`, `q5`, `q7`), com preenchimento determinístico de respostas de linha de base nas dimensões secundárias ao submeter, mantendo 100% de compatibilidade com os contratos de avaliação.
+- **Preço Atualizado para 14,99 €**: Atualização do valor da oferta principal para 14,99 € com a frase `pagamento único` posicionada verticalmente abaixo do preço em todos os blocos de conversão.
+- **Verificação e Conformidade**: 25/25 testes unitários aprovados, 23/23 testes de especificação Python validados, zero erros de tipagem TypeScript e compilação de produção Next.js 15 confirmada.
+
+
