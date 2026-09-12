@@ -96,17 +96,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             </svg>
           </span>
         )}
-        <style jsx>{`
-          @keyframes spin {
-            to { transform: rotate(360deg); }
-          }
-          button:hover:not(:disabled) {
-            filter: brightness(0.96);
-          }
-          button:active:not(:disabled) {
-            transform: scale(0.99);
-          }
-        `}</style>
       </button>
     );
   }

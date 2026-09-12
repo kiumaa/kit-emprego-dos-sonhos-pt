@@ -152,3 +152,39 @@ button, input, textarea, select {
 .skip-link:focus {
   top: 16px;
 }
+
+/* Animation Keyframes */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes indeterminate {
+  0% { left: -40%; }
+  50% { left: 40%; width: 60%; }
+  100% { left: 100%; width: 40%; }
+}
+
+/* Button interactive states */
+.btn:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+/* Member Navigation Utilities */
+@media (max-width: 768px) {
+  .hidden-mobile { display: none !important; }
+  .visible-mobile { display: flex !important; }
+}
+
+@media (min-width: 769px) {
+  .hidden-mobile { display: flex !important; }
+  .visible-mobile { display: none !important; }
+}
+
+.member-nav-link:hover {
+  background-color: var(--color-surface-raised);
+  color: var(--color-accent);
+}

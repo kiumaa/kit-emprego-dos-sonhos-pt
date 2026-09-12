@@ -1,0 +1,1349 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+endobj
+3 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 4 0 R
+  /Resources <<
+    /Font <<
+      /F1 11 0 R
+      /F2 12 0 R
+    >>
+  >>
+>>
+endobj
+4 0 obj
+<<
+  /Length 7628
+>>
+stream
+
+        BT
+        /F1 20 Tf
+        0.11 0.11 0.12 rg
+        50 780 Td
+        (25 Prompts Estrategicos de IA para Emprego) Tj
+        ET
+        
+
+        BT
+        /F2 11 Tf
+        0.43 0.43 0.45 rg
+        50 752 Td
+        (Instrucoes testadas para ChatGPT, Claude e Copilot sem inventar experiencia) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 694 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 694 m
+        50 740 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 728 Td
+            (Regra Etica KEDS: Utiliza a IA como espelho e copiloto de redacao. Nunca) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 713 Td
+            (submetas textos ou competencias que nao possuas na realidade.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 678 m
+            545 678 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 682 Td
+        (Prompt: objetivo) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 605 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 605 m
+        50 666 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 654 Td
+            (Ajuda-me a formular um objetivo profissional para [função], usando apenas) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 639 Td
+            (estes factos: [factos]. Apresenta três versões curtas. Não acrescentes) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 624 Td
+            (competências.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 589 m
+            545 589 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 593 Td
+        (Prompt: requisitos) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 516 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 516 m
+        50 577 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 565 Td
+            (A partir desta vaga [texto], separa requisitos obrigatórios, preferenciais e) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 550 Td
+            (responsabilidades, apenas quando isso for explícito. Assinala ambiguidades) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 535 Td
+            (em vez de as resolveres por suposição.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 500 m
+            545 500 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 504 Td
+        (Prompt: mapa-evidencia) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 427 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 427 m
+        50 488 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 476 Td
+            (Relaciona estes requisitos [lista] com estes exemplos reais [lista]. Quando) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 461 Td
+            (não existe exemplo, escreve "sem evidência fornecida". Não inventes) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 446 Td
+            (correspondências.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 411 m
+            545 411 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 415 Td
+        (Prompt: resumo) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 353 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 353 m
+        50 399 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 387 Td
+            (Revê este resumo profissional [texto] para a função [função]. Mantém os) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 372 Td
+            (factos, remove generalidades e explica as alterações. Português de Portugal.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 337 m
+            545 337 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 341 Td
+        (Prompt: experiencia) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 264 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 264 m
+        50 325 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 313 Td
+            (Torna esta descrição de experiência mais clara [excerto]. Não acrescentes) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 298 Td
+            (números, cargo, responsabilidades ou competências. Dá duas alternativas e) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 283 Td
+            (explica a diferença.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 248 m
+            545 248 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 252 Td
+        (Prompt: resultados) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 175 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 175 m
+        50 236 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 224 Td
+            (Com base neste relato [factos], ajuda-me a identificar resultados que posso) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 209 Td
+            (demonstrar. Faz perguntas sobre o que falta. Não assumes percentagens ou) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 194 Td
+            (metas alcançadas.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 159 m
+            545 159 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 163 Td
+        (Prompt: projeto) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 101 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 101 m
+        50 147 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 135 Td
+            (Ajuda-me a descrever este projeto académico [factos] indicando objetivo,) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 120 Td
+            (papel, tarefas e resultado. Não o apresentes como emprego formal.) Tj
+            ET
+            
+
+        BT
+        /F2 9 Tf
+        0.43 0.43 0.45 rg
+        50 40 Td
+        (Kit Emprego dos Sonhos - Portugal - 25 Instrucoes de IA) Tj
+        420 0 Td
+        (Pagina 1) Tj
+        ET
+        
+endstream
+endobj
+5 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 6 0 R
+  /Resources <<
+    /Font <<
+      /F1 11 0 R
+      /F2 12 0 R
+    >>
+  >>
+>>
+endobj
+6 0 obj
+<<
+  /Length 7721
+>>
+stream
+
+        0.9 0.9 0.92 RG
+        1 w
+        50 805 m
+        545 805 l
+        S
+        
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 776 m
+            545 776 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 780 Td
+        (Prompt: transferiveis) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 703 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 703 m
+        50 764 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 752 Td
+            (A minha experiência é [factos] e quero candidatar-me a [função]. Identifica) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 737 Td
+            (possíveis competências transferíveis e a evidência disponível. Distingue) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 722 Td
+            (hipótese de demonstração.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 687 m
+            545 687 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 691 Td
+        (Prompt: lacunas) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 614 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 614 m
+        50 675 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 663 Td
+            (Compara esta vaga [texto] com estes factos do meu percurso [texto]. Lista) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 648 Td
+            (informação em falta para avaliar a relação. Não concluas que não tenho uma) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 633 Td
+            (competência só porque não foi mencionada.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 598 m
+            545 598 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 602 Td
+        (Prompt: clareza) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 525 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 525 m
+        50 586 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 574 Td
+            (Lê este parágrafo [texto] como alguém que não conhece o meu trabalho. Diz o) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 559 Td
+            (que se percebe e quais expressões são vagas. Sugere melhorias sem mudar) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 544 Td
+            (factos.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 509 m
+            545 509 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 513 Td
+        (Prompt: concisao) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 451 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 451 m
+        50 497 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 485 Td
+            (Encurta este texto [texto] mantendo função, atividades e contexto. Não) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 470 Td
+            (elimines informações que alterem o significado. Mostra o que retiraste.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 435 m
+            545 435 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 439 Td
+        (Prompt: ordem) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 362 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 362 m
+        50 423 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 411 Td
+            (Sugere uma ordem para estas secções de CV [secções] tendo em conta a função) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 396 Td
+            ([função] e o percurso [factos]. Explica a escolha sem prometer aprovação em) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 381 Td
+            (sistemas.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 346 m
+            545 346 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 350 Td
+        (Prompt: ortografia) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 288 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 288 m
+        50 334 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 322 Td
+            (Revê ortografia e gramática em português de Portugal: [texto]. Não alteres o) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 307 Td
+            (sentido. Lista correções importantes.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 272 m
+            545 272 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 276 Td
+        (Prompt: primeiro-email) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 214 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 214 m
+        50 260 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 248 Td
+            (Escreve um email curto de candidatura para [função] usando estes factos) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 233 Td
+            ([factos]. Identifica todos os campos que ainda preciso de preencher.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 198 m
+            545 198 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 202 Td
+        (Prompt: espontanea) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 140 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 140 m
+        50 186 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 174 Td
+            (Ajuda-me a preparar uma candidatura espontânea a [empresa]. Só conheço estes) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 159 Td
+            (factos sobre a empresa [factos]. Não inventes elogios, contactos ou vagas.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 124 m
+            545 124 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 128 Td
+        (Prompt: carta-experiencia) Tj
+        ET
+        
+
+        BT
+        /F2 9 Tf
+        0.43 0.43 0.45 rg
+        50 40 Td
+        (Kit Emprego dos Sonhos - Portugal - 25 Instrucoes de IA) Tj
+        420 0 Td
+        (Pagina 2) Tj
+        ET
+        
+endstream
+endobj
+7 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 8 0 R
+  /Resources <<
+    /Font <<
+      /F1 11 0 R
+      /F2 12 0 R
+    >>
+  >>
+>>
+endobj
+8 0 obj
+<<
+  /Length 7849
+>>
+stream
+
+        0.9 0.9 0.92 RG
+        1 w
+        50 805 m
+        545 805 l
+        S
+        
+
+        0.96 0.96 0.97 rg
+        50 731 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 731 m
+        50 792 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 780 Td
+            (Cria uma estrutura de carta para [função] com base em [factos]. Mantém) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 765 Td
+            (espaço para um motivo específico de interesse. Não acrescentes resultados) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 750 Td
+            (não fornecidos.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 715 m
+            545 715 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 719 Td
+        (Prompt: carta-primeiro) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 657 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 657 m
+        50 703 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 691 Td
+            (Ajuda-me a estruturar uma carta para o primeiro emprego usando [formação e) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 676 Td
+            (projetos]. Distingue claramente formação de experiência profissional.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 641 m
+            545 641 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 645 Td
+        (Prompt: carta-mudanca) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 583 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 583 m
+        50 629 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 617 Td
+            (Estrutura uma carta para transição de [área] para [área], usando [factos].) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 602 Td
+            (Mostra ligações transferíveis sem fingir experiência na nova função.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 567 m
+            545 567 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 571 Td
+        (Prompt: assuntos) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 509 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 509 m
+        50 555 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 543 Td
+            (Propõe cinco assuntos informativos e sóbrios para uma candidatura a) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 528 Td
+            ([função]. Sem urgência artificial ou linguagem promocional.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 493 m
+            545 493 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 497 Td
+        (Prompt: seguimento) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 420 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 420 m
+        50 481 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 469 Td
+            (Redige uma mensagem breve para pedir atualização da candidatura enviada em) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 454 Td
+            ([data], respeitando este prazo indicado [prazo]. Não pressiones nem assumes) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 439 Td
+            (uma decisão.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 404 m
+            545 404 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 408 Td
+        (Prompt: confirmar) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 346 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 346 m
+        50 392 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 380 Td
+            (Ajuda-me a confirmar uma entrevista com estes dados [data/hora/canal].) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 365 Td
+            (Assinala o que falta confirmar. Não inventes moradas ou ligações.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 330 m
+            545 330 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 334 Td
+        (Prompt: organizar) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 272 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 272 m
+        50 318 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 306 Td
+            (Transforma estas tarefas de candidatura [lista sem dados pessoais] num plano) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 291 Td
+            (simples de próximos passos. Não envies mensagens nem executes ações.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 256 m
+            545 256 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 260 Td
+        (Prompt: semana) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 198 495 46 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 198 m
+        50 244 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 232 Td
+            (Ajuda-me a distribuir estas tarefas [lista] pela minha disponibilidade) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 217 Td
+            ([janelas]. Prefiro passos concretos a metas de resultado que não controlo.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 182 m
+            545 182 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 186 Td
+        (Prompt: revisao-final) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 109 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 109 m
+        50 170 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 158 Td
+            (Usa esta checklist [itens] para rever a minha mensagem e excertos [texto].) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 143 Td
+            (Distingue erros confirmados de sugestões. Não dês uma nota de) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 128 Td
+            (empregabilidade.) Tj
+            ET
+            
+
+        BT
+        /F2 9 Tf
+        0.43 0.43 0.45 rg
+        50 40 Td
+        (Kit Emprego dos Sonhos - Portugal - 25 Instrucoes de IA) Tj
+        420 0 Td
+        (Pagina 3) Tj
+        ET
+        
+endstream
+endobj
+9 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 10 0 R
+  /Resources <<
+    /Font <<
+      /F1 11 0 R
+      /F2 12 0 R
+    >>
+  >>
+>>
+endobj
+10 0 obj
+<<
+  /Length 1272
+>>
+stream
+
+        0.9 0.9 0.92 RG
+        1 w
+        50 805 m
+        545 805 l
+        S
+        
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 776 m
+            545 776 l
+            S
+            
+        BT
+        /F1 14 Tf
+        0.0 0.34 0.85 rg
+        50 780 Td
+        (Prompt: verificar-ia) Tj
+        ET
+        
+
+        0.96 0.96 0.97 rg
+        50 703 495 61 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 703 m
+        50 764 l
+        S
+        
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 752 Td
+            (Compara original [texto] e versão revista [texto]. Identifica qualquer) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 737 Td
+            (facto, número, competência ou responsabilidade acrescentado. Sinaliza o que) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.25 0.25 0.28 rg
+            62 722 Td
+            (preciso de confirmar.) Tj
+            ET
+            
+
+        BT
+        /F2 9 Tf
+        0.43 0.43 0.45 rg
+        50 40 Td
+        (Kit Emprego dos Sonhos - Portugal - 25 Instrucoes de IA) Tj
+        420 0 Td
+        (Pagina 4) Tj
+        ET
+        
+endstream
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+12 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000133 00000 n 
+0000000303 00000 n 
+0000007985 00000 n 
+0000008155 00000 n 
+0000015930 00000 n 
+0000016100 00000 n 
+0000024003 00000 n 
+0000024174 00000 n 
+0000025501 00000 n 
+0000025577 00000 n 
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+25648
+%%EOF

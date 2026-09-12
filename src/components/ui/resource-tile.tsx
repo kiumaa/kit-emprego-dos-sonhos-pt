@@ -5,7 +5,7 @@ import { Button } from './button';
 export interface ResourceTileProps {
   title: string;
   description: string;
-  format: 'DOCX' | 'PDF' | 'CSV' | 'MD';
+  format: 'DOCX' | 'PDF' | 'CSV' | 'MD' | 'WEB';
   version?: string;
   isLocked?: boolean;
   onDownload?: () => void;
@@ -27,6 +27,8 @@ export const ResourceTile: React.FC<ResourceTileProps> = ({
         return { bg: '#FDECEB', color: '#C5221F' };
       case 'CSV':
         return { bg: '#E6F4EA', color: '#137333' };
+      case 'WEB':
+        return { bg: '#F3E8FD', color: '#7B1FA2' };
       case 'MD':
       default:
         return { bg: 'var(--color-surface)', color: 'var(--color-text-secondary)' };
