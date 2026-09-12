@@ -289,26 +289,47 @@ export default function ResultPage() {
                       <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.45 }}>
                         {item.action || item.evidenceAnswer || item.evidenceText}
                       </div>
-                      {item.evidenceText && item.action && (
-                        <div
-                          style={{
-                            marginTop: '6px',
-                            fontSize: '12px',
-                            color: 'var(--color-text-secondary)',
-                            fontStyle: 'italic',
-                            backgroundColor: 'rgba(0, 0, 0, 0.03)',
-                            padding: '4px 10px',
-                            borderRadius: '6px',
-                            borderLeft: '2px solid var(--color-accent)',
-                          }}
-                        >
-                          Excerto do CV: &ldquo;{item.evidenceText}&rdquo;
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Camada B: Disclosure Acessível com Diagnóstico Completo e Excertos */}
+              {topPriorities.some((p: DiagnosticPriority) => p.evidenceText) && (
+                <details
+                  style={{
+                    marginTop: '12px',
+                    padding: '12px 16px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                    borderRadius: '12px',
+                    border: '1px solid var(--color-border)',
+                    fontSize: '13px',
+                  }}
+                >
+                  <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--color-text)' }}>
+                    Ver diagnóstico completo e excertos
+                  </summary>
+                  <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {topPriorities
+                      .filter((p: DiagnosticPriority) => p.evidenceText)
+                      .map((p: DiagnosticPriority, i: number) => (
+                        <div
+                          key={i}
+                          style={{
+                            padding: '8px 12px',
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '8px',
+                            borderLeft: '3px solid var(--color-accent)',
+                            fontSize: '12px',
+                            color: 'var(--color-text-secondary)',
+                          }}
+                        >
+                          <strong style={{ color: 'var(--color-text)' }}>{p.title}:</strong> &ldquo;{p.evidenceText}&rdquo;
+                        </div>
+                      ))}
+                  </div>
+                </details>
+              )}
             </div>
 
             {/* O teu primeiro passo — Uma ação gratuita concreta */}

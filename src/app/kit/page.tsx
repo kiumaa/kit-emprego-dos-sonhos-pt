@@ -287,7 +287,7 @@ export default function ProductKitPage() {
               Aceleradores opcionais disponíveis no checkout
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', maxWidth: '520px', marginInline: 'auto', lineHeight: 1.45, margin: 0 }}>
-              Durante a finalização da encomenda na OKANDA PAY, podes adicionar os manuais especializados de <strong>Entrevista dos Sonhos (+ 4,90 €)</strong> e <strong>LinkedIn dos Sonhos (+ 5,90 €)</strong>.
+              Durante a finalização da encomenda na OKANDA PAY, podes adicionar os manuais especializados de <strong>Entrevista dos Sonhos (+ 4,99 €)</strong> e <strong>LinkedIn dos Sonhos (+ 5,99 €)</strong>.
             </p>
           </div>
 

@@ -22,15 +22,15 @@
       {
         "id": "entrevista",
         "title": "Entrevista dos Sonhos",
-        "priceFormatted": "+ 4,90 €",
-        "amountMinor": 490,
+        "priceFormatted": "+ 4,99 €",
+        "amountMinor": 499,
         "description": "Manual prático + Caderno de exercícios método STAR e perguntas contextualizadas."
       },
       {
         "id": "linkedin",
         "title": "LinkedIn dos Sonhos",
-        "priceFormatted": "+ 5,90 €",
-        "amountMinor": 590,
+        "priceFormatted": "+ 5,99 €",
+        "amountMinor": 599,
         "description": "Manual prático + Caderno de exercícios para perfil e rotina de contactos em Portugal."
       }
     ]

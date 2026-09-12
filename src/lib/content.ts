@@ -19,8 +19,8 @@ export function getOfferConfig() {
     currency: 'EUR',
     accessMonths: 12,
     bumps: [
-      { id: 'entrevista', name: 'Entrevista dos Sonhos', price: '4,90 €', priceMinor: 490 },
-      { id: 'linkedin', name: 'LinkedIn dos Sonhos', price: '5,90 €', priceMinor: 590 },
+      { id: 'entrevista', name: 'Entrevista dos Sonhos', price: '4,99 €', priceMinor: 499 },
+      { id: 'linkedin', name: 'LinkedIn dos Sonhos', price: '5,99 €', priceMinor: 599 },
     ],
   };
 }

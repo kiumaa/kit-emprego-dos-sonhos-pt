@@ -124,45 +124,21 @@
 }
 
 /* =========================================================================
-   LIVE BADGE & PREVIEW OVERLAY
+   DURATION PILL & PREVIEW OVERLAY
    ========================================================================= */
-.keds-vsl__live-badge-wrapper {
+.keds-vsl__duration-pill-wrapper {
   position: absolute;
   top: 14px;
-  left: 14px;
   right: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   z-index: 6;
   pointer-events: none;
 }
 
-.keds-vsl__live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-.keds-vsl__live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #EF4444;
-  box-shadow: 0 0 8px #EF4444;
-  animation: vsl-dot-pulse 1.6s infinite ease-in-out;
+@media (prefers-reduced-motion: reduce) {
+  .keds-vsl__sound-alert-banner,
+  .keds-vsl__cta-button {
+    animation: none !important;
+  }
 }
 
 .keds-vsl__duration-pill {

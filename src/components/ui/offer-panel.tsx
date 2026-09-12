@@ -230,10 +230,10 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             }}
           >
             <div>
-              • <strong>Entrevista dos Sonhos (+ 4,90 €):</strong> Manual prático e Caderno STAR.
+              • <strong>Entrevista dos Sonhos (+ 4,99 €):</strong> Manual prático e Caderno STAR.
             </div>
             <div>
-              • <strong>LinkedIn dos Sonhos (+ 5,90 €):</strong> Manual de perfil e abordagem direta.
+              • <strong>LinkedIn dos Sonhos (+ 5,99 €):</strong> Manual de perfil e abordagem direta.
             </div>
           </div>
           <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '6px' }}>

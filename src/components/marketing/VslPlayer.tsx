@@ -201,7 +201,7 @@ export function VslPlayer({
               playsInline
               autoPlay
               muted
-              loop
+              loop={state.mode === 'preview'}
               preload="auto"
               aria-label="Apresentação do Kit Emprego dos Sonhos"
               aria-describedby={`${uid}-status`}
@@ -213,16 +213,12 @@ export function VslPlayer({
               O teu navegador não suporta este vídeo.
             </video>
 
-            {/* Badge "AO VIVO" sempre visível no canto superior */}
-            <div className="keds-vsl__live-badge-wrapper">
-              <span className="keds-vsl__live-pill">
-                <span className="keds-vsl__live-dot" />
-                <span>AO VIVO</span>
-              </span>
-              {duration > 0 && (
+            {/* Duração no canto superior quando disponível */}
+            {duration > 0 && (
+              <div className="keds-vsl__duration-pill-wrapper">
                 <span className="keds-vsl__duration-pill">{formatTime(duration)}</span>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Overlay limpo em Modo Preview (Autoplay mudo + Toca para ouvir com som) */}
             {state.mode === 'preview' && (
@@ -248,11 +244,24 @@ export function VslPlayer({
                 <div
                   className="keds-vsl__progress-container"
                   onClick={handleSeek}
-                  role="progressbar"
-                  aria-valuenow={Math.round(progressPercent)}
+                  onKeyDown={(e) => {
+                    const video = videoRef.current;
+                    if (!video || !duration) return;
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      video.currentTime = Math.min(duration, video.currentTime + 5);
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      video.currentTime = Math.max(0, video.currentTime - 5);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="slider"
+                  aria-label="Controlo de avanço do vídeo"
+                  aria-valuenow={Math.round(currentTime)}
                   aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-label="Barra de progresso"
+                  aria-valuemax={Math.round(duration)}
+                  aria-valuetext={`${formatTime(currentTime)} de ${formatTime(duration)}`}
                 >
                   <div
                     className="keds-vsl__progress-buffered"
