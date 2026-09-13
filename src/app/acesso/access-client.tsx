@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { CheckCircle2, ShieldCheck, ArrowRight, Mail, KeyRound, AlertCircle, Sparkles } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, ArrowRight, Mail, KeyRound, AlertCircle } from 'lucide-react';
 
 export function AccessClient() {
   const searchParams = useSearchParams();
@@ -123,8 +123,7 @@ export function AccessClient() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '4px 12px',
+              padding: '4px 14px',
               borderRadius: '20px',
               backgroundColor: 'var(--color-surface)',
               color: 'var(--color-accent)',
@@ -133,7 +132,6 @@ export function AccessClient() {
               marginBottom: '12px',
             }}
           >
-            <Sparkles size={14} />
             <span>Portal de Entrega e Acesso</span>
           </div>
 
