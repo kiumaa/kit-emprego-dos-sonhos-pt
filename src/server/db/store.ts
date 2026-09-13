@@ -230,6 +230,18 @@ class Store {
     return { status: 'inserted' };
   }
 
+  hasEntitlementsForEmail(email: string): boolean {
+    if (!email) return false;
+    if (isTestUserEmail(email)) return true;
+    const lookupKey = hashEmail(email);
+    for (const ent of this.entitlements.values()) {
+      if (ent.emailLookupKey === lookupKey && ent.status === 'active') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   claimEntitlements(email: string, subject: string): number {
     this.seedTestEntitlementsIfApplicable(email, subject);
     const lookupKey = hashEmail(email);

@@ -3,20 +3,17 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { CheckCircle2, ShieldCheck, ArrowRight, Mail, KeyRound, AlertCircle } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Mail, AlertCircle } from 'lucide-react';
 
 export function AccessClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const produtoParam = searchParams.get('produto') || 'kit';
+  const emailParam = searchParams.get('email') || '';
 
-  const [step, setStep] = useState<'email' | 'otp'>('email');
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
+  const [email, setEmail] = useState(emailParam);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [infoMessage, setInfoMessage] = useState<string | null>(null);
-  const [devCodeHelper, setDevCodeHelper] = useState<string | null>(null);
 
   // Verificar se o utilizador já tem sessão ativa
   useEffect(() => {
@@ -29,6 +26,13 @@ export function AccessClient() {
       .catch(() => {});
   }, [router]);
 
+  // Se email vier nos search params e o utilizador ainda não tiver alterado
+  useEffect(() => {
+    if (emailParam && !email) {
+      setEmail(emailParam);
+    }
+  }, [emailParam, email]);
+
   const productName =
     produtoParam === 'entrevista'
       ? 'Entrevista dos Sonhos (Acelerador)'
@@ -36,72 +40,39 @@ export function AccessClient() {
       ? 'LinkedIn dos Sonhos (Acelerador)'
       : 'Kit Emprego dos Sonhos';
 
-  const handleSendCode = async (e: React.FormEvent) => {
+  const handleAccess = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
-    setInfoMessage(null);
-    setDevCodeHelper(null);
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const cleanEmail = email.trim();
+    if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       setErrorMessage('Por favor introduz um endereço de email válido.');
       return;
     }
 
     setIsLoading(true);
     try {
-      const res = await fetch('/api/auth/otp/send', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: cleanEmail }),
       });
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMessage(data.message || data.error || 'Erro ao enviar código.');
+        setErrorMessage(
+          data.message ||
+            data.error ||
+            'Não foi possível encontrar a tua compra. Confirma se utilizaste este email na OKANDA.'
+        );
         setIsLoading(false);
         return;
       }
 
-      setStep('otp');
-      setInfoMessage(`Enviámos um código de 6 dígitos para ${email}.`);
-      if (data.devCode) {
-        setDevCodeHelper(data.devCode);
-      }
-    } catch {
-      setErrorMessage('Não foi possível contactar o servidor. Tenta novamente.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleVerifyCode = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage(null);
-
-    if (!code || code.length !== 6) {
-      setErrorMessage('O código de verificação deve conter 6 dígitos.');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const res = await fetch('/api/auth/otp/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code }),
-      });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMessage(data.message || data.error || 'Código incorreto ou expirado.');
-        setIsLoading(false);
-        return;
-      }
-
-      // Sucesso! Redirecionar para a área de ferramentas
+      // Sucesso imediato: redirecionar para a área de ferramentas e downloads
       router.push('/meu-kit');
     } catch {
-      setErrorMessage('Erro de ligação. Tenta novamente.');
+      setErrorMessage('Não foi possível contactar o servidor. Tenta novamente.');
       setIsLoading(false);
     }
   };
@@ -116,6 +87,9 @@ export function AccessClient() {
           border: '1px solid var(--color-border)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.04)',
           padding: 'clamp(24px, 5vw, 40px)',
+          width: '100%',
+          maxWidth: '480px',
+          margin: '0 auto',
         }}
       >
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
@@ -140,9 +114,7 @@ export function AccessClient() {
           </h1>
 
           <p style={{ fontSize: '15px', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-            {step === 'email'
-              ? 'Confirma o endereço de email que utilizaste na compra da OKANDA para receberes o teu código de acesso seguro.'
-              : 'Introduz o código de 6 dígitos que recebeste no teu email.'}
+            Introduz o endereço de email que utilizaste na compra da OKANDA para acederes imediatamente aos teus produtos, ferramentas e downloads.
           </p>
         </div>
 
@@ -167,178 +139,59 @@ export function AccessClient() {
           </div>
         )}
 
-        {infoMessage && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              backgroundColor: '#EFF6FF',
-              color: '#1E40AF',
-              border: '1px solid #BFDBFE',
-              borderRadius: '10px',
-              padding: '12px 14px',
-              fontSize: '14px',
-              marginBottom: '20px',
-            }}
-          >
-            <CheckCircle2 size={18} style={{ flexShrink: 0 }} />
-            <span>{infoMessage}</span>
-          </div>
-        )}
-
-        {devCodeHelper && (
-          <div
-            style={{
-              backgroundColor: '#F3F4F6',
-              border: '1px dashed #9CA3AF',
-              borderRadius: '8px',
-              padding: '10px 14px',
-              fontSize: '13px',
-              color: '#374151',
-              marginBottom: '20px',
-            }}
-          >
-            <strong>Ambiente local / teste:</strong> Código gerado:{' '}
-            <code style={{ fontWeight: 700, color: '#0057D9' }}>{devCodeHelper}</code>
-          </div>
-        )}
-
-        {step === 'email' ? (
-          <form onSubmit={handleSendCode}>
-            <div style={{ marginBottom: '20px' }}>
-              <label
-                htmlFor="email-input"
-                style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}
-              >
-                Email da compra
-              </label>
-              <div style={{ position: 'relative' }}>
-                <Mail
-                  size={18}
-                  style={{
-                    position: 'absolute',
-                    left: '14px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: 'var(--color-text-secondary)',
-                  }}
-                />
-                <input
-                  id="email-input"
-                  type="email"
-                  required
-                  autoFocus
-                  placeholder="exemplo@dominio.pt"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{
-                    width: '100%',
-                    height: '50px',
-                    paddingLeft: '42px',
-                    paddingRight: '14px',
-                    borderRadius: '10px',
-                    border: '1px solid var(--color-border)',
-                    fontSize: '15px',
-                    outline: 'none',
-                    backgroundColor: '#FAFAFA',
-                    fontFamily: 'inherit',
-                  }}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="btn-primary"
-              style={{ width: '100%', cursor: isLoading ? 'wait' : 'pointer' }}
+        <form onSubmit={handleAccess}>
+          <div style={{ marginBottom: '20px' }}>
+            <label
+              htmlFor="email-input"
+              style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}
             >
-              {isLoading ? 'A enviar código...' : 'Receber código de acesso'}
-              <ArrowRight size={18} style={{ marginLeft: '8px' }} />
-            </button>
-          </form>
-        ) : (
-          <form onSubmit={handleVerifyCode}>
-            <div style={{ marginBottom: '20px' }}>
-              <label
-                htmlFor="otp-input"
-                style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}
-              >
-                Código de 6 dígitos
-              </label>
-              <div style={{ position: 'relative' }}>
-                <KeyRound
-                  size={18}
-                  style={{
-                    position: 'absolute',
-                    left: '14px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    color: 'var(--color-text-secondary)',
-                  }}
-                />
-                <input
-                  id="otp-input"
-                  type="text"
-                  required
-                  autoFocus
-                  maxLength={6}
-                  placeholder="123456"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-                  style={{
-                    width: '100%',
-                    height: '50px',
-                    paddingLeft: '42px',
-                    paddingRight: '14px',
-                    borderRadius: '10px',
-                    border: '1px solid var(--color-border)',
-                    fontSize: '18px',
-                    fontWeight: 700,
-                    letterSpacing: '4px',
-                    outline: 'none',
-                    backgroundColor: '#FAFAFA',
-                    fontFamily: 'monospace',
-                  }}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="btn-primary"
-              style={{ width: '100%', cursor: isLoading ? 'wait' : 'pointer' }}
-            >
-              {isLoading ? 'A verificar...' : 'Confirmar e entrar'}
-              <ArrowRight size={18} style={{ marginLeft: '8px' }} />
-            </button>
-
-            <div style={{ textAlign: 'center', marginTop: '16px' }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setStep('email');
-                  setCode('');
-                  setErrorMessage(null);
-                  setInfoMessage(null);
-                }}
+              Email da compra
+            </label>
+            <div style={{ position: 'relative' }}>
+              <Mail
+                size={18}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--color-accent)',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
+                  position: 'absolute',
+                  left: '14px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: 'var(--color-text-secondary)',
                 }}
-              >
-                Alterar endereço de email
-              </button>
+              />
+              <input
+                id="email-input"
+                type="email"
+                required
+                autoFocus
+                placeholder="exemplo@dominio.pt"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  width: '100%',
+                  height: '50px',
+                  paddingLeft: '42px',
+                  paddingRight: '14px',
+                  borderRadius: '10px',
+                  border: '1px solid var(--color-border)',
+                  fontSize: '15px',
+                  outline: 'none',
+                  backgroundColor: '#FAFAFA',
+                  fontFamily: 'inherit',
+                }}
+              />
             </div>
-          </form>
-        )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="btn-primary"
+            style={{ width: '100%', cursor: isLoading ? 'wait' : 'pointer' }}
+          >
+            {isLoading ? 'A validar acesso...' : 'Aceder ao Meu Kit'}
+            <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+          </button>
+        </form>
 
         <div
           style={{
