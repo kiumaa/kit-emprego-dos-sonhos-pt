@@ -39,7 +39,31 @@ function getProductMap(): Record<string, ProductMapping> {
       allowedAmountsMinor: [499],
       offerVersion: 'interactive_v5',
     },
+    'cc9702e6-9a30-4def-b93c-c2c847b49fd1': {
+      productKey: 'entrevista',
+      currency: 'EUR',
+      allowedAmountsMinor: [499],
+      offerVersion: 'interactive_v5',
+    },
+    'entrevista-dos-sonhos-mtz4l2oz': {
+      productKey: 'entrevista',
+      currency: 'EUR',
+      allowedAmountsMinor: [499],
+      offerVersion: 'interactive_v5',
+    },
     'linkedin-dos-sonhos': {
+      productKey: 'linkedin',
+      currency: 'EUR',
+      allowedAmountsMinor: [599],
+      offerVersion: 'interactive_v5',
+    },
+    'c54e5df7-c9a2-4166-9b37-485924130383': {
+      productKey: 'linkedin',
+      currency: 'EUR',
+      allowedAmountsMinor: [599],
+      offerVersion: 'interactive_v5',
+    },
+    'linkedin-dos-sonhos-mtz4o9ju': {
       productKey: 'linkedin',
       currency: 'EUR',
       allowedAmountsMinor: [599],

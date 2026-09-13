@@ -364,9 +364,13 @@ export function MeuKitClient() {
                     </Link>
                   )
                 ) : (
-                  <Link href="/kit" className="btn-secondary" style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}>
+                  <a
+                    href="https://okandapay.com/checkout/kit-emprego-dos-sonhos-mtz4h7e8?pid=c38e6af8-098c-48c6-b1c5-a680c5ee4a6b"
+                    className="btn-secondary"
+                    style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
+                  >
                     Adquirir Kit (14,99 €)
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -459,9 +463,13 @@ export function MeuKitClient() {
                     </button>
                   )
                 ) : (
-                  <Link href="/kit#oferta" className="btn-secondary" style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}>
+                  <a
+                    href="https://okandapay.com/checkout/entrevista-dos-sonhos-mtz4l2oz?pid=cc9702e6-9a30-4def-b93c-c2c847b49fd1"
+                    className="btn-secondary"
+                    style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
+                  >
                     Adicionar por + 4,99 €
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -554,9 +562,13 @@ export function MeuKitClient() {
                     </button>
                   )
                 ) : (
-                  <Link href="/kit#oferta" className="btn-secondary" style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}>
+                  <a
+                    href="https://okandapay.com/checkout/linkedin-dos-sonhos-mtz4o9ju?pid=c54e5df7-c9a2-4166-9b37-485924130383"
+                    className="btn-secondary"
+                    style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
+                  >
                     Adicionar por + 5,99 €
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
