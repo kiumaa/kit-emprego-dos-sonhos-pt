@@ -18,6 +18,13 @@ import {
   AlertCircle,
   Clock,
   Eye,
+  ShieldCheck,
+  ChevronDown,
+  ChevronUp,
+  Bookmark,
+  Check,
+  Copy,
+  Zap,
 } from 'lucide-react';
 import { CVDraftData } from '@/server/pdf/cv-pdf-generator';
 
@@ -53,6 +60,176 @@ const DEFAULT_DOC: CVDraftData = {
   skills: [],
 };
 
+// Presets profissionais com dados realistas de mercado em Portugal
+const PRESETS: Record<string, { label: string; doc: Partial<CVDraftData> }> = {
+  admin: {
+    label: 'Apoio Administrativo & Gestão',
+    doc: {
+      template: 'essencial',
+      personal: {
+        name: 'Inês Matos Ferreira',
+        email: 'ines.ferreira@email.pt',
+        phone: '+351 912 345 678',
+        city: 'Lisboa, Portugal',
+        targetRole: 'Assistente de Operações e Apoio à Gestão',
+        photoAssetId: null,
+      },
+      summary: 'Profissional com 4 anos de experiência em PMEs em Portugal. Foco na organização de processos de faturação, apoio ao cliente multicanal e resolução célere de pendências operacionais com rigor e autonomia.',
+      experience: [
+        {
+          id: 'exp-admin-1',
+          role: 'Assistente Operacional e de Atendimento',
+          organization: 'Soluções Integradas Lda.',
+          start: 'Jan 2023',
+          end: 'Presente',
+          bullets: [
+            'Assegurei o atendimento e resolução de 40+ pedidos diários de clientes com 94% de resolução no primeiro contacto.',
+            'Estruturei o arquivo digital e conferência de 150+ faturas mensais, eliminando discrepâncias com a contabilidade externa.',
+            'Formei 2 novos colaboradores no uso do software de faturação e nos procedimentos padrão de resposta por email.',
+          ],
+        },
+        {
+          id: 'exp-admin-2',
+          role: 'Assistente Administrativa Júnior',
+          organization: 'Logística e Distribuição SA',
+          start: 'Set 2021',
+          end: 'Dez 2022',
+          bullets: [
+            'Fiz a gestão da correspondência, marcação de transportes e acompanhamento do estado de 30 entregas diárias.',
+            'Elaborei folhas de cálculo de controlo de rotas em Excel, reduzindo perdas de informação entre armazém e escritório.',
+          ],
+        },
+      ],
+      education: [
+        {
+          qualification: 'CTeSP em Assessoria de Gestão',
+          institution: 'Instituto Politécnico de Lisboa',
+          period: '2021',
+        },
+      ],
+      skills: ['Microsoft Excel (VLOOKUP, Tabelas Dinâmicas)', 'Primavera ERP', 'Google Workspace', 'Atendimento ao Cliente', 'Faturação'],
+    },
+  },
+  projetos: {
+    label: 'Gestão de Projetos & Operações',
+    doc: {
+      template: 'moderno',
+      personal: {
+        name: 'Tiago Lourenço Rocha',
+        email: 'tiago.rocha@email.pt',
+        phone: '+351 920 111 222',
+        city: 'Porto, Portugal',
+        targetRole: 'Gestor de Projetos Digitais / Scrum Master',
+        photoAssetId: null,
+      },
+      summary: 'Gestor de Projetos com 5 anos de experiência na implementação de soluções de e-commerce e automatização de fluxos de trabalho no mercado ibérico. Especialista em metodologias ágeis (Scrum/Kanban) e gestão de equipas multidisciplinares.',
+      experience: [
+        {
+          id: 'exp-proj-1',
+          role: 'Project Manager & Scrum Master',
+          organization: 'TechVentures Ibéria',
+          start: 'Fev 2022',
+          end: 'Presente',
+          bullets: [
+            'Liderei 4 sprints de lançamento de nova plataforma B2B, entregando a versão MVP 3 semanas antes do prazo limite.',
+            'Implementei fluxos no Jira que reduziram o lead time de entrega de funcionalidades em 28%.',
+            'Fiz a gestão do orçamento do projeto (120.000 EUR) e coordenação direta de equipa com 8 engenheiros e designers.',
+          ],
+        },
+      ],
+      education: [
+        {
+          qualification: 'Mestrado em Engenharia e Gestão Industrial',
+          institution: 'Faculdade de Engenharia da Univ. do Porto',
+          period: '2021',
+        },
+      ],
+      skills: ['Scrum & Kanban (PSM I)', 'Jira & Confluence', 'Power BI', 'Inglês Fluente C1', 'Gestão Orçamental'],
+    },
+  },
+  comercial: {
+    label: 'Comercial B2B & Atendimento',
+    doc: {
+      template: 'essencial',
+      personal: {
+        name: 'Mariana Duarte Silva',
+        email: 'mariana.silva@email.pt',
+        phone: '+351 931 888 999',
+        city: 'Coimbra, Portugal',
+        targetRole: 'Especialista Comercial B2B e Retenção',
+        photoAssetId: null,
+      },
+      summary: 'Profissional com 3 anos de percurso na prospeção ativa, gestão de carteiras de clientes e apresentação de propostas comerciais no setor de serviços em Portugal. Comunicação empática e orientação clara para o cumprimento de metas de faturação.',
+      experience: [
+        {
+          id: 'exp-com-1',
+          role: 'Gestora Comercial de Contas',
+          organization: 'Serviços Globais Ibéricos',
+          start: 'Mar 2023',
+          end: 'Presente',
+          bullets: [
+            'Geri uma carteira ativa de 65 clientes empresariais, aumentando a taxa de renovação de contratos em 18%.',
+            'Conduzi reuniões de demonstração presencial e remota com taxas de conversão de 35% de proposta em fecho.',
+            'Atualizei diariamente o pipeline de vendas no HubSpot CRM com previsões fiáveis de fecho mensal.',
+          ],
+        },
+      ],
+      education: [
+        {
+          qualification: 'Licenciatura em Marketing e Comunicação',
+          institution: 'Universidade de Coimbra',
+          period: '2022',
+        },
+      ],
+      skills: ['HubSpot CRM', 'Negociação Comercial', 'Excel para Vendas', 'Apresentações Executivas', 'Gestão de Carteira'],
+    },
+  },
+  ti: {
+    label: 'Suporte Técnico TI & Redes',
+    doc: {
+      template: 'moderno',
+      personal: {
+        name: 'David Gonçalves Pires',
+        email: 'david.pires@email.pt',
+        phone: '+351 965 444 333',
+        city: 'Braga, Portugal',
+        targetRole: 'Técnico de Suporte TI e Administração de Sistemas',
+        photoAssetId: null,
+      },
+      summary: 'Técnico de TI com experiência sólida em suporte a utilizadores, manutenção de hardware/software, gestão de acessos e resolução rápida de incidentes em ambiente de escritório e teletrabalho.',
+      experience: [
+        {
+          id: 'exp-ti-1',
+          role: 'Técnico de Helpdesk Nível 2',
+          organization: 'InfraTech Portugal',
+          start: 'Out 2022',
+          end: 'Presente',
+          bullets: [
+            'Resolvi 80+ tickets semanais com tempo médio de primeira resposta inferior a 20 minutos.',
+            'Configurei postos de trabalho e acessos VPN para 50+ colaboradores remotos em ambiente Windows 11 e macOS.',
+            'Automatizei tarefas de rotina com scripts PowerShell, poupando 4 horas semanais de manutenção.',
+          ],
+        },
+      ],
+      education: [
+        {
+          qualification: 'Curso Técnico Profissional em Gestão e Redes',
+          institution: 'Escola Profissional de Braga',
+          period: '2021',
+        },
+      ],
+      skills: ['Windows Server & Active Directory', 'Office 365 Admin', 'PowerShell', 'Redes & VPNs', 'Hardware & Diagnóstico'],
+    },
+  },
+};
+
+const ACTION_VERBS = [
+  { category: 'Liderança & Gestão', verbs: ['Liderei', 'Coordenei', 'Estruturei', 'Deleguei', 'Facilitei', 'Supervisionei'] },
+  { category: 'Otimização & Resultados', verbs: ['Otimizei', 'Reduzi', 'Acelerei', 'Automatizei', 'Eliminei', 'Poupei', 'Aumentei'] },
+  { category: 'Execução & Rigor', verbs: ['Implementei', 'Assegurei', 'Desenvolvi', 'Conduzi', 'Elaborei', 'Auditei', 'Resolvi'] },
+  { category: 'Comunicação & Parcerias', verbs: ['Negociei', 'Apresentei', 'Formei', 'Mediei', 'Alinhei', 'Articulei'] },
+];
+
 export function CvEditorClient() {
   const router = useRouter();
   const [doc, setDoc] = useState<CVDraftData>(DEFAULT_DOC);
@@ -65,6 +242,8 @@ export function CvEditorClient() {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [skillInput, setSkillInput] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showVerbBank, setShowVerbBank] = useState(false);
+  const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
 
   // IA modal/assistência
   const [aiLoading, setAiLoading] = useState(false);
@@ -141,21 +320,36 @@ export function CvEditorClient() {
     saveDocument(updated);
   };
 
+  const applyPreset = (presetKey: string) => {
+    const preset = PRESETS[presetKey];
+    if (!preset) return;
+    if (doc.personal.name && !confirm('Preencher com o modelo de referência irá substituir os dados atuais. Pretendes continuar?')) {
+      return;
+    }
+    const updated: CVDraftData = {
+      ...doc,
+      ...preset.doc,
+      personal: {
+        ...doc.personal,
+        ...(preset.doc.personal || {}),
+      },
+    } as CVDraftData;
+    setDoc(updated);
+    saveDocument(updated);
+  };
+
   // Gerar PDF
   const handleGeneratePdf = async () => {
     setPdfGenerating(true);
     setErrorMessage(null);
     try {
-      // Guarda antes de exportar
       await saveDocument(doc);
-
       const res = await fetch(`/api/me/cv/${draftIdRef.current}/pdf`, {
         method: 'POST',
       });
       const data = await res.json();
       if (res.ok && data.ok) {
         setPdfUrl(data.downloadUrl);
-        // Descarregar imediatamente
         const link = document.createElement('a');
         link.href = data.downloadUrl;
         link.download = data.filename || 'curriculo.pdf';
@@ -203,6 +397,48 @@ export function CvEditorClient() {
     }
   };
 
+  const copyVerb = (verb: string) => {
+    navigator.clipboard.writeText(verb);
+    setCopiedVerb(verb);
+    setTimeout(() => setCopiedVerb(null), 1500);
+  };
+
+  // Auditoria ATS em tempo real
+  const atsChecks = [
+    {
+      id: 'contacts',
+      label: 'Localização e contactos em Portugal (+351 / Cidade)',
+      valid: Boolean(doc.personal.city && doc.personal.phone && doc.personal.email),
+    },
+    {
+      id: 'summary',
+      label: 'Resumo profissional conciso (80 a 350 carateres)',
+      valid: Boolean(doc.summary && doc.summary.length >= 80 && doc.summary.length <= 350),
+    },
+    {
+      id: 'verbs',
+      label: 'Verbos de ação no percurso (ex.: Otimizei, Coordenei, Assegurei)',
+      valid: doc.experience.some((e) =>
+        e.bullets.some((b) =>
+          /(otimizei|coordenei|assegurei|liderei|estruturei|implementei|reduzi|desenvolvi|resolvi|elaborei)/i.test(b)
+        )
+      ),
+    },
+    {
+      id: 'metrics',
+      label: 'Métricas quantificadas nas tarefas (ex.: %, números ou prazos)',
+      valid: doc.experience.some((e) =>
+        e.bullets.some((b) => /\d+(%|\+|€|EUR| dias| clientes| colaboradores)/i.test(b))
+      ),
+    },
+    {
+      id: 'skills',
+      label: 'Competências técnicas declaradas (mínimo 4 competências)',
+      valid: doc.skills.length >= 4,
+    },
+  ];
+  const atsScore = atsChecks.filter((c) => c.valid).length;
+
   if (isLoading) {
     return (
       <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
@@ -213,7 +449,7 @@ export function CvEditorClient() {
 
   return (
     <div style={{ backgroundColor: 'var(--color-surface)', minHeight: '90vh', padding: '30px 16px' }}>
-      <div className="container-wide" style={{ maxWidth: '980px', margin: '0 auto' }}>
+      <div className="container-wide" style={{ maxWidth: '1020px', margin: '0 auto' }}>
         {/* Barra de cabeçalho */}
         <div
           style={{
@@ -222,7 +458,7 @@ export function CvEditorClient() {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
-            marginBottom: '24px',
+            marginBottom: '20px',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -235,7 +471,7 @@ export function CvEditorClient() {
               Voltar ao painel
             </Link>
             <h1 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-text)' }}>
-              Editor de Currículo A4
+              Criador de Currículo A4 de Alta Fidelidade
             </h1>
           </div>
 
@@ -284,6 +520,173 @@ export function CvEditorClient() {
           </div>
         </div>
 
+        {/* Barra de Presets Rápidos */}
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '12px',
+            border: '1px solid var(--color-border)',
+            padding: '12px 18px',
+            marginBottom: '18px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '10px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Bookmark size={16} style={{ color: 'var(--color-accent)' }} />
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-text)' }}>
+              Modelos de Referência para Portugal:
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {Object.entries(PRESETS).map(([key, val]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => applyPreset(key)}
+                style={{
+                  padding: '5px 10px',
+                  borderRadius: '6px',
+                  border: '1px solid #E5E7EB',
+                  backgroundColor: '#F9FAFB',
+                  color: 'var(--color-text)',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  transition: 'all 150ms ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#EFF6FF')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#F9FAFB')}
+              >
+                + {val.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Painel de Auditoria ATS em Tempo Real */}
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '12px',
+            border: atsScore >= 4 ? '1px solid #A7F3D0' : '1px solid #E5E7EB',
+            padding: '14px 18px',
+            marginBottom: '20px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ShieldCheck size={18} style={{ color: atsScore >= 4 ? '#059669' : 'var(--color-accent)' }} />
+              <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text)' }}>
+                Auditoria ATS em Tempo Real:
+              </span>
+              <span
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  backgroundColor: atsScore >= 4 ? '#ECFDF5' : '#EFF6FF',
+                  color: atsScore >= 4 ? '#059669' : 'var(--color-accent)',
+                }}
+              >
+                {atsScore} de {atsChecks.length} critérios cumpridos
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowVerbBank(!showVerbBank)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--color-accent)',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <Zap size={14} />
+              {showVerbBank ? 'Ocultar Banco de Verbos' : 'Ver Banco de Verbos de Ação (PT-PT)'}
+            </button>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
+            {atsChecks.map((c) => (
+              <div
+                key={c.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '12px',
+                  color: c.valid ? '#065F46' : 'var(--color-text-secondary)',
+                }}
+              >
+                {c.valid ? (
+                  <CheckCircle2 size={14} style={{ color: '#059669', flexShrink: 0 }} />
+                ) : (
+                  <div style={{ width: 14, height: 14, borderRadius: '50%', border: '1px solid #D1D5DB', flexShrink: 0 }} />
+                )}
+                <span>{c.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Banco de Verbos Expansível */}
+          {showVerbBank && (
+            <div
+              style={{
+                marginTop: '14px',
+                paddingTop: '12px',
+                borderTop: '1px solid #F3F4F6',
+              }}
+            >
+              <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '8px' }}>
+                Clica num verbo para copiar e usar nas tuas frases de experiência:
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+                {ACTION_VERBS.map((cat) => (
+                  <div key={cat.category} style={{ backgroundColor: '#F9FAFB', padding: '10px', borderRadius: '8px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#374151', marginBottom: '6px', textTransform: 'uppercase' }}>
+                      {cat.category}
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                      {cat.verbs.map((verb) => (
+                        <button
+                          key={verb}
+                          type="button"
+                          onClick={() => copyVerb(verb)}
+                          style={{
+                            padding: '3px 8px',
+                            borderRadius: '4px',
+                            border: '1px solid #E5E7EB',
+                            backgroundColor: copiedVerb === verb ? '#ECFDF5' : '#FFFFFF',
+                            color: copiedVerb === verb ? '#059669' : 'var(--color-text)',
+                            fontSize: '11px',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {copiedVerb === verb ? '✓ Copiado' : verb}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         {errorMessage && (
           <div
             role="alert"
@@ -318,9 +721,9 @@ export function CvEditorClient() {
           }}
         >
           {[
-            { step: 1, label: 'Identificação', icon: User },
+            { step: 1, label: 'Identificação & Modelo', icon: User },
             { step: 2, label: 'Perfil Profissional', icon: FileText },
-            { step: 3, label: 'Experiência', icon: Briefcase },
+            { step: 3, label: 'Experiência Reversa', icon: Briefcase },
             { step: 4, label: 'Formação & Skills', icon: GraduationCap },
             { step: 5, label: 'Rever & Exportar PDF', icon: Eye },
           ].map(({ step, label, icon: Icon }) => (
@@ -330,7 +733,7 @@ export function CvEditorClient() {
               onClick={() => setActiveStep(step as any)}
               style={{
                 flex: 1,
-                minWidth: '140px',
+                minWidth: '150px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -378,7 +781,7 @@ export function CvEditorClient() {
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
                   Modelo de CV A4
                 </label>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', maxWidth: '500px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', maxWidth: '520px' }}>
                   <button
                     type="button"
                     onClick={() => updateDocField('template', 'essencial')}
@@ -393,7 +796,7 @@ export function CvEditorClient() {
                   >
                     <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-text)' }}>Essencial (Recomendado)</div>
                     <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                      Clássico, elegante e focado no conteúdo com divisores finos.
+                      Clássico, linear de 1 coluna, 100% legível por ATS e com separadores finos.
                     </div>
                   </button>
 
@@ -409,9 +812,9 @@ export function CvEditorClient() {
                       textAlign: 'left',
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-text)' }}>Moderno</div>
+                    <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-text)' }}>Moderno Executivo</div>
                     <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                      Faixa escura de cabeçalho em grafite com tipografia contrastada.
+                      Faixa escura de cabeçalho em grafite com tipografia contrastada e foco técnico.
                     </div>
                   </button>
                 </div>
@@ -452,7 +855,7 @@ export function CvEditorClient() {
                   <input
                     type="email"
                     required
-                    placeholder="exemplo@dominio.pt"
+                    placeholder="Ex: ana.silva@email.pt"
                     value={doc.personal.email}
                     onChange={(e) => updatePersonalField('email', e.target.value)}
                     style={{ width: '100%', height: '44px', padding: '0 12px', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '14px' }}
@@ -461,11 +864,11 @@ export function CvEditorClient() {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>
-                    Telefone
+                    Telefone direto (+351) *
                   </label>
                   <input
-                    type="text"
-                    placeholder="+351 912 345 678"
+                    type="tel"
+                    placeholder="Ex: +351 912 345 678"
                     value={doc.personal.phone || ''}
                     onChange={(e) => updatePersonalField('phone', e.target.value)}
                     style={{ width: '100%', height: '44px', padding: '0 12px', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '14px' }}
@@ -474,7 +877,7 @@ export function CvEditorClient() {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>
-                    Cidade / Região (Portugal)
+                    Cidade e País *
                   </label>
                   <input
                     type="text"
@@ -488,13 +891,14 @@ export function CvEditorClient() {
             </div>
           )}
 
-          {/* PASSO 2: Resumo / Perfil Profissional */}
+          {/* PASSO 2: Perfil Profissional */}
           {activeStep === 2 && (
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)' }}>
-                  2. Perfil Profissional (Resumo)
+                  2. Perfil Profissional (Resumo Executivo)
                 </h2>
+
                 <button
                   type="button"
                   disabled={aiLoading || !doc.summary.trim()}
@@ -508,7 +912,7 @@ export function CvEditorClient() {
               </div>
 
               <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>
-                Apresenta em 3 a 4 linhas a tua área de atuação, principais pontos fortes e o que pretendes alcançar.
+                Apresenta em 3 a 4 linhas a tua área de atuação, principais pontos fortes e o que pretendes alcançar em Portugal.
               </p>
 
               <textarea
@@ -527,6 +931,11 @@ export function CvEditorClient() {
                   outline: 'none',
                 }}
               />
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '12px', color: doc.summary.length >= 80 && doc.summary.length <= 350 ? '#059669' : '#6B7280' }}>
+                <span>Recomendado: 80 a 350 carateres</span>
+                <span>{doc.summary.length} carateres</span>
+              </div>
 
               {/* Caixa de Sugestão da IA */}
               {aiSuggestion && (
@@ -582,10 +991,10 @@ export function CvEditorClient() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                 <div>
                   <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)' }}>
-                    3. Experiência Profissional
+                    3. Experiência Profissional Reversa
                   </h2>
                   <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                    Adiciona as tuas funções mais relevantes (por ordem cronológica inversa).
+                    Começa pela tua função mais recente. Foca-te em verbos de ação e tarefas mensuráveis.
                   </p>
                 </div>
                 <button
@@ -599,188 +1008,175 @@ export function CvEditorClient() {
                       end: '',
                       bullets: [''],
                     };
-                    updateDocField('experience', [...doc.experience, newExp]);
+                    updateDocField('experience', [newExp, ...doc.experience]);
                   }}
                   className="btn-secondary"
                   style={{ height: '36px', padding: '0 12px', fontSize: '13px', gap: '6px' }}
                 >
                   <Plus size={16} />
-                  Adicionar Experiência
+                  Adicionar Função
                 </button>
               </div>
 
-              {doc.experience.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '30px', color: 'var(--color-text-secondary)', fontSize: '14px' }}>
-                  Nenhuma experiência adicionada. Clica no botão acima para adicionar.
-                </div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  {doc.experience.map((exp, index) => (
-                    <div
-                      key={exp.id || index}
-                      style={{
-                        padding: '18px',
-                        borderRadius: '12px',
-                        backgroundColor: '#FAFAFA',
-                        border: '1px solid var(--color-border)',
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-                          Experiência #{index + 1}
-                        </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {doc.experience.map((exp, index) => (
+                  <div
+                    key={exp.id || index}
+                    style={{
+                      border: '1px solid var(--color-border)',
+                      borderRadius: '12px',
+                      padding: '20px',
+                      backgroundColor: '#FAFAFA',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
+                        Função #{index + 1}
+                      </span>
+                      {doc.experience.length > 1 && (
                         <button
                           type="button"
                           onClick={() => {
                             const updated = doc.experience.filter((_, i) => i !== index);
                             updateDocField('experience', updated);
                           }}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            color: '#DC2626',
-                            cursor: 'pointer',
-                            padding: '4px',
-                            display: 'flex',
-                            alignItems: 'center',
-                          }}
+                          style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '4px' }}
+                          title="Remover experiência"
                         >
                           <Trash2 size={16} />
                         </button>
-                      </div>
+                      )}
+                    </div>
 
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '12px' }}>
-                        <div>
-                          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Cargo / Função *</label>
-                          <input
-                            type="text"
-                            placeholder="Ex: Técnico Comercial"
-                            value={exp.role}
-                            onChange={(e) => {
-                              const updated = [...doc.experience];
-                              updated[index].role = e.target.value;
-                              updateDocField('experience', updated);
-                            }}
-                            style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                          />
-                        </div>
-
-                        <div>
-                          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Empresa / Organização *</label>
-                          <input
-                            type="text"
-                            placeholder="Ex: Delta Cafés Lda"
-                            value={exp.organization}
-                            onChange={(e) => {
-                              const updated = [...doc.experience];
-                              updated[index].organization = e.target.value;
-                              updateDocField('experience', updated);
-                            }}
-                            style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                          />
-                        </div>
-
-                        <div>
-                          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Início (Ano ou AAAA-MM) *</label>
-                          <input
-                            type="text"
-                            placeholder="Ex: 2023-01"
-                            value={exp.start}
-                            onChange={(e) => {
-                              const updated = [...doc.experience];
-                              updated[index].start = e.target.value;
-                              updateDocField('experience', updated);
-                            }}
-                            style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                          />
-                        </div>
-
-                        <div>
-                          <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Fim (ou Presente)</label>
-                          <input
-                            type="text"
-                            placeholder="Ex: Presente ou 2025-12"
-                            value={exp.end || ''}
-                            onChange={(e) => {
-                              const updated = [...doc.experience];
-                              updated[index].end = e.target.value;
-                              updateDocField('experience', updated);
-                            }}
-                            style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Bullets */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginBottom: '14px' }}>
                       <div>
-                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px' }}>
-                          Principais responsabilidades & realizações:
-                        </label>
-                        {exp.bullets.map((bullet, bIndex) => (
-                          <div key={bIndex} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
-                            <input
-                              type="text"
-                              placeholder="Ex: Gestão de carteira com mais de 80 clientes e faturação mensal..."
-                              value={bullet}
-                              onChange={(e) => {
-                                const updated = [...doc.experience];
-                                updated[index].bullets[bIndex] = e.target.value;
-                                updateDocField('experience', updated);
-                              }}
-                              style={{ flex: 1, height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                            />
+                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Cargo / Função *</label>
+                        <input
+                          type="text"
+                          placeholder="Ex: Assistente Administrativo"
+                          value={exp.role}
+                          onChange={(e) => {
+                            const updated = [...doc.experience];
+                            updated[index].role = e.target.value;
+                            updateDocField('experience', updated);
+                          }}
+                          style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Empresa / Organização *</label>
+                        <input
+                          type="text"
+                          placeholder="Ex: Soluções Integradas Lda."
+                          value={exp.organization}
+                          onChange={(e) => {
+                            const updated = [...doc.experience];
+                            updated[index].organization = e.target.value;
+                            updateDocField('experience', updated);
+                          }}
+                          style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Mês/Ano Início *</label>
+                        <input
+                          type="text"
+                          placeholder="Ex: Jan 2023"
+                          value={exp.start}
+                          onChange={(e) => {
+                            const updated = [...doc.experience];
+                            updated[index].start = e.target.value;
+                            updateDocField('experience', updated);
+                          }}
+                          style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Mês/Ano Fim (ou Presente)</label>
+                        <input
+                          type="text"
+                          placeholder="Ex: Presente"
+                          value={exp.end || ''}
+                          onChange={(e) => {
+                            const updated = [...doc.experience];
+                            updated[index].end = e.target.value;
+                            updateDocField('experience', updated);
+                          }}
+                          style={{ width: '100%', height: '40px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Bullets */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px' }}>
+                        Responsabilidades & Realizações (formato: Verbo de Ação + Tarefa + Métrica)
+                      </label>
+                      {exp.bullets.map((bullet, bi) => (
+                        <div key={bi} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                          <input
+                            type="text"
+                            placeholder="Ex: Assegurei o atendimento a 40+ clientes diários com 94% de resolução no primeiro contacto..."
+                            value={bullet}
+                            onChange={(e) => {
+                              const updated = [...doc.experience];
+                              updated[index].bullets[bi] = e.target.value;
+                              updateDocField('experience', updated);
+                            }}
+                            style={{ flex: 1, height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                          />
+                          {exp.bullets.length > 1 && (
                             <button
                               type="button"
                               onClick={() => {
                                 const updated = [...doc.experience];
-                                updated[index].bullets = updated[index].bullets.filter((_, i) => i !== bIndex);
+                                updated[index].bullets = updated[index].bullets.filter((_, i) => i !== bi);
                                 updateDocField('experience', updated);
                               }}
-                              style={{ background: 'none', border: 'none', color: '#9CA3AF', cursor: 'pointer', padding: '4px' }}
+                              style={{ background: 'none', border: 'none', color: '#9CA3AF', cursor: 'pointer' }}
                             >
                               <Trash2 size={14} />
                             </button>
-                          </div>
-                        ))}
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const updated = [...doc.experience];
-                            updated[index].bullets.push('');
-                            updateDocField('experience', updated);
-                          }}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            color: 'var(--color-accent)',
-                            fontSize: '12px',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            marginTop: '6px',
-                          }}
-                        >
-                          <Plus size={14} /> Adicionar ponto
-                        </button>
-                      </div>
+                          )}
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = [...doc.experience];
+                          updated[index].bullets.push('');
+                          updateDocField('experience', updated);
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--color-accent)',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          padding: '4px 0',
+                        }}
+                      >
+                        + Adicionar ponto de experiência
+                      </button>
                     </div>
-                  ))}
-                </div>
-              )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* PASSO 4: Formação & Competências */}
+          {/* PASSO 4: Formação e Competências */}
           {activeStep === 4 && (
             <div>
-              {/* Educação */}
+              {/* Formação Académica */}
               <div style={{ marginBottom: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                   <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)' }}>
-                    Educação e Habilitações
+                    4. Formação Académica & Certificações
                   </h2>
                   <button
                     type="button"
@@ -789,9 +1185,10 @@ export function CvEditorClient() {
                       updateDocField('education', [...doc.education, newEdu]);
                     }}
                     className="btn-secondary"
-                    style={{ height: '34px', padding: '0 10px', fontSize: '12px', gap: '4px' }}
+                    style={{ height: '34px', padding: '0 12px', fontSize: '12px', gap: '6px' }}
                   >
-                    <Plus size={14} /> Adicionar Curso
+                    <Plus size={14} />
+                    Adicionar Curso
                   </button>
                 </div>
 
@@ -800,52 +1197,69 @@ export function CvEditorClient() {
                     key={index}
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr)) 40px',
-                      gap: '10px',
-                      marginBottom: '10px',
-                      alignItems: 'center',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr)) auto',
+                      gap: '12px',
+                      alignItems: 'end',
+                      marginBottom: '12px',
+                      padding: '14px',
+                      backgroundColor: '#FAFAFA',
+                      borderRadius: '8px',
+                      border: '1px solid var(--color-border)',
                     }}
                   >
-                    <input
-                      type="text"
-                      placeholder="Grau / Curso (Ex: Licenciatura em Gestão)"
-                      value={edu.qualification}
-                      onChange={(e) => {
-                        const updated = [...doc.education];
-                        updated[index].qualification = e.target.value;
-                        updateDocField('education', updated);
-                      }}
-                      style={{ height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Instituição (Ex: Univ. de Coimbra)"
-                      value={edu.institution}
-                      onChange={(e) => {
-                        const updated = [...doc.education];
-                        updated[index].institution = e.target.value;
-                        updateDocField('education', updated);
-                      }}
-                      style={{ height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Ano (Ex: 2022)"
-                      value={edu.period || ''}
-                      onChange={(e) => {
-                        const updated = [...doc.education];
-                        updated[index].period = e.target.value;
-                        updateDocField('education', updated);
-                      }}
-                      style={{ height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
-                    />
+                    <div>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Grau / Curso *</label>
+                      <input
+                        type="text"
+                        placeholder="Ex: Licenciatura em Gestão"
+                        value={edu.qualification}
+                        onChange={(e) => {
+                          const updated = [...doc.education];
+                          updated[index].qualification = e.target.value;
+                          updateDocField('education', updated);
+                        }}
+                        style={{ width: '100%', height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Instituição de Ensino *</label>
+                      <input
+                        type="text"
+                        placeholder="Ex: Universidade de Lisboa"
+                        value={edu.institution}
+                        onChange={(e) => {
+                          const updated = [...doc.education];
+                          updated[index].institution = e.target.value;
+                          updateDocField('education', updated);
+                        }}
+                        style={{ width: '100%', height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Ano de Conclusão</label>
+                      <input
+                        type="text"
+                        placeholder="Ex: 2021"
+                        value={edu.period || ''}
+                        onChange={(e) => {
+                          const updated = [...doc.education];
+                          updated[index].period = e.target.value;
+                          updateDocField('education', updated);
+                        }}
+                        style={{ width: '100%', height: '38px', padding: '0 10px', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '13px' }}
+                      />
+                    </div>
+
                     <button
                       type="button"
+                      disabled={doc.education.length <= 1}
                       onClick={() => {
                         const updated = doc.education.filter((_, i) => i !== index);
                         updateDocField('education', updated);
                       }}
-                      style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', display: 'flex', justifyContent: 'center' }}
+                      style={{ height: '38px', background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '0 8px' }}
                     >
                       <Trash2 size={16} />
                     </button>
@@ -856,16 +1270,16 @@ export function CvEditorClient() {
               {/* Competências */}
               <div>
                 <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '8px' }}>
-                  Competências Chave
+                  Competências Chave & Ferramentas
                 </h2>
                 <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginBottom: '12px' }}>
-                  Adiciona competências técnicas e comportamentais relevantes para a função.
+                  Adiciona competências técnicas e comportamentais relevantes para a função (mínimo 4 recomendadas para filtros ATS).
                 </p>
 
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', maxWidth: '440px' }}>
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', maxWidth: '460px' }}>
                   <input
                     type="text"
-                    placeholder="Ex: Gestão de Tempo, Excel, SAP..."
+                    placeholder="Ex: Excel Avançado, Primavera ERP, Gestão de Prazos..."
                     value={skillInput}
                     onChange={(e) => setSkillInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -937,7 +1351,7 @@ export function CvEditorClient() {
                     Pré-visualização do Currículo
                   </h2>
                   <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
-                    Modelo selecionado: <strong>{doc.template === 'moderno' ? 'Moderno' : 'Essencial'}</strong>.
+                    Modelo selecionado: <strong>{doc.template === 'moderno' ? 'Moderno Executivo' : 'Essencial (1 Coluna ATS)'}</strong>.
                   </p>
                 </div>
 
@@ -949,7 +1363,7 @@ export function CvEditorClient() {
                   style={{ height: '46px', padding: '0 24px', gap: '8px', fontSize: '15px' }}
                 >
                   <Download size={18} />
-                  {pdfGenerating ? 'A gerar PDF A4...' : 'Exportar PDF A4'}
+                  {pdfGenerating ? 'A gerar PDF A4...' : 'Exportar PDF A4 de Alta Fidelidade'}
                 </button>
               </div>
 
@@ -1062,7 +1476,7 @@ export function CvEditorClient() {
                 {doc.skills.length > 0 && (
                   <div>
                     <div style={{ fontSize: '12px', fontWeight: 800, color: '#1D1D1F', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1.5px solid #0057D9', paddingBottom: '3px', marginBottom: '8px', width: 'fit-content' }}>
-                      Competências
+                      Competências & Ferramentas
                     </div>
                     <div style={{ fontSize: '12px', color: '#374151' }}>
                       {doc.skills.join('  •  ')}

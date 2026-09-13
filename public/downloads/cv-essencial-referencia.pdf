@@ -3,7 +3,7 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
 endobj
 3 0 obj
 <<
@@ -13,230 +13,534 @@ endobj
   /Contents 4 0 R
   /Resources <<
     /Font <<
-      /F1 5 0 R
-      /F2 6 0 R
+      /F1 7 0 R
+      /F2 8 0 R
+      /F3 9 0 R
+      /F4 10 0 R
     >>
   >>
 >>
 endobj
 4 0 obj
 <<
-  /Length 3860
+  /Length 2940
 >>
 stream
 
-        BT
-        /F1 20 Tf
-        0.11 0.11 0.12 rg
-        50 780 Td
-        (CV Essencial  -  Guia e Referência Visual) Tj
-        ET
-        
-
-        BT
-        /F2 11 Tf
-        0.32 0.32 0.35 rg
-        50 752 Td
-        (Estrutura linear A4 em 1 coluna recomendada para o mercado em Portugal) Tj
-        ET
-        
-
-        0.96 0.96 0.97 rg
-        50 694 495 46 re
+        % Fundo suave no topo
+        0.97 0.97 0.98 rg
+        50 720 495 50 re
+        f
+        % Crachá de categoria (Pill Badge)
+        0.93 0.95 1.0 rg
+        50 728 240 24 re
         f
         0.0 0.34 0.85 RG
-        3 w
-        50 694 m
-        50 740 l
+        1 w
+        50 728 240 24 re
         S
+        BT
+        /F1 9 Tf
+        0.0 0.34 0.85 rg
+        62 735 Td
+        (MODELO OFICIAL KEDS \267 1 COLUNA ATS) Tj
+        ET
+
+        % Barra de destaque de marca KEDS
+        0.0 0.34 0.85 rg
+        50 670 90 5 re
+        f
         
 
             BT
+            /F1 26 Tf
+            0.11 0.11 0.12 rg
+            50 635 Td
+            (CV Essencial \227 Estrutura e) Tj
+            ET
+            
+
+            BT
+            /F1 26 Tf
+            0.11 0.11 0.12 rg
+            50 603 Td
+            (Refer\352ncia Visual A4) Tj
+            ET
+            
+
+            BT
+            /F2 12 Tf
+            0.32 0.32 0.35 rg
+            50 563 Td
+            (Manual de Diagrama\347\343o, Hierarquia Cronol\363gica e) Tj
+            ET
+            
+
+            BT
+            /F2 12 Tf
+            0.32 0.32 0.35 rg
+            50 545 Td
+            (Otimiza\347\343o para Filtros ATS) Tj
+            ET
+            
+
+        % Caixa de especificações técnicas
+        0.96 0.96 0.97 rg
+        50 347 495 145 re
+        f
+        0.88 0.88 0.90 RG
+        1 w
+        50 347 495 145 re
+        S
+        BT
+        /F1 11 Tf
+        0.11 0.11 0.12 rg
+        70 462 Td
+        (INFORMAÇÃO DO ENTREGÁVEL) Tj
+        ET
+        
+
+            BT
+            /F1 9.5 Tf
+            0.0 0.34 0.85 rg
+            70 435 Td
+            (Formato Recomendado:) Tj
             /F2 9.5 Tf
-            0.25 0.25 0.28 rg
-            62 728 Td
-            (Este modelo foi desenhado para edição externa no Word ou Docs. Sem) Tj
+            0.20 0.20 0.22 rg
+            160 0 Td
+            (Microsoft Word \(.docx\) ou PDF A4) Tj
             ET
             
 
             BT
+            /F1 9.5 Tf
+            0.0 0.34 0.85 rg
+            70 413 Td
+            (Compatibilidade ATS:) Tj
             /F2 9.5 Tf
-            0.25 0.25 0.28 rg
-            62 713 Td
-            (dependência de editores online.) Tj
+            0.20 0.20 0.22 rg
+            160 0 Td
+            (100% \227 Sem caixas de texto flutuantes) Tj
             ET
             
 
-        
-            0.0 0.34 0.85 RG
-            1.5 w
-            50 678 m
-            545 678 l
-            S
+            BT
+            /F1 9.5 Tf
+            0.0 0.34 0.85 rg
+            70 391 Td
+            (Leitura Humana:) Tj
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            160 0 Td
+            (Avalia\347\343o cronol\363gica em 30 segundos) Tj
+            ET
             
+
+            BT
+            /F1 9.5 Tf
+            0.0 0.34 0.85 rg
+            70 369 Td
+            (Ind\372stria Recomendada:) Tj
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            160 0 Td
+            (Servi\347os, Opera\347\365es, Banca, PMEs e Setor P\372blico) Tj
+            ET
+            
+
+        0.88 0.88 0.90 RG
+        0.75 w
+        50 80 m
+        545 80 l
+        S
         BT
-        /F1 14 Tf
-        0.0 0.34 0.85 rg
-        50 682 Td
-        (Porquê a estrutura em 1 coluna?) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            50 654 Td
-            (No mercado português, os recrutadores valorizam leitura cronológica direta. O) Tj
-            ET
-            
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            50 639 Td
-            (modelo Essencial elimina distrações visuais e permite apreender o percurso em 30) Tj
-            ET
-            
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            50 624 Td
-            (segundos.) Tj
-            ET
-            
-
-        
-            0.0 0.34 0.85 RG
-            1.5 w
-            50 599 m
-            545 599 l
-            S
-            
-        BT
-        /F1 14 Tf
-        0.0 0.34 0.85 rg
-        50 603 Td
-        (Secções Obrigatórias do Modelo) Tj
-        ET
-        
-
-        BT
-        /F1 10 Tf
-        0.0 0.34 0.85 rg
-        56 575 Td
-        (*) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 575 Td
-            (1. Contactos Profissionais: Telefone direto, email e LinkedIn.) Tj
-            ET
-            
-
-        BT
-        /F1 10 Tf
-        0.0 0.34 0.85 rg
-        56 556 Td
-        (*) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 556 Td
-            (2. Perfil Objetivo \(2 a 3 linhas\): Focado na mais-valia prática.) Tj
-            ET
-            
-
-        BT
-        /F1 10 Tf
-        0.0 0.34 0.85 rg
-        56 537 Td
-        (*) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 537 Td
-            (3. Experiência Profissional Reversa: Com 2 a 4 pontos orientados a tarefas) Tj
-            ET
-            
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 522 Td
-            (concretas.) Tj
-            ET
-            
-
-        BT
-        /F1 10 Tf
-        0.0 0.34 0.85 rg
-        56 503 Td
-        (*) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 503 Td
-            (4. Formação: Cursos oficiais, entidade e ano de conclusão.) Tj
-            ET
-            
-
-        BT
-        /F1 10 Tf
-        0.0 0.34 0.85 rg
-        56 484 Td
-        (*) Tj
-        ET
-        
-
-            BT
-            /F2 10 Tf
-            0.11 0.11 0.12 rg
-            70 484 Td
-            (5. Competências e Ferramentas: Sem barras percentuais fictícias.) Tj
-            ET
-            
-
-        BT
-        /F2 8.5 Tf
-        0.32 0.32 0.35 rg
-        50 36 Td
-        (Kit Emprego dos Sonhos - Portugal - CV Essencial  -  Referência Visual A4) Tj
-        420 0 Td
-        (Pagina 1) Tj
+        /F3 9 Tf
+        0.45 0.45 0.50 rg
+        50 62 Td
+        (KIT EMPREGO DOS SONHOS – RIGOR E APLICAÇÃO PRÁTICA – USO PESSOAL EXCLUSIVO) Tj
         ET
         
 endstream
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Contents 6 0 R
+  /Resources <<
+    /Font <<
+      /F1 7 0 R
+      /F2 8 0 R
+      /F3 9 0 R
+      /F4 10 0 R
+    >>
+  >>
+>>
 endobj
 6 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<<
+  /Length 7118
+>>
+stream
+
+        0.88 0.88 0.90 RG
+        0.75 w
+        50 805 m
+        545 805 l
+        S
+        BT
+        /F3 8 Tf
+        0.50 0.50 0.55 rg
+        50 812 Td
+        (KIT EMPREGO DOS SONHOS – GUIA PRÁTICO DE CANDIDATURA) Tj
+        ET
+        
+
+        BT
+        /F1 19 Tf
+        0.11 0.11 0.12 rg
+        50 780 Td
+        (Anatomia de um Curr\355culo de Alto Impacto) Tj
+        ET
+        
+
+        BT
+        /F3 10.5 Tf
+        0.32 0.32 0.35 rg
+        50 754 Td
+        (Porque \351 que a estrutura linear em 1 coluna lidera as contrata\347\365es em Portugal) Tj
+        ET
+        
+
+        0.93 0.95 1.0 rg
+        50 654.0 495 90.0 re
+        f
+        0.0 0.34 0.85 RG
+        3 w
+        50 654.0 m
+        50 744.0 l
+        S
+        
+
+            BT
+            /F1 8.5 Tf
+            0.0 0.34 0.85 rg
+            64 732 Td
+            (REGRA DE OURO ATS) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 717 Td
+            (Os sistemas de triagem \(ATS\) como Workday, Taleo ou BambooHR leem curr\355culos) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 702.5 Td
+            (da esquerda para a direita e de cima para baixo. Layouts em m\372ltiplas) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 688.0 Td
+            (colunas ou gr\341ficos em barra geram erros graves de importa\347\343o. O modelo) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 673.5 Td
+            (Essencial garante legibilidade total.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 640.0 m
+            545 640.0 l
+            S
+            
+        BT
+        /F1 13.5 Tf
+        0.0 0.34 0.85 rg
+        50 644.0 Td
+        (1. Os 5 Blocos Estruturais Obrigat\363rios) Tj
+        ET
+        
+
+        BT
+        /F1 10 Tf
+        0.0 0.34 0.85 rg
+        54 617.5 Td
+        (\225) Tj
+        ET
+        
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 617.5 Td
+            (Cabe\347alho Direto: Nome completo em destaque, Cidade/Distrito \(Portugal\),) Tj
+            ET
+            
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 602.5 Td
+            (Telefone direto \(+351\), Email profissional e URL limpo do LinkedIn.) Tj
+            ET
+            
+
+        BT
+        /F1 10 Tf
+        0.0 0.34 0.85 rg
+        54 583.5 Td
+        (\225) Tj
+        ET
+        
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 583.5 Td
+            (Perfil Profissional \(3 linhas\): S\355ntese de valor pr\341tica \227 quem \351s, a tua \341rea) Tj
+            ET
+            
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 568.5 Td
+            (e o teu diferencial concreto.) Tj
+            ET
+            
+
+        BT
+        /F1 10 Tf
+        0.0 0.34 0.85 rg
+        54 549.5 Td
+        (\225) Tj
+        ET
+        
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 549.5 Td
+            (Experi\352ncia Profissional Reversa: Cada cargo com Fun\347\343o, Empresa, Datas e 2 a) Tj
+            ET
+            
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 534.5 Td
+            (4 pontos orientados a a\347\343o e m\351tricas.) Tj
+            ET
+            
+
+        BT
+        /F1 10 Tf
+        0.0 0.34 0.85 rg
+        54 515.5 Td
+        (\225) Tj
+        ET
+        
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 515.5 Td
+            (Forma\347\343o e Certifica\347\365es: Cursos oficiais com institui\347\343o e ano.) Tj
+            ET
+            
+
+        BT
+        /F1 10 Tf
+        0.0 0.34 0.85 rg
+        54 496.5 Td
+        (\225) Tj
+        ET
+        
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 496.5 Td
+            (Compet\352ncias e Ferramentas: Sem barras percentuais inventadas \(ningu\351m tem) Tj
+            ET
+            
+
+            BT
+            /F2 10 Tf
+            0.11 0.11 0.12 rg
+            68 481.5 Td
+            ('85% de Excel'\). Indica ferramentas reais e n\355vel de profici\352ncia.) Tj
+            ET
+            
+
+        
+            0.0 0.34 0.85 RG
+            1.5 w
+            50 458.5 m
+            545 458.5 l
+            S
+            
+        BT
+        /F1 13.5 Tf
+        0.0 0.34 0.85 rg
+        50 462.5 Td
+        (2. Contraste de Formula\347\343o de Tarefas) Tj
+        ET
+        
+
+        0.97 0.97 0.98 rg
+        50 352.0 495 96 re
+        f
+        0.88 0.88 0.90 RG
+        1 w
+        50 352.0 495 96 re
+        S
+        
+
+        BT
+        /F1 9 Tf
+        0.80 0.20 0.20 rg
+        64 436.0 Td
+        (? Fraco / Passivo \(Apenas lista tarefas\)) Tj
+        ET
+        
+
+            BT
+            /F2 9 Tf
+            0.45 0.45 0.50 rg
+            64 421.0 Td
+            (Respons\341vel por atender o telefone e falar com clientes sobre encomendas.) Tj
+            ET
+            
+
+        0.88 0.88 0.90 RG
+        0.5 w
+        64 403.0 m
+        530 403.0 l
+        S
+        
+
+        BT
+        /F1 9 Tf
+        0.0 0.50 0.25 rg
+        64 397.0 Td
+        (? Alto Impacto KEDS \(M\351trica + A\347\343o + Contexto\)) Tj
+        ET
+        
+
+            BT
+            /F1 9 Tf
+            0.11 0.11 0.12 rg
+            64 382.0 Td
+            (Assegurei o atendimento e resolu\347\343o de 40+ pedidos di\341rios de clientes,) Tj
+            ET
+            
+
+            BT
+            /F1 9 Tf
+            0.11 0.11 0.12 rg
+            64 368.0 Td
+            (mantendo uma taxa de 94% de resolu\347\343o no primeiro contacto.) Tj
+            ET
+            
+
+        1.0 0.98 0.92 rg
+        50 276.5 495 75.5 re
+        f
+        0.85 0.47 0.02 RG
+        3 w
+        50 276.5 m
+        50 352.0 l
+        S
+        
+
+            BT
+            /F1 8.5 Tf
+            0.70 0.35 0.01 rg
+            64 340.0 Td
+            (FOTOGRAFIA NO CV) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 325.0 Td
+            (Em Portugal, a fotografia N\303O \351 obrigat\363ria por lei. No modelo Essencial,) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 310.5 Td
+            (focar exclusivamente no m\351rito e no percurso profissional aumenta a taxa de) Tj
+            ET
+            
+
+            BT
+            /F2 9.5 Tf
+            0.20 0.20 0.22 rg
+            64 296.0 Td
+            (passagem na primeira triagem.) Tj
+            ET
+            
+
+            BT
+            /F2 8.5 Tf
+            0.32 0.32 0.35 rg
+            50 36 Td
+            (Kit Emprego dos Sonhos – Portugal – CV Essencial \227 Refer\352ncia Visual A4) Tj
+            420 0 Td
+            (Página 2) Tj
+            ET
+            
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding >>
 endobj
 xref
-0 7
+0 11
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000115 00000 n 
-0000000283 00000 n 
-0000004197 00000 n 
-0000004272 00000 n 
+0000000121 00000 n 
+0000000322 00000 n 
+0000003316 00000 n 
+0000003517 00000 n 
+0000010689 00000 n 
+0000010791 00000 n 
+0000010888 00000 n 
+0000010993 00000 n 
 trailer
-<< /Size 7 /Root 1 0 R >>
+<< /Size 11 /Root 1 0 R >>
 startxref
-4342
+11103
 %%EOF
