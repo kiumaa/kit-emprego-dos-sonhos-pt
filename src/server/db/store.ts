@@ -95,7 +95,6 @@ export function isTestUserEmail(email: string): boolean {
   const normalized = email.trim().toLowerCase();
   return (
     normalized === 'teste@exemplo.pt' ||
-    normalized === 'kiuma@kbagency.me' ||
     Boolean(process.env.TEST_USER_EMAIL && normalized === process.env.TEST_USER_EMAIL.trim().toLowerCase())
   );
 }
