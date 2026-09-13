@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     }
 
     const isTest = isTestUserEmail(email);
-    const hasEntitlement = store.hasEntitlementsForEmail(email);
+    const hasEntitlement = (await store.hasEntitlementsForEmailAsync(email)) || store.hasEntitlementsForEmail(email);
 
     if (!isTest && !hasEntitlement) {
       return NextResponse.json(
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     store.seedTestEntitlementsIfApplicable(email, subject);
 
     // Associar os direitos existentes da OKANDA a este subject
-    const claimedCount = store.claimEntitlements(email, subject);
+    const claimedCount = await store.claimEntitlementsAsync(email, subject);
 
     // Assinar token de sessão de 30 dias
     const token = signSessionPayload(subject, email);

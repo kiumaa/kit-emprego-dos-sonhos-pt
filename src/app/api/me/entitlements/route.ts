@@ -12,9 +12,9 @@ export async function GET() {
   }
 
   // Se houver compras não associadas para o email da sessão, associar agora (idempotente)
-  store.claimEntitlements(session.email, session.subject);
+  await store.claimEntitlementsAsync(session.email, session.subject);
 
-  const rawEntitlements = store.getEntitlementsBySubject(session.subject);
+  const rawEntitlements = await store.getEntitlementsBySubjectAsync(session.subject);
   const now = Date.now();
 
   const entitlements = rawEntitlements.map((ent) => {

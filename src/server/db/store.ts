@@ -4,6 +4,7 @@
  * e compatibilidade de transação com schema keds_v5.
  */
 import { createHash, randomUUID } from 'node:crypto';
+import { neon } from '@neondatabase/serverless';
 import {
   decideActivation,
   canReadExisting,
@@ -12,6 +13,16 @@ import {
   ActivationDecision,
 } from '../access/access-policy';
 import { VerifiedSalePaid, replayDecision } from '../integrations/okanda-verifier';
+
+function getNeonSql() {
+  const url = process.env.DATABASE_URL;
+  if (!url) return null;
+  try {
+    return neon(url);
+  } catch {
+    return null;
+  }
+}
 
 export interface StoredEntitlement {
   id: string;
@@ -84,6 +95,7 @@ export function isTestUserEmail(email: string): boolean {
   const normalized = email.trim().toLowerCase();
   return (
     normalized === 'teste@exemplo.pt' ||
+    normalized === 'kiuma@kbagency.me' ||
     Boolean(process.env.TEST_USER_EMAIL && normalized === process.env.TEST_USER_EMAIL.trim().toLowerCase())
   );
 }
@@ -230,6 +242,10 @@ class Store {
     return { status: 'inserted' };
   }
 
+  addEntitlementDirectly(ent: StoredEntitlement) {
+    this.entitlements.set(ent.id, ent);
+  }
+
   hasEntitlementsForEmail(email: string): boolean {
     if (!email) return false;
     if (isTestUserEmail(email)) return true;
@@ -240,6 +256,132 @@ class Store {
       }
     }
     return false;
+  }
+
+  async hasEntitlementsForEmailAsync(email: string): Promise<boolean> {
+    if (!email) return false;
+    if (isTestUserEmail(email)) return true;
+    if (this.hasEntitlementsForEmail(email)) return true;
+
+    const sql = getNeonSql();
+    if (!sql) return false;
+
+    try {
+      const normalized = email.trim().toLowerCase();
+      const lookupKey = hashEmail(normalized);
+      const rows = await sql`
+        SELECT id FROM keds_entitlements
+        WHERE (email_lookup_key = ${lookupKey} OR LOWER(email) = ${normalized})
+          AND status = 'active'
+        LIMIT 1;
+      `;
+      return rows.length > 0;
+    } catch (e) {
+      console.error('[DB ERROR hasEntitlementsForEmailAsync]', e);
+      return false;
+    }
+  }
+
+  async saveEntitlementToDbAsync(entitlement: StoredEntitlement): Promise<void> {
+    const sql = getNeonSql();
+    if (!sql) return;
+
+    try {
+      await sql`
+        INSERT INTO keds_entitlements (
+          id, provider, sale_id, product_id, product_key,
+          email_lookup_key, email, auth_subject, status,
+          amount_minor, currency, offer_version, policy_version,
+          max_activations, activations_used, window_hours,
+          access_expires_at_ms, created_at_ms
+        ) VALUES (
+          ${entitlement.id}, ${entitlement.provider}, ${entitlement.saleId}, ${entitlement.productId}, ${entitlement.productKey},
+          ${entitlement.emailLookupKey}, ${entitlement.email}, ${entitlement.authSubject}, ${entitlement.status},
+          ${entitlement.amountMinor}, ${entitlement.currency}, ${entitlement.offerVersion}, ${entitlement.policyVersion},
+          ${entitlement.maxActivations}, ${entitlement.activationsUsed}, ${entitlement.windowHours},
+          ${entitlement.accessExpiresAtMs}, ${entitlement.createdAtMs}
+        )
+        ON CONFLICT (id) DO UPDATE SET
+          status = ${entitlement.status},
+          auth_subject = COALESCE(${entitlement.authSubject}, keds_entitlements.auth_subject);
+      `;
+    } catch (e) {
+      console.error('[DB ERROR saveEntitlementToDbAsync]', e);
+    }
+  }
+
+  async claimEntitlementsAsync(email: string, subject: string): Promise<number> {
+    const memoryCount = this.claimEntitlements(email, subject);
+    const sql = getNeonSql();
+    if (!sql) return memoryCount;
+
+    try {
+      const normalized = email.trim().toLowerCase();
+      const lookupKey = hashEmail(normalized);
+      const rows = await sql`
+        UPDATE keds_entitlements
+        SET auth_subject = ${subject}
+        WHERE (email_lookup_key = ${lookupKey} OR LOWER(email) = ${normalized})
+          AND status = 'active'
+        RETURNING id;
+      `;
+      return Math.max(memoryCount, rows.length);
+    } catch (e) {
+      console.error('[DB ERROR claimEntitlementsAsync]', e);
+      return memoryCount;
+    }
+  }
+
+  async getEntitlementsBySubjectAsync(subject: string): Promise<StoredEntitlement[]> {
+    const memoryResults = this.getEntitlementsBySubject(subject);
+    const sql = getNeonSql();
+    if (!sql) return memoryResults;
+
+    try {
+      const rows = await sql`
+        SELECT * FROM keds_entitlements
+        WHERE auth_subject = ${subject} AND status = 'active';
+      `;
+
+      if (rows.length === 0) {
+        return memoryResults;
+      }
+
+      const map = new Map<string, StoredEntitlement>();
+      for (const m of memoryResults) {
+        map.set(m.productKey, m);
+      }
+
+      for (const r of rows) {
+        const ent: StoredEntitlement = {
+          id: r.id as string,
+          provider: r.provider as string,
+          saleId: r.sale_id as string,
+          productId: r.product_id as string,
+          productKey: r.product_key as 'kit' | 'entrevista' | 'linkedin',
+          emailLookupKey: r.email_lookup_key as string,
+          email: r.email as string,
+          authSubject: r.auth_subject as string | null,
+          status: r.status as 'active' | 'revoked',
+          amountMinor: Number(r.amount_minor),
+          currency: r.currency as string,
+          offerVersion: r.offer_version as string,
+          policyVersion: r.policy_version as string,
+          maxActivations: r.max_activations as number | null,
+          activationsUsed: Number(r.activations_used),
+          windowHours: Number(r.window_hours),
+          accessExpiresAtMs: r.access_expires_at_ms ? Number(r.access_expires_at_ms) : null,
+          createdAtMs: Number(r.created_at_ms),
+        };
+        map.set(ent.productKey, ent);
+        this.entitlements.set(ent.id, ent);
+      }
+
+      return Array.from(map.values());
+    } catch (e) {
+      console.error('[DB ERROR getEntitlementsBySubjectAsync]', e);
+      return memoryResults;
+    }
   }
 
   claimEntitlements(email: string, subject: string): number {
