@@ -7,7 +7,8 @@ export interface CheckoutValidationResult {
 }
 
 export function getValidatedCheckoutUrl(): CheckoutValidationResult {
-  const configuredUrl = process.env.NEXT_PUBLIC_OKANDA_CHECKOUT_URL || funnelData.checkout.url;
+  const envUrl = process.env.NEXT_PUBLIC_OKANDA_CHECKOUT_URL;
+  const configuredUrl = envUrl !== undefined ? envUrl : funnelData.checkout.url;
 
   if (!configuredUrl || typeof configuredUrl !== 'string' || configuredUrl.trim() === '') {
     return {

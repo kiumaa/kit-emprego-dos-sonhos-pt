@@ -3,7 +3,7 @@
   "locale": "pt-PT",
   "checkout": {
     "provider": "okanda",
-    "url": null,
+    "url": "https://okandapay.com/checkout/kit-emprego-dos-sonhos-mtz4h7e8?pid=c38e6af8-098c-48c6-b1c5-a680c5ee4a6b",
     "allowedHosts": [
       "okandapay.com"
     ],
