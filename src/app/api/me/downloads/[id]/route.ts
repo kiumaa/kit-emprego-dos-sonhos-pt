@@ -23,7 +23,7 @@ export async function GET(
   }
 
   // Verifica se o comprador tem o direito para este recurso
-  const userEntitlements = store.getEntitlementsBySubject(session.subject);
+  const userEntitlements = await store.getEntitlementsBySubjectAsync(session.subject);
   const hasEntitlement = userEntitlements.some(
     (e) => e.productKey === deliverable.entitlement && e.status === 'active'
   );

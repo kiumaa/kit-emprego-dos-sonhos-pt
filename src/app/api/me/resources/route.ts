@@ -12,7 +12,7 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
   }
 
-  const userEntitlements = store.getEntitlementsBySubject(session.subject);
+  const userEntitlements = await store.getEntitlementsBySubjectAsync(session.subject);
   const activeKeys = new Set(
     userEntitlements.filter((e) => e.status === 'active').map((e) => e.productKey)
   );

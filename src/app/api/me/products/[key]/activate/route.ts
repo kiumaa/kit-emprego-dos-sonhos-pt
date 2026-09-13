@@ -31,7 +31,7 @@ export async function POST(
     }
 
     // Procura o entitlement do utilizador para este produto
-    const entitlement = store.getEntitlementForProduct(session.subject, key as 'kit' | 'entrevista' | 'linkedin');
+    const entitlement = await store.getEntitlementForProductAsync(session.subject, key as 'kit' | 'entrevista' | 'linkedin');
     if (!entitlement) {
       return NextResponse.json(
         {
@@ -43,7 +43,7 @@ export async function POST(
       );
     }
 
-    const result = store.openWorkWindow(entitlement.id, session.subject, requestId);
+    const result = await store.openWorkWindowAsync(entitlement.id, session.subject, requestId);
 
     return NextResponse.json({
       ok: true,

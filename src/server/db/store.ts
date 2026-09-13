@@ -376,11 +376,183 @@ class Store {
         this.entitlements.set(ent.id, ent);
       }
 
+      const entIds = rows.map((r) => r.id as string);
+      if (entIds.length > 0) {
+        try {
+          const winRows = await sql`
+            SELECT id, entitlement_id, ordinal, started_at_ms, expires_at_ms, revoked_at_ms
+            FROM keds_work_windows
+            WHERE entitlement_id = ANY(${entIds})
+              AND revoked_at_ms IS NULL
+              AND expires_at_ms > ${Date.now()};
+          `;
+          for (const w of winRows) {
+            this.workWindows.set(w.id as string, {
+              id: w.id as string,
+              entitlementId: w.entitlement_id as string,
+              ordinal: Number(w.ordinal),
+              startedAtMs: Number(w.started_at_ms),
+              expiresAtMs: Number(w.expires_at_ms),
+              revokedAtMs: w.revoked_at_ms ? Number(w.revoked_at_ms) : null,
+            });
+          }
+        } catch (we) {
+          console.error('[DB ERROR loadWindows]', we);
+        }
+      }
+
       return Array.from(map.values());
     } catch (e) {
       console.error('[DB ERROR getEntitlementsBySubjectAsync]', e);
       return memoryResults;
     }
+  }
+
+  async getEntitlementForProductAsync(
+    subject: string,
+    productKey: 'kit' | 'entrevista' | 'linkedin'
+  ): Promise<StoredEntitlement | undefined> {
+    const list = await this.getEntitlementsBySubjectAsync(subject);
+    return list.find((e) => e.productKey === productKey && e.status === 'active');
+  }
+
+  async getActiveWindowAsync(entitlementId: string, nowMs = Date.now()): Promise<StoredWorkWindow | null> {
+    const active = this.getActiveWindow(entitlementId, nowMs);
+    if (active) return active;
+
+    const sql = getNeonSql();
+    if (!sql) return null;
+
+    try {
+      const rows = await sql`
+        SELECT id, entitlement_id, ordinal, started_at_ms, expires_at_ms, revoked_at_ms
+        FROM keds_work_windows
+        WHERE entitlement_id = ${entitlementId}
+          AND revoked_at_ms IS NULL
+          AND expires_at_ms > ${nowMs}
+        ORDER BY started_at_ms DESC
+        LIMIT 1;
+      `;
+      if (rows.length === 0) return null;
+      const r = rows[0];
+      const win: StoredWorkWindow = {
+        id: r.id as string,
+        entitlementId: r.entitlement_id as string,
+        ordinal: Number(r.ordinal),
+        startedAtMs: Number(r.started_at_ms),
+        expiresAtMs: Number(r.expires_at_ms),
+        revokedAtMs: r.revoked_at_ms ? Number(r.revoked_at_ms) : null,
+      };
+      this.workWindows.set(win.id, win);
+      return win;
+    } catch (e) {
+      console.error('[DB ERROR getActiveWindowAsync]', e);
+      return null;
+    }
+  }
+
+  async openWorkWindowAsync(
+    entitlementId: string,
+    subject: string,
+    requestId: string,
+    nowMs = Date.now()
+  ): Promise<{
+    outcome: 'create' | 'resume' | 'expired_replay';
+    window: StoredWorkWindow;
+    activationsUsed: number;
+    remaining: number | null;
+  }> {
+    await this.getActiveWindowAsync(entitlementId, nowMs);
+    const result = this.openWorkWindow(entitlementId, subject, requestId, nowMs);
+
+    const sql = getNeonSql();
+    if (sql && result.outcome === 'create') {
+      try {
+        await sql`
+          INSERT INTO keds_work_windows (
+            id, entitlement_id, ordinal, started_at_ms, expires_at_ms, revoked_at_ms
+          ) VALUES (
+            ${result.window.id}, ${result.window.entitlementId}, ${result.window.ordinal},
+            ${result.window.startedAtMs}, ${result.window.expiresAtMs}, ${result.window.revokedAtMs}
+          )
+          ON CONFLICT (id) DO NOTHING;
+        `;
+        await sql`
+          UPDATE keds_entitlements
+          SET activations_used = ${result.activationsUsed}
+          WHERE id = ${entitlementId};
+        `;
+      } catch (e) {
+        console.error('[DB ERROR openWorkWindowAsync]', e);
+      }
+    }
+
+    return result;
+  }
+
+  async getCVDraftAsync(id: string, subject: string): Promise<StoredCVDraft | null> {
+    const existing = this.getCVDraft(id, subject);
+    if (existing) return existing;
+
+    const sql = getNeonSql();
+    if (!sql) return null;
+
+    try {
+      const rows = await sql`
+        SELECT id, owner_subject, entitlement_id, version, document, updated_at_ms
+        FROM keds_cv_drafts
+        WHERE id = ${id} AND owner_subject = ${subject}
+        LIMIT 1;
+      `;
+      if (rows.length === 0) return null;
+      const r = rows[0];
+      const draft: StoredCVDraft = {
+        id: r.id as string,
+        ownerSubject: r.owner_subject as string,
+        entitlementId: r.entitlement_id as string,
+        version: Number(r.version),
+        document: (typeof r.document === 'string' ? JSON.parse(r.document) : r.document) as Record<string, unknown>,
+        updatedAtMs: Number(r.updated_at_ms),
+      };
+      this.cvDrafts.set(draft.id, draft);
+      return draft;
+    } catch (e) {
+      console.error('[DB ERROR getCVDraftAsync]', e);
+      return null;
+    }
+  }
+
+  async saveCVDraftAsync(
+    id: string,
+    subject: string,
+    entitlementId: string,
+    document: Record<string, unknown>,
+    expectedVersion?: number
+  ): Promise<StoredCVDraft> {
+    await this.getCVDraftAsync(id, subject);
+    const saved = this.saveCVDraft(id, subject, entitlementId, document, expectedVersion);
+
+    const sql = getNeonSql();
+    if (sql) {
+      try {
+        await sql`
+          INSERT INTO keds_cv_drafts (
+            id, owner_subject, entitlement_id, version, document, updated_at_ms
+          ) VALUES (
+            ${saved.id}, ${saved.ownerSubject}, ${saved.entitlementId}, ${saved.version},
+            ${JSON.stringify(saved.document)}, ${saved.updatedAtMs}
+          )
+          ON CONFLICT (id) DO UPDATE SET
+            version = ${saved.version},
+            document = ${JSON.stringify(saved.document)},
+            updated_at_ms = ${saved.updatedAtMs};
+        `;
+      } catch (e) {
+        console.error('[DB ERROR saveCVDraftAsync]', e);
+      }
+    }
+
+    return saved;
   }
 
   claimEntitlements(email: string, subject: string): number {

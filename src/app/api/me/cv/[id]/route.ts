@@ -16,7 +16,7 @@ export async function GET(
     return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
   }
 
-  const kitEnt = store.getEntitlementForProduct(session.subject, 'kit');
+  const kitEnt = await store.getEntitlementForProductAsync(session.subject, 'kit');
   if (!kitEnt) {
     return NextResponse.json(
       { ok: false, error: 'PRODUCT_NOT_PURCHASED', message: 'Acesso ao Kit não encontrado.' },
@@ -43,8 +43,8 @@ export async function GET(
     return NextResponse.json({ ok: false, error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const activeWindow = store.getActiveWindow(kitEnt.id);
-  let draft = store.getCVDraft(params.id, session.subject);
+  const activeWindow = await store.getActiveWindowAsync(kitEnt.id);
+  let draft = await store.getCVDraftAsync(params.id, session.subject);
 
   // Se não existir, criar rascunho inicial
   if (!draft) {
@@ -64,7 +64,7 @@ export async function GET(
       education: [],
       skills: [],
     };
-    draft = store.saveCVDraft(params.id, session.subject, kitEnt.id, initialDoc);
+    draft = await store.saveCVDraftAsync(params.id, session.subject, kitEnt.id, initialDoc);
   }
 
   return NextResponse.json({
@@ -90,13 +90,13 @@ export async function PUT(
       return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
     }
 
-    const kitEnt = store.getEntitlementForProduct(session.subject, 'kit');
+    const kitEnt = await store.getEntitlementForProductAsync(session.subject, 'kit');
     if (!kitEnt || kitEnt.status !== 'active') {
       return NextResponse.json({ ok: false, error: 'FORBIDDEN' }, { status: 403 });
     }
 
     // Verificar se existe uma janela de trabalho ativa
-    const activeWindow = store.getActiveWindow(kitEnt.id);
+    const activeWindow = await store.getActiveWindowAsync(kitEnt.id);
     if (!activeWindow) {
       return NextResponse.json(
         {
@@ -120,7 +120,7 @@ export async function PUT(
       document.template = 'essencial';
     }
 
-    const saved = store.saveCVDraft(
+    const saved = await store.saveCVDraftAsync(
       params.id,
       session.subject,
       kitEnt.id,

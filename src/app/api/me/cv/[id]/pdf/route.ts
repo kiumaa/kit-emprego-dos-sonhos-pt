@@ -17,12 +17,12 @@ export async function POST(
       return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
     }
 
-    const kitEnt = store.getEntitlementForProduct(session.subject, 'kit');
+    const kitEnt = await store.getEntitlementForProductAsync(session.subject, 'kit');
     if (!kitEnt || kitEnt.status !== 'active') {
       return NextResponse.json({ ok: false, error: 'FORBIDDEN' }, { status: 403 });
     }
 
-    const activeWindow = store.getActiveWindow(kitEnt.id);
+    const activeWindow = await store.getActiveWindowAsync(kitEnt.id);
     if (!activeWindow) {
       return NextResponse.json(
         {
@@ -34,7 +34,7 @@ export async function POST(
       );
     }
 
-    const draft = store.getCVDraft(params.id, session.subject);
+    const draft = await store.getCVDraftAsync(params.id, session.subject);
     if (!draft) {
       return NextResponse.json({ ok: false, error: 'DRAFT_NOT_FOUND' }, { status: 404 });
     }

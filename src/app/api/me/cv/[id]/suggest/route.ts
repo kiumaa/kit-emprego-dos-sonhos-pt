@@ -29,12 +29,12 @@ export async function POST(
       return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
     }
 
-    const kitEnt = store.getEntitlementForProduct(session.subject, 'kit');
+    const kitEnt = await store.getEntitlementForProductAsync(session.subject, 'kit');
     if (!kitEnt || kitEnt.status !== 'active') {
       return NextResponse.json({ ok: false, error: 'FORBIDDEN' }, { status: 403 });
     }
 
-    const activeWindow = store.getActiveWindow(kitEnt.id);
+    const activeWindow = await store.getActiveWindowAsync(kitEnt.id);
     if (!activeWindow) {
       return NextResponse.json(
         { ok: false, error: 'NO_ACTIVE_WORK_WINDOW', message: 'Necessitas de uma sessão de trabalho ativa.' },
