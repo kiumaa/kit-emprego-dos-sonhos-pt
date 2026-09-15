@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { UploadCloud, FileText, Lock, ArrowRight, HelpCircle, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
+import { trackLead } from '@/lib/analytics/meta-tracking';
 
 export default function AnalyzeCvPage() {
   const router = useRouter();
@@ -120,6 +121,7 @@ export default function AnalyzeCvPage() {
       }
 
       // Guardar resultado na sessão e navegar imediatamente
+      trackLead('cv', data.id);
       sessionStorage.setItem(`keds_result_${data.id}`, JSON.stringify(data));
       router.push(`/resultado/${data.id}`);
     } catch {

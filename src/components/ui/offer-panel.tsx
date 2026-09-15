@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
+import { trackInitiateCheckout } from '@/lib/analytics/meta-tracking';
 
 export interface OfferPanelProps {
   id?: string;
@@ -131,6 +134,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             href={checkout.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackInitiateCheckout('kit', 14.99)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',

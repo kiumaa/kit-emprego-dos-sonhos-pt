@@ -6,6 +6,7 @@ import defaultSpec from '../../../content/quiz/quiz.json';
 import { BrandLogo } from '@/components/layout/brand-logo';
 import { evaluateQuiz } from '@/lib/quiz/quiz-engine';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { trackLead } from '@/lib/analytics/meta-tracking';
 
 // As 5 perguntas centrais de autorrelato para o diagnóstico de 5 perguntas
 const activeQuestions = defaultSpec.questions;
@@ -113,6 +114,7 @@ export default function QuizPage() {
       // Contrato de 5 perguntas: passa estritamente as respostas do utilizador sem injeção de baselineAnswers
       const result = evaluateQuiz(answers);
       const resultId = `qz-${Date.now().toString(36)}`;
+      trackLead('quiz', resultId);
       sessionStorage.setItem(`keds_result_${resultId}`, JSON.stringify(result));
       router.push(`/resultado/${resultId}`);
     } catch (err: unknown) {

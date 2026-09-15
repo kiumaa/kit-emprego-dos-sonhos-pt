@@ -1,16 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ArrowRight, ShieldCheck, Check } from 'lucide-react';
+import { trackInitiateCheckout, trackViewContent } from '@/lib/analytics/meta-tracking';
 
 export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
   const checkout = getValidatedCheckoutUrl();
+
+  useEffect(() => {
+    trackViewContent('Kit Emprego dos Sonhos', 'kit', 14.99);
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
@@ -122,6 +127,7 @@ export default function ProductKitPage() {
                   href={checkout.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackInitiateCheckout('kit', 14.99)}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -312,6 +318,7 @@ export default function ProductKitPage() {
                 href={checkout.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackInitiateCheckout('kit', 14.99)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',

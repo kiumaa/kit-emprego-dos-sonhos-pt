@@ -9,6 +9,7 @@ import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
 import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Download } from 'lucide-react';
 import type { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
+import { trackViewContent } from '@/lib/analytics/meta-tracking';
 
 export default function ResultPage() {
   const params = useParams();
@@ -33,6 +34,7 @@ export default function ResultPage() {
         ) {
           setResult(parsed);
           setLoading(false);
+          trackViewContent('Resultado do Diagnóstico', resultId);
           return;
         }
       }

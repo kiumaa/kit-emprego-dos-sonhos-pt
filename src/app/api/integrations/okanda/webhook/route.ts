@@ -6,6 +6,7 @@ import {
   WebhookError,
 } from '@/server/integrations/okanda-verifier';
 import { store, StoredEntitlement, hashEmail } from '@/server/db/store';
+import { sendMetaConversionEventAsync } from '@/server/analytics/meta-conversions';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -248,6 +249,31 @@ export async function POST(request: NextRequest) {
       };
       await store.saveEntitlementToDbAsync(entRecord);
 
+      // Disparar evento Purchase para a Meta Conversions API (CAPI)
+      const productNameMap: Record<string, string> = {
+        kit: 'Kit Emprego dos Sonhos',
+        entrevista: 'Acelerador Entrevista dos Sonhos',
+        linkedin: 'Acelerador LinkedIn dos Sonhos',
+      };
+
+      sendMetaConversionEventAsync({
+        eventName: 'Purchase',
+        eventId: verified.saleId,
+        actionSource: 'website',
+        eventSourceUrl: 'https://kit-emprego-dos-sonhos.pt/obrigado',
+        userData: {
+          email: verified.email,
+        },
+        customData: {
+          value: verified.amountMinor / 100,
+          currency: verified.currency || 'EUR',
+          content_name: productNameMap[verified.productKey] || verified.productKey,
+          content_type: 'product',
+          content_ids: [verified.productId || verified.productKey],
+          order_id: verified.saleId,
+        },
+      });
+
       return NextResponse.json({
         ok: true,
         status: result.status,
@@ -307,7 +333,32 @@ export async function POST(request: NextRequest) {
         store.addEntitlementDirectly(entitlement);
         await store.saveEntitlementToDbAsync(entitlement);
 
-        console.log('[OKANDA WEBHOOK RECOVERED SUCCESS]', { email: cleanEmail, productKey, saleId });
+        // Disparar evento Purchase para a Meta Conversions API (CAPI)
+        const productNameMap: Record<string, string> = {
+          kit: 'Kit Emprego dos Sonhos',
+          entrevista: 'Acelerador Entrevista dos Sonhos',
+          linkedin: 'Acelerador LinkedIn dos Sonhos',
+        };
+
+        sendMetaConversionEventAsync({
+          eventName: 'Purchase',
+          eventId: saleId,
+          actionSource: 'website',
+          eventSourceUrl: 'https://kit-emprego-dos-sonhos.pt/obrigado',
+          userData: {
+            email: cleanEmail,
+          },
+          customData: {
+            value: (amountMinor > 0 ? amountMinor : 1499) / 100,
+            currency: String(payloadParsed?.sale?.currency || payloadParsed?.currency || 'EUR'),
+            content_name: productNameMap[productKey] || productKey,
+            content_type: 'product',
+            content_ids: [productId || productKey],
+            order_id: saleId,
+          },
+        });
+
+        console.log('[OKANDA WEBHOOK RECOVERED SUCCESS]', { emailHash: hashEmail(cleanEmail), productKey, saleId });
 
         return NextResponse.json({
           ok: true,
