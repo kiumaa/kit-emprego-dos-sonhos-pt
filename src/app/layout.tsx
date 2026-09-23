@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { MarketingTracker } from '@/components/analytics/marketing-tracker';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -6,6 +7,19 @@ export const metadata: Metadata = {
   description: 'Clareza para o próximo passo profissional. Diagnóstico de preparação e recursos práticos para candidaturas em Portugal.',
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Kit Emprego dos Sonhos — Portugal',
+    description: 'Diagnóstico gratuito de currículo e preparação prática para candidaturas no mercado português.',
+    url: 'https://kit-emprego-dos-sonhos-pt.vercel.app',
+    siteName: 'Kit Emprego dos Sonhos',
+    locale: 'pt_PT',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kit Emprego dos Sonhos — Portugal',
+    description: 'Diagnóstico gratuito de currículo e recursos práticos para o mercado português.',
   },
 };
 
@@ -49,6 +63,7 @@ fbq('track', 'PageView');`,
         {/* End Meta Pixel Code */}
       </head>
       <body>
+        <MarketingTracker />
         <a href="#main-content" className="skip-link">
           Saltar para o conteúdo principal
         </a>

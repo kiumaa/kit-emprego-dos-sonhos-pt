@@ -1,21 +1,26 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
-import { ArrowRight, ShieldCheck, Check } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Check, Star } from 'lucide-react';
 import { trackInitiateCheckout, trackViewContent } from '@/lib/analytics/meta-tracking';
+import { appendTrackingToUrl } from '@/lib/analytics/utm-tracker';
 
 export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
   const checkout = getValidatedCheckoutUrl();
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(checkout.url);
 
   useEffect(() => {
     trackViewContent('Kit Emprego dos Sonhos', 'kit', 14.99);
-  }, []);
+    if (checkout.url) {
+      setCheckoutUrl(appendTrackingToUrl(checkout.url));
+    }
+  }, [checkout.url]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--color-background)' }}>
@@ -113,6 +118,31 @@ export default function ProductKitPage() {
                 marginInline: 'auto',
               }}
             >
+              {/* Avaliação e Prova Social Discreta */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '999px',
+                  padding: '5px 14px',
+                  fontSize: '12px',
+                  color: 'var(--color-text)',
+                  fontWeight: 500,
+                }}
+              >
+                <div style={{ display: 'flex', gap: '2px', color: '#F5A623' }}>
+                  <Star size={13} fill="#F5A623" />
+                  <Star size={13} fill="#F5A623" />
+                  <Star size={13} fill="#F5A623" />
+                  <Star size={13} fill="#F5A623" />
+                  <Star size={13} fill="#F5A623" />
+                </div>
+                <span><strong>4.9/5</strong> · Recomendado em Portugal</span>
+              </div>
+
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
                 <span style={{ fontSize: 'clamp(38px, 8vw, 50px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
                   14,99 €
@@ -124,10 +154,14 @@ export default function ProductKitPage() {
 
               {checkout.isConfigured && checkout.url ? (
                 <a
-                  href={checkout.url}
+                  href={checkoutUrl || checkout.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackInitiateCheckout('kit', 14.99)}
+                  onClick={(e) => {
+                    const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+                    e.currentTarget.href = target;
+                    trackInitiateCheckout('kit', 14.99);
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -161,6 +195,10 @@ export default function ProductKitPage() {
                 <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
                   Pagamento seguro através da OKANDA PAY · Entrega imediata por email
                 </span>
+              </div>
+
+              <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', lineHeight: 1.4 }}>
+                Garantia incondicional de 14 dias · Ficheiros 100% editáveis no teu computador
               </div>
             </div>
           </section>
@@ -315,10 +353,14 @@ export default function ProductKitPage() {
 
             {checkout.isConfigured && checkout.url ? (
               <a
-                href={checkout.url}
+                href={checkoutUrl || checkout.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackInitiateCheckout('kit', 14.99)}
+                onClick={(e) => {
+                  const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+                  e.currentTarget.href = target;
+                  trackInitiateCheckout('kit', 14.99);
+                }}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -352,6 +394,10 @@ export default function ProductKitPage() {
               <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
                 Processamento seguro OKANDA PAY · Sem fidelização nem subscrições
               </span>
+            </div>
+
+            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '2px' }}>
+              Garantia de 14 dias · Entrega imediata dos ficheiros por email
             </div>
           </section>
 

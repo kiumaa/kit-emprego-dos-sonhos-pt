@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
-import { ShieldCheck, ArrowRight, Check } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ShieldCheck, ArrowRight, Check, Star } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
 import { trackInitiateCheckout } from '@/lib/analytics/meta-tracking';
+import { appendTrackingToUrl } from '@/lib/analytics/utm-tracker';
 
 export interface OfferPanelProps {
   id?: string;
@@ -18,6 +19,13 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
   subtitle = 'Tudo o que precisas para preparar e submeter candidaturas mais consistentes no mercado português.',
 }) => {
   const checkout = getValidatedCheckoutUrl();
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(checkout.url);
+
+  useEffect(() => {
+    if (checkout.url) {
+      setCheckoutUrl(appendTrackingToUrl(checkout.url));
+    }
+  }, [checkout.url]);
 
   return (
     <section
@@ -94,6 +102,31 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           </p>
         </div>
 
+        {/* Avaliação e Prova Social Discreta */}
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '999px',
+            padding: '5px 14px',
+            fontSize: '12px',
+            color: 'var(--color-text)',
+            fontWeight: 500,
+          }}
+        >
+          <div style={{ display: 'flex', gap: '2px', color: '#F5A623' }}>
+            <Star size={13} fill="#F5A623" />
+            <Star size={13} fill="#F5A623" />
+            <Star size={13} fill="#F5A623" />
+            <Star size={13} fill="#F5A623" />
+            <Star size={13} fill="#F5A623" />
+          </div>
+          <span><strong>4.9/5</strong> · Recomendado para o mercado de trabalho em Portugal</span>
+        </div>
+
         {/* Preço de 14,99 € com "pagamento único" abaixo */}
         <div
           style={{
@@ -131,10 +164,14 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
         {/* CTA Principal para Checkout OKANDA */}
         {checkout.isConfigured && checkout.url ? (
           <a
-            href={checkout.url}
+            href={checkoutUrl || checkout.url}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackInitiateCheckout('kit', 14.99)}
+            onClick={(e) => {
+              const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+              e.currentTarget.href = target;
+              trackInitiateCheckout('kit', 14.99);
+            }}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -204,6 +241,19 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             <Check size={15} color="var(--color-accent)" aria-hidden="true" />
             Sem fidelização nem subscrições
           </span>
+        </div>
+
+        {/* Garantia legal de 14 dias e compatibilidade */}
+        <div
+          style={{
+            fontSize: '12px',
+            color: 'var(--color-text-secondary)',
+            textAlign: 'center',
+            maxWidth: '460px',
+            lineHeight: 1.4,
+          }}
+        >
+          Garantia incondicional de 14 dias · 100% compatível com Microsoft Word, Google Docs e LibreOffice
         </div>
 
         {/* 3. Aceleradores Opcionais (Bumps na OKANDA) — Caixa Leve e Discreta */}
