@@ -3,13 +3,13 @@ import { MarketingTracker } from '@/components/analytics/marketing-tracker';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Kit Emprego dos Sonhos — Portugal',
+  title: 'Kit Emprego dos Sonhos',
   description: 'Clareza para o próximo passo profissional. Diagnóstico de preparação e recursos práticos para candidaturas em Portugal.',
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
-    title: 'Kit Emprego dos Sonhos — Portugal',
+    title: 'Kit Emprego dos Sonhos',
     description: 'Diagnóstico gratuito de currículo e preparação prática para candidaturas no mercado português.',
     url: 'https://kit-emprego-dos-sonhos-pt.vercel.app',
     siteName: 'Kit Emprego dos Sonhos',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kit Emprego dos Sonhos — Portugal',
+    title: 'Kit Emprego dos Sonhos',
     description: 'Diagnóstico gratuito de currículo e recursos práticos para o mercado português.',
   },
 };

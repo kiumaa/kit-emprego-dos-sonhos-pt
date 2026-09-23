@@ -15,7 +15,7 @@ export interface OfferPanelProps {
 
 export const OfferPanel: React.FC<OfferPanelProps> = ({
   id = 'oferta',
-  title = 'Kit Emprego dos Sonhos — Portugal',
+  title = 'Kit Emprego dos Sonhos',
   subtitle = 'Tudo o que precisas para preparar e submeter candidaturas mais consistentes no mercado português.',
 }) => {
   const checkout = getValidatedCheckoutUrl();
@@ -124,7 +124,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             <Star size={13} fill="#F5A623" />
             <Star size={13} fill="#F5A623" />
           </div>
-          <span><strong>4.9/5</strong> · Recomendado para o mercado de trabalho em Portugal</span>
+          <span><strong>4.9/5</strong> · RECOMENDADO</span>
         </div>
 
         {/* Preço e Destaque de Valor */}

@@ -18,6 +18,7 @@ export default function ResultPage() {
   const [result, setResult] = useState<UnifiedDiagnosticResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [showFullDiagnostic, setShowFullDiagnostic] = useState(false);
 
   const funnelConfig = getFunnelConfig();
 
@@ -236,147 +237,184 @@ export default function ResultPage() {
               >
                 {result.summary}
               </p>
-            </div>
 
-            {/* As tuas prioridades — 3 Pontos Estruturados e Leves */}
-            <div style={{ marginBottom: 'var(--space-6)' }}>
-              <h2
-                style={{
-                  fontSize: '16px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                  color: 'var(--color-text-secondary)',
-                  marginBottom: 'var(--space-3)',
-                }}
-              >
-                Prioridades identificadas
-              </h2>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {topPriorities.map((item: DiagnosticPriority, idx: number) => (
-                  <div
-                    key={idx}
-                    style={{
-                      backgroundColor: 'var(--color-surface)',
-                      borderRadius: '14px',
-                      padding: '14px 16px',
-                      border: '1px solid rgba(0, 0, 0, 0.04)',
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '12px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: '24px',
-                        height: '24px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--color-accent)',
-                        color: '#FFFFFF',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                        marginTop: '2px',
-                      }}
-                    >
-                      {idx + 1}
-                    </span>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)' }}>
-                        {item.title}
-                      </div>
-                      <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.45 }}>
-                        {item.action || item.evidenceAnswer || item.evidenceText}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Camada B: Disclosure Acessível com Diagnóstico Completo e Excertos */}
-              {topPriorities.some((p: DiagnosticPriority) => p.evidenceText) && (
-                <details
+              {/* Botão de expansão / recolhimento do diagnóstico completo */}
+              <div style={{ marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowFullDiagnostic((prev) => !prev)}
                   style={{
-                    marginTop: '12px',
-                    padding: '12px 16px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                    borderRadius: '12px',
-                    border: '1px solid var(--color-border)',
-                    fontSize: '13px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 22px',
+                    backgroundColor: showFullDiagnostic ? 'var(--color-surface)' : 'rgba(0, 87, 217, 0.08)',
+                    color: 'var(--color-accent)',
+                    border: '1px solid rgba(0, 87, 217, 0.22)',
+                    borderRadius: '999px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 160ms ease',
                   }}
                 >
-                  <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--color-text)' }}>
-                    Ver diagnóstico completo e excertos
-                  </summary>
-                  <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {topPriorities
-                      .filter((p: DiagnosticPriority) => p.evidenceText)
-                      .map((p: DiagnosticPriority, i: number) => (
-                        <div
-                          key={i}
-                          style={{
-                            padding: '8px 12px',
-                            backgroundColor: '#FFFFFF',
-                            borderRadius: '8px',
-                            borderLeft: '3px solid var(--color-accent)',
-                            fontSize: '12px',
-                            color: 'var(--color-text-secondary)',
-                          }}
-                        >
-                          <strong style={{ color: 'var(--color-text)' }}>{p.title}:</strong> &ldquo;{p.evidenceText}&rdquo;
-                        </div>
-                      ))}
-                  </div>
-                </details>
-              )}
-            </div>
-
-            {/* O teu primeiro passo — Uma ação gratuita concreta */}
-            <div
-              style={{
-                backgroundColor: 'var(--color-accent-soft)',
-                borderRadius: '14px',
-                padding: '14px 18px',
-                border: '1px solid rgba(0, 87, 217, 0.15)',
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '10px',
-              }}
-            >
-              <CheckCircle2 size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
-              <div style={{ flex: 1 }}>
-                <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Ação Imediata · {result.freeAction?.title || 'Revisão Prática'}
-                </span>
-                <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '2px', lineHeight: 1.45, margin: 0 }}>
-                  {result.freeAction?.description ||
-                    'Revê as tuas experiências mais recentes e reformula as frases para incluírem números, prazos ou tarefas concretas executadas.'}
-                </p>
-                {result.freeAction?.sampleUrl && (
-                  <a
-                    href={result.freeAction.sampleUrl}
-                    download
+                  <span>{showFullDiagnostic ? 'Ocultar diagnóstico detalhado' : 'Diagnóstico completo'}</span>
+                  <ChevronDown
+                    size={16}
                     style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      marginTop: '8px',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      color: 'var(--color-accent)',
-                      textDecoration: 'none',
+                      transform: showFullDiagnostic ? 'rotate(180deg)' : 'none',
+                      transition: 'transform 200ms ease',
                     }}
-                  >
-                    <Download size={14} aria-hidden="true" />
-                    <span>{result.freeAction.actionLabel || 'Descarregar Modelo Gratuito'}</span>
-                  </a>
-                )}
+                    aria-hidden="true"
+                  />
+                </button>
               </div>
             </div>
+
+            {/* Conteúdo colapsável com prioridades e ação prática */}
+            {showFullDiagnostic && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%', marginTop: 'var(--space-2)' }}>
+                {/* As tuas prioridades — 3 Pontos Estruturados e Leves */}
+                <div style={{ marginBottom: 'var(--space-2)' }}>
+                  <h2
+                    style={{
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      color: 'var(--color-text-secondary)',
+                      marginBottom: 'var(--space-3)',
+                    }}
+                  >
+                    Prioridades identificadas
+                  </h2>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {topPriorities.map((item: DiagnosticPriority, idx: number) => (
+                      <div
+                        key={idx}
+                        style={{
+                          backgroundColor: 'var(--color-surface)',
+                          borderRadius: '14px',
+                          padding: '14px 16px',
+                          border: '1px solid rgba(0, 0, 0, 0.04)',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '12px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                            backgroundColor: 'var(--color-accent)',
+                            color: '#FFFFFF',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                            marginTop: '2px',
+                          }}
+                        >
+                          {idx + 1}
+                        </span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text)' }}>
+                            {item.title}
+                          </div>
+                          <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '2px', lineHeight: 1.45 }}>
+                            {item.action || item.evidenceAnswer || item.evidenceText}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Camada B: Disclosure Acessível com Diagnóstico Completo e Excertos */}
+                  {topPriorities.some((p: DiagnosticPriority) => p.evidenceText) && (
+                    <details
+                      style={{
+                        marginTop: '12px',
+                        padding: '12px 16px',
+                        backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                        borderRadius: '12px',
+                        border: '1px solid var(--color-border)',
+                        fontSize: '13px',
+                      }}
+                    >
+                      <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--color-text)' }}>
+                        Ver excertos textuais analisados
+                      </summary>
+                      <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {topPriorities
+                          .filter((p: DiagnosticPriority) => p.evidenceText)
+                          .map((p: DiagnosticPriority, i: number) => (
+                            <div
+                              key={i}
+                              style={{
+                                padding: '8px 12px',
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: '8px',
+                                borderLeft: '3px solid var(--color-accent)',
+                                fontSize: '12px',
+                                color: 'var(--color-text-secondary)',
+                              }}
+                            >
+                              <strong style={{ color: 'var(--color-text)' }}>{p.title}:</strong> &ldquo;{p.evidenceText}&rdquo;
+                            </div>
+                          ))}
+                      </div>
+                    </details>
+                  )}
+                </div>
+
+                {/* O teu primeiro passo — Uma ação gratuita concreta */}
+                <div
+                  style={{
+                    backgroundColor: 'var(--color-accent-soft)',
+                    borderRadius: '14px',
+                    padding: '14px 18px',
+                    border: '1px solid rgba(0, 87, 217, 0.15)',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '10px',
+                  }}
+                >
+                  <CheckCircle2 size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                  <div style={{ flex: 1 }}>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      Ação Imediata · {result.freeAction?.title || 'Revisão Prática'}
+                    </span>
+                    <p style={{ fontSize: '14px', color: 'var(--color-text)', marginTop: '2px', lineHeight: 1.45, margin: 0 }}>
+                      {result.freeAction?.description ||
+                        'Revê as tuas experiências mais recentes e reformula as frases para incluírem números, prazos ou tarefas concretas executadas.'}
+                    </p>
+                    {result.freeAction?.sampleUrl && (
+                      <a
+                        href={result.freeAction.sampleUrl}
+                        download
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          marginTop: '8px',
+                          fontSize: '13px',
+                          fontWeight: 700,
+                          color: 'var(--color-accent)',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <Download size={14} aria-hidden="true" />
+                        <span>{result.freeAction.actionLabel || 'Descarregar Modelo Gratuito'}</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
 
           {/* ================================================================= */}
@@ -529,7 +567,7 @@ export default function ResultPage() {
                   boxSizing: 'border-box',
                 }}
               >
-                <span>Ver apresentação</span>
+                <span>Saber mais</span>
                 <ChevronDown size={16} aria-hidden="true" />
               </a>
             </div>

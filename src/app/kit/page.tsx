@@ -141,7 +141,7 @@ export default function ProductKitPage() {
                   <Star size={13} fill="#F5A623" />
                   <Star size={13} fill="#F5A623" />
                 </div>
-                <span><strong>4.9/5</strong> · Recomendado em Portugal</span>
+                <span><strong>4.9/5</strong> · RECOMENDADO</span>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
