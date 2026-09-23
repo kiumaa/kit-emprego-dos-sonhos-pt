@@ -127,7 +127,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           <span><strong>4.9/5</strong> · Recomendado para o mercado de trabalho em Portugal</span>
         </div>
 
-        {/* Preço de 14,99 € com "pagamento único" abaixo */}
+        {/* Preço e Destaque de Valor */}
         <div
           style={{
             display: 'flex',
@@ -139,7 +139,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
         >
           <span
             style={{
-              fontSize: 'clamp(42px, 8vw, 54px)',
+              fontSize: 'clamp(44px, 8vw, 56px)',
               fontWeight: 700,
               color: 'var(--color-text)',
               letterSpacing: '-0.035em',
@@ -157,44 +157,101 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               letterSpacing: '0.06em',
             }}
           >
-            pagamento único
+            pagamento único · sem mensalidades
+          </span>
+          <span
+            style={{
+              fontSize: '13px',
+              color: 'var(--color-accent)',
+              fontWeight: 600,
+              marginTop: '4px',
+            }}
+          >
+            ⚡ Menos do que gastas num almoço para nunca mais seres ignorado por um recrutador.
           </span>
         </div>
 
-        {/* CTA Principal para Checkout OKANDA */}
+        {/* Resumo de Alto Valor: O que recebes no Kit */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '560px',
+            backgroundColor: 'var(--color-surface)',
+            borderRadius: '16px',
+            padding: '18px 20px',
+            border: '1px solid var(--color-border)',
+            textAlign: 'left',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            O que está incluído no download imediato (14 ficheiros):
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', color: 'var(--color-text)' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <Check size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div><strong>2 Modelos de CV em Word (.docx):</strong> Estrutura editorial limpa e 100% legível por softwares ATS em Portugal.</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <Check size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div><strong>Guia Oficial KEDS Portugal (PDF):</strong> 10 lições práticas, do perfil de impacto à negociação salarial em Portugal.</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <Check size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div><strong>Guiões de Cartas e Mensagens:</strong> Modelos para abordar recrutadores no LinkedIn e candidaturas espontâneas.</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <Check size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div><strong>25 Prompts Estratégicos de IA:</strong> Para adaptares o teu CV e carta a qualquer anúncio em menos de 3 minutos.</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <Check size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div><strong>Plano de Ação de 7 Dias & Organizador CSV:</strong> Passo a passo estruturado para submeteres candidaturas esta semana.</div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Principal para Checkout OKANDA com destaque MB WAY */}
         {checkout.isConfigured && checkout.url ? (
-          <a
-            href={checkoutUrl || checkout.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => {
-              const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
-              e.currentTarget.href = target;
-              trackInitiateCheckout('kit', 14.99);
-            }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '10px',
-              width: '100%',
-              maxWidth: '440px',
-              minHeight: '52px',
-              backgroundColor: 'var(--color-accent)',
-              color: 'var(--color-on-accent)',
-              borderRadius: 'var(--radius-control)',
-              fontSize: '17px',
-              fontWeight: 700,
-              textDecoration: 'none',
-              boxShadow: '0 6px 20px rgba(0, 87, 217, 0.28)',
-              transition: 'background-color 160ms ease, transform 160ms ease',
-              padding: '14px 24px',
-              boxSizing: 'border-box',
-            }}
-          >
-            <span>Quero o Kit Completo — 14,99 €</span>
-            <ArrowRight size={18} aria-hidden="true" />
-          </a>
+          <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+            <a
+              href={checkoutUrl || checkout.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+                e.currentTarget.href = target;
+                trackInitiateCheckout('kit', 14.99);
+              }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                width: '100%',
+                minHeight: '54px',
+                backgroundColor: 'var(--color-accent)',
+                color: 'var(--color-on-accent)',
+                borderRadius: 'var(--radius-control)',
+                fontSize: '17px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 6px 22px rgba(0, 87, 217, 0.32)',
+                transition: 'background-color 160ms ease, transform 160ms ease',
+                padding: '14px 24px',
+                boxSizing: 'border-box',
+              }}
+            >
+              <span>Quero o Kit Completo — 14,99 €</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>
+              Disponível com <strong>MB WAY</strong> e <strong>Cartão bancário</strong>
+            </span>
+          </div>
         ) : (
           <div
             style={{
@@ -223,7 +280,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '12px',
+            gap: '14px',
             fontSize: '13px',
             color: 'var(--color-text-secondary)',
             marginTop: '4px',
@@ -239,21 +296,29 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
             <Check size={15} color="var(--color-accent)" aria-hidden="true" />
-            Sem fidelização nem subscrições
+            100% editável em Word e LibreOffice
           </span>
         </div>
 
-        {/* Garantia legal de 14 dias e compatibilidade */}
+        {/* Caixa de Garantia Incondicional de 14 Dias */}
         <div
           style={{
-            fontSize: '12px',
-            color: 'var(--color-text-secondary)',
-            textAlign: 'center',
-            maxWidth: '460px',
-            lineHeight: 1.4,
+            width: '100%',
+            maxWidth: '560px',
+            backgroundColor: 'rgba(0, 87, 217, 0.03)',
+            border: '1px solid rgba(0, 87, 217, 0.18)',
+            borderRadius: '14px',
+            padding: '14px 18px',
+            textAlign: 'left',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
           }}
         >
-          Garantia incondicional de 14 dias · 100% compatível com Microsoft Word, Google Docs e LibreOffice
+          <ShieldCheck size={20} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div style={{ fontSize: '12px', color: 'var(--color-text)', lineHeight: 1.45 }}>
+            <strong>Garantia Incondicional de 14 Dias:</strong> Descarrega todos os materiais no teu computador. Se sentires que este kit não torna as tuas candidaturas significativamente mais profissionais no mercado português, envia um email e devolvemos 100% do valor pago. O risco é todo nosso.
+          </div>
         </div>
 
         {/* 3. Aceleradores Opcionais (Bumps na OKANDA) — Caixa Leve e Discreta */}

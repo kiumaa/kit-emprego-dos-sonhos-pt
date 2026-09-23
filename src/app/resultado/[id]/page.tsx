@@ -5,9 +5,10 @@ import { useParams } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { OfferPanel } from '@/components/ui/offer-panel';
+import { StickyMobileCta } from '@/components/ui/sticky-mobile-cta';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { getFunnelConfig } from '@/lib/funnel-config';
-import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Download } from 'lucide-react';
+import { CheckCircle2, HelpCircle, FileText, AlertCircle, ChevronDown, Download, ArrowRight } from 'lucide-react';
 import type { UnifiedDiagnosticResult, DiagnosticPriority } from '@contracts/domain';
 import { trackViewContent } from '@/lib/analytics/meta-tracking';
 
@@ -379,53 +380,159 @@ export default function ResultPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* PARTE B: PONTE DIRETA E LEVE PARA A VSL (#apresentacao)           */}
+          {/* PARTE B: PONTE INEVITÁVEL PARA A OFERTA (#oferta / #apresentacao)  */}
           {/* ================================================================= */}
           <section
             style={{
-              textAlign: 'center',
-              padding: 'var(--space-2) 0',
+              backgroundColor: '#FFFFFF',
+              borderRadius: '24px',
+              padding: 'clamp(24px, 4vw, 36px)',
+              border: '1px solid var(--color-border)',
+              boxShadow: '0 8px 30px rgba(0, 87, 217, 0.08)',
               display: 'flex',
               flexDirection: 'column',
+              gap: 'var(--space-4)',
+              textAlign: 'center',
               alignItems: 'center',
-              gap: 'var(--space-3)',
             }}
           >
+            <span
+              style={{
+                display: 'inline-block',
+                fontSize: '11px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                color: 'var(--color-accent)',
+                backgroundColor: 'var(--color-accent-soft)',
+                padding: '4px 12px',
+                borderRadius: '999px',
+              }}
+            >
+              O Teu Próximo Passo Decisivo
+            </span>
+
             <h2
               style={{
-                fontSize: 'clamp(20px, 4vw, 26px)',
+                fontSize: 'clamp(22px, 5vw, 30px)',
                 fontWeight: 700,
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.025em',
                 color: 'var(--color-text)',
-                maxWidth: '560px',
+                maxWidth: '620px',
+                margin: 0,
+                lineHeight: 1.25,
               }}
             >
-              Como aplicar estas recomendações passo a passo?
+              O teu diagnóstico revelou falhas que te estão a custar chamadas para entrevistas em Portugal.
             </h2>
 
-            <a
-              href="#apresentacao"
+            <p
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                height: '48px',
-                padding: '0 24px',
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-on-accent)',
-                borderRadius: 'var(--radius-control)',
                 fontSize: '15px',
-                fontWeight: 700,
-                textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(0, 87, 217, 0.22)',
-                marginTop: 'var(--space-1)',
-                transition: 'background-color 160ms ease',
+                color: 'var(--color-text-secondary)',
+                maxWidth: '560px',
+                lineHeight: 1.5,
+                margin: 0,
               }}
             >
-              <span>Ver apresentação em vídeo</span>
-              <ChevronDown size={17} aria-hidden="true" />
-            </a>
+              Quanto tempo mais vais perder a enviar candidaturas no escuro? A partir de hoje tens duas opções:
+            </p>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 'var(--space-3)',
+                width: '100%',
+                maxWidth: '680px',
+                textAlign: 'left',
+                margin: 'var(--space-2) 0',
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: 'var(--color-surface)',
+                  padding: '16px',
+                  borderRadius: '16px',
+                  border: '1px solid var(--color-border)',
+                }}
+              >
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#D9381E', marginBottom: '4px' }}>
+                  ❌ Opção 1: Continuar por tentativa e erro
+                </div>
+                <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.45 }}>
+                  Passar semanas a reescrever o currículo sem saber se passa nos filtros ATS, continuar a usar modelos do Canva e arriscar mais meses sem respostas.
+                </div>
+              </div>
+
+              <div
+                style={{
+                  backgroundColor: 'rgba(0, 87, 217, 0.04)',
+                  padding: '16px',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(0, 87, 217, 0.25)',
+                }}
+              >
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', marginBottom: '4px' }}>
+                  ✅ Opção 2: Descarregar o Kit Completo (14,99 €)
+                </div>
+                <div style={{ fontSize: '13px', color: 'var(--color-text)', lineHeight: 1.45 }}>
+                  Descarregar os 14 ficheiros prontos e validados em Word (.docx), copiar as estruturas comprovadas e submeter candidaturas blindadas ainda hoje.
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', width: '100%', maxWidth: '520px' }}>
+              <a
+                href="#oferta"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  minHeight: '52px',
+                  flex: '1 1 240px',
+                  padding: '12px 24px',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-on-accent)',
+                  borderRadius: 'var(--radius-control)',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  boxShadow: '0 6px 20px rgba(0, 87, 217, 0.28)',
+                  transition: 'background-color 160ms ease',
+                  boxSizing: 'border-box',
+                }}
+              >
+                <span>Ver os Modelos e o Kit (14,99 €)</span>
+                <ArrowRight size={17} aria-hidden="true" />
+              </a>
+
+              <a
+                href="#apresentacao"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  minHeight: '48px',
+                  flex: '1 1 180px',
+                  padding: '10px 18px',
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-text)',
+                  borderRadius: 'var(--radius-control)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  border: '1px solid var(--color-border)',
+                  transition: 'background-color 160ms ease',
+                  boxSizing: 'border-box',
+                }}
+              >
+                <span>Ver apresentação</span>
+                <ChevronDown size={16} aria-hidden="true" />
+              </a>
+            </div>
           </section>
 
           {/* ================================================================= */}
@@ -445,6 +552,9 @@ export default function ResultPage() {
           <OfferPanel id="oferta" />
         </div>
       </main>
+
+      {/* Botão de compra flutuante para mobile */}
+      <StickyMobileCta />
 
       <Footer />
     </div>

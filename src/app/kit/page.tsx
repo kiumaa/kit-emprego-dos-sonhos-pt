@@ -9,6 +9,7 @@ import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ArrowRight, ShieldCheck, Check, Star } from 'lucide-react';
 import { trackInitiateCheckout, trackViewContent } from '@/lib/analytics/meta-tracking';
 import { appendTrackingToUrl } from '@/lib/analytics/utm-tracker';
+import { StickyMobileCta } from '@/components/ui/sticky-mobile-cta';
 
 export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
@@ -144,46 +145,54 @@ export default function ProductKitPage() {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                <span style={{ fontSize: 'clamp(38px, 8vw, 50px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                <span style={{ fontSize: 'clamp(42px, 8vw, 54px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
                   14,99 €
                 </span>
                 <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                  pagamento único
+                  pagamento único · sem mensalidades
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-accent)', fontWeight: 600, marginTop: '2px' }}>
+                  ⚡ Menos do que um almoço para blindares a tua carreira em Portugal
                 </span>
               </div>
 
               {checkout.isConfigured && checkout.url ? (
-                <a
-                  href={checkoutUrl || checkout.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
-                    e.currentTarget.href = target;
-                    trackInitiateCheckout('kit', 14.99);
-                  }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    width: '100%',
-                    minHeight: '52px',
-                    backgroundColor: 'var(--color-accent)',
-                    color: 'var(--color-on-accent)',
-                    borderRadius: '12px',
-                    fontSize: '16px',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
-                    transition: 'background-color 160ms ease',
-                    padding: '14px 24px',
-                    boxSizing: 'border-box',
-                  }}
-                >
-                  <span>Quero o Kit Emprego dos Sonhos</span>
-                  <ArrowRight size={18} aria-hidden="true" />
-                </a>
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                  <a
+                    href={checkoutUrl || checkout.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+                      e.currentTarget.href = target;
+                      trackInitiateCheckout('kit', 14.99);
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      width: '100%',
+                      minHeight: '54px',
+                      backgroundColor: 'var(--color-accent)',
+                      color: 'var(--color-on-accent)',
+                      borderRadius: '12px',
+                      fontSize: '17px',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      boxShadow: '0 6px 20px rgba(0, 87, 217, 0.28)',
+                      transition: 'background-color 160ms ease',
+                      padding: '14px 24px',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <span>Quero o Kit Completo — 14,99 €</span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </a>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>
+                    Paga comodamente com <strong>MB WAY</strong> ou <strong>Cartão</strong>
+                  </span>
+                </div>
               ) : (
                 <div style={{ padding: '8px', fontSize: '13px', color: 'var(--color-text-secondary)' }}>
                   Checkout oficial em preparação na OKANDA PAY
@@ -197,8 +206,8 @@ export default function ProductKitPage() {
                 </span>
               </div>
 
-              <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', lineHeight: 1.4 }}>
-                Garantia incondicional de 14 dias · Ficheiros 100% editáveis no teu computador
+              <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', textAlign: 'center', lineHeight: 1.45, borderTop: '1px solid var(--color-border)', paddingTop: '10px', width: '100%' }}>
+                <strong>Garantia incondicional de 14 dias:</strong> Se os modelos não tornarem as tuas candidaturas 10x mais profissionais, devolvemos 100% do teu dinheiro.
               </div>
             </div>
           </section>
@@ -343,46 +352,54 @@ export default function ProductKitPage() {
               Dá o próximo passo na tua carreira.
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', margin: 'var(--space-2) 0' }}>
-              <span style={{ fontSize: 'clamp(38px, 8vw, 50px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
+              <span style={{ fontSize: 'clamp(42px, 8vw, 54px)', fontWeight: 700, color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1 }}>
                 14,99 €
               </span>
               <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                pagamento único
+                pagamento único · sem mensalidades
+              </span>
+              <span style={{ fontSize: '12px', color: 'var(--color-accent)', fontWeight: 600, marginTop: '2px' }}>
+                ⚡ Menos do que um almoço para nunca mais seres ignorado no mercado português
               </span>
             </div>
 
             {checkout.isConfigured && checkout.url ? (
-              <a
-                href={checkoutUrl || checkout.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
-                  e.currentTarget.href = target;
-                  trackInitiateCheckout('kit', 14.99);
-                }}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  width: '100%',
-                  maxWidth: '440px',
-                  minHeight: '52px',
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'var(--color-on-accent)',
-                  borderRadius: '12px',
-                  fontSize: '17px',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 16px rgba(0, 87, 217, 0.25)',
-                  padding: '14px 24px',
-                  boxSizing: 'border-box',
-                }}
-              >
-                <span>Quero o Kit Completo — 14,99 €</span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </a>
+              <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <a
+                  href={checkoutUrl || checkout.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
+                    e.currentTarget.href = target;
+                    trackInitiateCheckout('kit', 14.99);
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    width: '100%',
+                    minHeight: '54px',
+                    backgroundColor: 'var(--color-accent)',
+                    color: 'var(--color-on-accent)',
+                    borderRadius: '12px',
+                    fontSize: '17px',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    boxShadow: '0 6px 20px rgba(0, 87, 217, 0.28)',
+                    padding: '14px 24px',
+                    boxSizing: 'border-box',
+                    transition: 'background-color 160ms ease',
+                  }}
+                >
+                  <span>Quero o Kit Completo — 14,99 €</span>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </a>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>
+                  Paga comodamente com <strong>MB WAY</strong> ou <strong>Cartão</strong>
+                </span>
+              </div>
             ) : (
               <div style={{ padding: '8px', fontSize: '13px', color: 'var(--color-text-secondary)' }}>
                 Checkout oficial em preparação na OKANDA PAY
@@ -396,8 +413,8 @@ export default function ProductKitPage() {
               </span>
             </div>
 
-            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '2px' }}>
-              Garantia de 14 dias · Entrega imediata dos ficheiros por email
+            <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', textAlign: 'center', marginTop: '4px', maxWidth: '420px', lineHeight: 1.45 }}>
+              <strong>Garantia incondicional de 14 dias:</strong> Devolução total do dinheiro se o material não superar as tuas expectativas.
             </div>
           </section>
 
@@ -460,6 +477,9 @@ export default function ProductKitPage() {
           </section>
         </div>
       </main>
+
+      {/* Botão de compra flutuante para mobile */}
+      <StickyMobileCta />
 
       {/* Footer Legal Mínimo */}
       <Footer />
