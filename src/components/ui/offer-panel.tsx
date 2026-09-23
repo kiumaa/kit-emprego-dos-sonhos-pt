@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ShieldCheck, ArrowRight, Check, Star } from 'lucide-react';
 import { getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
+import { SocialProofSection } from '@/components/marketing/SocialProofSection';
 import { trackInitiateCheckout } from '@/lib/analytics/meta-tracking';
 import { appendTrackingToUrl } from '@/lib/analytics/utm-tracker';
 
@@ -44,7 +45,10 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
       {/* 1. Mockup Editorial dos 4 Componentes do Kit */}
       <ProductMockup />
 
-      {/* 2. Bloco Principal da Oferta (Leve, Clean e de Alta Conversão) */}
+      {/* 2. Área de Provas Sociais Autênticas (WhatsApp) antes do Price Card */}
+      <SocialProofSection />
+
+      {/* 3. Bloco Principal da Oferta / Price Card (Leve, Clean e de Alta Conversão) */}
       <div
         style={{
           backgroundColor: '#FFFFFF',

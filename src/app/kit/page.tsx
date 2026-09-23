@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { VslPlayer } from '@/components/marketing/VslPlayer';
 import { ProductMockup } from '@/components/marketing/ProductMockup';
+import { SocialProofSection } from '@/components/marketing/SocialProofSection';
 import { getFunnelConfig, getValidatedCheckoutUrl } from '@/lib/funnel-config';
 import { ArrowRight, ShieldCheck, Check, Star } from 'lucide-react';
 import { trackInitiateCheckout, trackViewContent } from '@/lib/analytics/meta-tracking';
@@ -345,7 +346,12 @@ export default function ProductKitPage() {
           </div>
 
           {/* ================================================================= */}
-          {/* 6. PREÇO E CTA FINAL                                              */}
+          {/* 6. PROVAS SOCIAIS AUTÊNTICAS (WHATSAPP) ANTES DO PREÇO           */}
+          {/* ================================================================= */}
+          <SocialProofSection />
+
+          {/* ================================================================= */}
+          {/* 7. PREÇO E CTA FINAL                                              */}
           {/* ================================================================= */}
           <section style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-3)' }}>
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', fontWeight: 700, letterSpacing: '-0.02em' }}>
