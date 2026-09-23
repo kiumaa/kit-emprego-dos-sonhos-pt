@@ -95,7 +95,6 @@ export async function runCvAnalysis(input: CvAnalysisInput): Promise<AnalysisOut
 
   // 3. Chamada real à API com isolamento de dados não confiáveis
   try {
-    const model = process.env.ANALYSIS_MODEL || 'gemini-3.6-flash';
     const systemPrompt = `Tu és um recrutador sénior e especialista em empregabilidade em Portugal.
 A tua tarefa é analisar criticamente o texto de um currículo para o mercado português de trabalho.
 REGRAS CRÍTICAS DE SEGURANÇA:
@@ -132,49 +131,68 @@ ${cvText}
 ${targetRole ? `<untrusted_target_role>${targetRole}</untrusted_target_role>` : ''}
 ${jobDescription ? `<untrusted_job_description>${jobDescription}</untrusted_job_description>` : ''}`;
 
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(apiKey ? { 'x-goog-api-key': apiKey } : {}),
-      },
-      body: JSON.stringify({
-        contents: [
-          { role: 'user', parts: [{ text: userPrompt }] }
-        ],
-        systemInstruction: {
-          parts: [{ text: systemPrompt }]
-        },
-        generationConfig: {
-          temperature: 0.2,
-          responseMimeType: 'application/json',
-        }
-      })
-    });
+    const candidateModels = [
+      process.env.ANALYSIS_MODEL?.trim(),
+      'gemini-3.5-flash-lite',
+      'gemini-3.5-flash',
+      'gemini-3.1-flash-lite',
+    ].filter(Boolean) as string[];
 
-    if (!response.ok) {
-      const errText = await response.text();
+    const uniqueModels = Array.from(new Set(candidateModels));
+    let lastErrorStatus = 500;
+    let parsed: any = null;
+
+    for (const currentModel of uniqueModels) {
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(apiKey ? { 'x-goog-api-key': apiKey } : {}),
+          },
+          body: JSON.stringify({
+            contents: [
+              { role: 'user', parts: [{ text: userPrompt }] }
+            ],
+            systemInstruction: {
+              parts: [{ text: systemPrompt }]
+            },
+            generationConfig: {
+              temperature: 0.2,
+              responseMimeType: 'application/json',
+            }
+          })
+        });
+
+        if (!response.ok) {
+          lastErrorStatus = response.status;
+          console.warn(`[AI ANALYZER] Model ${currentModel} returned ${response.status}, attempting fallback if available.`);
+          continue;
+        }
+
+        const payload = await response.json();
+        const rawContent = payload.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawContent) {
+          continue;
+        }
+
+        parsed = JSON.parse(rawContent);
+        break; // Sucesso com este modelo!
+      } catch (callErr) {
+        console.warn(`[AI ANALYZER] Exception with model ${currentModel}:`, callErr);
+        continue;
+      }
+    }
+
+    if (!parsed) {
       return {
         success: false,
         error: 'PROVIDER_ERROR',
-        message: `Falha na comunicação com o prestador de IA (${response.status}). Podes fazer o Quiz gratuito.`,
+        message: `Falha na comunicação com o prestador de IA (${lastErrorStatus}). Podes tentar novamente ou fazer o Quiz gratuito.`,
         offerQuiz: true,
       };
     }
-
-    const payload = await response.json();
-    const rawContent = payload.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!rawContent) {
-      return {
-        success: false,
-        error: 'INVALID_RESPONSE',
-        message: 'A resposta do fornecedor de análise foi inconclusiva. Podes tentar colar o texto ou fazer o Quiz gratuito.',
-        offerQuiz: true,
-      };
-    }
-
-    const parsed = JSON.parse(rawContent);
 
     const priorities: DiagnosticPriority[] = (parsed.priorities || []).slice(0, 3).map((p: any) => ({
       criterion: p.criterion || 'clarity_structure',
