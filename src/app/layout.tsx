@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { MarketingTracker } from '@/components/analytics/marketing-tracker';
+import { TelemetryTracker } from '@/components/analytics/telemetry-tracker';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -67,6 +68,7 @@ fbq('track', 'PageView');`,
       </head>
       <body>
         <MarketingTracker />
+        <TelemetryTracker />
         <a href="#main-content" className="skip-link">
           Saltar para o conteúdo principal
         </a>
