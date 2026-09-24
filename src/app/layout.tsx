@@ -60,7 +60,10 @@ fbq('track', 'PageView');`,
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
+        {/* Antigravity Visual Editor Bridge (Dev only) */}
+        {process.env.NODE_ENV === 'development' && (
+          <script src="/antigravity-bridge.js" async />
+        )}
       </head>
       <body>
         <MarketingTracker />

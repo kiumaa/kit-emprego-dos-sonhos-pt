@@ -17,8 +17,8 @@ export default function HomePage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          paddingTop: 'clamp(28px, 6vh, 48px)',
-          paddingBottom: 'clamp(32px, 6vh, 56px)',
+          paddingTop: 'clamp(32px, 8vh, 64px)',
+          paddingBottom: 'clamp(40px, 8vh, 72px)',
           paddingInline: 'clamp(16px, 4vw, 24px)',
           boxSizing: 'border-box',
           width: '100%',
@@ -32,23 +32,6 @@ export default function HomePage() {
             marginInline: 'auto',
           }}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              fontSize: '12px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: 'var(--color-accent)',
-              backgroundColor: 'var(--color-accent-soft)',
-              padding: '4px 14px',
-              borderRadius: '999px',
-              marginBottom: 'var(--space-4)',
-            }}
-          >
-            Diagnóstico Gratuito · Mercado de Trabalho em Portugal
-          </span>
-
           <h1
             style={{
               fontSize: 'clamp(28px, 6.5vw, 44px)',
@@ -106,7 +89,7 @@ export default function HomePage() {
               }}
             >
               <FileSearch size={19} aria-hidden="true" />
-              <span>Analisar o meu CV com IA — Gratuito</span>
+              <span>Analisar o meu CV</span>
             </a>
 
             <a
@@ -128,7 +111,7 @@ export default function HomePage() {
               }}
             >
               <HelpCircle size={18} color="var(--color-text-secondary)" aria-hidden="true" />
-              <span>Fazer o Quiz de 2 minutos (Sem CV)</span>
+              <span>Fazer Quiz (Sem CV)</span>
             </a>
 
             {/* Linha de Confiança */}
@@ -146,88 +129,6 @@ export default function HomePage() {
             >
               <CheckCircle2 size={14} color="var(--color-success)" aria-hidden="true" />
               <span>100% Gratuito · Confidencial · Sem registo nem cartão</span>
-            </div>
-          </div>
-
-          {/* Secção de Choque de Realidade: Os 3 Erros Fatais */}
-          <div
-            style={{
-              marginTop: 'var(--space-10)',
-              paddingTop: 'var(--space-8)',
-              borderTop: '1px solid var(--color-border)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-4)',
-            }}
-          >
-            <h2
-              style={{
-                fontSize: '14px',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                color: 'var(--color-text-secondary)',
-                margin: 0,
-              }}
-            >
-              Porque é que 9 em cada 10 currículos são ignorados em Portugal?
-            </h2>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: 'var(--space-3)',
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  padding: '16px',
-                  borderRadius: '16px',
-                  border: '1px solid var(--color-border)',
-                }}
-              >
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '4px' }}>
-                  1. Modelos do Canva & ATS
-                </div>
-                <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: 1.45 }}>
-                  Colunas duplas, barras de competências e caixas de texto que os softwares de recrutamento descartam antes de qualquer humano ler.
-                </div>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  padding: '16px',
-                  borderRadius: '16px',
-                  border: '1px solid var(--color-border)',
-                }}
-              >
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '4px' }}>
-                  2. Listas de Tarefas sem Impacto
-                </div>
-                <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: 1.45 }}>
-                  Descrever o que fazias no dia a dia em vez de mostrar resultados e métricas que provem que geras valor à empresa.
-                </div>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  padding: '16px',
-                  borderRadius: '16px',
-                  border: '1px solid var(--color-border)',
-                }}
-              >
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-text)', marginBottom: '4px' }}>
-                  3. Candidaturas no Escuro
-                </div>
-                <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: 1.45 }}>
-                  Enviar o mesmo CV geral para centenas de anúncios sem adaptar palavras-chave estratégicas para o mercado português.
-                </div>
-              </div>
             </div>
           </div>
         </section>
