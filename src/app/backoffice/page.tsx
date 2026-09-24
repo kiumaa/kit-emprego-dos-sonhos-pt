@@ -5,6 +5,7 @@ import {
   Activity,
   ArrowRight,
   BarChart3,
+  Calendar,
   CheckCircle2,
   Clock,
   Compass,
@@ -92,6 +93,35 @@ interface BackofficeData {
     status: string;
     dropOffStage: string;
   }>;
+}
+
+function formatVisitDateTime(ms?: number) {
+  if (!ms) return { date: '—', time: '—', relative: '—' };
+  const d = new Date(ms);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const seconds = String(d.getSeconds()).padStart(2, '0');
+
+  const diffSec = Math.max(0, Math.floor((Date.now() - ms) / 1000));
+  let relative = 'Agora mesmo';
+  if (diffSec < 60) {
+    relative = `${diffSec}s atrás`;
+  } else if (diffSec < 3600) {
+    relative = `Há ${Math.floor(diffSec / 60)} min`;
+  } else if (diffSec < 86400) {
+    relative = `Há ${Math.floor(diffSec / 3600)}h`;
+  } else {
+    relative = `Há ${Math.floor(diffSec / 86400)}d`;
+  }
+
+  return {
+    date: `${day}/${month}/${year}`,
+    time: `${hours}:${minutes}:${seconds}`,
+    relative,
+  };
 }
 
 export default function BackofficePage() {
@@ -768,17 +798,30 @@ export default function BackofficePage() {
               </div>
             </div>
 
-            {/* Tabela de Sessões Recentes */}
+            {/* Tabela de Sessões Recentes com Data e Hora */}
             <div style={{ backgroundColor: '#111827', borderRadius: '18px', padding: '24px', border: '1px solid #1F2937' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#FFF', marginBottom: '16px' }}>
-                Feed de Jornadas Recentes (Caminho percorrido pelo Utilizador)
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#FFF' }}>
+                    Feed de Jornadas Recentes (Caminho percorrido pelo Utilizador)
+                  </h3>
+                  <p style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>
+                    Registo cronológico com data, hora exata da visita, tempo despendido e pontos de abandono
+                  </p>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#9CA3AF', backgroundColor: '#1F2937', padding: '6px 12px', borderRadius: '8px', border: '1px solid #374151' }}>
+                  <Calendar size={14} color="#38BDF8" />
+                  <span>Fuso Horário: <strong style={{ color: '#F3F4F6' }}>Lisboa (WET/WEST)</strong></span>
+                </div>
+              </div>
+
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid #374151', color: '#9CA3AF' }}>
+                      <th style={{ padding: '10px 12px', minWidth: '150px' }}>Data & Hora da Visita</th>
                       <th style={{ padding: '10px 12px' }}>Sessão</th>
-                      <th style={{ padding: '10px 12px' }}>Origem</th>
+                      <th style={{ padding: '10px 12px' }}>Dispositivo & Origem</th>
                       <th style={{ padding: '10px 12px' }}>Duração</th>
                       <th style={{ padding: '10px 12px' }}>Percurso de Navegação</th>
                       <th style={{ padding: '10px 12px' }}>VSL</th>
@@ -787,25 +830,77 @@ export default function BackofficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.recentSessions.map((s, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #1F2937', color: '#E5E7EB' }}>
-                        <td style={{ padding: '10px 12px', fontFamily: 'monospace', color: '#38BDF8' }}>{s.sessionId}</td>
-                        <td style={{ padding: '10px 12px' }}>{s.utmSource}</td>
-                        <td style={{ padding: '10px 12px' }}>{s.totalDurationSeconds}s</td>
-                        <td style={{ padding: '10px 12px' }}>
-                          <span style={{ color: '#9CA3AF', fontSize: '12px' }}>
-                            {s.pathsVisited.join(' → ')}
-                          </span>
-                        </td>
-                        <td style={{ padding: '10px 12px' }}>{s.vslWatchedSeconds > 0 ? `${s.vslWatchedSeconds}s` : '—'}</td>
-                        <td style={{ padding: '10px 12px', color: '#F59E0B' }}>{s.dropOffStage}</td>
-                        <td style={{ padding: '10px 12px' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 700, color: s.clickedCheckout ? '#10B981' : '#9CA3AF', backgroundColor: s.clickedCheckout ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255, 255, 255, 0.05)', padding: '2px 8px', borderRadius: '6px' }}>
-                            {s.clickedCheckout ? 'Checkout ✓' : 'Navegação'}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
+                    {data?.recentSessions.map((s, idx) => {
+                      const dt = formatVisitDateTime(s.firstSeenAtMs);
+                      return (
+                        <tr key={idx} style={{ borderBottom: '1px solid #1F2937', color: '#E5E7EB' }}>
+                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                            <div style={{ fontWeight: 700, color: '#FFF', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <Clock size={13} color="#38BDF8" />
+                              <span>{dt.date}</span>
+                              <span style={{ color: '#38BDF8', fontWeight: 700 }}>{dt.time}</span>
+                            </div>
+                            <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px', paddingLeft: '19px' }}>
+                              {dt.relative}
+                            </div>
+                          </td>
+                          <td style={{ padding: '10px 12px', fontFamily: 'monospace', color: '#38BDF8', whiteSpace: 'nowrap' }}>
+                            {s.sessionId}
+                          </td>
+                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                            <div style={{ color: '#F3F4F6', fontWeight: 600 }}>{s.utmSource}</div>
+                            <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px' }}>
+                              {s.device === 'mobile' ? '📱 Mobile' : '💻 Desktop'}
+                            </div>
+                          </td>
+                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                            <span style={{ fontWeight: 600, color: '#F3F4F6' }}>{s.totalDurationSeconds}s</span>
+                            <div style={{ fontSize: '11px', color: '#9CA3AF' }}>
+                              {Math.floor(s.totalDurationSeconds / 60)}m {s.totalDurationSeconds % 60}s
+                            </div>
+                          </td>
+                          <td style={{ padding: '10px 12px', minWidth: '220px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' }}>
+                              {s.pathsVisited.map((p, pIdx) => (
+                                <React.Fragment key={pIdx}>
+                                  <span style={{ backgroundColor: '#1F2937', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: '#D1D5DB' }}>
+                                    {p}
+                                  </span>
+                                  {pIdx < s.pathsVisited.length - 1 && (
+                                    <span style={{ color: '#6B7280', fontSize: '10px' }}>→</span>
+                                  )}
+                                </React.Fragment>
+                              ))}
+                            </div>
+                          </td>
+                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                            {s.vslWatchedSeconds > 0 ? (
+                              <span style={{ color: '#10B981', fontWeight: 600 }}>{s.vslWatchedSeconds}s</span>
+                            ) : (
+                              <span style={{ color: '#6B7280' }}>—</span>
+                            )}
+                          </td>
+                          <td style={{ padding: '10px 12px', color: '#F59E0B', fontWeight: 500, fontSize: '12px' }}>
+                            {s.dropOffStage}
+                          </td>
+                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                color: s.clickedCheckout ? '#10B981' : '#9CA3AF',
+                                backgroundColor: s.clickedCheckout ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+                                padding: '3px 8px',
+                                borderRadius: '6px',
+                                border: s.clickedCheckout ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid transparent',
+                              }}
+                            >
+                              {s.clickedCheckout ? 'Checkout ✓' : 'Navegação'}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

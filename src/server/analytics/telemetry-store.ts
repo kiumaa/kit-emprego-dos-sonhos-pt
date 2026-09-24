@@ -162,6 +162,54 @@ function initializeSeedData() {
       status: 'completed',
       dropOffStage: 'Checkout OKANDA',
     },
+    {
+      sessionId: 'sess_pt_9814',
+      firstSeenAtMs: now - 7200000, // Há ~2h
+      lastSeenAtMs: now - 7020000,
+      totalDurationSeconds: 180,
+      entryPath: '/',
+      lastPath: '/resultado/res_coimbra_04',
+      pathsVisited: ['/', '/quiz', '/resultado/res_coimbra_04'],
+      maxScrollDepth: 90,
+      vslWatchedSeconds: 85,
+      clickedCheckout: true,
+      device: 'mobile',
+      utmSource: 'instagram_ads',
+      status: 'completed',
+      dropOffStage: 'Checkout OKANDA',
+    },
+    {
+      sessionId: 'sess_pt_9813',
+      firstSeenAtMs: now - 14400000, // Há ~4h
+      lastSeenAtMs: now - 14350000,
+      totalDurationSeconds: 50,
+      entryPath: '/kit',
+      lastPath: '/kit',
+      pathsVisited: ['/kit'],
+      maxScrollDepth: 35,
+      vslWatchedSeconds: 15,
+      clickedCheckout: false,
+      device: 'mobile',
+      utmSource: 'google_ads',
+      status: 'dropped_off',
+      dropOffStage: 'Apresentação VSL (primeiros 30s)',
+    },
+    {
+      sessionId: 'sess_pt_9812',
+      firstSeenAtMs: now - 28800000, // Há ~8h
+      lastSeenAtMs: now - 28620000,
+      totalDurationSeconds: 180,
+      entryPath: '/',
+      lastPath: '/analisar-cv',
+      pathsVisited: ['/', '/analisar-cv'],
+      maxScrollDepth: 75,
+      vslWatchedSeconds: 0,
+      clickedCheckout: false,
+      device: 'desktop',
+      utmSource: 'direto',
+      status: 'dropped_off',
+      dropOffStage: 'Upload de CV (PDF/DOCX)',
+    },
   ];
 
   sampleSessions.forEach((s) => sessionsMap.set(s.sessionId, s));
@@ -232,7 +280,9 @@ function determineStage(path: string, eventName?: string): string {
 export function getBackofficeMetrics() {
   initializeSeedData();
 
-  const sessions = Array.from(sessionsMap.values());
+  const sessions = Array.from(sessionsMap.values()).sort(
+    (a, b) => (b.firstSeenAtMs || 0) - (a.firstSeenAtMs || 0)
+  );
   const totalSessions = sessions.length;
 
   // 1. Funil de Conversão 360° (Onde passou vs. Onde parou)
@@ -368,6 +418,6 @@ export function getBackofficeMetrics() {
     trafficSources,
     devices,
     productDeliverables,
-    recentSessions: sessions.slice(0, 10),
+    recentSessions: sessions.slice(0, 20),
   };
 }
