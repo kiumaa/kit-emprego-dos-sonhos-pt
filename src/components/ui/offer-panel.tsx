@@ -63,28 +63,29 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           gap: 'var(--space-4)',
         }}
       >
-        {/* Imagem do Produto 3D no Topo do Price Card */}
+        {/* Imagem do Produto 3D no Topo do Price Card (Sem Fundo) */}
         <div
           style={{
             width: '100%',
-            maxWidth: '380px',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            backgroundColor: '#000000',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12)',
-            marginBottom: 'var(--space-2)',
+            maxWidth: '360px',
+            margin: '0 auto var(--space-2) auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <img
-            src="/images/produto-mockup-3d.jpg"
+            src="/images/produto-mockup-3d.png"
             alt="Kit Emprego dos Sonhos - Coleção Completa"
-            width={380}
-            height={380}
+            width={360}
+            height={360}
             style={{
               width: '100%',
+              maxWidth: '360px',
               height: 'auto',
               display: 'block',
               objectFit: 'contain',
+              filter: 'drop-shadow(0 12px 24px rgba(0, 0, 0, 0.10))',
             }}
             loading="eager"
           />
