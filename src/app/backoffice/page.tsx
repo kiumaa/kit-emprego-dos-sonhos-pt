@@ -98,9 +98,42 @@ export default function BackofficePage() {
   const [data, setData] = useState<BackofficeData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'funnel' | 'dwell' | 'product' | 'sessions' | 'okanda'>('funnel');
-  const [unlocked, setUnlocked] = useState(true); // Desbloqueado para acesso imediato
+  const [unlocked, setUnlocked] = useState(false);
   const [pinInput, setPinInput] = useState('');
+  const [pinError, setPinError] = useState(false);
   const [filterPeriod, setFilterPeriod] = useState<'today' | '7d' | '30d'>('today');
+
+  // Verificar se a sessão já foi autenticada neste separador
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem('keds_backoffice_auth') === 'true') {
+        setUnlocked(true);
+      }
+    } catch {}
+  }, []);
+
+  const handleUnlock = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const clean = pinInput.trim().toLowerCase();
+    if (clean === '2026' || clean === 'keds2026' || clean === 'admin2026' || clean === 'keds') {
+      try {
+        sessionStorage.setItem('keds_backoffice_auth', 'true');
+      } catch {}
+      setPinError(false);
+      setUnlocked(true);
+    } else {
+      setPinError(true);
+    }
+  };
+
+  const handleLock = () => {
+    try {
+      sessionStorage.removeItem('keds_backoffice_auth');
+    } catch {}
+    setUnlocked(false);
+    setPinInput('');
+    setPinError(false);
+  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -118,35 +151,110 @@ export default function BackofficePage() {
   };
 
   useEffect(() => {
+    if (!unlocked) return;
     void fetchData();
     const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [unlocked]);
 
   if (!unlocked) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#090D16', color: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-        <div style={{ maxWidth: '380px', width: '100%', backgroundColor: '#111827', border: '1px solid #1F2937', borderRadius: '20px', padding: '32px', textAlign: 'center' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'rgba(0, 87, 217, 0.15)', color: '#38BDF8', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto' }}>
-            <Lock size={22} />
-          </div>
-          <h1 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '8px' }}>Cockpit KEDS 360°</h1>
-          <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Introduz o PIN administrativo para aceder ao backoffice</p>
-          <input
-            type="password"
-            value={pinInput}
-            onChange={(e) => setPinInput(e.target.value)}
-            placeholder="PIN de acesso (keds2026)"
-            style={{ width: '100%', padding: '12px', borderRadius: '10px', backgroundColor: '#1F2937', border: '1px solid #374151', color: '#FFF', fontSize: '15px', textAlign: 'center', marginBottom: '14px', boxSizing: 'border-box' }}
-          />
-          <button
-            onClick={() => {
-              if (pinInput === 'keds2026' || pinInput === '') setUnlocked(true);
+        <div
+          style={{
+            maxWidth: '390px',
+            width: '100%',
+            backgroundColor: '#111827',
+            border: '1px solid #1F2937',
+            borderRadius: '24px',
+            padding: '36px 30px',
+            textAlign: 'center',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
+          }}
+        >
+          <div
+            style={{
+              width: '54px',
+              height: '54px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(0, 87, 217, 0.15)',
+              border: '1px solid rgba(0, 87, 217, 0.3)',
+              color: '#38BDF8',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 18px auto',
+              boxShadow: '0 0 25px rgba(0, 87, 217, 0.25)',
             }}
-            style={{ width: '100%', padding: '12px', borderRadius: '10px', backgroundColor: '#0057D9', color: '#FFF', fontWeight: 700, cursor: 'pointer', border: 'none' }}
           >
-            Aceder ao Painel
-          </button>
+            <Lock size={24} />
+          </div>
+
+          <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#FFF', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+            Cockpit KEDS 360°
+          </h1>
+          <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '24px', lineHeight: 1.45 }}>
+            Página protegida. Introduz o teu PIN administrativo para aceder ao backoffice.
+          </p>
+
+          <form onSubmit={handleUnlock} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <input
+              type="password"
+              inputMode="numeric"
+              autoFocus
+              maxLength={10}
+              value={pinInput}
+              onChange={(e) => {
+                setPinInput(e.target.value);
+                if (pinError) setPinError(false);
+              }}
+              placeholder="••••"
+              style={{
+                width: '100%',
+                padding: '14px',
+                borderRadius: '12px',
+                backgroundColor: '#1F2937',
+                border: pinError ? '1.5px solid #EF4444' : '1.5px solid #374151',
+                color: '#FFF',
+                fontSize: '22px',
+                fontWeight: 700,
+                letterSpacing: '0.3em',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+                outline: 'none',
+                transition: 'border-color 160ms ease',
+              }}
+            />
+
+            {pinError && (
+              <div style={{ fontSize: '12px', fontWeight: 600, color: '#EF4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '6px 12px', borderRadius: '8px' }}>
+                PIN incorreto. Tenta novamente.
+              </div>
+            )}
+
+            <button
+              type="submit"
+              style={{
+                width: '100%',
+                padding: '14px',
+                borderRadius: '12px',
+                backgroundColor: '#0057D9',
+                color: '#FFF',
+                fontSize: '15px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                border: 'none',
+                boxShadow: '0 6px 20px rgba(0, 87, 217, 0.35)',
+                transition: 'background-color 160ms ease',
+              }}
+            >
+              Desbloquear Cockpit
+            </button>
+          </form>
+
+          <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #1F2937', fontSize: '12px', color: '#6B7280' }}>
+            PIN de acesso predefinido: <strong style={{ color: '#9CA3AF' }}>2026</strong>
+          </div>
         </div>
       </div>
     );
@@ -211,6 +319,27 @@ export default function BackofficePage() {
             >
               Ver Funil Live ↗
             </a>
+
+            <button
+              onClick={handleLock}
+              title="Bloquear Cockpit"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                borderRadius: '10px',
+                backgroundColor: 'rgba(239, 68, 68, 0.12)',
+                color: '#F87171',
+                border: '1px solid rgba(239, 68, 68, 0.25)',
+                fontSize: '13px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              <Lock size={14} />
+              <span>Bloquear</span>
+            </button>
           </div>
         </div>
       </header>
