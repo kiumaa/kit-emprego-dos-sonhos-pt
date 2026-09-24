@@ -1,10 +1,10 @@
 import fs from 'node:fs';
+import { neon } from '@neondatabase/serverless';
 
 /**
  * Store e agregador de telemetria em tempo real para o Backoffice 360°.
- * 100% DADOS REAIS — Zero dados fictícios, simulados ou inventados.
- * Regista passos do funil, tempo de permanência (dwell time), profundidade de scroll,
- * retenção da VSL e eventos de saída baseados exclusivamente em tráfego real.
+ * 100% DADOS REAIS com persistência centralizada no Neon PostgreSQL (Vercel).
+ * Garante que todas as instâncias serverless da Vercel partilham a mesma fonte da verdade.
  */
 
 export interface TelemetryEvent {
@@ -46,6 +46,47 @@ const STORAGE_FILE = '/tmp/keds_telemetry_store.json';
 const MAX_RECENT_EVENTS = 500;
 const recentEvents: TelemetryEvent[] = [];
 
+function getDb() {
+  const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  if (!url) return null;
+  try {
+    return neon(url);
+  } catch {
+    return null;
+  }
+}
+
+let tableEnsured = false;
+async function ensureDbTable() {
+  if (tableEnsured) return;
+  const sql = getDb();
+  if (!sql) return;
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS keds_telemetry_sessions (
+        session_id TEXT PRIMARY KEY,
+        first_seen_at_ms BIGINT NOT NULL,
+        last_seen_at_ms BIGINT NOT NULL,
+        total_duration_seconds INT NOT NULL DEFAULT 1,
+        entry_path TEXT NOT NULL,
+        last_path TEXT NOT NULL,
+        paths_visited JSONB NOT NULL DEFAULT '[]'::jsonb,
+        max_scroll_depth INT NOT NULL DEFAULT 0,
+        vsl_watched_seconds INT NOT NULL DEFAULT 0,
+        clicked_checkout BOOLEAN NOT NULL DEFAULT false,
+        device TEXT NOT NULL DEFAULT 'mobile',
+        utm_source TEXT NOT NULL DEFAULT 'direto',
+        status TEXT NOT NULL DEFAULT 'active',
+        drop_off_stage TEXT NOT NULL DEFAULT 'Início',
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `;
+    tableEnsured = true;
+  } catch (err) {
+    console.error('ensureDbTable error:', err);
+  }
+}
+
 function loadPersistedSessions(): Map<string, UserSessionSummary> {
   const map = new Map<string, UserSessionSummary>();
   try {
@@ -73,32 +114,39 @@ function savePersistedSessions(map: Map<string, UserSessionSummary>) {
 
 const sessionsMap = loadPersistedSessions();
 
-export function recordTelemetryEvent(event: TelemetryEvent) {
+export async function recordTelemetryEvent(event: TelemetryEvent) {
   recentEvents.unshift(event);
   if (recentEvents.length > MAX_RECENT_EVENTS) {
     recentEvents.pop();
   }
 
-  const existing = sessionsMap.get(event.sessionId);
   const now = event.timestampMs || Date.now();
+  const cleanSource = event.utm?.source?.trim() || 'direto';
+  const stage = determineStage(event.path, event.eventName);
+  const dwell = event.dwellTimeSeconds || 1;
+  const scroll = event.maxScrollDepth || 0;
+  const vsl = event.vslProgressSeconds || 0;
+  const isCta = event.eventName === 'cta_click';
+  const device = event.device || 'mobile';
 
+  // 1. Atualizar fallback local em memória / ficheiro
+  const existing = sessionsMap.get(event.sessionId);
   if (!existing) {
-    const cleanSource = event.utm?.source?.trim() || 'direto';
     sessionsMap.set(event.sessionId, {
       sessionId: event.sessionId,
       firstSeenAtMs: now,
       lastSeenAtMs: now,
-      totalDurationSeconds: event.dwellTimeSeconds || 1,
+      totalDurationSeconds: dwell,
       entryPath: event.path,
       lastPath: event.path,
       pathsVisited: [event.path],
-      maxScrollDepth: event.maxScrollDepth || 0,
-      vslWatchedSeconds: event.vslProgressSeconds || 0,
-      clickedCheckout: event.eventName === 'cta_click',
-      device: event.device || 'mobile',
+      maxScrollDepth: scroll,
+      vslWatchedSeconds: vsl,
+      clickedCheckout: isCta,
+      device,
       utmSource: cleanSource,
-      status: event.eventName === 'cta_click' ? 'completed' : 'active',
-      dropOffStage: determineStage(event.path, event.eventName),
+      status: isCta ? 'completed' : 'active',
+      dropOffStage: stage,
     });
   } else {
     existing.lastSeenAtMs = now;
@@ -106,23 +154,58 @@ export function recordTelemetryEvent(event: TelemetryEvent) {
     if (!existing.pathsVisited.includes(event.path)) {
       existing.pathsVisited.push(event.path);
     }
-    if (event.dwellTimeSeconds && event.dwellTimeSeconds > existing.totalDurationSeconds) {
-      existing.totalDurationSeconds = event.dwellTimeSeconds;
+    if (dwell > existing.totalDurationSeconds) {
+      existing.totalDurationSeconds = dwell;
     }
-    if (event.maxScrollDepth && event.maxScrollDepth > existing.maxScrollDepth) {
-      existing.maxScrollDepth = event.maxScrollDepth;
+    if (scroll > existing.maxScrollDepth) {
+      existing.maxScrollDepth = scroll;
     }
-    if (event.vslProgressSeconds && event.vslProgressSeconds > existing.vslWatchedSeconds) {
-      existing.vslWatchedSeconds = event.vslProgressSeconds;
+    if (vsl > existing.vslWatchedSeconds) {
+      existing.vslWatchedSeconds = vsl;
     }
-    if (event.eventName === 'cta_click') {
+    if (isCta) {
       existing.clickedCheckout = true;
       existing.status = 'completed';
     }
-    existing.dropOffStage = determineStage(event.path, event.eventName);
+    existing.dropOffStage = stage;
   }
-
   savePersistedSessions(sessionsMap);
+
+  // 2. Gravar no Neon Postgres central partilhado por todas as instâncias da Vercel
+  const sql = getDb();
+  if (sql) {
+    try {
+      await ensureDbTable();
+      await sql`
+        INSERT INTO keds_telemetry_sessions (
+          session_id, first_seen_at_ms, last_seen_at_ms, total_duration_seconds,
+          entry_path, last_path, paths_visited, max_scroll_depth,
+          vsl_watched_seconds, clicked_checkout, device, utm_source, status, drop_off_stage, updated_at
+        ) VALUES (
+          ${event.sessionId}, ${now}, ${now}, ${dwell},
+          ${event.path}, ${event.path}, ${JSON.stringify([event.path])}::jsonb, ${scroll},
+          ${vsl}, ${isCta}, ${device}, ${cleanSource}, ${isCta ? 'completed' : 'active'}, ${stage}, NOW()
+        )
+        ON CONFLICT (session_id) DO UPDATE SET
+          last_seen_at_ms = EXCLUDED.last_seen_at_ms,
+          last_path = EXCLUDED.last_path,
+          paths_visited = CASE
+            WHEN keds_telemetry_sessions.paths_visited @> ${JSON.stringify([event.path])}::jsonb
+            THEN keds_telemetry_sessions.paths_visited
+            ELSE keds_telemetry_sessions.paths_visited || ${JSON.stringify([event.path])}::jsonb
+          END,
+          total_duration_seconds = GREATEST(keds_telemetry_sessions.total_duration_seconds, EXCLUDED.total_duration_seconds),
+          max_scroll_depth = GREATEST(keds_telemetry_sessions.max_scroll_depth, EXCLUDED.max_scroll_depth),
+          vsl_watched_seconds = GREATEST(keds_telemetry_sessions.vsl_watched_seconds, EXCLUDED.vsl_watched_seconds),
+          clicked_checkout = keds_telemetry_sessions.clicked_checkout OR EXCLUDED.clicked_checkout,
+          status = CASE WHEN EXCLUDED.clicked_checkout THEN 'completed' ELSE keds_telemetry_sessions.status END,
+          drop_off_stage = EXCLUDED.drop_off_stage,
+          updated_at = NOW();
+      `;
+    } catch (err) {
+      console.error('Error persisting telemetry session to Neon Postgres:', err);
+    }
+  }
 }
 
 function determineStage(path: string, eventName?: string): string {
@@ -135,7 +218,7 @@ function determineStage(path: string, eventName?: string): string {
   return path;
 }
 
-export function clearTelemetryStore() {
+export async function clearTelemetryStore() {
   sessionsMap.clear();
   recentEvents.length = 0;
   try {
@@ -143,12 +226,59 @@ export function clearTelemetryStore() {
       fs.unlinkSync(STORAGE_FILE);
     }
   } catch {}
+
+  const sql = getDb();
+  if (sql) {
+    try {
+      await ensureDbTable();
+      await sql`DELETE FROM keds_telemetry_sessions`;
+    } catch (err) {
+      console.error('Error clearing PostgreSQL telemetry sessions:', err);
+    }
+  }
 }
 
-export function getBackofficeMetrics() {
-  const sessions = Array.from(sessionsMap.values()).sort(
-    (a, b) => (b.firstSeenAtMs || 0) - (a.firstSeenAtMs || 0)
-  );
+export async function getBackofficeMetrics() {
+  let sessions: UserSessionSummary[] = [];
+
+  const sql = getDb();
+  if (sql) {
+    try {
+      await ensureDbTable();
+      const rows = await sql`
+        SELECT * FROM keds_telemetry_sessions
+        ORDER BY first_seen_at_ms DESC
+        LIMIT 500;
+      `;
+      if (Array.isArray(rows) && rows.length > 0) {
+        sessions = rows.map((r: any) => ({
+          sessionId: String(r.session_id),
+          firstSeenAtMs: Number(r.first_seen_at_ms),
+          lastSeenAtMs: Number(r.last_seen_at_ms),
+          totalDurationSeconds: Number(r.total_duration_seconds) || 1,
+          entryPath: String(r.entry_path || '/'),
+          lastPath: String(r.last_path || '/'),
+          pathsVisited: Array.isArray(r.paths_visited) ? r.paths_visited : [String(r.entry_path || '/')],
+          maxScrollDepth: Number(r.max_scroll_depth) || 0,
+          vslWatchedSeconds: Number(r.vsl_watched_seconds) || 0,
+          clickedCheckout: Boolean(r.clicked_checkout),
+          device: (r.device === 'desktop' ? 'desktop' : 'mobile') as 'mobile' | 'desktop',
+          utmSource: String(r.utm_source || 'direto'),
+          status: (r.status === 'completed' ? 'completed' : 'active') as 'active' | 'completed' | 'dropped_off',
+          dropOffStage: String(r.drop_off_stage || 'Início'),
+        }));
+      }
+    } catch (err) {
+      console.error('Error querying Neon Postgres telemetry, using local fallback:', err);
+    }
+  }
+
+  // Fallback para memória local se BD estiver vazia ou offline
+  if (sessions.length === 0 && sessionsMap.size > 0) {
+    sessions = Array.from(sessionsMap.values()).sort(
+      (a, b) => (b.firstSeenAtMs || 0) - (a.firstSeenAtMs || 0)
+    );
+  }
   const totalSessions = sessions.length;
 
   const now = Date.now();

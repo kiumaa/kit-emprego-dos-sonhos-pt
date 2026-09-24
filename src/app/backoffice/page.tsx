@@ -165,10 +165,13 @@ export default function BackofficePage() {
     setPinError(false);
   };
 
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = async (showLoading = true) => {
+    if (showLoading) setLoading(true);
     try {
-      const res = await fetch('/api/telemetry', { cache: 'no-store' });
+      const res = await fetch('/api/telemetry?t=' + Date.now(), {
+        cache: 'no-store',
+        headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
+      });
       const json = await res.json();
       if (json.ok && json.data) {
         setData(json.data);
@@ -176,14 +179,16 @@ export default function BackofficePage() {
     } catch {
       // Ignorar e manter dados locais
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
   useEffect(() => {
     if (!unlocked) return;
-    void fetchData();
-    const interval = setInterval(fetchData, 30000);
+    void fetchData(true);
+    const interval = setInterval(() => {
+      void fetchData(false);
+    }, 15000);
     return () => clearInterval(interval);
   }, [unlocked]);
 

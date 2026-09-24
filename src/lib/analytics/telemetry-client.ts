@@ -13,10 +13,11 @@ let heartbeatTimer: NodeJS.Timeout | null = null;
 function getSessionId(): string {
   if (typeof window === 'undefined') return 'server_session';
   try {
-    let sid = sessionStorage.getItem('keds_telemetry_sid');
+    let sid = localStorage.getItem('keds_telemetry_sid') || sessionStorage.getItem('keds_telemetry_sid');
     if (!sid) {
       sid = 'sess_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
-      sessionStorage.setItem('keds_telemetry_sid', sid);
+      try { localStorage.setItem('keds_telemetry_sid', sid); } catch {}
+      try { sessionStorage.setItem('keds_telemetry_sid', sid); } catch {}
     }
     return sid;
   } catch {
@@ -29,48 +30,94 @@ function getDeviceInfo(): 'mobile' | 'desktop' {
   return window.innerWidth <= 768 ? 'mobile' : 'desktop';
 }
 
+function normalizeSource(src: string): string {
+  const s = src.toLowerCase().trim();
+  if (s === 'an') return 'Meta Audience Network';
+  if (s === 'ig') return 'Instagram Ads';
+  if (s === 'fb') return 'Facebook Ads';
+  if (s === 'msg') return 'Messenger';
+  return src;
+}
+
+function detectTrafficSource(): string {
+  if (typeof window === 'undefined') return 'direto';
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromUrl = urlParams.get('utm_source');
+    const fbclid = urlParams.get('fbclid');
+    const gclid = urlParams.get('gclid');
+
+    if (fromUrl) {
+      const normalized = normalizeSource(fromUrl);
+      try {
+        sessionStorage.setItem('keds_marketing_source', normalized);
+        localStorage.setItem('keds_marketing_source', normalized);
+      } catch {}
+      return normalized;
+    }
+
+    if (fbclid) {
+      const metaSource = 'Meta Ads';
+      try {
+        sessionStorage.setItem('keds_marketing_source', metaSource);
+        localStorage.setItem('keds_marketing_source', metaSource);
+      } catch {}
+      return metaSource;
+    }
+
+    if (gclid) {
+      const googleSource = 'Google Ads';
+      try {
+        sessionStorage.setItem('keds_marketing_source', googleSource);
+        localStorage.setItem('keds_marketing_source', googleSource);
+      } catch {}
+      return googleSource;
+    }
+
+    // Verificar se já temos guardado de visita anterior nesta sessão
+    const savedSource =
+      sessionStorage.getItem('keds_marketing_source') ||
+      localStorage.getItem('keds_marketing_source');
+    if (savedSource) return savedSource;
+
+    // Verificar em keds_marketing_params
+    const rawMarketing = sessionStorage.getItem('keds_marketing_params');
+    if (rawMarketing) {
+      const parsed = JSON.parse(rawMarketing);
+      if (parsed.utm_source) return normalizeSource(parsed.utm_source);
+      if (parsed.fbclid) return 'Meta Ads';
+    }
+
+    // Verificar referrer externo
+    if (document.referrer) {
+      const refLower = document.referrer.toLowerCase();
+      if (refLower.includes('instagram.com') || refLower.includes('com.instagram.android')) return 'Instagram';
+      if (refLower.includes('facebook.com') || refLower.includes('com.facebook')) return 'Facebook';
+      if (refLower.includes('google.')) return 'Google Search';
+      if (refLower.includes('tiktok.com') || refLower.includes('com.zhiliaoapp.musically')) return 'TikTok';
+      if (refLower.includes('linkedin.com')) return 'LinkedIn';
+
+      try {
+        const refUrl = new URL(document.referrer);
+        const host = refUrl.hostname.toLowerCase();
+        if (!host.includes(window.location.hostname)) {
+          return host.replace(/^www\./, '');
+        }
+      } catch {}
+    }
+  } catch {}
+
+  return 'direto';
+}
+
 function sendBeaconEvent(eventName: string, extraData: Record<string, unknown> = {}) {
   if (typeof window === 'undefined') return;
 
   const now = Date.now();
   const dwellSeconds = pageEntryTime > 0 ? Math.round((now - pageEntryTime) / 1000) : 0;
   const sessionId = getSessionId();
-
-  let utmSource = 'direto';
-  try {
-    // 1. Verificar parâmetro utm_source no URL atual
-    const urlParams = new URLSearchParams(window.location.search);
-    const fromUrl = urlParams.get('utm_source');
-    if (fromUrl) {
-      utmSource = fromUrl;
-      sessionStorage.setItem('keds_marketing_params', JSON.stringify({ utm_source: fromUrl }));
-    } else {
-      // 2. Verificar parâmetro salvo em keds_marketing_params ou keds_utm_params
-      const rawMarketing = sessionStorage.getItem('keds_marketing_params');
-      if (rawMarketing) {
-        const parsed = JSON.parse(rawMarketing);
-        if (parsed.utm_source) utmSource = parsed.utm_source;
-      } else {
-        const rawUtm = sessionStorage.getItem('keds_utm_params');
-        if (rawUtm) {
-          const parsed = JSON.parse(rawUtm);
-          if (parsed.utm_source) utmSource = parsed.utm_source;
-        } else if (document.referrer) {
-          // 3. Referenciador externo real se existir
-          const refUrl = new URL(document.referrer);
-          const host = refUrl.hostname.toLowerCase();
-          if (!host.includes(window.location.hostname)) {
-            if (host.includes('instagram.com')) utmSource = 'instagram';
-            else if (host.includes('facebook.com')) utmSource = 'facebook';
-            else if (host.includes('google.')) utmSource = 'google_search';
-            else if (host.includes('linkedin.com')) utmSource = 'linkedin';
-            else if (host.includes('tiktok.com')) utmSource = 'tiktok';
-            else utmSource = host.replace(/^www\./, '');
-          }
-        }
-      }
-    }
-  } catch {}
+  const utmSource = detectTrafficSource();
 
   const payload = {
     sessionId,
@@ -84,19 +131,30 @@ function sendBeaconEvent(eventName: string, extraData: Record<string, unknown> =
     ...extraData,
   };
 
-  try {
-    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-    if (navigator.sendBeacon) {
+  const jsonStr = JSON.stringify(payload);
+
+  // Primário: fetch com keepalive (suporte universal e sem falhas em webviews do Instagram/Facebook)
+  if (typeof fetch === 'function') {
+    void fetch('/api/telemetry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonStr,
+      keepalive: true,
+    }).catch(() => {
+      // Fallback secundário para sendBeacon
+      try {
+        if (navigator.sendBeacon) {
+          const blob = new Blob([jsonStr], { type: 'application/json' });
+          navigator.sendBeacon('/api/telemetry', blob);
+        }
+      } catch {}
+    });
+  } else if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+    try {
+      const blob = new Blob([jsonStr], { type: 'application/json' });
       navigator.sendBeacon('/api/telemetry', blob);
-    } else {
-      void fetch('/api/telemetry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        keepalive: true,
-      });
-    }
-  } catch {}
+    } catch {}
+  }
 }
 
 export function initTelemetryTracking() {

@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     if (body && typeof body === 'object' && body.sessionId && body.path) {
-      recordTelemetryEvent(body as TelemetryEvent);
+      await recordTelemetryEvent(body as TelemetryEvent);
     }
     return NextResponse.json({ ok: true });
   } catch {
@@ -17,11 +17,20 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const metrics = getBackofficeMetrics();
-  return NextResponse.json({ ok: true, data: metrics });
+  const metrics = await getBackofficeMetrics();
+  return NextResponse.json(
+    { ok: true, data: metrics },
+    {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    }
+  );
 }
 
 export async function DELETE() {
-  clearTelemetryStore();
+  await clearTelemetryStore();
   return NextResponse.json({ ok: true, message: 'Dados de telemetria reiniciados com sucesso' });
 }
