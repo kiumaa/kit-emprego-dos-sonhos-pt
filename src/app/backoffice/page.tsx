@@ -290,6 +290,27 @@ export default function BackofficePage() {
     );
   }
 
+  const totalTracked = data?.recentSessions.length || 0;
+  const vsl15Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.vslWatchedSeconds >= 5).length || 0) / totalTracked * 100) : 0;
+  const vsl45Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.vslWatchedSeconds >= 30).length || 0) / totalTracked * 100) : 0;
+  const vsl90Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.vslWatchedSeconds >= 60).length || 0) / totalTracked * 100) : 0;
+  const vslEndPct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.vslWatchedSeconds >= 90).length || 0) / totalTracked * 100) : 0;
+
+  const scroll25Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.maxScrollDepth >= 25).length || 0) / totalTracked * 100) : 0;
+  const scroll50Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.maxScrollDepth >= 50).length || 0) / totalTracked * 100) : 0;
+  const scroll75Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.maxScrollDepth >= 75).length || 0) / totalTracked * 100) : 0;
+  const scroll100Pct = totalTracked > 0 ? Math.round((data?.recentSessions.filter((s) => s.maxScrollDepth >= 90).length || 0) / totalTracked * 100) : 0;
+
+  const handleResetTelemetry = async () => {
+    if (!window.confirm('Tens a certeza de que queres limpar todos os dados de telemetria acumulados e reiniciar a zero?')) {
+      return;
+    }
+    try {
+      await fetch('/api/telemetry', { method: 'DELETE' });
+      await fetchData();
+    } catch {}
+  };
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#090D16', color: '#F3F4F6', fontFamily: 'var(--font-primary, -apple-system, sans-serif)', paddingBottom: '60px' }}>
       {/* Topo / Navbar Executiva */}
@@ -304,10 +325,10 @@ export default function BackofficePage() {
                 Cockpit Operacional & Tráfego
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', fontWeight: 600, color: '#10B981', backgroundColor: 'rgba(16, 185, 129, 0.12)', padding: '2px 8px', borderRadius: '999px' }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981' }}></span>
-                  Online / Tempo Real
+                  100% Telemetria Real
                 </span>
               </div>
-              <div style={{ fontSize: '12px', color: '#9CA3AF' }}>Visão total de produtos, entregas, comportamento e retenção de utilizadores</div>
+              <div style={{ fontSize: '12px', color: '#9CA3AF' }}>Visão total de produtos, entregas, comportamento e retenção de utilizadores reais</div>
             </div>
           </div>
 
@@ -340,6 +361,26 @@ export default function BackofficePage() {
             >
               <RefreshCw size={14} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} />
               <span>Atualizar</span>
+            </button>
+
+            <button
+              onClick={() => void handleResetTelemetry()}
+              title="Limpar telemetria e reiniciar dados a zero"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 12px',
+                borderRadius: '10px',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                color: '#9CA3AF',
+                border: '1px solid #374151',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              <span>Reiniciar Dados (0)</span>
             </button>
 
             <a
@@ -386,11 +427,11 @@ export default function BackofficePage() {
               <Users size={18} color="#38BDF8" />
             </div>
             <div style={{ fontSize: '28px', fontWeight: 800, color: '#FFF', marginTop: '8px' }}>
-              {data?.kpis.uniqueSessions ?? 128}
+              {data?.kpis.uniqueSessions ?? 0}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#10B981', marginTop: '4px' }}>
               <TrendingUp size={14} />
-              <span>+18.4% vs dia anterior</span>
+              <span>{data?.kpis.totalVisitorsToday ?? 0} sessões hoje</span>
             </div>
           </div>
 
@@ -401,10 +442,10 @@ export default function BackofficePage() {
               <Clock size={18} color="#F59E0B" />
             </div>
             <div style={{ fontSize: '28px', fontWeight: 800, color: '#FFF', marginTop: '8px' }}>
-              {data?.kpis.avgDwellTime ?? '2m 14s'}
+              {data?.kpis.avgDwellTime ?? '0s'}
             </div>
             <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '4px' }}>
-              Utilizadores retidos por sessão
+              Tempo médio real por sessão
             </div>
           </div>
 
@@ -415,10 +456,10 @@ export default function BackofficePage() {
               <MousePointerClick size={18} color="#10B981" />
             </div>
             <div style={{ fontSize: '28px', fontWeight: 800, color: '#FFF', marginTop: '8px' }}>
-              {data?.kpis.checkoutClicks ?? 24}
+              {data?.kpis.checkoutClicks ?? 0}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#10B981', marginTop: '4px' }}>
-              <span>Taxa de Conversão: <strong>{data?.kpis.conversionRateToCheckout ?? '18.3%'}</strong></span>
+              <span>Taxa de Conversão: <strong>{data?.kpis.conversionRateToCheckout ?? '0.0%'}</strong></span>
             </div>
           </div>
 
@@ -429,10 +470,10 @@ export default function BackofficePage() {
               <Video size={18} color="#8B5CF6" />
             </div>
             <div style={{ fontSize: '28px', fontWeight: 800, color: '#FFF', marginTop: '8px' }}>
-              {data?.kpis.vslPlayRate ?? '72.4%'}
+              {data?.kpis.vslPlayRate ?? '0.0%'}
             </div>
             <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '4px' }}>
-              Iniciaram reprodução com áudio
+              Iniciaram reprodução do vídeo
             </div>
           </div>
         </div>
@@ -550,7 +591,7 @@ export default function BackofficePage() {
                   <p style={{ fontSize: '13px', color: '#9CA3AF' }}>Análise linear de passagem e atrito em cada degrau do funil de vendas</p>
                 </div>
                 <span style={{ fontSize: '12px', fontWeight: 600, color: '#38BDF8', backgroundColor: 'rgba(56, 189, 248, 0.1)', padding: '4px 10px', borderRadius: '8px' }}>
-                  Conversão Geral: 18.3%
+                  Conversão Geral: {data?.kpis.conversionRateToCheckout ?? '0.0%'}
                 </span>
               </div>
 
@@ -603,20 +644,26 @@ export default function BackofficePage() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
-                {data?.dropOffPoints.map((dp, i) => (
-                  <div key={i} style={{ backgroundColor: '#1F2937', borderRadius: '12px', padding: '16px', borderLeft: '4px solid #EF4444' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFF' }}>{dp.stage}</span>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#EF4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '2px 6px', borderRadius: '6px' }}>
-                        {dp.dropPct}% fuga
-                      </span>
-                    </div>
-                    <p style={{ fontSize: '13px', color: '#D1D5DB', margin: '0 0 10px 0', lineHeight: 1.45 }}>{dp.reason}</p>
-                    <div style={{ fontSize: '12px', color: '#10B981', backgroundColor: 'rgba(16, 185, 129, 0.08)', padding: '8px 10px', borderRadius: '8px', lineHeight: 1.4 }}>
-                      💡 <strong>Recomendação:</strong> {dp.recommendation}
-                    </div>
+                {(!data?.dropOffPoints || data.dropOffPoints.length === 0) ? (
+                  <div style={{ backgroundColor: '#1F2937', borderRadius: '12px', padding: '20px', color: '#9CA3AF', fontSize: '13px', gridColumn: '1 / -1', lineHeight: 1.5 }}>
+                    Nenhum abandono de sessão registado até ao momento. Os pontos de atrito serão mapeados em tempo real assim que ocorrerem desistências reais.
                   </div>
-                ))}
+                ) : (
+                  data.dropOffPoints.map((dp, i) => (
+                    <div key={i} style={{ backgroundColor: '#1F2937', borderRadius: '12px', padding: '16px', borderLeft: '4px solid #EF4444' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFF' }}>{dp.stage}</span>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#EF4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '2px 6px', borderRadius: '6px' }}>
+                          {dp.dropPct}% fuga
+                        </span>
+                      </div>
+                      <p style={{ fontSize: '13px', color: '#D1D5DB', margin: '0 0 10px 0', lineHeight: 1.45 }}>{dp.reason}</p>
+                      <div style={{ fontSize: '12px', color: '#10B981', backgroundColor: 'rgba(16, 185, 129, 0.08)', padding: '8px 10px', borderRadius: '8px', lineHeight: 1.4 }}>
+                        💡 <strong>Recomendação:</strong> {dp.recommendation}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -669,19 +716,19 @@ export default function BackofficePage() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>Início (0s a 15s)</span>
-                    <strong style={{ color: '#10B981' }}>94% assistiram</strong>
+                    <strong style={{ color: '#10B981' }}>{vsl15Pct}% assistiram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>Ponto de Dor (15s a 45s)</span>
-                    <strong style={{ color: '#38BDF8' }}>78% assistiram</strong>
+                    <strong style={{ color: '#38BDF8' }}>{vsl45Pct}% assistiram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>Apresentação do Kit (45s a 90s)</span>
-                    <strong style={{ color: '#F59E0B' }}>62% assistiram</strong>
+                    <strong style={{ color: '#F59E0B' }}>{vsl90Pct}% assistiram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>Chamada para Ação / Fim</span>
-                    <strong style={{ color: '#8B5CF6' }}>48% concluíram</strong>
+                    <strong style={{ color: '#8B5CF6' }}>{vslEndPct}% concluíram</strong>
                   </div>
                 </div>
               </div>
@@ -693,19 +740,19 @@ export default function BackofficePage() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>25% da página (Topo & VSL)</span>
-                    <strong style={{ color: '#10B981' }}>98% alcançaram</strong>
+                    <strong style={{ color: '#10B981' }}>{scroll25Pct}% alcançaram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>50% da página (Mockup & Entregáveis)</span>
-                    <strong style={{ color: '#38BDF8' }}>82% alcançaram</strong>
+                    <strong style={{ color: '#38BDF8' }}>{scroll50Pct}% alcançaram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>75% da página (Feedbacks & WhatsApp)</span>
-                    <strong style={{ color: '#F59E0B' }}>74% alcançaram</strong>
+                    <strong style={{ color: '#F59E0B' }}>{scroll75Pct}% alcançaram</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
                     <span style={{ color: '#D1D5DB' }}>100% da página (Price Card & FAQ)</span>
-                    <strong style={{ color: '#8B5CF6' }}>66% alcançaram</strong>
+                    <strong style={{ color: '#8B5CF6' }}>{scroll100Pct}% alcançaram</strong>
                   </div>
                 </div>
               </div>
@@ -771,15 +818,21 @@ export default function BackofficePage() {
               <div style={{ backgroundColor: '#111827', borderRadius: '18px', padding: '20px', border: '1px solid #1F2937' }}>
                 <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#FFF', marginBottom: '14px' }}>Origens de Tráfego (UTMs)</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {data?.trafficSources.map((src, i) => (
-                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
-                      <span style={{ color: '#D1D5DB' }}>{src.source}</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <strong style={{ color: '#FFF' }}>{src.percentage}%</strong>
-                        <span style={{ color: '#10B981', fontSize: '11px' }}>CTA {src.ctaRate}</span>
-                      </div>
+                  {(!data?.trafficSources || data.trafficSources.length === 0) ? (
+                    <div style={{ color: '#9CA3AF', fontSize: '13px', padding: '6px 0' }}>
+                      Nenhuma campanha ou origem externa registada ainda. Apenas tráfego real é contabilizado.
                     </div>
-                  ))}
+                  ) : (
+                    data.trafficSources.map((src, i) => (
+                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
+                        <span style={{ color: '#D1D5DB' }}>{src.source}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <strong style={{ color: '#FFF' }}>{src.percentage}% ({src.visitors})</strong>
+                          <span style={{ color: '#10B981', fontSize: '11px' }}>CTA {src.ctaRate}</span>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
 
@@ -788,12 +841,18 @@ export default function BackofficePage() {
                   <Smartphone size={18} color="#38BDF8" /> Dispositivos dos Utilizadores
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {data?.devices.map((dev, i) => (
-                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
-                      <span style={{ color: '#D1D5DB' }}>{dev.device}</span>
-                      <strong style={{ color: dev.color, fontSize: '15px' }}>{dev.percentage}%</strong>
+                  {(!data || data.kpis.uniqueSessions === 0) ? (
+                    <div style={{ color: '#9CA3AF', fontSize: '13px', padding: '6px 0' }}>
+                      A aguardar visitantes reais para calcular divisão mobile vs. desktop.
                     </div>
-                  ))}
+                  ) : (
+                    data.devices.map((dev, i) => (
+                      <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
+                        <span style={{ color: '#D1D5DB' }}>{dev.device}</span>
+                        <strong style={{ color: dev.color, fontSize: '15px' }}>{dev.percentage}%</strong>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -830,77 +889,95 @@ export default function BackofficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.recentSessions.map((s, idx) => {
-                      const dt = formatVisitDateTime(s.firstSeenAtMs);
-                      return (
-                        <tr key={idx} style={{ borderBottom: '1px solid #1F2937', color: '#E5E7EB' }}>
-                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                            <div style={{ fontWeight: 700, color: '#FFF', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <Clock size={13} color="#38BDF8" />
-                              <span>{dt.date}</span>
-                              <span style={{ color: '#38BDF8', fontWeight: 700 }}>{dt.time}</span>
+                    {(!data?.recentSessions || data.recentSessions.length === 0) ? (
+                      <tr>
+                        <td colSpan={8} style={{ padding: '48px 20px', textAlign: 'center', color: '#9CA3AF' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'rgba(56, 189, 248, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <Compass size={24} color="#38BDF8" />
                             </div>
-                            <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px', paddingLeft: '19px' }}>
-                              {dt.relative}
+                            <div style={{ fontSize: '16px', fontWeight: 700, color: '#FFF' }}>
+                              Nenhuma jornada externa registada ainda
                             </div>
-                          </td>
-                          <td style={{ padding: '10px 12px', fontFamily: 'monospace', color: '#38BDF8', whiteSpace: 'nowrap' }}>
-                            {s.sessionId}
-                          </td>
-                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                            <div style={{ color: '#F3F4F6', fontWeight: 600 }}>{s.utmSource}</div>
-                            <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px' }}>
-                              {s.device === 'mobile' ? '📱 Mobile' : '💻 Desktop'}
-                            </div>
-                          </td>
-                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                            <span style={{ fontWeight: 600, color: '#F3F4F6' }}>{s.totalDurationSeconds}s</span>
-                            <div style={{ fontSize: '11px', color: '#9CA3AF' }}>
-                              {Math.floor(s.totalDurationSeconds / 60)}m {s.totalDurationSeconds % 60}s
-                            </div>
-                          </td>
-                          <td style={{ padding: '10px 12px', minWidth: '220px' }}>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' }}>
-                              {s.pathsVisited.map((p, pIdx) => (
-                                <React.Fragment key={pIdx}>
-                                  <span style={{ backgroundColor: '#1F2937', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: '#D1D5DB' }}>
-                                    {p}
-                                  </span>
-                                  {pIdx < s.pathsVisited.length - 1 && (
-                                    <span style={{ color: '#6B7280', fontSize: '10px' }}>→</span>
-                                  )}
-                                </React.Fragment>
-                              ))}
-                            </div>
-                          </td>
-                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                            {s.vslWatchedSeconds > 0 ? (
-                              <span style={{ color: '#10B981', fontWeight: 600 }}>{s.vslWatchedSeconds}s</span>
-                            ) : (
-                              <span style={{ color: '#6B7280' }}>—</span>
-                            )}
-                          </td>
-                          <td style={{ padding: '10px 12px', color: '#F59E0B', fontWeight: 500, fontSize: '12px' }}>
-                            {s.dropOffStage}
-                          </td>
-                          <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                            <span
-                              style={{
-                                fontSize: '11px',
-                                fontWeight: 700,
-                                color: s.clickedCheckout ? '#10B981' : '#9CA3AF',
-                                backgroundColor: s.clickedCheckout ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-                                padding: '3px 8px',
-                                borderRadius: '6px',
-                                border: s.clickedCheckout ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid transparent',
-                              }}
-                            >
-                              {s.clickedCheckout ? 'Checkout ✓' : 'Navegação'}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            <p style={{ fontSize: '13px', color: '#9CA3AF', maxWidth: '520px', margin: 0, lineHeight: 1.5 }}>
+                              Este cockpit opera agora em modo <strong>100% de telemetria real</strong> (todos os dados fictícios e sementes pré-programadas foram eliminados). Assim que um visitante real aceder ao site ou clicar num anúncio, a sua jornada aparecerá aqui ao segundo com a data, hora, origem e percurso.
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      data.recentSessions.map((s, idx) => {
+                        const dt = formatVisitDateTime(s.firstSeenAtMs);
+                        return (
+                          <tr key={idx} style={{ borderBottom: '1px solid #1F2937', color: '#E5E7EB' }}>
+                            <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                              <div style={{ fontWeight: 700, color: '#FFF', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <Clock size={13} color="#38BDF8" />
+                                <span>{dt.date}</span>
+                                <span style={{ color: '#38BDF8', fontWeight: 700 }}>{dt.time}</span>
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px', paddingLeft: '19px' }}>
+                                {dt.relative}
+                              </div>
+                            </td>
+                            <td style={{ padding: '10px 12px', fontFamily: 'monospace', color: '#38BDF8', whiteSpace: 'nowrap' }}>
+                              {s.sessionId}
+                            </td>
+                            <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                              <div style={{ color: '#F3F4F6', fontWeight: 600 }}>{s.utmSource}</div>
+                              <div style={{ fontSize: '11px', color: '#9CA3AF', marginTop: '2px' }}>
+                                {s.device === 'mobile' ? '📱 Mobile' : '💻 Desktop'}
+                              </div>
+                            </td>
+                            <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                              <span style={{ fontWeight: 600, color: '#F3F4F6' }}>{s.totalDurationSeconds}s</span>
+                              <div style={{ fontSize: '11px', color: '#9CA3AF' }}>
+                                {Math.floor(s.totalDurationSeconds / 60)}m {s.totalDurationSeconds % 60}s
+                              </div>
+                            </td>
+                            <td style={{ padding: '10px 12px', minWidth: '220px' }}>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' }}>
+                                {s.pathsVisited.map((p, pIdx) => (
+                                  <React.Fragment key={pIdx}>
+                                    <span style={{ backgroundColor: '#1F2937', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', color: '#D1D5DB' }}>
+                                      {p}
+                                    </span>
+                                    {pIdx < s.pathsVisited.length - 1 && (
+                                      <span style={{ color: '#6B7280', fontSize: '10px' }}>→</span>
+                                    )}
+                                  </React.Fragment>
+                                ))}
+                              </div>
+                            </td>
+                            <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                              {s.vslWatchedSeconds > 0 ? (
+                                <span style={{ color: '#10B981', fontWeight: 600 }}>{s.vslWatchedSeconds}s</span>
+                              ) : (
+                                <span style={{ color: '#6B7280' }}>—</span>
+                              )}
+                            </td>
+                            <td style={{ padding: '10px 12px', color: '#F59E0B', fontWeight: 500, fontSize: '12px' }}>
+                              {s.dropOffStage}
+                            </td>
+                            <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
+                              <span
+                                style={{
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  color: s.clickedCheckout ? '#10B981' : '#9CA3AF',
+                                  backgroundColor: s.clickedCheckout ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+                                  padding: '3px 8px',
+                                  borderRadius: '6px',
+                                  border: s.clickedCheckout ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid transparent',
+                                }}
+                              >
+                                {s.clickedCheckout ? 'Checkout ✓' : 'Navegação'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
                   </tbody>
                 </table>
               </div>

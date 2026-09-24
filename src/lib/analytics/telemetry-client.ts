@@ -38,10 +38,37 @@ function sendBeaconEvent(eventName: string, extraData: Record<string, unknown> =
 
   let utmSource = 'direto';
   try {
-    const rawUtm = sessionStorage.getItem('keds_utm_params');
-    if (rawUtm) {
-      const parsed = JSON.parse(rawUtm);
-      if (parsed.utm_source) utmSource = parsed.utm_source;
+    // 1. Verificar parâmetro utm_source no URL atual
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromUrl = urlParams.get('utm_source');
+    if (fromUrl) {
+      utmSource = fromUrl;
+      sessionStorage.setItem('keds_marketing_params', JSON.stringify({ utm_source: fromUrl }));
+    } else {
+      // 2. Verificar parâmetro salvo em keds_marketing_params ou keds_utm_params
+      const rawMarketing = sessionStorage.getItem('keds_marketing_params');
+      if (rawMarketing) {
+        const parsed = JSON.parse(rawMarketing);
+        if (parsed.utm_source) utmSource = parsed.utm_source;
+      } else {
+        const rawUtm = sessionStorage.getItem('keds_utm_params');
+        if (rawUtm) {
+          const parsed = JSON.parse(rawUtm);
+          if (parsed.utm_source) utmSource = parsed.utm_source;
+        } else if (document.referrer) {
+          // 3. Referenciador externo real se existir
+          const refUrl = new URL(document.referrer);
+          const host = refUrl.hostname.toLowerCase();
+          if (!host.includes(window.location.hostname)) {
+            if (host.includes('instagram.com')) utmSource = 'instagram';
+            else if (host.includes('facebook.com')) utmSource = 'facebook';
+            else if (host.includes('google.')) utmSource = 'google_search';
+            else if (host.includes('linkedin.com')) utmSource = 'linkedin';
+            else if (host.includes('tiktok.com')) utmSource = 'tiktok';
+            else utmSource = host.replace(/^www\./, '');
+          }
+        }
+      }
     }
   } catch {}
 
