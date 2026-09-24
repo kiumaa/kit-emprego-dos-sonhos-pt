@@ -33,3 +33,7 @@ KEDS_v3_Funil_OKANDA_Satoshi.zip
 .vercel
 *.pdf
 *.code-workspace
+.agent/
+.antigravity*
+shadcn-extension.json
+public/antigravity-bridge.js

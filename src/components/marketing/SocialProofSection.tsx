@@ -1,59 +1,39 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Star, CheckCircle2, MessageSquare, ZoomIn, X, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { MessageSquare, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
-interface TestimonialItem {
+interface TestimonialImage {
   id: string;
   name: string;
-  role: string;
-  badge: string;
-  highlight: string;
-  keyQuote: string;
-  imageSrc: string;
+  src: string;
   alt: string;
 }
 
-const TESTIMONIALS: TestimonialItem[] = [
+const TESTIMONIAL_IMAGES: TestimonialImage[] = [
   {
     id: 'sofia',
     name: 'Sofia Almeida',
-    role: 'Candidatura a Emprego',
-    badge: 'Feedback Verificado',
-    highlight: 'CV muito mais claro e profissional',
-    keyQuote: '“Já me sinto muito mais confiante para enviar candidaturas agora! Acho mesmo que valeu a pena o investimento.”',
-    imageSrc: '/images/social-proof/sofia-almeida.jpg',
-    alt: 'Mensagens no WhatsApp de Sofia Almeida a elogiar o Kit Emprego dos Sonhos',
+    src: '/images/social-proof/sofia-almeida.jpg',
+    alt: 'Mensagens no WhatsApp de Sofia Almeida sobre o Kit Emprego dos Sonhos',
   },
   {
     id: 'marta',
     name: 'Marta Oliveira',
-    role: 'Transição Profissional',
-    badge: 'Feedback Verificado',
-    highlight: 'Fui contactada para uma entrevista! 🎉',
-    keyQuote: '“Em apenas duas semanas comecei a receber muito mais visualizações no meu perfil do LinkedIn e fui contactada para uma entrevista!”',
-    imageSrc: '/images/social-proof/marta-oliveira.jpg',
-    alt: 'Mensagens no WhatsApp de Marta Oliveira sobre convite para entrevista após usar o kit',
+    src: '/images/social-proof/marta-oliveira.jpg',
+    alt: 'Mensagens no WhatsApp de Marta Oliveira sobre convite para entrevista',
   },
   {
     id: 'bruno',
     name: 'Bruno Martins',
-    role: 'Procura Ativa',
-    badge: 'Feedback Verificado',
-    highlight: 'Respostas de várias empresas',
-    keyQuote: '“Os modelos de CV são mesmo muito bons, modernos e fáceis de personalizar. Já recebi respostas de várias empresas.”',
-    imageSrc: '/images/social-proof/bruno-martins.jpg',
-    alt: 'Mensagens no WhatsApp de Bruno Martins a destacar respostas de recrutadores',
+    src: '/images/social-proof/bruno-martins.jpg',
+    alt: 'Mensagens no WhatsApp de Bruno Martins sobre respostas de várias empresas',
   },
   {
     id: 'daniela',
     name: 'Daniela Ferreira',
-    role: 'Nova Fase de Carreira',
-    badge: 'Feedback Verificado',
-    highlight: 'Chamada para uma entrevista! 🎉',
-    keyQuote: '“Confesso que no início estava um pouco hesitante... mas decidi arriscar e ainda bem que o fiz! Já fui chamada para uma entrevista!”',
-    imageSrc: '/images/social-proof/daniela-ferreira.jpg',
-    alt: 'Mensagens no WhatsApp de Daniela Ferreira a confirmar entrevista marcada',
+    src: '/images/social-proof/daniela-ferreira.jpg',
+    alt: 'Mensagens no WhatsApp de Daniela Ferreira sobre chamada para entrevista',
   },
 ];
 
@@ -66,25 +46,47 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
   id = 'provas-sociais',
   className = '',
 }) => {
-  const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
-  // Fechar modal com tecla Escape ou navegar com setas
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + TESTIMONIAL_IMAGES.length) % TESTIMONIAL_IMAGES.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % TESTIMONIAL_IMAGES.length);
+  };
+
+  // Suporte para touch swipe em mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    if (diffX > 40) {
+      nextSlide();
+    } else if (diffX < -40) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
+  // Navegação por teclado quando o lightbox está aberto
   useEffect(() => {
-    if (activeModalIndex === null) return;
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setActiveModalIndex(null);
-      } else if (e.key === 'ArrowRight') {
-        setActiveModalIndex((prev) => (prev !== null ? (prev + 1) % TESTIMONIALS.length : null));
-      } else if (e.key === 'ArrowLeft') {
-        setActiveModalIndex((prev) => (prev !== null ? (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length : null));
-      }
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'Escape' && isLightboxOpen) setIsLightboxOpen(false);
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeModalIndex]);
+  }, [isLightboxOpen]);
+
+  const currentImage = TESTIMONIAL_IMAGES[currentIndex];
 
   return (
     <section
@@ -96,285 +98,205 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
         marginInline: 'auto',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-5)',
+        alignItems: 'center',
+        gap: 'var(--space-4)',
       }}
       aria-label="Provas Sociais e Testemunhos de Clientes"
     >
-      {/* Cabeçalho da Secção de Provas Sociais */}
+      {/* Cabeçalho Limpo: Selo "Feedbacks Reais" */}
       <div style={{ textAlign: 'center' }}>
         <span
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            fontSize: '11px',
+            fontSize: '12px',
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            color: '#128C7E', // Tom característico de autenticidade / WhatsApp
+            color: '#128C7E',
             backgroundColor: 'rgba(37, 211, 102, 0.12)',
             padding: '5px 14px',
             borderRadius: '999px',
           }}
         >
           <MessageSquare size={13} aria-hidden="true" />
-          <span>Feedback Real · Mensagens WhatsApp</span>
+          <span>Feedbacks Reais</span>
         </span>
+      </div>
 
-        <h2
+      {/* Slider Exclusivo de Imagens (Sem cards) */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '380px',
+          marginInline: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {/* Moldura da Imagem em Slide */}
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onClick={() => setIsLightboxOpen(true)}
           style={{
-            fontSize: 'clamp(22px, 4.5vw, 30px)',
-            fontWeight: 700,
-            letterSpacing: '-0.025em',
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '9 / 16',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            backgroundColor: '#075E54',
+            border: '1px solid var(--color-border)',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer',
+            userSelect: 'none',
+          }}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setIsLightboxOpen(true);
+            }
+          }}
+          aria-label={`Ver imagem ampliada de ${currentImage.name}`}
+        >
+          <img
+            key={currentImage.id}
+            src={currentImage.src}
+            alt={currentImage.alt}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              display: 'block',
+              animation: 'fadeIn 200ms ease',
+            }}
+          />
+
+          {/* Dica discreta de zoom no canto superior */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(4px)',
+              color: '#FFFFFF',
+              borderRadius: '50%',
+              width: '32px',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: 0.85,
+            }}
+            aria-hidden="true"
+          >
+            <ZoomIn size={16} />
+          </div>
+        </div>
+
+        {/* Botão Anterior */}
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Imagem anterior"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '-18px',
+            transform: 'translateY(-50%)',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid var(--color-border)',
             color: 'var(--color-text)',
-            marginTop: 'var(--space-2)',
-            lineHeight: 1.25,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+            transition: 'all 160ms ease',
+            zIndex: 10,
           }}
         >
-          Quem já usou o Kit começou a ter chamadas para entrevistas
-        </h2>
+          <ChevronLeft size={20} />
+        </button>
 
-        <p
-          className="secondary"
+        {/* Botão Seguinte */}
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Imagem seguinte"
           style={{
-            fontSize: '15px',
-            color: 'var(--color-text-secondary)',
-            marginTop: 'var(--space-2)',
-            maxWidth: '580px',
-            marginInline: 'auto',
-            lineHeight: 1.5,
+            position: 'absolute',
+            top: '50%',
+            right: '-18px',
+            transform: 'translateY(-50%)',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid var(--color-border)',
+            color: 'var(--color-text)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+            transition: 'all 160ms ease',
+            zIndex: 10,
           }}
         >
-          Mensagens autênticas enviadas por profissionais que estavam com dificuldades em obter retorno e desbloquearam entrevistas no mercado português.
-        </p>
+          <ChevronRight size={20} />
+        </button>
 
-        {/* Resumo de Confiança */}
+        {/* Indicadores de Pontos (Dots) e Contador */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '12px',
-            marginTop: 'var(--space-3)',
+            gap: '8px',
+            marginTop: '14px',
           }}
         >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border)',
-              borderRadius: '999px',
-              padding: '4px 12px',
-              fontSize: '12px',
-              fontWeight: 600,
-              color: 'var(--color-text)',
-            }}
-          >
-            <div style={{ display: 'flex', gap: '2px', color: '#F5A623' }}>
-              <Star size={12} fill="#F5A623" />
-              <Star size={12} fill="#F5A623" />
-              <Star size={12} fill="#F5A623" />
-              <Star size={12} fill="#F5A623" />
-              <Star size={12} fill="#F5A623" />
-            </div>
-            <span><strong>4.9 / 5</strong> Avaliação Média</span>
-          </div>
-
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border)',
-              borderRadius: '999px',
-              padding: '4px 12px',
-              fontSize: '12px',
-              fontWeight: 600,
-              color: 'var(--color-text)',
-            }}
-          >
-            <ShieldCheck size={14} color="#128C7E" aria-hidden="true" />
-            <span>Feedbacks 100% Verificados</span>
-          </div>
+          {TESTIMONIAL_IMAGES.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Ir para testemunho ${index + 1} de ${item.name}`}
+              style={{
+                width: currentIndex === index ? '24px' : '8px',
+                height: '8px',
+                borderRadius: '999px',
+                backgroundColor: currentIndex === index ? 'var(--color-accent)' : 'rgba(0, 0, 0, 0.2)',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 200ms ease',
+                padding: 0,
+              }}
+            />
+          ))}
+          <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)', marginLeft: '6px' }}>
+            {currentIndex + 1} / {TESTIMONIAL_IMAGES.length}
+          </span>
         </div>
       </div>
 
-      {/* Grelha de Cartões de Prova Social */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 'var(--space-4)',
-        }}
-      >
-        {TESTIMONIALS.map((item, index) => (
-          <div
-            key={item.id}
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
-              border: '1px solid var(--color-border)',
-              boxShadow: '0 8px 24px rgba(29, 29, 31, 0.04)',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              transition: 'transform 200ms ease, box-shadow 200ms ease',
-            }}
-          >
-            {/* Topo do Cartão: Identificação e Estrelas */}
-            <div
-              style={{
-                padding: '14px 18px',
-                borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                backgroundColor: 'var(--color-surface)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    backgroundColor: '#128C7E',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                  }}
-                >
-                  {item.name.charAt(0)}
-                </div>
-                <div>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-                    {item.name}
-                  </div>
-                  <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <CheckCircle2 size={11} color="#128C7E" />
-                    <span>{item.badge}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* 5 Estrelas */}
-              <div style={{ display: 'flex', gap: '2px', color: '#F5A623' }}>
-                <Star size={12} fill="#F5A623" />
-                <Star size={12} fill="#F5A623" />
-                <Star size={12} fill="#F5A623" />
-                <Star size={12} fill="#F5A623" />
-                <Star size={12} fill="#F5A623" />
-              </div>
-            </div>
-
-            {/* Destaque Curto */}
-            <div
-              style={{
-                padding: '10px 18px',
-                backgroundColor: 'rgba(0, 87, 217, 0.04)',
-                borderBottom: '1px solid rgba(0, 87, 217, 0.08)',
-                fontSize: '13px',
-                fontWeight: 700,
-                color: 'var(--color-accent)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-            >
-              <span>🎯</span>
-              <span>{item.highlight}</span>
-            </div>
-
-            {/* Imagem do WhatsApp com Overlay Clicável */}
-            <div
-              onClick={() => setActiveModalIndex(index)}
-              style={{
-                position: 'relative',
-                cursor: 'pointer',
-                backgroundColor: '#075E54', // Tom subtil de fundo WhatsApp
-                overflow: 'hidden',
-                aspectRatio: '9 / 16',
-                maxHeight: '440px',
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setActiveModalIndex(index);
-                }
-              }}
-              aria-label={`Ampliar conversa de WhatsApp com ${item.name}`}
-            >
-              <img
-                src={item.imageSrc}
-                alt={item.alt}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  display: 'block',
-                  transition: 'transform 260ms ease',
-                }}
-              />
-
-              {/* Botão Flutuante de Zoom */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '12px',
-                  right: '12px',
-                  backgroundColor: 'rgba(29, 29, 31, 0.85)',
-                  backdropFilter: 'blur(6px)',
-                  color: '#FFFFFF',
-                  borderRadius: '999px',
-                  padding: '6px 12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                }}
-              >
-                <ZoomIn size={13} aria-hidden="true" />
-                <span>Ampliar conversa</span>
-              </div>
-            </div>
-
-            {/* Citação em Rodapé do Cartão */}
-            <div
-              style={{
-                padding: '14px 18px',
-                backgroundColor: '#FFFFFF',
-                borderTop: '1px solid rgba(0, 0, 0, 0.05)',
-                fontSize: '13px',
-                color: 'var(--color-text)',
-                lineHeight: 1.45,
-                fontStyle: 'italic',
-              }}
-            >
-              {item.keyQuote}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Modal / Lightbox de Ampliação em Alta Resolução */}
-      {activeModalIndex !== null && (
+      {/* Modal / Lightbox em Ecrã Inteiro (ao clicar) */}
+      {isLightboxOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`Conversa completa com ${TESTIMONIALS[activeModalIndex].name}`}
-          onClick={() => setActiveModalIndex(null)}
+          aria-label={`Conversa ampliada com ${currentImage.name}`}
+          onClick={() => setIsLightboxOpen(false)}
           style={{
             position: 'fixed',
             inset: 0,
@@ -387,7 +309,6 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             padding: '16px',
           }}
         >
-          {/* Caixa Central do Modal */}
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -403,7 +324,7 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             {/* Botão de Fechar */}
             <button
               type="button"
-              onClick={() => setActiveModalIndex(null)}
+              onClick={() => setIsLightboxOpen(false)}
               aria-label="Fechar ampliação"
               style={{
                 position: 'absolute',
@@ -419,13 +340,12 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                transition: 'background-color 160ms ease',
               }}
             >
               <X size={20} />
             </button>
 
-            {/* Imagem Ampliada */}
+            {/* Imagem em Ecrã Cheio */}
             <div
               style={{
                 borderRadius: '16px',
@@ -439,8 +359,8 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
               }}
             >
               <img
-                src={TESTIMONIALS[activeModalIndex].imageSrc}
-                alt={TESTIMONIALS[activeModalIndex].alt}
+                src={currentImage.src}
+                alt={currentImage.alt}
                 style={{
                   maxWidth: '100%',
                   maxHeight: '82vh',
@@ -450,7 +370,7 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
               />
             </div>
 
-            {/* Controles de Navegação Anterior / Próximo */}
+            {/* Navegação no Lightbox */}
             <div
               style={{
                 display: 'flex',
@@ -465,16 +385,12 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             >
               <button
                 type="button"
-                onClick={() =>
-                  setActiveModalIndex(
-                    (prev) => (prev !== null ? (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length : 0)
-                  )
-                }
+                onClick={prevSlide}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
                   border: 'none',
                   color: '#FFFFFF',
                   borderRadius: '999px',
@@ -489,19 +405,17 @@ export const SocialProofSection: React.FC<SocialProofSectionProps> = ({
               </button>
 
               <span style={{ fontWeight: 600, opacity: 0.85 }}>
-                {activeModalIndex + 1} de {TESTIMONIALS.length} · {TESTIMONIALS[activeModalIndex].name}
+                {currentIndex + 1} de {TESTIMONIAL_IMAGES.length} · {currentImage.name}
               </span>
 
               <button
                 type="button"
-                onClick={() =>
-                  setActiveModalIndex((prev) => (prev !== null ? (prev + 1) % TESTIMONIALS.length : 0))
-                }
+                onClick={nextSlide}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
                   border: 'none',
                   color: '#FFFFFF',
                   borderRadius: '999px',

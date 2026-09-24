@@ -71,6 +71,7 @@ describe('API /api/auth/login (Acesso Direto por Email)', () => {
       amountMinor: 1499,
       currency: 'EUR',
       offerVersion: 'interactive_v5',
+      occurredAt: new Date().toISOString(),
       bodyDigest,
     });
 

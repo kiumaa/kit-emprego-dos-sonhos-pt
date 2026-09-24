@@ -58,6 +58,7 @@ export const StickyMobileCta: React.FC = () => {
         href={checkoutUrl || checkout.url}
         target="_blank"
         rel="noopener noreferrer"
+        className="btn-pulse"
         onClick={(e) => {
           const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
           e.currentTarget.href = target;

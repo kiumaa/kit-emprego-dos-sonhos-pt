@@ -63,6 +63,33 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
           gap: 'var(--space-4)',
         }}
       >
+        {/* Imagem do Produto 3D no Topo do Price Card */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '380px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            backgroundColor: '#000000',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12)',
+            marginBottom: 'var(--space-2)',
+          }}
+        >
+          <img
+            src="/images/produto-mockup-3d.jpg"
+            alt="Kit Emprego dos Sonhos - Coleção Completa"
+            width={380}
+            height={380}
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              objectFit: 'contain',
+            }}
+            loading="eager"
+          />
+        </div>
+
         <div>
           <span
             style={{
@@ -225,6 +252,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               href={checkoutUrl || checkout.url}
               target="_blank"
               rel="noopener noreferrer"
+              className="btn-pulse"
               onClick={(e) => {
                 const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
                 e.currentTarget.href = target;

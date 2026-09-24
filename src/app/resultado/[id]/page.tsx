@@ -19,6 +19,7 @@ export default function ResultPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [showFullDiagnostic, setShowFullDiagnostic] = useState(false);
+  const [showResultCard, setShowResultCard] = useState(false);
 
   const funnelConfig = getFunnelConfig();
 
@@ -176,19 +177,59 @@ export default function ResultPage() {
           }}
         >
           {/* ================================================================= */}
-          {/* PARTE A: DIAGNÓSTICO GRATUITO (Leve, Respirável e Visualmente Limpo) */}
+          {/* BOTÃO VER RESULTADO (Oculto por defeito para máxima visibilidade da oferta) */}
           {/* ================================================================= */}
-          <section
-            style={{
-              backgroundColor: '#FFFFFF',
-              borderRadius: '24px',
-              padding: 'clamp(24px, 5vw, 40px) clamp(18px, 4vw, 36px)',
-              border: '1px solid var(--color-border)',
-              boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
-            }}
-          >
-            {/* Indicação e Título */}
-            <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: showResultCard ? '0' : 'var(--space-2)' }}>
+            <button
+              type="button"
+              onClick={() => setShowResultCard((prev) => !prev)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '12px 26px',
+                backgroundColor: showResultCard ? 'var(--color-surface)' : '#FFFFFF',
+                color: 'var(--color-text)',
+                border: '1.5px solid var(--color-border)',
+                borderRadius: '999px',
+                fontSize: '14px',
+                fontWeight: 700,
+                letterSpacing: '0.02em',
+                cursor: 'pointer',
+                boxShadow: '0 4px 16px rgba(29, 29, 31, 0.06)',
+                transition: 'all 160ms ease',
+              }}
+            >
+              <FileText size={17} color="var(--color-accent)" aria-hidden="true" />
+              <span>{showResultCard ? 'Ocultar Diagnóstico' : 'VER RESULTADO'}</span>
+              <ChevronDown
+                size={16}
+                color="var(--color-text-secondary)"
+                style={{
+                  transform: showResultCard ? 'rotate(180deg)' : 'none',
+                  transition: 'transform 200ms ease',
+                }}
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+
+          {/* ================================================================= */}
+          {/* PARTE A: DIAGNÓSTICO GRATUITO (Apenas visível após clique em VER RESULTADO) */}
+          {/* ================================================================= */}
+          {showResultCard && (
+            <section
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '24px',
+                padding: 'clamp(24px, 5vw, 40px) clamp(18px, 4vw, 36px)',
+                border: '1px solid var(--color-border)',
+                boxShadow: '0 8px 32px rgba(29, 29, 31, 0.04)',
+              }}
+            >
+              {/* Indicação e Título */}
+              <div style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
               <span
                 style={{
                   display: 'inline-block',
@@ -416,6 +457,7 @@ export default function ResultPage() {
               </div>
             )}
           </section>
+          )}
 
           {/* ================================================================= */}
           {/* PARTE B: PONTE INEVITÁVEL PARA A OFERTA (#oferta / #apresentacao)  */}
@@ -523,6 +565,7 @@ export default function ResultPage() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', width: '100%', maxWidth: '520px' }}>
               <a
                 href="#oferta"
+                className="btn-pulse"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',

@@ -1,10 +1,15 @@
-import { FileText, CheckCircle2, BookOpen, Layers, Calendar, MessageSquare } from 'lucide-react';
+import React from 'react';
+import { FileText, BookOpen, Layers, MessageSquare } from 'lucide-react';
 
 export interface ProductMockupProps {
   className?: string;
+  showTitle?: boolean;
 }
 
-export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) => {
+export const ProductMockup: React.FC<ProductMockupProps> = ({
+  className = '',
+  showTitle = true,
+}) => {
   return (
     <div
       className={`product-bundle-mockup ${className}`}
@@ -13,16 +18,33 @@ export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) 
         maxWidth: '820px',
         marginInline: 'auto',
         position: 'relative',
-        padding: 'var(--space-6) 0 var(--space-4) 0',
+        padding: 'var(--space-4) 0',
       }}
       aria-label="Ecossistema de recursos do Kit Emprego dos Sonhos"
     >
-      {/* Visual Editorial Grid of Deliverables */}
+      {/* Título da Secção: O que recebes */}
+      {showTitle && (
+        <div style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>
+          <h2
+            style={{
+              fontSize: 'clamp(20px, 4vw, 26px)',
+              fontWeight: 700,
+              color: 'var(--color-text)',
+              letterSpacing: '-0.02em',
+              margin: 0,
+            }}
+          >
+            O que recebes
+          </h2>
+        </div>
+      )}
+
+      {/* Grelha Compacta de Entregáveis */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: 'var(--space-4)',
+          gap: '12px',
         }}
       >
         {/* Deliverable 1: Guia Emprego dos Sonhos (Livro/Guia Principal) */}
@@ -31,12 +53,11 @@ export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) 
             backgroundColor: '#1D1D1F',
             color: '#FFFFFF',
             borderRadius: '16px',
-            padding: '24px 20px',
+            padding: '16px 18px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            minHeight: '220px',
-            boxShadow: '0 12px 36px rgba(29, 29, 31, 0.18)',
+            gap: '8px',
+            boxShadow: '0 8px 24px rgba(29, 29, 31, 0.14)',
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -46,179 +67,159 @@ export const ProductMockup: React.FC<ProductMockupProps> = ({ className = '' }) 
               position: 'absolute',
               top: '-20px',
               right: '-20px',
-              width: '100px',
-              height: '100px',
+              width: '80px',
+              height: '80px',
               background: 'radial-gradient(circle, rgba(0, 87, 217, 0.4) 0%, rgba(29, 29, 31, 0) 70%)',
               pointerEvents: 'none',
             }}
           />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#EDF3FF',
+                backgroundColor: 'rgba(0, 87, 217, 0.85)',
+                padding: '2px 8px',
+                borderRadius: '999px',
+              }}
+            >
+              Guia Central PDF
+            </span>
+            <BookOpen size={16} color="#EDF3FF" aria-hidden="true" />
+          </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: '#EDF3FF',
-                  backgroundColor: 'rgba(0, 87, 217, 0.8)',
-                  padding: '3px 8px',
-                  borderRadius: '999px',
-                }}
-              >
-                Guia Central PDF
-              </span>
-              <BookOpen size={18} color="#EDF3FF" aria-hidden="true" />
-            </div>
-            <h3 style={{ fontSize: '20px', fontWeight: 700, lineHeight: 1.2, color: '#FFFFFF', margin: 0 }}>
+            <h3 style={{ fontSize: '17px', fontWeight: 700, lineHeight: 1.25, color: '#FFFFFF', margin: 0 }}>
               Guia Emprego dos Sonhos
             </h3>
-            <p style={{ fontSize: '13px', color: '#D2D2D7', marginTop: '8px', lineHeight: 1.4 }}>
+            <p style={{ fontSize: '13px', color: '#D2D2D7', marginTop: '6px', lineHeight: 1.4, margin: '6px 0 0 0' }}>
               10 lições práticas para o mercado de trabalho português, do posicionamento ao envio.
             </p>
           </div>
-          <div style={{ fontSize: '11px', color: '#A1A1A6', fontWeight: 500 }}>
-            Formato PDF · 10 Lições Estruturadas
-          </div>
         </div>
 
-        {/* Deliverable 2: Modelos de CV (Essencial + Moderno) */}
+        {/* Deliverable 2: Modelos de CV (Bónus Grátis) */}
         <div
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid var(--color-border)',
             borderRadius: '16px',
-            padding: '24px 20px',
+            padding: '16px 18px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            minHeight: '220px',
-            boxShadow: '0 8px 24px rgba(29, 29, 31, 0.05)',
+            gap: '8px',
+            boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
           }}
         >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#059669',
+                backgroundColor: '#ECFDF5',
+                border: '1px solid rgba(16, 185, 129, 0.2)',
+                padding: '2px 8px',
+                borderRadius: '999px',
+              }}
+            >
+              Bónus Grátis
+            </span>
+            <FileText size={16} color="var(--color-accent)" aria-hidden="true" />
+          </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent-soft)',
-                  padding: '3px 8px',
-                  borderRadius: '999px',
-                }}
-              >
-                Word / DOCX
-              </span>
-              <FileText size={18} color="var(--color-accent)" aria-hidden="true" />
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, lineHeight: 1.2, color: 'var(--color-text)', margin: 0 }}>
+            <h3 style={{ fontSize: '17px', fontWeight: 700, lineHeight: 1.25, color: 'var(--color-text)', margin: 0 }}>
               2 Modelos de CV
             </h3>
-            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.4 }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '6px', lineHeight: 1.4, margin: '6px 0 0 0' }}>
               <strong>Essencial</strong> (linear) e <strong>Moderno</strong> (equilibrado). Editáveis no Word, Docs ou LibreOffice.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '11px', padding: '2px 6px', backgroundColor: 'var(--color-surface)', borderRadius: '4px', color: 'var(--color-text-secondary)' }}>
-              1 Coluna
-            </span>
-            <span style={{ fontSize: '11px', padding: '2px 6px', backgroundColor: 'var(--color-surface)', borderRadius: '4px', color: 'var(--color-text-secondary)' }}>
-              Equilibrado
-            </span>
-            <span style={{ fontSize: '11px', padding: '2px 6px', backgroundColor: 'var(--color-surface)', borderRadius: '4px', color: 'var(--color-text-secondary)' }}>
-              Exemplos preenchidos
-            </span>
-          </div>
         </div>
 
-        {/* Deliverable 3: Candidaturas (Cartas + Mensagens + Checklists) */}
+        {/* Deliverable 3: Cartas & Mensagens (Bónus Grátis) */}
         <div
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid var(--color-border)',
             borderRadius: '16px',
-            padding: '24px 20px',
+            padding: '16px 18px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            minHeight: '220px',
-            boxShadow: '0 8px 24px rgba(29, 29, 31, 0.05)',
+            gap: '8px',
+            boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
           }}
         >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#059669',
+                backgroundColor: '#ECFDF5',
+                border: '1px solid rgba(16, 185, 129, 0.2)',
+                padding: '2px 8px',
+                borderRadius: '999px',
+              }}
+            >
+              Bónus Grátis
+            </span>
+            <MessageSquare size={16} color="var(--color-accent)" aria-hidden="true" />
+          </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text-secondary)',
-                  backgroundColor: 'var(--color-surface)',
-                  padding: '3px 8px',
-                  borderRadius: '999px',
-                }}
-              >
-                Comunicação
-              </span>
-              <MessageSquare size={18} color="var(--color-text-secondary)" aria-hidden="true" />
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, lineHeight: 1.2, color: 'var(--color-text)', margin: 0 }}>
+            <h3 style={{ fontSize: '17px', fontWeight: 700, lineHeight: 1.25, color: 'var(--color-text)', margin: 0 }}>
               Cartas & Mensagens
             </h3>
-            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.4 }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '6px', lineHeight: 1.4, margin: '6px 0 0 0' }}>
               3 cartas de apresentação, 10 abordagens para recrutadores e checklist de 15 pontos críticos de pré-envio.
             </p>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
-            3 Cartas · 10 Mensagens · Checklist
-          </div>
         </div>
 
-        {/* Deliverable 4: Plano 7 Dias + 25 Prompts + Organizador CSV */}
+        {/* Deliverable 4: Plano 7 Dias & 25 Prompts (Bónus Grátis) */}
         <div
           style={{
-            backgroundColor: 'var(--color-surface)',
+            backgroundColor: '#FFFFFF',
             border: '1px solid var(--color-border)',
             borderRadius: '16px',
-            padding: '24px 20px',
+            padding: '16px 18px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            minHeight: '220px',
-            boxShadow: '0 8px 24px rgba(29, 29, 31, 0.03)',
+            gap: '8px',
+            boxShadow: '0 4px 16px rgba(29, 29, 31, 0.04)',
           }}
         >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: '#059669',
+                backgroundColor: '#ECFDF5',
+                border: '1px solid rgba(16, 185, 129, 0.2)',
+                padding: '2px 8px',
+                borderRadius: '999px',
+              }}
+            >
+              Bónus Grátis
+            </span>
+            <Layers size={16} color="var(--color-accent)" aria-hidden="true" />
+          </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-accent)',
-                  backgroundColor: 'var(--color-accent-soft)',
-                  padding: '3px 8px',
-                  borderRadius: '999px',
-                }}
-              >
-                Método & IA
-              </span>
-              <Layers size={18} color="var(--color-accent)" aria-hidden="true" />
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, lineHeight: 1.2, color: 'var(--color-text)', margin: 0 }}>
+            <h3 style={{ fontSize: '17px', fontWeight: 700, lineHeight: 1.25, color: 'var(--color-text)', margin: 0 }}>
               Plano de 7 Dias & 25 Prompts
             </h3>
-            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '8px', lineHeight: 1.4 }}>
+            <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginTop: '6px', lineHeight: 1.4, margin: '6px 0 0 0' }}>
               Roteiro diário de candidatura, 25 comandos estratégicos para IA e organizador em folha de cálculo CSV.
             </p>
-          </div>
-          <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
-            Plano 7 Dias · 25 Prompts · Ficheiro CSV
           </div>
         </div>
       </div>

@@ -163,6 +163,7 @@ export default function ProductKitPage() {
                     href={checkoutUrl || checkout.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="btn-pulse"
                     onClick={(e) => {
                       const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
                       e.currentTarget.href = target;
@@ -375,6 +376,7 @@ export default function ProductKitPage() {
                   href={checkoutUrl || checkout.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="btn-pulse"
                   onClick={(e) => {
                     const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
                     e.currentTarget.href = target;

@@ -18,11 +18,11 @@ describe('Entrega de Materiais e Downloads Seguros (/api/me/downloads)', () => {
       saleId,
       productId: `prod_${productKey}`,
       productKey,
-      productName: productKey === 'kit' ? 'Kit Emprego' : productKey === 'entrevista' ? 'Entrevista' : 'LinkedIn',
       email: buyerEmail,
       amountMinor: productKey === 'kit' ? 1499 : productKey === 'entrevista' ? 499 : 599,
       currency: 'EUR',
       offerVersion: 'v5',
+      occurredAt: new Date().toISOString(),
       bodyDigest,
     });
     store.claimEntitlements(buyerEmail, buyerSubject);
