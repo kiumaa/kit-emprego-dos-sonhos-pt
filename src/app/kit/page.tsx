@@ -34,23 +34,6 @@ export default function ProductKitPage() {
         >
           {/* Headline inicial e descrição curta */}
           <section style={{ textAlign: 'center', marginTop: 'var(--space-2)' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                fontSize: '11px',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                color: 'var(--color-accent)',
-                backgroundColor: 'var(--color-accent-soft)',
-                padding: '4px 14px',
-                borderRadius: '999px',
-                marginBottom: 'var(--space-3)',
-              }}
-            >
-              Apresentação Oficial
-            </span>
-
             <h1
               style={{
                 fontSize: 'clamp(26px, 5.5vw, 36px)',
@@ -80,13 +63,13 @@ export default function ProductKitPage() {
             </p>
           </section>
 
-          {/* VSL Protagonista */}
+          {/* VSL Protagonista (sem repetição de headline) */}
           <VslPlayer
             id="apresentacao"
             src={funnelConfig.vsl.src}
             poster={funnelConfig.vsl.poster}
             captionsSrc={funnelConfig.vsl.captionsSrc}
-            title="Antes de enviares a próxima candidatura, vê isto."
+            title=""
           />
 
           {/* Oferta Completa com Mockup Editorial, Feedbacks Reais e Price Card */}

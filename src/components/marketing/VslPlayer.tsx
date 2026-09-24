@@ -181,10 +181,12 @@ export function VslPlayer({
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <section className="keds-vsl" id={id} aria-labelledby={`${uid}-title`}>
-      <div className="keds-vsl__header">
-        <h2 id={`${uid}-title`}>{title}</h2>
-      </div>
+    <section className="keds-vsl" id={id} aria-labelledby={title ? `${uid}-title` : undefined}>
+      {Boolean(title) && (
+        <div className="keds-vsl__header">
+          <h2 id={`${uid}-title`}>{title}</h2>
+        </div>
+      )}
 
       <div
         className={`keds-vsl__frame ${state.mode === 'preview' ? 'keds-vsl__frame--preview' : ''}`}
