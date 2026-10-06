@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import './countdown-topbar.css';
 
 const STORAGE_KEY = 'keds_offer_countdown_end';
@@ -58,7 +58,7 @@ export const CountdownTopbar: React.FC = () => {
       const diff = Math.floor((targetTimestamp - now) / 1000);
 
       if (diff <= 0) {
-        // Renova suavemente para manter a urgência em sessões ativas
+        // Renova suavemente para manter a contagem ativa em sessões
         const nextTarget = now + 10 * 60 * 1000;
         targetTimestamp = nextTarget;
         try {
@@ -76,7 +76,7 @@ export const CountdownTopbar: React.FC = () => {
     return () => clearInterval(timerInterval);
   }, []);
 
-  // Navegação suave ou redirecionamento para o bloco de oferta
+  // Navegação suave ao clicar na barra de oferta
   const handleCtaClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       const offerTarget =
@@ -108,49 +108,32 @@ export const CountdownTopbar: React.FC = () => {
     <aside
       className="keds-countdown-topbar"
       role="region"
-      aria-label="Aviso de Oferta Limitada com Contagem Decrescente"
+      aria-label="Aviso de Oferta Limitada"
     >
-      <div className="keds-countdown-topbar__inner">
-        {/* Badge vibrante */}
+      <a
+        href="/kit#oferta"
+        onClick={handleCtaClick}
+        className="keds-countdown-topbar__inner"
+        aria-label="Oferta Limitada com contagem decrescente"
+      >
+        {/* Apenas: Oferta Limitada */}
         <span className="keds-countdown-topbar__badge">
           <span className="keds-countdown-topbar__pulse-dot" aria-hidden="true" />
           Oferta Limitada
         </span>
 
-        {/* Mensagem persuasiva do preço 9,99 € */}
-        <span className="keds-countdown-topbar__message">
-          Kit Completo por apenas <strong>9,99 €</strong>
-        </span>
-
-        {/* Bloco do Cronómetro com Tabular Nums */}
+        {/* E o cronómetro (timer) */}
         <div
           className="keds-countdown-topbar__timer"
           aria-live="polite"
           aria-atomic="true"
         >
           <Clock size={13} style={{ color: '#DC2626' }} aria-hidden="true" />
-          <span className="keds-countdown-topbar__timer-label">Termina em:</span>
           <span className="keds-countdown-topbar__digits">
             {formattedMinutes}:{formattedSeconds}
           </span>
         </div>
-
-        {/* Botão de conversão */}
-        <a
-          href="/kit#oferta"
-          onClick={handleCtaClick}
-          className="keds-countdown-topbar__cta"
-          aria-label="Aproveitar oferta do Kit Completo por 9,99 euros"
-        >
-          <span className="keds-countdown-topbar__cta-text-full">
-            Aproveitar agora
-          </span>
-          <span className="keds-countdown-topbar__cta-text-short">
-            Aproveitar
-          </span>
-          <ArrowRight size={13} aria-hidden="true" />
-        </a>
-      </div>
+      </a>
     </aside>
   );
 };
