@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KEDS — Countdown Topbar (Elemento Único e Unificado em Vermelho Leve)
+   KEDS — Countdown Topbar (Contador de Oferta Limitada — Mobile-First HD)
    ========================================================================== */
 
 .keds-countdown-topbar {
@@ -8,110 +8,174 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: #FEF2F2;
-  background-image: linear-gradient(90deg, #FEF2F2 0%, #FFF5F5 50%, #FEF2F2 100%);
-  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
-  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.05);
+  background-color: #FFF1F2;
+  background-image: linear-gradient(90deg, #FFF1F2 0%, #FFE4E6 50%, #FFF1F2 100%);
+  border-bottom: 1px solid rgba(225, 29, 72, 0.16);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.04);
   font-family: var(--font-primary, 'Satoshi', -apple-system, sans-serif);
-  color: #991B1B;
-  overflow: hidden;
+  color: #9F1239;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .keds-countdown-topbar__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 6px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  min-height: 44px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  transition: opacity 140ms ease;
+  box-sizing: border-box;
 }
 
-/* Cápsula / Pílula Única e Unificada */
-.keds-countdown-topbar__unified-pill {
+.keds-countdown-topbar__inner:hover {
+  opacity: 0.94;
+}
+
+.keds-countdown-topbar__inner:active {
+  transform: scale(0.99);
+}
+
+/* Linha de Conteúdo Integrada */
+.keds-countdown-topbar__content {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
-  overflow: hidden;
-  box-shadow: 0 1px 6px rgba(220, 38, 38, 0.15);
-  border: 1px solid rgba(220, 38, 38, 0.28);
-  background-color: #FFFFFF;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  justify-content: center;
+  gap: 10px;
 }
 
-.keds-countdown-topbar__inner:hover .keds-countdown-topbar__unified-pill {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.22);
-}
-
-.keds-countdown-topbar__inner:active .keds-countdown-topbar__unified-pill {
-  transform: translateY(0);
-}
-
-/* Secção Esquerda: Oferta Limitada */
-.keds-countdown-topbar__unified-badge {
+/* Badge de Oferta */
+.keds-countdown-topbar__badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background-color: #DC2626;
+  background-color: #E11D48;
+  background-image: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
   color: #FFFFFF;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 4px 10px 4px 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(225, 29, 72, 0.25);
   white-space: nowrap;
 }
 
-.keds-countdown-topbar__pulse-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #FFFFFF;
-  border-radius: 50%;
-  display: inline-block;
-  animation: kedsPulseDot 1.4s infinite ease-in-out;
+.keds-countdown-topbar__flame {
+  color: #FEF08A;
+  animation: kedsFlameFlicker 1.8s infinite ease-in-out;
 }
 
-@keyframes kedsPulseDot {
+@keyframes kedsFlameFlicker {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15) rotate(3deg);
+    opacity: 0.9;
+  }
+}
+
+/* Separador */
+.keds-countdown-topbar__divider {
+  color: #FDA4AF;
+  font-size: 14px;
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Módulo do Cronómetro com Caixas */
+.keds-countdown-topbar__timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Caixa de Dígito Individual */
+.keds-countdown-topbar__box {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(225, 29, 72, 0.22);
+  border-radius: 6px;
+  padding: 3px 8px;
+  box-shadow: 0 1px 3px rgba(225, 29, 72, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  min-width: 38px;
+  box-sizing: border-box;
+}
+
+.keds-countdown-topbar__val {
+  font-size: 14px;
+  font-weight: 800;
+  color: #9F1239;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.keds-countdown-topbar__unit {
+  font-size: 10px;
+  font-weight: 700;
+  color: #E11D48;
+  text-transform: lowercase;
+  line-height: 1;
+}
+
+/* Dois pontos intermitentes */
+.keds-countdown-topbar__colon {
+  font-size: 13px;
+  font-weight: 800;
+  color: #E11D48;
+  animation: kedsColonBlink 1s infinite ease-in-out;
+  padding-inline: 1px;
+  line-height: 1;
+}
+
+@keyframes kedsColonBlink {
   0%, 100% {
     opacity: 1;
-    transform: scale(1);
   }
   50% {
     opacity: 0.35;
-    transform: scale(0.75);
   }
 }
 
-/* Secção Direita: Cronómetro / Timer */
-.keds-countdown-topbar__unified-timer {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background-color: #FFF5F5;
-  color: #991B1B;
-  font-size: 13px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.05em;
-  padding: 4px 11px 4px 9px;
-  white-space: nowrap;
-}
-
+/* Otimização Específica para Mobile */
 @media (max-width: 480px) {
   .keds-countdown-topbar__inner {
-    padding: 5px 8px;
+    padding: 6px 12px;
+    min-height: 42px;
   }
 
-  .keds-countdown-topbar__unified-badge {
-    font-size: 10px;
-    padding: 3px 8px 3px 9px;
+  .keds-countdown-topbar__content {
+    gap: 8px;
   }
 
-  .keds-countdown-topbar__unified-timer {
-    font-size: 12px;
-    padding: 3px 9px 3px 7px;
+  .keds-countdown-topbar__badge {
+    font-size: 10.5px;
+    padding: 3.5px 9px;
+    letter-spacing: 0.05em;
+  }
+
+  .keds-countdown-topbar__box {
+    padding: 2.5px 7px;
+    min-width: 35px;
+  }
+
+  .keds-countdown-topbar__val {
+    font-size: 13px;
+  }
+
+  .keds-countdown-topbar__unit {
+    font-size: 9.5px;
   }
 }

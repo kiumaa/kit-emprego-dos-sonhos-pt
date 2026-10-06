@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import { Clock } from 'lucide-react';
+import { Flame } from 'lucide-react';
 import './countdown-topbar.css';
 
 const STORAGE_KEY = 'keds_offer_countdown_end';
@@ -116,20 +116,36 @@ export const CountdownTopbar: React.FC = () => {
         className="keds-countdown-topbar__inner"
         aria-label="Oferta Limitada com contagem decrescente"
       >
-        {/* Elemento Único e Unificado */}
-        <div className="keds-countdown-topbar__unified-pill">
-          <span className="keds-countdown-topbar__unified-badge">
-            <span className="keds-countdown-topbar__pulse-dot" aria-hidden="true" />
-            Oferta Limitada
-          </span>
-          <span
-            className="keds-countdown-topbar__unified-timer"
+        <div className="keds-countdown-topbar__content">
+          {/* Badge de Oferta com Ícone de Fogo Animado */}
+          <div className="keds-countdown-topbar__badge">
+            <Flame size={13} className="keds-countdown-topbar__flame" aria-hidden="true" />
+            <span>Oferta Limitada</span>
+          </div>
+
+          <span className="keds-countdown-topbar__divider" aria-hidden="true">·</span>
+
+          {/* Módulo de Contador com Caixas Digitais */}
+          <div
+            className="keds-countdown-topbar__timer"
             aria-live="polite"
             aria-atomic="true"
           >
-            <Clock size={13} style={{ color: '#DC2626' }} aria-hidden="true" />
-            <span>{formattedMinutes}:{formattedSeconds}</span>
-          </span>
+            {/* Bloco de Minutos */}
+            <div className="keds-countdown-topbar__box">
+              <span className="keds-countdown-topbar__val">{formattedMinutes}</span>
+              <span className="keds-countdown-topbar__unit">m</span>
+            </div>
+
+            {/* Separador Pulsante */}
+            <span className="keds-countdown-topbar__colon" aria-hidden="true">:</span>
+
+            {/* Bloco de Segundos */}
+            <div className="keds-countdown-topbar__box">
+              <span className="keds-countdown-topbar__val">{formattedSeconds}</span>
+              <span className="keds-countdown-topbar__unit">s</span>
+            </div>
+          </div>
         </div>
       </a>
     </aside>
