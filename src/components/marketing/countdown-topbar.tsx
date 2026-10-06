@@ -108,7 +108,7 @@ export const CountdownTopbar: React.FC = () => {
     <aside
       className="keds-countdown-topbar"
       role="region"
-      aria-label="Aviso de Oferta Limitada"
+      aria-label="Aviso de Oferta Limitada com Contagem Decrescente"
     >
       <a
         href="/kit#oferta"
@@ -116,21 +116,19 @@ export const CountdownTopbar: React.FC = () => {
         className="keds-countdown-topbar__inner"
         aria-label="Oferta Limitada com contagem decrescente"
       >
-        {/* Apenas: Oferta Limitada */}
-        <span className="keds-countdown-topbar__badge">
-          <span className="keds-countdown-topbar__pulse-dot" aria-hidden="true" />
-          Oferta Limitada
-        </span>
-
-        {/* E o cronómetro (timer) */}
-        <div
-          className="keds-countdown-topbar__timer"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <Clock size={13} style={{ color: '#DC2626' }} aria-hidden="true" />
-          <span className="keds-countdown-topbar__digits">
-            {formattedMinutes}:{formattedSeconds}
+        {/* Elemento Único e Unificado */}
+        <div className="keds-countdown-topbar__unified-pill">
+          <span className="keds-countdown-topbar__unified-badge">
+            <span className="keds-countdown-topbar__pulse-dot" aria-hidden="true" />
+            Oferta Limitada
+          </span>
+          <span
+            className="keds-countdown-topbar__unified-timer"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <Clock size={13} style={{ color: '#DC2626' }} aria-hidden="true" />
+            <span>{formattedMinutes}:{formattedSeconds}</span>
           </span>
         </div>
       </a>
