@@ -19,19 +19,19 @@ function getProductMap(): Record<string, ProductMapping> {
     'c38e6af8-098c-48c6-b1c5-a680c5ee4a6b': {
       productKey: 'kit',
       currency: 'EUR',
-      allowedAmountsMinor: [1499],
+      allowedAmountsMinor: [999, 1499],
       offerVersion: 'interactive_v5',
     },
     'kit-emprego-dos-sonhos-mtz4h7e8': {
       productKey: 'kit',
       currency: 'EUR',
-      allowedAmountsMinor: [1499],
+      allowedAmountsMinor: [999, 1499],
       offerVersion: 'interactive_v5',
     },
     'kit-emprego-dos-sonhos': {
       productKey: 'kit',
       currency: 'EUR',
-      allowedAmountsMinor: [1499],
+      allowedAmountsMinor: [999, 1499],
       offerVersion: 'interactive_v5',
     },
     'entrevista-dos-sonhos': {
@@ -74,7 +74,7 @@ function getProductMap(): Record<string, ProductMapping> {
     'example-product-kit': {
       productKey: 'kit',
       currency: 'EUR',
-      allowedAmountsMinor: [1499],
+      allowedAmountsMinor: [999, 1499],
       offerVersion: 'interactive_v5',
     },
     'example-product-entrevista': {
@@ -96,7 +96,7 @@ function getProductMap(): Record<string, ProductMapping> {
     map[envKitId] = {
       productKey: 'kit',
       currency: 'EUR',
-      allowedAmountsMinor: [1499],
+      allowedAmountsMinor: [999, 1499],
       offerVersion: 'interactive_v5',
     };
   }
@@ -201,11 +201,11 @@ export async function POST(request: NextRequest) {
           allowedAmountsMinor: [599],
           offerVersion: 'interactive_v5',
         };
-      } else if (pName.includes('kit') || pName.includes('emprego') || Math.round(pAmount * 100) === 1499) {
+      } else if (pName.includes('kit') || pName.includes('emprego') || Math.round(pAmount * 100) === 999 || Math.round(pAmount * 100) === 1499) {
         currentMap[payloadParsed.sale.product_id] = {
           productKey: 'kit',
           currency: 'EUR',
-          allowedAmountsMinor: [1499],
+          allowedAmountsMinor: [999, 1499],
           offerVersion: 'interactive_v5',
         };
       }
@@ -295,7 +295,7 @@ export async function POST(request: NextRequest) {
         const cleanEmail = customerEmail.trim().toLowerCase();
         const productName = String(payloadParsed?.sale?.product_name || payloadParsed?.product_name || '').toLowerCase();
         const productId = String(payloadParsed?.sale?.product_id || payloadParsed?.product_id || '').toLowerCase();
-        const amountNum = Number(payloadParsed?.sale?.amount ?? payloadParsed?.amount ?? 14.99);
+        const amountNum = Number(payloadParsed?.sale?.amount ?? payloadParsed?.amount ?? 9.99);
         const amountMinor = Math.round(amountNum * 100);
 
         let productKey: 'kit' | 'entrevista' | 'linkedin' = 'kit';

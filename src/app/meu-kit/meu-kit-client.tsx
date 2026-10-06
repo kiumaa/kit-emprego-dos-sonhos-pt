@@ -305,7 +305,7 @@ export function MeuKitClient() {
                       color: kitEnt ? '#15803D' : '#6B7280',
                     }}
                   >
-                    {kitEnt ? 'Adquirido (14,99 €)' : 'Não adquirido'}
+                    {kitEnt ? 'Adquirido (9,99 €)' : 'Não adquirido'}
                   </span>
                 </div>
 
@@ -369,7 +369,7 @@ export function MeuKitClient() {
                     className="btn-secondary"
                     style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
                   >
-                    Adquirir Kit (14,99 €)
+                    Adquirir Kit (9,99 €)
                   </a>
                 )}
               </div>

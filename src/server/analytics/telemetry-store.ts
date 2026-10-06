@@ -307,7 +307,7 @@ export async function getBackofficeMetrics() {
   // Receita real estimada por cliques de checkout
   const revenueCalculated =
     checkoutClicks > 0
-      ? `${(checkoutClicks * 14.99).toFixed(2).replace('.', ',')} €`
+      ? `${(checkoutClicks * 9.99).toFixed(2).replace('.', ',')} €`
       : '0,00 €';
 
   // 1. Funil de Conversão 360° Real

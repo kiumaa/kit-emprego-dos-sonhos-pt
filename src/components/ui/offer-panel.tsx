@@ -178,7 +178,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               lineHeight: 1,
             }}
           >
-            14,99 €
+            9,99 €
           </span>
           <span
             style={{
@@ -199,7 +199,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               marginTop: '4px',
             }}
           >
-            ⚡ Menos do que gastas num almoço para nunca mais seres ignorado por um recrutador.
+            ⚡ Menos de 10 € para preparares melhor a tua próxima candidatura.
           </span>
         </div>
 
@@ -257,7 +257,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
               onClick={(e) => {
                 const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
                 e.currentTarget.href = target;
-                trackInitiateCheckout('kit', 14.99);
+                trackInitiateCheckout('kit', 9.99);
               }}
               style={{
                 display: 'inline-flex',
@@ -278,7 +278,7 @@ export const OfferPanel: React.FC<OfferPanelProps> = ({
                 boxSizing: 'border-box',
               }}
             >
-              <span>Quero o Kit Completo — 14,99 €</span>
+              <span>Quero o Kit Completo — 9,99 €</span>
               <ArrowRight size={18} aria-hidden="true" />
             </a>
             <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>

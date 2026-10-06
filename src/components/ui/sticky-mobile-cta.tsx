@@ -62,7 +62,7 @@ export const StickyMobileCta: React.FC = () => {
         onClick={(e) => {
           const target = appendTrackingToUrl(checkout.url) || checkout.url || '#';
           e.currentTarget.href = target;
-          trackInitiateCheckout('kit', 14.99);
+          trackInitiateCheckout('kit', 9.99);
         }}
         style={{
           display: 'flex',
@@ -84,7 +84,7 @@ export const StickyMobileCta: React.FC = () => {
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span>Quero o Kit Completo</span>
-          <span style={{ opacity: 0.85, fontWeight: 500, fontSize: '13px' }}>— 14,99 €</span>
+          <span style={{ opacity: 0.85, fontWeight: 500, fontSize: '13px' }}>— 9,99 €</span>
         </span>
         <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', backgroundColor: 'rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '6px' }}>
           <span>MB WAY</span>

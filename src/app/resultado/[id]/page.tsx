@@ -554,7 +554,7 @@ export default function ResultPage() {
                 }}
               >
                 <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)', marginBottom: '4px' }}>
-                  ✅ Opção 2: Descarregar o Kit Completo (14,99 €)
+                  ✅ Opção 2: Descarregar o Kit Completo (9,99 €)
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--color-text)', lineHeight: 1.45 }}>
                   Descarregar os 14 ficheiros prontos e validados em Word (.docx), copiar as estruturas comprovadas e submeter candidaturas blindadas ainda hoje.
@@ -585,7 +585,7 @@ export default function ResultPage() {
                   boxSizing: 'border-box',
                 }}
               >
-                <span>Ver os Modelos e o Kit (14,99 €)</span>
+                <span>Ver os Modelos e o Kit (9,99 €)</span>
                 <ArrowRight size={17} aria-hidden="true" />
               </a>
 
@@ -628,7 +628,7 @@ export default function ResultPage() {
           />
 
           {/* ================================================================= */}
-          {/* PARTE D: OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 14,99 €      */}
+          {/* PARTE D: OFERTA COM MOCKUP REALISTA E PREÇO ÚNICO DE 9,99 €       */}
           {/* ================================================================= */}
           <OfferPanel id="oferta" />
         </div>

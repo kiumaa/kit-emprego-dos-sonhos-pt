@@ -93,7 +93,7 @@ export function trackMetaEvent(
  */
 export function trackInitiateCheckout(
   productKey: 'kit' | 'entrevista' | 'linkedin' = 'kit',
-  value = 14.99,
+  value = 9.99,
   currency = 'EUR'
 ): string {
   const productNameMap: Record<string, string> = {

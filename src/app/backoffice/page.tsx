@@ -1000,7 +1000,7 @@ export default function BackofficePage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
                 <div style={{ backgroundColor: '#1F2937', borderRadius: '12px', padding: '18px' }}>
                   <div style={{ fontSize: '13px', color: '#9CA3AF', fontWeight: 600 }}>Checkout Principal</div>
-                  <div style={{ fontSize: '18px', fontWeight: 800, color: '#FFF', margin: '4px 0 8px 0' }}>14,99 €</div>
+                  <div style={{ fontSize: '18px', fontWeight: 800, color: '#FFF', margin: '4px 0 8px 0' }}>9,99 €</div>
                   <div style={{ fontSize: '12px', color: '#10B981' }}>✓ Host Aprovado (okandapay.com)</div>
                   <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '4px' }}>Entrega imediata dos 14 ficheiros compactados em ZIP</div>
                 </div>

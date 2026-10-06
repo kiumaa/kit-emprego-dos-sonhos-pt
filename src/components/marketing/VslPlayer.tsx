@@ -370,7 +370,7 @@ export function VslPlayer({
             <ArrowRight size={20} aria-hidden="true" />
           </a>
           <p className="keds-vsl__cta-caption">
-            Acesso imediato · Pagamento único de 14,99 € · Entrega por email
+            Acesso imediato · Pagamento único de 9,99 € · Entrega por email
           </p>
         </div>
       )}

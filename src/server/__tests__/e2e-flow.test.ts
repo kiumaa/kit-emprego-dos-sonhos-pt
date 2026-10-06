@@ -10,7 +10,7 @@ const productMap = {
   'prod-kit-001': {
     productKey: 'kit' as const,
     currency: 'EUR',
-    allowedAmountsMinor: [1499],
+    allowedAmountsMinor: [999, 1499],
     offerVersion: 'interactive_v5',
   },
   'prod-ent-002': {
@@ -31,7 +31,7 @@ describe('End-to-End: Compra OKANDA -> Acesso -> Ativação (3x24h) -> Edição 
     const stamp = '2026-09-12T22:00:46.000Z';
     const nowMs = Date.parse(stamp);
 
-    // 1. Simulação do Webhook assinado da OKANDA (Kit: 14,99 €)
+    // 1. Simulação do Webhook assinado da OKANDA (Kit: 9,99 €)
     const salePayload = {
       event: 'sale.paid',
       event_id: 'sale-okanda-1001',
@@ -40,7 +40,7 @@ describe('End-to-End: Compra OKANDA -> Acesso -> Ativação (3x24h) -> Edição 
         id: 'sale-okanda-1001',
         product_id: 'prod-kit-001',
         product_name: 'Kit Emprego dos Sonhos',
-        amount: 14.99,
+        amount: 9.99,
         currency: 'EUR',
         payment_method: 'MULTIBANCO',
         payment_reference: '123456789',
@@ -76,7 +76,7 @@ describe('End-to-End: Compra OKANDA -> Acesso -> Ativação (3x24h) -> Edição 
     });
 
     expect(verifiedSale.email).toBe(buyerEmail);
-    expect(verifiedSale.amountMinor).toBe(1499);
+    expect(verifiedSale.amountMinor).toBe(999);
     expect(verifiedSale.productKey).toBe('kit');
 
     // 2. Persistência transacional do webhook e do direito (entitlement)

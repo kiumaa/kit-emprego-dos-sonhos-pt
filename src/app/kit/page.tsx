@@ -13,7 +13,7 @@ export default function ProductKitPage() {
   const funnelConfig = getFunnelConfig();
 
   useEffect(() => {
-    trackViewContent('Kit Emprego dos Sonhos', 'kit', 14.99);
+    trackViewContent('Kit Emprego dos Sonhos', 'kit', 9.99);
   }, []);
 
   return (

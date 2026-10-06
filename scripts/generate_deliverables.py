@@ -1430,7 +1430,7 @@ def generate_all_files():
         meta_items=[
             ("Conteúdo", "Lição 1 Completa + Diagrama do Funil"),
             ("Acesso Completo", "Disponível no Kit Emprego dos Sonhos Oficial"),
-            ("Preço do Kit", "14,90 € (Acesso Imediato sem Subscrição)")
+            ("Preço do Kit", "9,99 € (Acesso Imediato sem Subscrição)")
         ]
     )
     p_amostra.add_recruiting_funnel_diagram()
@@ -1768,8 +1768,8 @@ def main():
             {
                 "id": "kit-principal",
                 "productName": "Kit Emprego dos Sonhos — Portugal",
-                "priceMinor": 1499,
-                "priceFormatted": "14,99 €",
+                "priceMinor": 999,
+                "priceFormatted": "9,99 €",
                 "zipFileName": "kit-principal-keds-portugal.zip",
                 "sizeBytes": meta_main["sizeBytes"],
                 "sha256": meta_main["sha256"],

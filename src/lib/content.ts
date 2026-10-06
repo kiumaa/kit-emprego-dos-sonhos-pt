@@ -14,8 +14,8 @@ export function getPagesContent() {
 
 export function getOfferConfig() {
   return {
-    price: '14,99 €',
-    priceMinor: 1499,
+    price: '9,99 €',
+    priceMinor: 999,
     currency: 'EUR',
     accessMonths: 12,
     bumps: [

@@ -70,7 +70,7 @@ describe('Meta Conversions API (CAPI)', () => {
             email: 'comprador@teste.com',
           },
           customData: {
-            value: 14.99,
+            value: 9.99,
             currency: 'EUR',
             order_id: 'sale_okanda_999',
           },
@@ -90,7 +90,7 @@ describe('Meta Conversions API (CAPI)', () => {
       expect(body.test_event_code).toBe('TEST1234');
       expect(body.data[0].event_name).toBe('Purchase');
       expect(body.data[0].event_id).toBe('sale_okanda_999');
-      expect(body.data[0].custom_data.value).toBe(14.99);
+      expect(body.data[0].custom_data.value).toBe(9.99);
       expect(body.data[0].custom_data.currency).toBe('EUR');
     });
 
