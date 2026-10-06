@@ -1,0 +1,202 @@
+/* ==========================================================================
+   KEDS — Countdown Topbar (Topbar de Oferta Limitada em Vermelho Leve)
+   ========================================================================== */
+
+.keds-countdown-topbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #FEF2F2;
+  background-image: linear-gradient(90deg, #FEF2F2 0%, #FFF5F5 50%, #FEF2F2 100%);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.06);
+  font-family: var(--font-primary, 'Satoshi', -apple-system, sans-serif);
+  color: #991B1B;
+  overflow: hidden;
+}
+
+.keds-countdown-topbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+/* Badge de Oferta */
+.keds-countdown-topbar__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #DC2626;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(220, 38, 38, 0.25);
+  white-space: nowrap;
+}
+
+.keds-countdown-topbar__pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  animation: kedsPulseDot 1.4s infinite ease-in-out;
+}
+
+@keyframes kedsPulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.75);
+  }
+}
+
+/* Texto de Mensagem */
+.keds-countdown-topbar__message {
+  color: #991B1B;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.keds-countdown-topbar__message strong {
+  font-weight: 800;
+  color: #7F1D1D;
+}
+
+/* Bloco do Cronómetro */
+.keds-countdown-topbar__timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #991B1B;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.keds-countdown-topbar__timer-label {
+  color: #B91C1C;
+  font-size: 12px;
+}
+
+.keds-countdown-topbar__digits {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.22);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #991B1B;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  box-shadow: inset 0 1px 2px rgba(220, 38, 38, 0.06);
+}
+
+/* Botão de Ação (CTA) */
+.keds-countdown-topbar__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #DC2626;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.28);
+  transition: background-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  border: none;
+}
+
+.keds-countdown-topbar__cta:hover {
+  background-color: #B91C1C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.38);
+}
+
+.keds-countdown-topbar__cta:active {
+  transform: translateY(0);
+}
+
+.keds-countdown-topbar__cta-text-full {
+  display: inline;
+}
+
+.keds-countdown-topbar__cta-text-short {
+  display: none;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .keds-countdown-topbar__inner {
+    padding: 6px 12px;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .keds-countdown-topbar__message {
+    font-size: 12px;
+  }
+
+  .keds-countdown-topbar__timer-label {
+    display: none;
+  }
+
+  .keds-countdown-topbar__cta-text-full {
+    display: none;
+  }
+
+  .keds-countdown-topbar__cta-text-short {
+    display: inline;
+  }
+}
+
+@media (max-width: 480px) {
+  .keds-countdown-topbar__inner {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .keds-countdown-topbar__badge {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  .keds-countdown-topbar__message {
+    display: none; /* Em ecrãs ultracompactos, foca no badge + timer + CTA */
+  }
+
+  .keds-countdown-topbar__digits {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  .keds-countdown-topbar__cta {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+}
