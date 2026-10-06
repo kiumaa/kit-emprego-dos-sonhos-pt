@@ -39,7 +39,7 @@
   },
   "vsl": {
     "src": "/videos/vsl-keds.mp4",
-    "poster": null,
+    "poster": "/videos/vsl-poster.jpg",
     "captionsSrc": null,
     "anchor": "apresentacao",
     "autoplay": "muted-when-visible",

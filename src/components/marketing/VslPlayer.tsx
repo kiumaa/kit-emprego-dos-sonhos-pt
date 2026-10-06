@@ -17,12 +17,6 @@ export interface VslPlayerProps {
 
 const initialState: VslState = { mode: 'preview', phase: 'idle', message: '' };
 
-function formatTime(seconds: number): string {
-  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
 
 /** Componente de Apresentação em Vídeo (VSL Formato Vertical Story 9:16) */
 export function VslPlayer({
@@ -81,8 +75,8 @@ export function VslPlayer({
     const handleTimeUpdate = () => {
       const t = video.currentTime;
       setCurrentTime(t);
-      // Revelar o botão pulse ao minuto 1:13 (73 segundos)
-      if (t >= 73) {
+      // Revelar o botão de conversão aos 55 segundos do vídeo (durante o encerramento/pitch)
+      if (t >= 55) {
         setShowCta(true);
       }
       if (video.buffered.length > 0 && video.duration > 0) {
@@ -215,12 +209,6 @@ export function VslPlayer({
               O teu navegador não suporta este vídeo.
             </video>
 
-            {/* Duração no canto superior quando disponível */}
-            {duration > 0 && (
-              <div className="keds-vsl__duration-pill-wrapper">
-                <span className="keds-vsl__duration-pill">{formatTime(duration)}</span>
-              </div>
-            )}
 
             {/* Overlay limpo em Modo Preview (Autoplay mudo + Toca para ouvir com som) */}
             {state.mode === 'preview' && (
@@ -263,7 +251,7 @@ export function VslPlayer({
                   aria-valuenow={Math.round(currentTime)}
                   aria-valuemin={0}
                   aria-valuemax={Math.round(duration)}
-                  aria-valuetext={`${formatTime(currentTime)} de ${formatTime(duration)}`}
+                  aria-valuetext={`${Math.round(progressPercent)}%`}
                 >
                   <div
                     className="keds-vsl__progress-buffered"
@@ -301,9 +289,6 @@ export function VslPlayer({
                         <Volume2 size={15} aria-hidden="true" />
                       )}
                     </button>
-                    <span className="keds-vsl__time-display">
-                      {formatTime(currentTime)} / {formatTime(duration)}
-                    </span>
                   </div>
 
                   <div className="keds-vsl__controls-right">
